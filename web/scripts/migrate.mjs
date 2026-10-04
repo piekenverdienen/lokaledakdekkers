@@ -19,14 +19,14 @@ if (existsSync(dir)) {
     const pr = await c.query("insert into provinces (name, slug) values ($1,$2) on conflict (slug) do update set name=excluded.name returning id", [d.name ?? name, prov]);
     const pid = pr.rows[0].id;
     for (const m of d.municipalities) {
-      await c.query("insert into municipalities (province_id, osm_id, name, slug, cbs_code, geom) values ($1,$2,$3,$4,$5, st_multi(st_geomfromtext($6,4326))) on conflict (osm_id) do nothing", [pid, m.osm_id, m.name, m.slug, m.cbs_code, m.geom]);
+      await c.query("insert into municipalities (province_id, osm_id, name, slug, cbs_code, geom) values ($1,$2,$3,$4,$5, st_multi(st_geomfromtext($6,4326))) on conflict do nothing", [pid, m.osm_id, m.name, m.slug, m.cbs_code, m.geom]);
     }
     for (const p of d.places) {
       if (!p.municipality_osm_id) continue;
-      await c.query("insert into places (municipality_id, osm_id, name, slug, place_type, population, geom) values ((select id from municipalities where osm_id=$1), $2,$3,$4,$5,$6, st_setsrid(st_makepoint($7,$8),4326)) on conflict (osm_id) do nothing", [p.municipality_osm_id, p.osm_id, p.name, p.slug, p.type, p.population, p.lng, p.lat]);
+      await c.query("insert into places (municipality_id, osm_id, name, slug, place_type, population, geom) values ((select id from municipalities where osm_id=$1), $2,$3,$4,$5,$6, st_setsrid(st_makepoint($7,$8),4326)) on conflict do nothing", [p.municipality_osm_id, p.osm_id, p.name, p.slug, p.type, p.population, p.lng, p.lat]);
     }
     await c.query("update provinces set geom = (select st_multi(st_union(geom)) from municipalities where province_id=$1) where id=$1", [pid]);
-    console.log(`geo geladen: ${name}, ${d.municipalities.length} gemeenten, ${d.places.length} plaatsen`);
+    console.log(`geo geladen: ${d.name ?? name}, ${d.municipalities.length} gemeenten, ${d.places.length} plaatsen`);
   }
 }
 await c.query("refresh materialized view place_stats");

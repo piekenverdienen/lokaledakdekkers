@@ -1,0 +1,8 @@
+node_modules/
+.next/
+next-env.d.ts
+importer/data/*.pbf
+importer/data/geocode.json
+importer/out_overijssel/
+__pycache__/
+.env*

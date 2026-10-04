@@ -68,7 +68,11 @@ create table if not exists places (
 create index if not exists places_geom_idx on places using gist (geom);
 
 -- ---------------------------------------------------------------- bedrijven
-create type business_status as enum ('unclaimed','claimed','pro','hidden');
+do $$ begin
+  if not exists (select 1 from pg_type where typname='business_status') then
+    create type business_status as enum ('unclaimed','claimed','pro','hidden');
+  end if;
+end $$;
 
 create table if not exists businesses (
   id              uuid primary key default gen_random_uuid(),

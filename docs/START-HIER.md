@@ -56,7 +56,7 @@ Geofabrik-bestanden: https://download.geofabrik.de/europe/netherlands/<provincie
 1. Fundament: schema, importer, geo-data Overijssel. Klaar. Volledig NL volgt als het KvK-bestand er is.
 2. Next.js: home, provincie, gemeente, plaats, profiel, kaart, schema.org, sitemaps. Klaar en lokaal getest (noindex-regel, canonicals, 404, sitemap).
 3. Live op Hetzner via Coolify, DNS bij Antagonist.
-4. Claim-flow en profiel-uit-URL.
+4. Claim-flow en profiel-uit-URL. Klaar en end-to-end getest (zoeken, domeincheck, magic link eenmalig, dashboard, bouwen uit website, blokken opslaan, Zet live, publiek profiel).
 5. Pro met Stripe, offerteformulier (max 3 bedrijven), reviews met factuurbewijs, mails.
 
 ## Web-app draaien
@@ -69,3 +69,23 @@ In Coolify: Docker-app op de map `web/`, omgevingsvariabelen `DATABASE_URL` (int
 en later `RESEND_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `ANTHROPIC_API_KEY`. Het domein bepaalt de vertical:
 `lokaledakdekkers.nl` matcht `verticals.domain`; een onbekend domein valt terug op de eerste vertical.
 Plaatspagina's met minder dan 3 bedrijven binnen 30 km krijgen automatisch noindex plus canonical naar de gemeente.
+
+## Omgevingsvariabelen op de app (Coolify)
+
+    DATABASE_URL        interne connection string van lokaal-db (staat)
+    SESSION_SECRET      willekeurige lange string, voor de inlogcookie (staat)
+    ADMIN_EMAIL         ontvangt de brief-met-code verzoeken (staat: paul@yourfellow.nl)
+    RESEND_API_KEY      Paul: aanmaken op resend.com, domein mail.lokaledakdekkers.nl verifiëren
+    MAIL_FROM           bijv. "Lokale Dakdekkers <noreply@mail.lokaledakdekkers.nl>"
+    ANTHROPIC_API_KEY   Paul: voor profiel-uit-URL (Claude Haiku); zonder sleutel valt de bouwer terug op meta-description en foto's
+    EXTRACT_MODEL       optioneel, standaard claude-haiku-4-5
+
+Zonder RESEND_API_KEY worden mails niet verzonden maar in het containerlog gezet (Coolify, Logs). Handig om te testen.
+
+## Claim-flow, zo werkt hij
+
+/claim/ zoekt op naam, plaats of KvK-nummer. /claim/[slug]/ vraagt een e-mailadres. Past het domein bij de website
+van het bedrijf, dan gaat er een magic link uit (30 minuten geldig, eenmalig). Anders brief-met-code: er gaat een mail
+naar ADMIN_EMAIL met de code; Paul stuurt de brief; het bedrijf vult de code in op dezelfde pagina. Na verificatie is
+het bedrijf eigenaar maar nog niet live. In /dashboard/[slug]/ bouwt het bedrijf het profiel uit de website, past
+blokken aan via het potlood en klikt Zet live; dan pas status claimed en zichtbaar met label Geverifieerd.

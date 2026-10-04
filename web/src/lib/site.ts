@@ -111,3 +111,8 @@ export function dataFaq(v: Vertical, placeName: string, stats: { business_count:
   });
   return faq;
 }
+
+export function websiteDomainSafe(url: string | null) {
+  if (!url) return "";
+  try { return new URL(url.startsWith("http") ? url : `https://${url}`).hostname.replace(/^www\./, ""); } catch { return url; }
+}

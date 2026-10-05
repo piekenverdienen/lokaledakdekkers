@@ -30,6 +30,7 @@ export async function POST(req: Request) {
     await q("insert into settings (key, value) values ('outreach_per_day',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [perDay]);
     tab = "campagne";
   }
+  else if (actie === "weekly") { await q("insert into settings (key, value) values ('weekly_enabled',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [String(f.get("enabled") ?? "0") === "1" ? "1" : "0"]); tab = "campagne"; }
   else if (actie === "verzoek_afgehandeld") { await q("update claims set verified_at=now() where id=$1", [id]); tab = "verzoeken"; }
   await q("refresh materialized view place_stats").catch(() => {});
   revalidatePath("/", "layout");

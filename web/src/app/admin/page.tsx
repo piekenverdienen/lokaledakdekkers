@@ -96,6 +96,10 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
                 <button className={`btn ${on ? "btn-outline" : "btn-primary"}`} name="enabled" value={on ? "0" : "1"} type="submit">{on ? "Campagne pauzeren" : "Campagne starten"}</button>
               </form>
             </div>
+            <div className="card" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+              <span><b>Weekoverzichtsmail</b> naar geverifieerde bedrijven (maandag: bezoekers, aanvragen, reviews). Nu: {(await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value === "1" ? "aan" : "uit"}.</span>
+              <form method="post" action="/admin/actie/"><input type="hidden" name="actie" value="weekly" /><input type="hidden" name="id" value="-" /><button className="btn btn-outline" name="enabled" value={(await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value === "1" ? "0" : "1"} type="submit">{(await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value === "1" ? "Uitzetten" : "Aanzetten"}</button></form>
+            </div>
             <div className="card"><h3 style={{ marginBottom: 8 }}>Zo ziet de mail eruit</h3><p style={{ fontSize: 15, color: "var(--ink-2)" }}>Onderwerp: "Jouw profiel op {v.brand} staat klaar, [bedrijfsnaam]". Tekst zoals goedgekeurd, met previewlink naar het eigen profiel, de regel over de plaats alleen als die klopt, en een uitschrijflink. De herinnering heeft "Nog even:" ervoor.</p></div>
           </>);
         })())}

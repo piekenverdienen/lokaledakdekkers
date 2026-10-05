@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 // Weekoverzicht op maandag voor geverifieerde profielen: bezoekers, aanvragen, reviews. Eén keer per week per bedrijf.
 export async function GET(req: Request) {
   if (!authorized(req)) return new NextResponse("nee", { status: 403 });
+  if ((await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value !== "1") return NextResponse.json({ ok: true, skipped: "weekoverzicht staat uit" });
   if (new Date().getUTCDay() !== 1) return NextResponse.json({ ok: true, skipped: "niet maandag" });
   const v = await getVertical(req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""); const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   const last = (await one<{ value: string }>("select value from settings where key='weekly_sent'"))?.value;

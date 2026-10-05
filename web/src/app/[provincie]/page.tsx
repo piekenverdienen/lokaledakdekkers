@@ -34,14 +34,14 @@ export default async function ProvincePage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><b>{p.name}</b></nav>
       <h1>{cap(v.name_plural)} in {p.name}</h1>
-      <p className="lede" style={{ marginTop: 8 }}>{total} {v.name_plural} in {munis.length} gemeenten. Kies een gemeente voor de bedrijven, plaatsen en richtprijzen.</p>
+      <p className="lede" style={{ marginTop: 8 }}>{total > 0 ? `${total} ${v.name_plural} in ${munis.length} gemeenten.` : `${munis.length} gemeenten.`} Kies een gemeente voor de bedrijven, plaatsen en richtprijzen.</p>
       <div className="layout">
         <div className="main">
           <div className="grid cols-3">
             {munis.map((m) => (
               <a key={m.id} href={`/${p.slug}/${m.slug}/`} className="card card-link">
                 <b>{m.name}</b>
-                <small>{m.business_count} {m.business_count === 1 ? v.name_singular : v.name_plural}</small>
+                <small>{m.business_count > 0 ? `${m.business_count} ${m.business_count === 1 ? v.name_singular : v.name_plural}` : "nog geen bedrijven"}</small>
               </a>
             ))}
           </div>

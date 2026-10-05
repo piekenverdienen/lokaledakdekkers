@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <main>
-      <section className="wrap hero">
+      <div className="hero-bg"><section className="wrap hero">
         <div>
           <span className="eyebrow">Alle {v.name_plural} van Nederland op één kaart</span>
           <h1>Vind een betrouwbare {v.name_singular} bij jou in de buurt</h1>
@@ -31,22 +31,31 @@ export default async function Home() {
             <input id="zoek" name="q" type="text" placeholder="Plaats of postcode, bijvoorbeeld Zwolle" autoComplete="off" />
             <button type="submit" className="btn btn-primary">Zoek {v.name_singular}</button>
           </form>
-          <div className="stats">
-            <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} in de gids</small></div>
-            <div><b>{t.places.toLocaleString("nl-NL")}</b><small>plaatsen met 3 of meer bedrijven</small></div>
-            <div><b>{t.verified.toLocaleString("nl-NL")}</b><small>geverifieerde profielen</small></div>
+          {t.businesses > 0 ? (
+            <div className="stats">
+              <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} in de gids</small></div>
+              <div><b>{t.places.toLocaleString("nl-NL")}</b><small>plaatsen met 3 of meer bedrijven</small></div>
+              <div><b>{t.verified.toLocaleString("nl-NL")}</b><small>geverifieerde profielen</small></div>
+            </div>
+          ) : (
+            <div className="building">In opbouw: de gids wordt deze maand gevuld met alle {v.name_plural} uit het KvK Handelsregister, provincie voor provincie. Ben je {v.name_singular}? <a href="/claim/" style={{ color: "inherit", fontWeight: 600 }}>Meld je alvast aan</a>.</div>
+          )}
+          <div className="trust">
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg><span><b>Gecontroleerd op KvK</b>Elk geverifieerd bedrijf is gecheckt op inschrijving en websitedomein.</span></div>
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M8 13h8M8 17h5" /></svg><span><b>Reviews met factuurbewijs</b>Alleen reviews van echte klussen tellen mee in de score en de richtprijzen.</span></div>
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97A0F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>3 offertes, geen doorverkoop</b>Je aanvraag gaat naar maximaal drie bedrijven en je ziet vooraf welke.</span></div>
           </div>
         </div>
         <div>
           <div className="map-card">
             <Map center={[52.2, 5.4]} zoom={7} fit={false} tall markers={cities.map((c) => ({
               lat: c.lat, lng: c.lng, label: `${c.name} (${c.business_count})`, href: `/${c.province_slug}/${c.municipality_slug}/${c.slug}/`,
-              size: Math.max(5, Math.min(14, 4 + Math.sqrt(c.business_count) * 1.6)),
+              size: Math.max(7, Math.min(16, 6 + Math.sqrt(c.business_count) * 1.6)),
             }))} />
-            <div className="map-foot"><span>Grotere stip is meer {v.name_plural}</span><span>Klik op een stad</span></div>
+            <div className="map-foot"><span>Tik op een stad voor de {v.name_plural} daar</span></div>
           </div>
         </div>
-      </section>
+      </section></div>
 
       <section className="wrap" id="provincies" style={{ padding: "8px 24px 56px", display: "flex", flexDirection: "column", gap: 18 }}>
         <h2>Zoek per provincie</h2>
@@ -54,7 +63,7 @@ export default async function Home() {
           {provinces.map((p) => (
             <a key={p.id} href={`/${p.slug}/`} className="card card-link">
               <b>{p.name}</b>
-              <small>{p.business_count} {v.name_plural}, {p.municipality_count} gemeenten</small>
+              <small>{p.business_count > 0 ? `${p.business_count} ${v.name_plural}, ` : ""}{p.municipality_count} gemeenten</small>
             </a>
           ))}
         </div>

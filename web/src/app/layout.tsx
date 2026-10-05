@@ -29,12 +29,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /></svg>
               <span style={{ color: "inherit" }}>{first}</span>&nbsp;<span>{rest.join(" ")}</span>
             </a>
-            <div className="navlinks">
+            <div className="navlinks desktop">
               <a href="/#provincies">Plaatsen</a>
               <a href="/kosten/">Kosten</a>
               <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
               <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
             </div>
+            <details className="menu">
+              <summary className="menu-toggle" aria-label="Menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#13202B" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
+              </summary>
+              <div className="navlinks mobile">
+                <a href="/#provincies">Plaatsen</a>
+                <a href="/kosten/">Kosten</a>
+                <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
+                <a href="/dashboard/">Inloggen</a>
+                <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
+              </div>
+            </details>
           </nav>
         </header>
         {children}

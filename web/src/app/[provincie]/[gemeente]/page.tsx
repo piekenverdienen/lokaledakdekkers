@@ -55,12 +55,13 @@ export default async function MunicipalityPage({ params }: Props) {
 
       <div className="layout">
         <div className="main">
+          <details className="sorteer"><summary>Zo sorteren we deze lijst</summary><p>Geverifieerde profielen staan boven niet-geclaimde bedrijven; daarbinnen sorteren we op reviewscore en daarna op afstand. Een hogere plek betekent dat het bedrijf gecontroleerd is, niet dat het beter werk levert.</p></details>
           {businesses.length === 0 && <div className="card">Nog geen {v.name_plural} bekend in deze gemeente. Kies een plaats voor bedrijven in de omgeving.</div>}
           {businesses.map((b) => <BusinessCard key={b.id} b={b} v={v} placeContext={`gemeente ${m.name}`} />)}
         </div>
         <aside className="aside">
           <div className="map-card">
-            <Map center={[m.lat, m.lng]} zoom={11} markers={businesses.filter((b) => b.lat && b.lng).map((b) => ({ lat: b.lat!, lng: b.lng!, label: b.name, href: businessPath(b), pro: b.status === "pro" }))} />
+            <Map center={[m.lat, m.lng]} zoom={11} cluster markers={businesses.filter((b) => b.lat && b.lng).map((b) => ({ lat: b.lat!, lng: b.lng!, label: b.name, href: businessPath(b), pro: b.status === "pro" }))} />
             <div className="map-foot"><span>{businesses.length} in de gemeente</span></div>
           </div>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>

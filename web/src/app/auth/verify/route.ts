@@ -16,7 +16,7 @@ export async function GET(req: Request) {
   if (ml.purpose === "claim" && ml.payload.business_id) {
     const b = await one<{ slug: string; status: string }>("select slug, status from businesses where id=$1", [ml.payload.business_id]);
     if (b && b.status === "unclaimed") {
-      await q("update businesses set owner_user_id=$2, claimed_at=now(), email=coalesce(email,$3) where id=$1", [ml.payload.business_id, user.id, ml.user_email]);
+      await q("update businesses set owner_user_id=$2, claimed_at=now(), verified_at=now(), email=coalesce(email,$3) where id=$1", [ml.payload.business_id, user.id, ml.user_email]);
       await q("update claims set verified_at=now() where business_id=$1 and email=$2 and verified_at is null", [ml.payload.business_id, ml.user_email]);
       const website = typeof ml.payload.website === "string" ? ml.payload.website : null;
       let built = 0;

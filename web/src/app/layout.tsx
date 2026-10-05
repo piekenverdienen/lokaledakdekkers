@@ -36,6 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <a href="/kosten/">Kosten</a>
               <a href="/kennis/">Kennis</a>
               <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
+              <a href="/voor-dakdekkers/">Voor {v.name_plural}</a>
               <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
             </div>
             <details className="menu">
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <a href="/kosten/">Kosten</a>
                 <a href="/kennis/">Kennis</a>
                 <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
+                <a href="/voor-dakdekkers/">Voor {v.name_plural}</a>
                 <a href="/dashboard/">Inloggen</a>
                 <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
               </div>

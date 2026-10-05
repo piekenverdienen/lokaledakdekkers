@@ -1,5 +1,6 @@
 import type { Business, Vertical } from "@/lib/db";
 import { businessPath, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
+import VerifiedBadge from "@/components/VerifiedBadge";
 
 const Check = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
@@ -43,7 +44,7 @@ export default function BusinessCard({ b, v, placeContext }: { b: Business; v: V
           <div className="biz-title">
             <h2><a href={businessPath(b)} style={{ textDecoration: "none", color: "inherit" }}>{b.name}</a></h2>
             {pro && <span className="badge"><Star /> Aanbevolen</span>}
-            {claimed && <span className="verified"><Check /> Geverifieerd bedrijf</span>}
+            {claimed && <VerifiedBadge small verifiedAt={b.verified_at} kvkCheckedAt={b.kvk_checked_at} paidUntil={b.paid_until} />}
           </div>
           <div className="meta">
             {b.avg_score != null && <span><b>{String(b.avg_score).replace(".", ",")}</b></span>}

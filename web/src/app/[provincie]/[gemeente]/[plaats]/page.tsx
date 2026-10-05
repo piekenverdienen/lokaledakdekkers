@@ -81,12 +81,13 @@ export default async function PlacePage({ params, searchParams }: Props) {
               <a href={`/offerte/${p.slug}/`} className="btn btn-primary" style={{ fontWeight: 700 }}>Vraag {Math.min(3, pros)} offertes aan</a>
             </div>
           )}
+          <details className="sorteer"><summary>Zo sorteren we deze lijst</summary><p>Geverifieerde profielen staan boven niet-geclaimde bedrijven; daarbinnen sorteren we op reviewscore en daarna op afstand. Een hogere plek betekent dat het bedrijf gecontroleerd is, niet dat het beter werk levert.</p></details>
           {businesses.length === 0 && <div className="card">Geen {v.name_plural} gevonden met dit filter.</div>}
           {businesses.map((b) => <BusinessCard key={b.id} b={b} v={v} placeContext={`${p.name} en omgeving`} />)}
         </div>
         <aside className="aside">
           <div className="map-card">
-            <Map center={[p.lat, p.lng]} zoom={10} markers={all.filter((b) => b.lat && b.lng).map((b) => ({ lat: b.lat!, lng: b.lng!, label: b.name, href: businessPath(b), pro: b.status === "pro" }))} />
+            <Map center={[p.lat, p.lng]} zoom={10} cluster markers={all.filter((b) => b.lat && b.lng).map((b) => ({ lat: b.lat!, lng: b.lng!, label: b.name, href: businessPath(b), pro: b.status === "pro" }))} />
             <div className="map-foot"><span>{local} in {p.name}, {all.length - local} binnen 30 km</span></div>
           </div>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>

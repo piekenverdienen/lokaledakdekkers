@@ -128,7 +128,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
               <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Geldig tot {paidUntil ?? "onbekend"}. Wijzigingen die je opslaat staan direct op de site.</p>
             ) : (
               <>
-                <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Voor {priceText} euro per jaar (iDEAL) gaat je profiel online met het label Geverifieerd, logo en foto's, een link naar je website, reviews met factuurbewijs en een offerteblok. Je staat dan boven de niet-geclaimde bedrijven.</p>
+                <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Voor {priceText} euro per jaar inclusief btw (iDEAL, geen incasso, verlengen is een mail vooraf en één klik) gaat je profiel online met het label Geverifieerd, logo en foto's, een link naar je website, reviews met factuurbewijs en een offerteblok. Je staat dan boven de niet-geclaimde bedrijven.</p>
                 <form method="post" action={`/dashboard/${slug}/betaal/`}><button className="btn btn-primary" type="submit" disabled={!mollieEnabled()} style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Betaal {priceText} euro en zet online</button></form>
                 {!mollieEnabled() && <span className="srnote">Betalen wordt binnenkort geactiveerd. Je profiel blijft bewaard.</span>}
               </>
@@ -136,7 +136,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             <a href={`/bedrijf/${slug}/`} className="btn btn-outline" style={{ justifyContent: "center" }}>{live ? "Bekijk je profiel" : "Bekijk voorbeeld"}</a>
           </div>
           <div style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-light)", borderRadius: 16, padding: 18, display: "flex", flexDirection: "column", gap: 8 }}>
-            <b style={{ color: "var(--amber-ink)" }}>Pro, 14 dagen gratis</b>
+            <b style={{ color: "var(--amber-ink)" }}>Pro, binnenkort</b>
             <p style={{ fontSize: 15, color: "var(--ink-2)" }}>Daarna: bovenaan in je hele werkgebied, badge Aanbevolen, offerteaanvragen uit de plaatspagina, WhatsApp-knop, 30 foto's. {(v.pro_price_month_cents / 100).toLocaleString("nl-NL")} euro per maand. Beschikbaar in de volgende ronde.</p>
           </div>
         </aside>

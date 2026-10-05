@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Map from "@/components/Map";
 import { initials } from "@/components/BusinessCard";
+import VerifiedBadge from "@/components/VerifiedBadge";
 import { getBusiness, getBusinessesNear, getReviews } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
 export const revalidate = 86400;
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -21,8 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BusinessPage({ params }: Props) {
+export default async function BusinessPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { eigenaar } = await searchParams;
   const v = await currentVertical();
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();
@@ -51,6 +53,12 @@ export default async function BusinessPage({ params }: Props) {
         <span>/</span><b>{b.name}</b>
       </nav>
 
+      {eigenaar && !claimed && (
+        <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+          <div><b>Dit zien bezoekers over jouw bedrijf. Kloppen deze gegevens?</b><br /><span style={{ color: "var(--ink-2)" }}>Claim je profiel om het aan te vullen met logo, foto's en diensten. Verificatie via je website en e-mail, daarna 79,95 per jaar inclusief btw.</span></div>
+          <a href={`/claim/${b.slug}/`} className="btn btn-primary">Ja, dit is mijn bedrijf</a>
+        </div>
+      )}
       <div className="layout" style={{ paddingTop: 8 }}>
         <div className="main">
           <article className={`biz${pro ? " pro" : ""}`} style={{ padding: 26 }}>
@@ -60,7 +68,7 @@ export default async function BusinessPage({ params }: Props) {
                 <div className="biz-title">
                   <h1 style={{ fontSize: 28 }}>{b.name}</h1>
                   {pro && <span className="badge">Aanbevolen</span>}
-                  {claimed && <span className="verified">Geverifieerd bedrijf</span>}
+                  {claimed && <VerifiedBadge verifiedAt={b.verified_at} kvkCheckedAt={b.kvk_checked_at} paidUntil={b.paid_until} />}
                 </div>
                 <div className="meta">
                   <span>{cap(v.name_singular)} in {b.city ?? b.place_name ?? "Nederland"}</span>
@@ -125,6 +133,7 @@ export default async function BusinessPage({ params }: Props) {
               {claimed ? "Dit bedrijf heeft zijn profiel geverifieerd via het websitedomein en de KvK-inschrijving." : "Dit profiel is niet geverifieerd. Controleer het KvK-nummer zelf op kvk.nl voordat je een opdracht geeft."} Betaal nooit een voorschot aan een {v.name_singular} die ongevraagd aan de deur komt, en vraag altijd een schriftelijke offerte.
             </p>
             <a href={`/betrouwbare-${v.name_singular}/`} style={{ fontWeight: 600, fontSize: 15 }}>Meer tips voor een betrouwbare {v.name_singular}</a>
+            <a href={`/corrigeren/${b.slug}/`} style={{ fontSize: 14, color: "var(--ink-3)" }}>Kloppen deze gegevens niet? Geef een correctie door (gratis)</a>
           </div>
           {nearby.length > 0 && (
             <div className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>

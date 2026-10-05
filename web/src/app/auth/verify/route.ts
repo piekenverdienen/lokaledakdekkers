@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getVertical, one, q } from "@/lib/db";
 import { consumeMagicLink, sessionCookie, upsertUser } from "@/lib/auth";
+import { buildProfile } from "@/lib/build";
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -17,7 +18,10 @@ export async function GET(req: Request) {
     if (b && b.status === "unclaimed") {
       await q("update businesses set owner_user_id=$2, claimed_at=now(), email=coalesce(email,$3) where id=$1", [ml.payload.business_id, user.id, ml.user_email]);
       await q("update claims set verified_at=now() where business_id=$1 and email=$2 and verified_at is null", [ml.payload.business_id, ml.user_email]);
-      target = `${base}/dashboard/${b.slug}/?welkom=1`;
+      const website = typeof ml.payload.website === "string" ? ml.payload.website : null;
+      let built = 0;
+      if (website) built = (await buildProfile(v, String(ml.payload.business_id), b.slug, website).catch(() => 0)) ?? 0;
+      target = `${base}/dashboard/${b.slug}/?welkom=1${built ? `&gebouwd=${built}` : ""}`;
     }
   }
   const res = NextResponse.redirect(target, 303);

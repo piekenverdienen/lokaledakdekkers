@@ -84,8 +84,8 @@ export default async function Home() {
         <div className="wrap">
           <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 14 }}>
             <span className="eyebrow" style={{ color: "var(--amber-light)" }}>Voor {v.name_plural}</span>
-            <h2>Jouw bedrijf staat er waarschijnlijk al op. Claim het en ontvang offerteaanvragen uit je regio.</h2>
-            <p>Vul je website in en wij bouwen je complete profiel met projectfoto's in één keer. Goedkeuren, aanpassen met het potlood, live. Gratis.</p>
+            <h2>Jouw bedrijf staat er al op. Claim het en krijg een compleet profiel, geverifieerd.</h2>
+            <p>Vul je website en e-mailadres in; wij bouwen je profiel met logo, foto's en diensten in één keer. Nakijken, aanpassen met het potlood, online voor 79,95 per jaar.</p>
             <div className="actions">
               <a href="/claim/" className="btn btn-amber">Claim je profiel</a>
               <a href="/pro/" className="btn btn-ghost" style={{ color: "#fff" }}>Wat is Pro?</a>
@@ -93,8 +93,8 @@ export default async function Home() {
           </div>
           <ol className="steps">
             <li><span>1</span><div><b>Zoek je bedrijf</b><small>Op naam, plaats of KvK-nummer</small></div></li>
-            <li><span>2</span><div><b>Vul je website in</b><small>Wij halen diensten, werkgebied, projectfoto's en keurmerken op</small></div></li>
-            <li><span>3</span><div><b>Keur goed en ga live</b><small>Aanpassen kan altijd met het potlood</small></div></li>
+            <li><span>2</span><div><b>Website en e-mail invullen</b><small>Je krijgt een inloglink en wij bouwen je profiel uit je website</small></div></li>
+            <li><span>3</span><div><b>Nakijken, betalen, online</b><small>79,95 per jaar via iDEAL, geverifieerd en met offerteblok</small></div></li>
           </ol>
         </div>
       </section>

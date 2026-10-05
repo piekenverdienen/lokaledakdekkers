@@ -81,13 +81,21 @@ Plaatspagina's met minder dan 3 bedrijven binnen 30 km krijgen automatisch noind
     FORCE_KVK_IMPORT    zet op 1 om de KvK-import opnieuw te draaien bij de volgende start; daarna weer weghalen
     ANTHROPIC_API_KEY   Paul: voor profiel-uit-URL (Claude Haiku); zonder sleutel valt de bouwer terug op meta-description en foto's
     EXTRACT_MODEL       optioneel, standaard claude-haiku-4-5
+    MOLLIE_API_KEY      Paul: test_... voor testen, live_... na activatie; zonder sleutel is de betaalknop uitgeschakeld
+    WEBHOOK_BASE_URL    optioneel, alleen als de webhook via een ander adres moet binnenkomen
 
 Zonder RESEND_API_KEY worden mails niet verzonden maar in het containerlog gezet (Coolify, Logs). Handig om te testen.
 
+## Verdienmodel (besloten 5 oktober 2026)
+
+Gratis: KvK-vermelding. Geverifieerd: 79,95 per jaar via Mollie iDEAL (verticals.verified_price_year_cents), geeft het gegenereerde
+profiel, label Geverifieerd, link, reviews, offerteblok. Pro: 69 per maand (later), bovenaan plus offerteaanvragen uit de plaatspagina.
+Geen brief-met-code meer: verificatie is volledig automatisch (website plus e-mail, zie hieronder). Verlenging: mail 30 dagen voor paid_until (nog te bouwen).
+
 ## Claim-flow, zo werkt hij
 
-/claim/ zoekt op naam, plaats of KvK-nummer. /claim/[slug]/ vraagt een e-mailadres. Past het domein bij de website
-van het bedrijf, dan gaat er een magic link uit (30 minuten geldig, eenmalig). Anders brief-met-code: er gaat een mail
-naar ADMIN_EMAIL met de code; Paul stuurt de brief; het bedrijf vult de code in op dezelfde pagina. Na verificatie is
-het bedrijf eigenaar maar nog niet live. In /dashboard/[slug]/ bouwt het bedrijf het profiel uit de website, past
-blokken aan via het potlood en klikt Zet live; dan pas status claimed en zichtbaar met label Geverifieerd.
+/claim/ zoekt op naam, plaats of KvK-nummer. /claim/[slug]/ vraagt website en e-mailadres. lib/verify.ts haalt de site op en
+controleert (1) of de bedrijfsnaam of het KvK-nummer op de site staat en (2) of het e-mailadres op het domein van de site zit of
+letterlijk op de site staat. Beide goed: magic link (30 minuten, eenmalig). Na de link is het bedrijf eigenaar, wordt het profiel
+direct uit de website gebouwd (lib/build.ts) en landt het in /dashboard/[slug]/ als concept. Betalen via /dashboard/[slug]/betaal/
+(Mollie) en de webhook /api/mollie/webhook/ zet status claimed, verified_at en paid_until. Pas dan is het profiel publiek met label.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getBusiness, q } from "@/lib/db";
+import { getBusiness, q, one } from "@/lib/db";
+import { mollieEnabled } from "@/lib/mollie";
 import { getUser } from "@/lib/auth";
 import { currentVertical, cap, serviceName, websiteDomainSafe } from "@/lib/site";
 import { initials } from "@/components/BusinessCard";
@@ -28,7 +29,7 @@ function Block({ title, slug, field, children, form }: { title: string; slug: st
   );
 }
 
-export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string }> }) {
+export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string }> }) {
   const v = await currentVertical();
   const { slug } = await params;
   const sp = await searchParams;
@@ -41,6 +42,9 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const photos = await q<{ id: string; url: string }>("select id, url from business_photos where business_id=$1 order by sort_order", [b.id]);
   const areas = await q<{ name: string }>("select p.name from business_areas a join places p on p.id=a.place_id where a.business_id=$1 order by p.name", [b.id]);
   const live = b.status !== "unclaimed";
+  const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
+  const paidUntil = (await one<{ d: string | null }>("select paid_until::text as d from businesses where id=$1", [b.id]))?.d ?? null;
+  const priceText = (price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 });
   const site = owner[0]?.website ?? "";
 
   return (
@@ -52,6 +56,9 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
         </div>
       )}
       {sp.gebouwd && <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)", marginBottom: 16 }}><b>Profiel opgebouwd uit {websiteDomainSafe(site)}</b> ({sp.gebouwd} pagina's gelezen). Klopt er iets niet? Klik op het potlood bij dat blok.</div>}
+      {sp.betaald && !live && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginBottom: 16 }}>Bedankt. Zodra de betaling bevestigd is (meestal binnen een minuut) staat je profiel online. Ververs deze pagina.</div>}
+      {sp.betaald && live && <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)", marginBottom: 16 }}><b>Je profiel staat online en is geverifieerd.</b> Geldig tot {paidUntil}.</div>}
+      {sp.fout === "betalen" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginBottom: 16 }}>Betalen is tijdelijk niet mogelijk. Probeer het later opnieuw.</div>}
       {sp.fout === "site" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginBottom: 16 }}>De website kon niet gelezen worden. Controleer het adres hieronder, of vul de blokken zelf in.</div>}
 
       <div className="layout" style={{ paddingTop: 0 }}>
@@ -116,14 +123,21 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
 
         <aside className="aside">
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <h3>{live ? "Je profiel is live" : "Klaar? Zet je profiel live"}</h3>
-            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>{live ? "Wijzigingen die je opslaat staan direct op de site." : "Je profiel verschijnt met het label Geverifieerd bedrijf en komt boven de niet-geclaimde bedrijven te staan."}</p>
-            {!live && <form method="post" action={`/dashboard/${slug}/live/`}><button className="btn btn-primary" type="submit" style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Zet live</button></form>}
+            <h3>{live ? "Je profiel is online en geverifieerd" : "Klaar? Zet je profiel online"}</h3>
+            {live ? (
+              <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Geldig tot {paidUntil ?? "onbekend"}. Wijzigingen die je opslaat staan direct op de site.</p>
+            ) : (
+              <>
+                <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Voor {priceText} euro per jaar (iDEAL) gaat je profiel online met het label Geverifieerd, logo en foto's, een link naar je website, reviews met factuurbewijs en een offerteblok. Je staat dan boven de niet-geclaimde bedrijven.</p>
+                <form method="post" action={`/dashboard/${slug}/betaal/`}><button className="btn btn-primary" type="submit" disabled={!mollieEnabled()} style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Betaal {priceText} euro en zet online</button></form>
+                {!mollieEnabled() && <span className="srnote">Betalen wordt binnenkort geactiveerd. Je profiel blijft bewaard.</span>}
+              </>
+            )}
             <a href={`/bedrijf/${slug}/`} className="btn btn-outline" style={{ justifyContent: "center" }}>{live ? "Bekijk je profiel" : "Bekijk voorbeeld"}</a>
           </div>
           <div style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-light)", borderRadius: 16, padding: 18, display: "flex", flexDirection: "column", gap: 8 }}>
             <b style={{ color: "var(--amber-ink)" }}>Pro, 14 dagen gratis</b>
-            <p style={{ fontSize: 15, color: "var(--ink-2)" }}>Bovenaan in je hele werkgebied, badge Aanbevolen, offerteaanvragen, WhatsApp-knop, 30 foto's. Daarna {(v.pro_price_month_cents / 100).toLocaleString("nl-NL")} euro per maand. Beschikbaar in de volgende ronde.</p>
+            <p style={{ fontSize: 15, color: "var(--ink-2)" }}>Daarna: bovenaan in je hele werkgebied, badge Aanbevolen, offerteaanvragen uit de plaatspagina, WhatsApp-knop, 30 foto's. {(v.pro_price_month_cents / 100).toLocaleString("nl-NL")} euro per maand. Beschikbaar in de volgende ronde.</p>
           </div>
         </aside>
       </div>

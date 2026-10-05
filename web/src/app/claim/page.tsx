@@ -12,8 +12,8 @@ export default async function Claim({ searchParams }: { searchParams: Promise<{ 
     order by status='unclaimed' desc, name limit 25`, [v.id, term.trim()]) : [];
   return (
     <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 760 }}>
-      <h1>Claim je profiel op {v.brand}</h1>
-      <p className="lede" style={{ marginTop: 12 }}>Zoek je bedrijf op naam, plaats of KvK-nummer. Staat het erbij, dan claim je het in twee minuten. Staat het er niet, mail dan naar info@{v.domain} met je KvK-nummer.</p>
+      <h1>Claim je bedrijf op {v.brand}</h1>
+      <p className="lede" style={{ marginTop: 12 }}>Zoek je bedrijf op naam, plaats of KvK-nummer. Staat het erbij, dan claim je het met je website en e-mailadres; we bouwen je profiel automatisch op. Staat het er niet, mail dan naar info@{v.domain} met je KvK-nummer.</p>
       <form className="search" method="get" style={{ marginTop: 20 }}>
         <input name="q" defaultValue={term ?? ""} placeholder="Bedrijfsnaam, plaats of KvK-nummer" autoComplete="off" />
         <button type="submit" className="btn btn-primary">Zoek</button>

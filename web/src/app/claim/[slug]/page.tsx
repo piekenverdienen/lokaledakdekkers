@@ -2,57 +2,44 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getBusiness } from "@/lib/db";
 import { websiteDomain } from "@/lib/auth";
-import { currentVertical, cap } from "@/lib/site";
-export const metadata: Metadata = { title: "Claim je profiel", robots: { index: false, follow: false } };
+import { currentVertical } from "@/lib/site";
+export const metadata: Metadata = { title: "Claim je bedrijf", robots: { index: false, follow: false } };
+const input: React.CSSProperties = { border: "1px solid var(--line)", borderRadius: 10, padding: "0 12px", minHeight: 48, fontSize: 16, fontFamily: "inherit", width: "100%", boxSizing: "border-box" };
 
-export default async function ClaimBusiness({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ status?: string; email?: string }> }) {
+export default async function ClaimBusiness({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ status?: string; email?: string; website?: string; domain?: string }> }) {
   const v = await currentVertical();
   const { slug } = await params;
-  const { status, email } = await searchParams;
+  const sp = await searchParams;
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();
-  const dom = websiteDomain(b.website);
+  const price = (v as unknown as { verified_price_year_cents?: number }).verified_price_year_cents ?? 7995;
+  const msg: Record<string, React.ReactNode> = {
+    sent: <><b>Mail verstuurd naar {sp.email}.</b> Open de link in die mail; je bent dan direct ingelogd en je profiel wordt opgebouwd uit je website. De link werkt 30 minuten.</>,
+    site: <><b>We konden {sp.website} niet lezen.</b> Controleer het adres (begint het met www. of https://?) en probeer opnieuw.</>,
+    naam: <><b>Op {sp.website} vinden we de naam {b.name} of het KvK-nummer niet terug.</b> Zet je bedrijfsnaam of KvK-nummer op je website (bijvoorbeeld in de footer) en probeer het daarna opnieuw.</>,
+    email: <><b>Dit e-mailadres hoort niet bij {sp.domain}.</b> Gebruik een adres op {sp.domain} (bijvoorbeeld info@{sp.domain}), of het adres dat op je website staat.</>,
+    limiet: <><b>Te veel pogingen.</b> Probeer het morgen opnieuw of mail naar info@{v.domain}.</>,
+  };
   return (
-    <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 680 }}>
-      <nav className="crumbs"><a href="/claim/">Claim je profiel</a><span>/</span><b>{b.name}</b></nav>
+    <main className="wrap" style={{ padding: "24px 0 64px", maxWidth: 680 }}>
+      <nav className="crumbs"><a href="/claim/">Claim je bedrijf</a><span>/</span><b>{b.name}</b></nav>
       <h1 style={{ fontSize: 32 }}>{b.name}</h1>
-      <p className="lede" style={{ marginTop: 8 }}>{b.city ?? ""}{b.kvk_number ? `, KvK ${b.kvk_number}` : ""}{b.website ? `, ${websiteDomain(b.website)}` : ""}</p>
-
-      {status === "sent" && (
-        <div className="card" style={{ marginTop: 24, borderColor: "var(--green)", background: "var(--green-bg)" }}>
-          <b>Mail verstuurd naar {email}.</b> Open de link in die mail om je profiel te claimen. De link werkt 30 minuten. Niets ontvangen? Kijk in de spam, of probeer het opnieuw.
-        </div>
-      )}
-      {status === "mismatch" && (
-        <div className="card" style={{ marginTop: 24, borderColor: "var(--amber)", background: "var(--amber-bg)" }}>
-          <b>Dat e-mailadres hoort niet bij {dom || "de website van dit bedrijf"}.</b> Gebruik een adres op het domein van je website (bijvoorbeeld info@{dom || "jouwbedrijf.nl"}). Lukt dat niet? Kies hieronder de brief-met-code.
-        </div>
-      )}
-      {status === "letter" && (
-        <div className="card" style={{ marginTop: 24, borderColor: "var(--green)", background: "var(--green-bg)" }}>
-          <b>Aangevraagd.</b> Je ontvangt binnen een week een brief met een code op het KvK-adres. Met die code en je e-mailadres claim je het profiel op deze pagina.
-        </div>
+      <p className="lede" style={{ marginTop: 8 }}>{b.city ?? ""}{b.kvk_number ? `, KvK ${b.kvk_number}` : ""}</p>
+      {sp.status && msg[sp.status] && (
+        <div className="card" style={{ marginTop: 24, borderColor: sp.status === "sent" ? "var(--green)" : "var(--amber)", background: sp.status === "sent" ? "var(--green-bg)" : "var(--amber-bg)" }}>{msg[sp.status]}</div>
       )}
       {b.status !== "unclaimed" && <div className="card" style={{ marginTop: 24 }}>Dit profiel is al geclaimd. Ben jij de eigenaar? <a href="/dashboard/">Log in</a>.</div>}
-
-      {b.status === "unclaimed" && status !== "sent" && status !== "letter" && (
-        <form method="post" action="/claim/start/" className="card" style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
+      {b.status === "unclaimed" && sp.status !== "sent" && (
+        <form method="post" action="/claim/start/" className="card" style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 14 }}>
           <input type="hidden" name="slug" value={b.slug} />
-          <h2 style={{ fontSize: 20 }}>Stap 1: verifieer dat dit jouw bedrijf is</h2>
-          <p style={{ color: "var(--ink-2)" }}>
-            {dom ? <>Vul een e-mailadres in op <b>{dom}</b>. Je krijgt een link waarmee je direct bent ingelogd.</> : <>Dit bedrijf heeft geen website in onze gegevens. Vul je e-mailadres in; we sturen dan een brief met een code naar het KvK-adres.</>}
-          </p>
-          <label htmlFor="email" style={{ fontWeight: 600 }}>E-mailadres</label>
-          <input id="email" name="email" type="email" required placeholder={dom ? `info@${dom}` : "jij@voorbeeld.nl"} style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "0 12px", minHeight: 48, fontSize: 16, fontFamily: "inherit" }} />
-          <input type="hidden" name="website" value={b.website ?? ""} />
-          <div className="actions">
-            <button type="submit" name="method" value="email" className="btn btn-primary">Stuur inloglink</button>
-            <button type="submit" name="method" value="letter" className="btn btn-outline">Brief met code aanvragen</button>
-          </div>
-          <span className="srnote">Als je al een code uit de brief hebt: vul hem hieronder in.</span>
-          <div style={{ display: "flex", gap: 8 }}>
-            <input name="code" placeholder="Code uit de brief" style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "0 12px", minHeight: 44, fontSize: 16, fontFamily: "inherit", flex: 1 }} />
-            <button type="submit" name="method" value="code" className="btn btn-outline">Code gebruiken</button>
+          <h2 style={{ fontSize: 20 }}>Claim je bedrijf in twee stappen</h2>
+          <p style={{ color: "var(--ink-2)" }}>Vul je website en e-mailadres in. We controleren automatisch of de site van {b.name} is en sturen een inloglink. Daarna bouwen we je profiel uit je website; jij kijkt het na en zet het online.</p>
+          <label style={{ fontWeight: 600 }}>Website<input name="website" type="text" required defaultValue={sp.website ?? b.website ?? ""} placeholder="www.jouwbedrijf.nl" style={input} /></label>
+          <label style={{ fontWeight: 600 }}>E-mailadres<input name="email" type="email" required defaultValue={sp.email ?? ""} placeholder={b.website ? `info@${websiteDomain(b.website)}` : "info@jouwbedrijf.nl"} style={input} /></label>
+          <span className="srnote">Gebruik een e-mailadres op het domein van je website, of het adres dat op je website staat.</span>
+          <button type="submit" className="btn btn-primary" style={{ fontSize: 17, minHeight: 50 }}>Stuur inloglink</button>
+          <div style={{ borderTop: "1px solid var(--line)", paddingTop: 12, fontSize: 14, color: "var(--ink-2)" }}>
+            Je profiel is pas online en geverifieerd na betaling van {(price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })} euro per jaar, via iDEAL. Daarvoor krijg je: een compleet profiel met logo, foto's en diensten, het label Geverifieerd, een link naar je website, reviews met factuurbewijs en een offerteblok. Geen website? Mail naar info@{v.domain}.
           </div>
         </form>
       )}

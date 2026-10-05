@@ -1,44 +1,31 @@
 import { NextResponse } from "next/server";
-import { randomInt } from "node:crypto";
 import { getVertical, one, q } from "@/lib/db";
-import { createMagicLink, domainsMatch, mailLayout, sendMail } from "@/lib/auth";
+import { createMagicLink, mailLayout, sendMail } from "@/lib/auth";
+import { verifyClaim } from "@/lib/verify";
+
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   const f = await req.formData();
   const slug = String(f.get("slug") ?? ""); const email = String(f.get("email") ?? "").trim().toLowerCase();
-  const method = String(f.get("method") ?? "email"); const code = String(f.get("code") ?? "").trim();
+  let website = String(f.get("website") ?? "").trim();
+  if (website && !/^https?:\/\//i.test(website)) website = `https://${website}`;
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "";
   const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
-  const b = await one<{ id: string; name: string; website: string | null; status: string }>("select id, name, website, status from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
-  if (!b || b.status !== "unclaimed" || !email.includes("@")) return NextResponse.redirect(`${base}/claim/${slug}/`, 303);
-  const back = (s: string) => NextResponse.redirect(`${base}/claim/${slug}/?status=${s}&email=${encodeURIComponent(email)}`, 303);
-
-  // maximaal 3 pogingen per bedrijf per 24 uur
+  const b = await one<{ id: string; name: string; kvk_number: string | null; status: string }>("select id, name, kvk_number, status from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
+  const back = (s: string, extra: Record<string, string> = {}) => NextResponse.redirect(`${base}/claim/${slug}/?${new URLSearchParams({ status: s, email, website, ...extra })}`, 303);
+  if (!b || b.status !== "unclaimed" || !email.includes("@") || !website) return back("site");
   const n = await one<{ n: number }>("select count(*)::int as n from claims where business_id=$1 and created_at > now() - interval '24 hours'", [b.id]);
-  if ((n?.n ?? 0) >= 6) return back("mismatch");
+  if ((n?.n ?? 0) >= 8) return back("limiet");
 
-  if (method === "code") {
-    const c = await one<{ id: string }>("select id from claims where business_id=$1 and method='kvk_letter' and code=$2 and verified_at is null and created_at > now() - interval '60 days'", [b.id, code]);
-    if (!c) return back("mismatch");
-    await q("update claims set verified_at=now(), email=$2 where id=$1", [c.id, email]);
-    const token = await createMagicLink(email, "claim", { business_id: b.id, slug });
-    await sendMail(email, `Je profiel op ${v.brand} claimen`, mailLayout(v.brand, `Claim ${b.name}`, `<p>Klik op de knop om je profiel te claimen en direct in te loggen.</p>`, { href: `${base}/auth/verify/?token=${token}`, label: "Claim mijn profiel" }), `Claim je profiel: ${base}/auth/verify/?token=${token}`);
-    return back("sent");
-  }
-  if (method === "letter" || !b.website) {
-    const c = String(randomInt(100000, 999999));
-    await q("insert into claims (business_id, email, method, code) values ($1,$2,'kvk_letter',$3)", [b.id, email, c]);
-    await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Brief met code sturen: ${b.name}`, mailLayout(v.brand, "Claim via brief", `<p>${b.name} (${slug}) vraagt een claim via brief. Code: <b>${c}</b>. Aanvrager: ${email}. Stuur de brief naar het KvK-vestigingsadres.</p>`), `Brief met code ${c} sturen naar ${b.name}; aanvrager ${email}`);
-    return back("letter");
-  }
-  if (!domainsMatch(email, b.website)) {
-    await q("insert into claims (business_id, email, method) values ($1,$2,'email_domain_mismatch')", [b.id, email]);
-    return back("mismatch");
-  }
-  await q("insert into claims (business_id, email, method) values ($1,$2,'email_domain')", [b.id, email]);
-  const token = await createMagicLink(email, "claim", { business_id: b.id, slug });
+  const r = await verifyClaim(website, email, b.name, b.kvk_number);
+  await q("insert into claims (business_id, email, method, code) values ($1,$2,$3,$4)", [b.id, email, r.ok ? "website_email" : `afgewezen_${r.reason}`, website.slice(0, 200)]);
+  if (!r.ok) return back(r.reason, r.reason === "email" ? { domain: r.domain } : {});
+
+  await q("update businesses set website=coalesce(website,$2) where id=$1", [b.id, website]);
+  const token = await createMagicLink(email, "claim", { business_id: b.id, slug, website });
   const link = `${base}/auth/verify/?token=${token}`;
-  await sendMail(email, `Je profiel op ${v.brand} claimen`, mailLayout(v.brand, `Claim ${b.name}`, `<p>Klik op de knop om te bevestigen dat ${b.name} jouw bedrijf is. Je bent dan direct ingelogd en kunt je profiel laten opbouwen uit je website.</p><p>De link werkt 30 minuten.</p>`, { href: link, label: "Claim mijn profiel" }), `Claim je profiel: ${link}`);
+  await sendMail(email, `Claim ${b.name} op ${v.brand}`, mailLayout(v.brand, `Jouw inloglink voor ${b.name}`, `<p>Klik op de knop om in te loggen. We bouwen dan je profiel op uit ${website.replace(/^https?:\/\//, "")}; jij kijkt het na en zet het online.</p><p>De link werkt 30 minuten.</p>`, { href: link, label: "Inloggen en profiel bekijken" }), `Inloggen: ${link}`);
   return back("sent");
 }

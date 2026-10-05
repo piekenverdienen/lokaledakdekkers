@@ -264,3 +264,19 @@ where ps.business_count >= 3;
 
 alter table businesses add column if not exists kvk_slug text;
 alter table businesses add column if not exists kvk_checked_at timestamptz;
+
+alter table businesses add column if not exists paid_until date;
+alter table businesses add column if not exists verified_at timestamptz;
+alter table verticals add column if not exists verified_price_year_cents int not null default 7995;
+create table if not exists payments (
+  id              uuid primary key default gen_random_uuid(),
+  business_id     uuid references businesses(id) on delete cascade,
+  provider        text not null default 'mollie',
+  provider_id     text unique,
+  kind            text not null default 'verified_year',
+  amount_cents    int not null,
+  status          text not null default 'open',
+  paid_at         timestamptz,
+  consumer_name   text,
+  created_at      timestamptz not null default now()
+);

@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: claimed && b.description ? b.description.slice(0, 155) : `${b.name} is ${v.name_singular} in ${b.city ?? "Nederland"}. Contactgegevens, reviews en werkgebied op ${v.brand}.`,
     alternates: { canonical: businessPath(b) },
     robots: b.source === "test" ? { index: false, follow: false } : undefined,
+    openGraph: { title: `${b.name}, ${v.name_singular} in ${b.city ?? "Nederland"}`, type: "profile", images: [{ url: `/og/${b.slug}/`, width: 1200, height: 630, alt: `${b.name} op ${v.brand}` }] },
   };
 }
 

@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getBusiness, q, one } from "@/lib/db";
 import { mollieEnabled } from "@/lib/mollie";
 import UploadForm from "@/components/UploadForm";
+import ShareBlock from "@/components/ShareBlock";
 import { getUser } from "@/lib/auth";
 import { currentVertical, cap, serviceName, websiteDomainSafe } from "@/lib/site";
 import { initials } from "@/components/BusinessCard";
@@ -118,6 +119,14 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
           </>}>
             <div className="chips">{b.certifications.map((c) => <span key={c} className="chip">{c}</span>)}{b.usps.map((u) => <span key={u} className="chip" style={{ background: "var(--green-bg)" }}>{u}</span>)}{!b.certifications.length && !b.usps.length && <span style={{ color: "var(--ink-3)" }}>Nog niets ingevuld.</span>}</div>
           </Block>
+
+          {live && (
+            <section id="delen" className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h2 style={{ fontSize: 18 }}>Deel dat je geverifieerd bent</h2>
+              <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>Laat klanten en collega's zien dat je bedrijf gecontroleerd is. Eén klik en het staat op je eigen kanalen, met je naam en logo in de afbeelding.</p>
+              <ShareBlock url={`https://${v.domain}/bedrijf/${slug}/`} text={`${b.name} is een geverifieerd ${v.name_singular}sbedrijf op ${v.domain}. Bekijk ons profiel met foto's van ons werk, reviews en direct een offerte aanvragen:`} image={`/og/${slug}/`} />
+            </section>
+          )}
 
           <section id="aanvragen" className="card" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <h2 style={{ fontSize: 18 }}>Offerteaanvragen ({aanvragen.length})</h2>

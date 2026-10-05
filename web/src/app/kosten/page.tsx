@@ -10,9 +10,8 @@ export default async function Kosten() {
     <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64 }}>
       <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><b>Kosten</b></nav>
       <h1>Wat kost dakwerk in 2026?</h1>
-      <p className="lede" style={{ marginTop: 8 }}>Richtprijzen per klus, samengesteld uit Nederlandse prijsgidsen van 2026. Zodra {v.brand} per provincie minimaal vijf facturen van geverifieerde klussen heeft, staan hier echte regionale cijfers, met de steekproef erbij.</p>
+      <p className="lede" style={{ marginTop: 8 }}>Richtprijzen per klus voor 2026: nieuw dak, plat dak, dakpannen, dakkapel, isolatie en reparaties.</p>
       <div className="grid cols-3" style={{ marginTop: 24 }}>{prijs.map((a) => <ArticleCard key={a.slug} a={a} />)}</div>
-      <div className="building" style={{ marginTop: 24 }}>Regionale richtprijzen uit facturen: nog geen vijf geverifieerde klussen per provincie. Liever geen cijfer dan een verzonnen cijfer.</div>
     </main>
   );
 }

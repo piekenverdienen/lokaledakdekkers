@@ -91,9 +91,9 @@ export default async function PlacePage({ params, searchParams }: Props) {
             <div className="map-foot"><span>{local} in {p.name}, {all.length - local} binnen 30 km</span></div>
           </div>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <h2 style={{ fontSize: 17 }}>Wat kost dakwerk in {p.name}?</h2>
-            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Richtprijzen per m2 verschijnen zodra er in {p.province_name} minimaal vijf facturen van geverifieerde klussen zijn. Tot die tijd tonen we niets, liever geen cijfer dan een verzonnen cijfer.</p>
-            <a href="/kennis/wat-kost-een-dakdekker/" style={{ fontWeight: 600, fontSize: 15 }}>Landelijke richtprijzen 2026</a>
+            <h2 style={{ fontSize: 17 }}>Wat kost dakwerk?</h2>
+            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Richtprijzen 2026 voor een nieuw dak, plat dak, dakkapel, isolatie en reparaties.</p>
+            <a href="/kennis/wat-kost-een-dakdekker/" style={{ fontWeight: 600, fontSize: 15 }}>Bekijk de richtprijzen</a>
           </div>
           <div className="cta-navy">
             <h2 style={{ fontSize: 17 }}>{cap(v.name_singular)} in {p.name}?</h2>

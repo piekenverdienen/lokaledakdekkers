@@ -24,14 +24,7 @@ export default async function Home() {
   const examples = realExamples.length >= 3 ? {
     real: true,
     items: realExamples.map((r) => ({ slug: r.slug, name: r.name, city: r.city ?? "", area: r.area_count ? `${r.area_count} plaatsen` : "eigen plaats", verified: true, photo: r.photo ?? "/img/dakpan-handen-sm.webp", services: r.services.slice(0, 3).map((x) => v.services.find((y) => y.slug === x)?.name ?? x), reviews: r.review_count ? `${r.review_count} reviews` : "Nog geen reviews", href: `/bedrijf/${r.slug}/` })),
-  } : {
-    real: false,
-    items: [
-      { slug: "vb1", name: "Voorbeeld: De Vries Dakwerken", city: "Zwolle", area: "Zwolle en 22 plaatsen", verified: true, photo: "/img/epdm-platdak-sm.webp", services: ["Plat dak", "EPDM", "Dakisolatie"], reviews: "Reviews met factuurbewijs verschijnen hier", href: "/voor-dakdekkers/" },
-      { slug: "vb2", name: "Voorbeeld: Jansen Pannendaken", city: "Breda", area: "Breda en 14 plaatsen", verified: true, photo: "/img/hero-pannendak-sm.webp", services: ["Pannendak", "Dakrenovatie", "Dakgoten"], reviews: "Reviews met factuurbewijs verschijnen hier", href: "/voor-dakdekkers/" },
-      { slug: "vb3", name: "Voorbeeld: Bakker Dakkapellen", city: "Utrecht", area: "Utrecht en 18 plaatsen", verified: true, photo: "/img/dakkapel-kraan-sm.webp", services: ["Dakkapel", "Dakramen", "Dakisolatie"], reviews: "Reviews met factuurbewijs verschijnen hier", href: "/voor-dakdekkers/" },
-    ],
-  };
+  } : { real: false, items: [] as { slug: string; name: string; city: string; area: string; verified: boolean; photo: string; services: string[]; reviews: string; href: string }[] };
   const featured = ["wat-kost-een-dakdekker", "betrouwbare-dakdekker-kiezen", "plat-dak-vervangen-kosten"].map((s) => getAllArticles().find((a) => a.slug === s)).filter(Boolean);
   const cities = await q<{ name: string; slug: string; municipality_slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
     select p.name, p.slug, m.slug as municipality_slug, pr.slug as province_slug, st_y(p.geom) as lat, st_x(p.geom) as lng, ps.business_count::int
@@ -53,8 +46,8 @@ export default async function Home() {
             <button type="submit" className="btn btn-primary">Zoek<span className="btn-long"> {v.name_singular}</span></button>
           </form>
           <div className="stats">
-            <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} uit het KvK Handelsregister</small></div>
-            <div><b>{t.places.toLocaleString("nl-NL")}</b><small>plaatsen met 3 of meer bedrijven</small></div>
+            <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} in heel Nederland</small></div>
+            <div><b>350</b><small>gemeenten, van Groningen tot Maastricht</small></div>
             {t.verified > 0 && <div><b>{t.verified.toLocaleString("nl-NL")}</b><small>geverifieerde profielen</small></div>}
           </div>
         </div>
@@ -65,23 +58,20 @@ export default async function Home() {
 
       <section className="wrap" style={{ paddingTop: 28, paddingBottom: 8 }}>
         <div className="trust">
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg><span><b>Wat Geverifieerd betekent</b>KvK-inschrijving gecontroleerd en de eigenaar bevestigd via website en e-mail, met datum. Het zegt niets over de kwaliteit van het dakwerk.</span></div>
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M8 13h8M8 17h5" /></svg><span><b>Reviews met factuurbewijs</b>Alleen reviews die aan een factuur gekoppeld zijn krijgen het label Geverifieerde klus en tellen mee in de richtprijzen.</span></div>
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C97A0F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>Eerlijke sortering</b>Geverifieerde profielen staan boven niet-geclaimde, daarbinnen op reviewscore en afstand. Hoger betekent gecontroleerd, niet beter.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg><span><b>Wat Geverifieerd betekent</b>Het bedrijf is echt, staat ingeschreven bij de KvK en heeft dit profiel zelf bevestigd.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M8 13h8M8 17h5" /></svg><span><b>Reviews met factuurbewijs</b>Reviews van echte klussen, gekoppeld aan een factuur. Geen verzonnen sterren.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C97A0F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>Eerlijke sortering</b>Geverifieerde bedrijven eerst, daarna op reviewscore en afstand. Niemand koopt een hogere plek.</span></div>
         </div>
       </section>
 
-      <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 16 }}>
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
-          <h2>Zo ziet een bedrijfsprofiel eruit</h2>
-          {examples.real ? <span className="srnote">Geverifieerde bedrijven, willekeurig gekozen</span> : <span className="building" style={{ padding: "6px 12px" }}>Voorbeeldprofielen: fictieve bedrijven, tot de eerste geverifieerde profielen er zijn</span>}
-        </div>
+      {examples.real && <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 16 }}>
+        <h2>Geverifieerde {v.name_plural}</h2>
         <div className="grid cols-3">
           {examples.items.map((e) => (
             <article key={e.slug} className="biz" style={{ padding: 0, overflow: "hidden" }}>
               <img src={e.photo} alt="" className="ex-photo" loading="lazy" />
               <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 8 }}>
-                <div className="biz-title"><h3 style={{ fontSize: 18 }}>{e.name}</h3>{examples.real ? <span className="verified">Geverifieerd</span> : <span className="badge" style={{ background: "var(--chip)", color: "var(--ink-2)", borderColor: "var(--line)" }}>Voorbeeld</span>}</div>
+                <div className="biz-title"><h3 style={{ fontSize: 18 }}>{e.name}</h3><span className="verified">Geverifieerd</span></div>
                 <div className="meta"><span>{e.city}</span><span>Werkgebied {e.area}</span></div>
                 <div className="chips">{e.services.map((s) => <span key={s} className="chip">{s}</span>)}</div>
                 <span className="srnote">{e.reviews}</span>
@@ -90,14 +80,14 @@ export default async function Home() {
             </article>
           ))}
         </div>
-      </section>
+      </section>}
 
       <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8 }}>
         <div className="map-card">
           <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={cities.map((c) => ({
             lat: c.lat, lng: c.lng, label: `${c.name}`, count: c.business_count, href: `/${c.province_slug}/${c.municipality_slug}/${c.slug}/`,
           }))} />
-          <div className="map-foot"><span>Het getal is het aantal {v.name_plural} binnen 30 km. Tik op een stad voor de lijst.</span></div>
+          <div className="map-foot"><span>Tik op een stad voor de {v.name_plural} daar</span></div>
         </div>
       </section>
 

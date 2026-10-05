@@ -31,7 +31,7 @@ export default async function Home() {
           </p>
           <form className="search" action="/zoeken/" method="get">
             <label htmlFor="zoek" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>Plaats of postcode</label>
-            <input id="zoek" name="q" type="text" placeholder="Plaats of postcode, bijvoorbeeld Zwolle" autoComplete="off" />
+            <input id="zoek" name="q" type="text" placeholder="Plaats of bedrijfsnaam, bijvoorbeeld Zwolle" autoComplete="off" />
             <button type="submit" className="btn btn-primary">Zoek {v.name_singular}</button>
           </form>
           {t.businesses > 0 ? (

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Map from "@/components/Map";
 import { initials } from "@/components/BusinessCard";
 import VerifiedBadge from "@/components/VerifiedBadge";
+import { getUser } from "@/lib/auth";
 import { getBusiness, getBusinessesNear, getReviews } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
@@ -29,7 +30,9 @@ export default async function BusinessPage({ params, searchParams }: Props) {
   const v = await currentVertical();
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();
-  const claimed = b.status !== "unclaimed";
+  const viewer = await getUser().catch(() => null);
+  const ownerPreview = b.status === "unclaimed" && !!viewer && ((b as unknown as { owner_user_id?: string | null }).owner_user_id === viewer.id || viewer.is_admin);
+  const claimed = b.status !== "unclaimed" || ownerPreview;
   const pro = b.status === "pro";
   const [reviews, others] = await Promise.all([getReviews(b.id), b.lat && b.lng ? getBusinessesNear(b.lat, b.lng, v.id, 30, 6) : Promise.resolve([])]);
   const nearby = others.filter((o) => o.id !== b.id).slice(0, 5);
@@ -54,6 +57,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
         <span>/</span><b>{b.name}</b>
       </nav>
 
+      {ownerPreview && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}><div><b>Voorbeeld: zo ziet je profiel eruit zodra het online staat.</b><br /><span style={{ color: "var(--ink-2)" }}>Bezoekers zien nu nog de basisvermelding. Na betaling wordt dit de publieke pagina.</span></div><a href={`/dashboard/${b.slug}/`} className="btn btn-primary">Terug naar het dashboard</a></div>}
       {review === "bevestigd" && <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)", marginTop: 8 }}><b>Bedankt, je review is bevestigd.</b> We plaatsen hem binnen een werkdag.</div>}
       {eigenaar && !claimed && (
         <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>

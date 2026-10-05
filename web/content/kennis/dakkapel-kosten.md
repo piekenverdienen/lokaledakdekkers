@@ -1,9 +1,12 @@
 ---
 title: Dakkapel kosten in 2026: prijs per meter, inclusief montage
-description: Een dakkapel kost in 2026 gemiddeld 6.500 tot 12.000 euro inclusief montage. Prijzen per breedte (2 tot 6 meter), per materiaal, de extra's en wanneer je een vergunning nodig hebt.
+description: Een dakkapel kost in 2026 tussen 4.500 en 15.000 euro, afhankelijk van breedte, prefab of maatwerk en vergunning. Alle prijzen per type en wat erbij komt.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kosten
+image: /img/kennis/dakkapel-kosten.webp
+image_alt: Dakdekker Bart Veldhuis meet een nieuwe prefab dakkapel op het pannendak van een jaren-30 woning, met een kraan op de achtergrond
+image_title: Dakkapel plaatsen: opmeten op het dak
 illustration: dakkapel
 keywords: dakkapel kosten, kosten dakkapel, dakkapel plaatsen kosten, kosten dakkapel 3 meter inclusief montage, prefab dakkapel kosten
 related: wat-kost-een-dakdekker, dak-isoleren-kosten, betrouwbare-dakdekker-kiezen, dakpannen-vervangen-kosten

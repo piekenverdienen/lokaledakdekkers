@@ -1,9 +1,12 @@
 ---
 title: Plat dak vervangen: kosten per m2 in 2026 (bitumen, EPDM, PVC)
-description: Een plat dak vervangen kost in 2026 gemiddeld 45 tot 105 euro per m2, afhankelijk van bitumen, EPDM of PVC. Rekenvoorbeelden voor 20, 40 en 60 m2, isolatie meenemen en wanneer overlagen kan.
+description: Een plat dak vervangen kost in 2026 zo'n 50 tot 120 euro per m2, inclusief isolatie meer. Richtprijzen voor EPDM en bitumen, en wanneer repareren nog kan.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kosten
+image: /img/kennis/plat-dak-vervangen-kosten.webp
+image_alt: Dakdekker Bart Veldhuis rolt nieuwe EPDM-dakbedekking uit op het platte dak van een aanbouw, het oude bitumen ligt naast hem
+image_title: Plat dak vervangen: nieuwe EPDM over een aanbouw
 illustration: platdak
 keywords: plat dak vervangen kosten per m2, kosten plat dak vervangen, dakbedekking kosten per m2, plat dak isoleren kosten
 related: epdm-dakbedekking, bitumen-dakbedekking, dakbedekking-plat-dak, dak-isoleren-kosten

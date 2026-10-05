@@ -1,9 +1,12 @@
 ---
 title: Dakbedekking voor een plat dak: welke kies je? Bitumen, EPDM, PVC en groendak vergeleken
-description: Keuzehulp voor dakbedekking op een plat dak. Bitumen, EPDM, PVC en sedum vergeleken op prijs per m2 in 2026, levensduur, naden, brandveiligheid en geschiktheid voor zonnepanelen of dakterras.
+description: EPDM, bitumen of PVC voor je platte dak? Vergelijk prijs per m2, levensduur en onderhoud in 2026, en lees welke dakbedekking bij jouw dak past.
 date: 2026-10-05
 updated: 2026-10-05
 category: Dakbedekking
+image: /img/kennis/dakbedekking-plat-dak.webp
+image_alt: Dakdekker Bart Veldhuis laat een bewoner twee stalen zien, zwart EPDM en grijs bitumen, op het platte dak van een garage
+image_title: EPDM of bitumen: dakdekker laat stalen zien
 illustration: dakbedekking
 keywords: dakbedekking, dakbedekking plat dak, pvc dakbedekking, sedum dakbedekking, groen dak
 related: epdm-dakbedekking, bitumen-dakbedekking, plat-dak-vervangen-kosten, dak-isoleren-kosten

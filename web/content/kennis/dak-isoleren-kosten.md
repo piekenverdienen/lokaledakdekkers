@@ -1,9 +1,12 @@
 ---
 title: Dak isoleren: kosten per m2, subsidie 2026 en binnen of buiten isoleren
-description: Dak isoleren kost in 2026 20 tot 100 euro per m2, afhankelijk van schuin of plat dak en binnen- of buitenisolatie. De ISDE-subsidie betaalt 16,25 tot 32,50 euro per m2 terug. Wat het oplevert en hoe je het aanpakt.
+description: Dak isoleren kost in 2026 zo'n 40 tot 90 euro per m2 en levert tot 16,25 euro per m2 ISDE-subsidie op. Prijzen per methode, terugverdientijd en subsidie.
 date: 2026-10-05
 updated: 2026-10-05
 category: Isolatie
+image: /img/kennis/dak-isoleren-kosten.webp
+image_alt: Dakdekker Bart Veldhuis plaatst isolatieplaten tussen de spanten van een hellend dak vanaf de zolder, met dampremmende folie en werklamp
+image_title: Dak isoleren van binnenuit tussen de spanten
 illustration: isolatie
 keywords: dak isoleren, dak isolatie, schuin dak isoleren, plat dak isoleren, dak isoleren van binnenuit, subsidie dakisolatie 2026
 related: plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, dakbedekking-plat-dak, wat-kost-een-dakdekker

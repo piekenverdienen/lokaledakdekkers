@@ -1,9 +1,12 @@
 ---
 title: Een betrouwbare dakdekker kiezen: 9 controles voordat je tekent
-description: Waar let je op bij het kiezen van een dakdekker? Negen controles in tien minuten: KvK en startdatum, keurmerken, offerte per regel, garantie op papier, referenties, betaling, en hoe je dakdekkers aan de deur herkent.
+description: Negen controles voor een betrouwbare dakdekker: KvK, verzekering, referenties, offerte met vaste prijs, nooit vooraf betalen. Zo herken je oplichters aan de deur.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kiezen
+image: /img/kennis/betrouwbare-dakdekker-kiezen.webp
+image_alt: Dakdekker Bart Veldhuis geeft een bewoner een hand bij de voordeur, met de getekende offerte onder zijn arm en zijn bus op de oprit
+image_title: Afspraak met een betrouwbare dakdekker
 illustration: betrouwbaar
 keywords: betrouwbare dakdekker, dakdekker kiezen, dakdekker oplichting, dakdekker aan de deur, dakdekker keurmerk, dakdekker garantie
 related: wat-kost-een-dakdekker, dakinspectie, dakkapel-kosten, daklekkage

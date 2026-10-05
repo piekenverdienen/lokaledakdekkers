@@ -1,9 +1,12 @@
 ---
 title: Wat kost een dakdekker in 2026? Uurtarief, prijs per m2 en voorbeeldoffertes
-description: Een dakdekker rekent in 2026 gemiddeld 45 tot 75 euro per uur, of een prijs per m2 die afhangt van het dak. Alle richtprijzen op een rij, plus hoe je een offerte leest.
+description: Een dakdekker kost in 2026 gemiddeld 45 tot 75 euro per uur. Richtprijzen per m2 voor pannendak, plat dak, dakkapel en reparaties, en hoe je een offerte leest.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kosten
+image: /img/kennis/wat-kost-een-dakdekker.webp
+image_alt: Dakdekker Bart Veldhuis legt vanaf een ladder bij de dakgoot een offerte uit aan twee bewoners van een rijtjeshuis
+image_title: Dakdekker bespreekt de offerte bij een rijtjeshuis
 illustration: kosten
 keywords: wat kost een dakdekker, dakdekker kosten, dakdekker uurtarief, dakdekker prijs per m2
 related: plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, betrouwbare-dakdekker-kiezen, dakkapel-kosten

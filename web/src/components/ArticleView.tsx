@@ -6,7 +6,7 @@ import { faqSchema, breadcrumbSchema } from "@/lib/site";
 export function ArticleCard({ a }: { a: Article }) {
   return (
     <a href={`/kennis/${a.slug}/`} className="card card-link art-card">
-      <div className="art-thumb"><Illustration kind={a.illustration} /></div>
+      <div className="art-thumb">{a.image ? <img src={a.image.replace(".webp", "-sm.webp")} alt={a.imageAlt} title={a.imageTitle} loading="lazy" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block" }} /> : <Illustration kind={a.illustration} />}</div>
       <small style={{ color: "var(--blue)", fontWeight: 600 }}>{a.category}</small>
       <b>{a.title}</b>
       <small>{a.readMinutes} min lezen</small>
@@ -17,7 +17,7 @@ export function ArticleCard({ a }: { a: Article }) {
 export default function ArticleView({ a, v, base, canonical, related }: { a: Article; v: Vertical; base: string; canonical: string; related: Article[] }) {
   const schema = [
     {
-      "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.description,
+      "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.description, image: a.image ? [`${base}${a.image}`] : undefined,
       datePublished: a.date, dateModified: a.updated, inLanguage: "nl-NL",
       author: { "@type": "Organization", name: v.brand, url: base }, publisher: { "@type": "Organization", name: v.brand, url: base },
       mainEntityOfPage: `${base}${canonical}`, keywords: a.keywords.join(", "),
@@ -35,7 +35,9 @@ export default function ArticleView({ a, v, base, canonical, related }: { a: Art
           <h1>{a.title}</h1>
           <p className="lede">{a.description}</p>
           <div className="meta"><span>Bijgewerkt {new Date(a.updated).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}</span><span>{a.readMinutes} min lezen</span><span>Richtprijzen 2026, bronnen onderaan</span></div>
-          <div style={{ margin: "8px 0 4px" }}><Illustration kind={a.illustration} /></div>
+          {a.image ? (
+            <figure style={{ margin: "8px 0 4px" }}><img src={a.image} srcSet={`${a.image.replace(".webp", "-sm.webp")} 800w, ${a.image} 1600w`} sizes="(max-width: 760px) 100vw, 760px" alt={a.imageAlt} title={a.imageTitle} loading="eager" style={{ width: "100%", borderRadius: 16, display: "block" }} /></figure>
+          ) : <div style={{ margin: "8px 0 4px" }}><Illustration kind={a.illustration} /></div>}
           {a.toc.length > 2 && (
             <nav className="toc" aria-label="Inhoud"><b>In dit artikel</b><ol>{a.toc.map((t) => <li key={t.id}><a href={`#${t.id}`}>{t.text}</a></li>)}</ol></nav>
           )}

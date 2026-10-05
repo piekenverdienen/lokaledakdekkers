@@ -1,9 +1,12 @@
 ---
 title: Dakinspectie: wat het is, wat het kost en wanneer je er een laat doen
-description: Een dakinspectie kost in 2026 150 tot 400 euro en levert een rapport met foto's op waarmee je gericht offertes aanvraagt. Wanneer het zinvol is, wat er gecontroleerd wordt en hoe je een onafhankelijke inspecteur herkent.
+description: Een dakinspectie kost in 2026 meestal 100 tot 250 euro en voorkomt dure lekkage. Wat de dakdekker controleert, hoe vaak het nodig is en wat het rapport zegt.
 date: 2026-10-05
 updated: 2026-10-05
 category: Onderhoud
+image: /img/kennis/dakinspectie.webp
+image_alt: Dakdekker Bart Veldhuis controleert gehurkt naast de schoorsteen het loodwerk van een pannendak, met herfstbladeren in de goot
+image_title: Dakinspectie: loodwerk rond de schoorsteen controleren
 illustration: inspectie
 keywords: dakinspectie, dakinspectie kosten, onafhankelijke dakinspectie, dak onderhoud
 related: daklekkage, dakpannen-vervangen-kosten, plat-dak-vervangen-kosten, betrouwbare-dakdekker-kiezen

@@ -1,9 +1,12 @@
 ---
 title: Daklekkage: oorzaken, zelf opsporen, repareren en wat het kost in 2026
-description: Daklekkage komt meestal van een losse pan, een open naad of een verstopte afvoer, niet van een versleten dak. Hoe je de bron vindt, wat je zelf doet tot de dakdekker komt, wat een reparatie kost en wat de verzekering vergoedt.
+description: Daklekkage? Zo vind je de oorzaak, wat je zelf tijdelijk doet en wat reparatie in 2026 kost: meestal 150 tot 600 euro. Plus wanneer je direct moet bellen.
 date: 2026-10-05
 updated: 2026-10-05
 category: Reparatie
+image: /img/kennis/daklekkage.webp
+image_alt: Dakdekker Bart Veldhuis bekijkt met een zaklamp een vochtplek op het dakbeschot bij de schoorsteen op zolder, de bewoner kijkt mee
+image_title: Daklekkage opsporen op zolder bij de schoorsteen
 illustration: lekkage
 keywords: lekkage dak, dak lekkage, daklekkage repareren kosten, lekkage plat dak, lekkage dak verzekering, dak lekkage opsporen
 related: dakinspectie, wat-kost-een-dakdekker, bitumen-dakbedekking, betrouwbare-dakdekker-kiezen

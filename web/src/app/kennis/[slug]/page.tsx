@@ -11,7 +11,7 @@ const canonicalFor = (slug: string, single: string) => slug === "betrouwbare-dak
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params; const a = getArticle(slug); const v = await currentVertical();
   if (!a) return {};
-  return { title: a.title, description: a.description, alternates: { canonical: canonicalFor(slug, v.name_singular) }, openGraph: { title: a.title, description: a.description, type: "article", publishedTime: a.date, modifiedTime: a.updated } };
+  return { title: a.title, description: a.description, alternates: { canonical: canonicalFor(slug, v.name_singular) }, openGraph: { title: a.title, description: a.description, type: "article", publishedTime: a.date, modifiedTime: a.updated, images: a.image ? [{ url: a.image, alt: a.imageAlt }] : undefined } };
 }
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params; const a = getArticle(slug); const v = await currentVertical();

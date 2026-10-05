@@ -1,9 +1,12 @@
 ---
 title: Dakpannen vervangen of een nieuw dak: kosten per m2 in 2026
-description: Dakpannen vervangen kost in 2026 gemiddeld 75 tot 150 euro per m2. Verschil tussen betonnen en keramische pannen, wanneer ook het dakbeschot en de isolatie mee moeten, en rekenvoorbeelden voor 60 en 100 m2.
+description: Dakpannen vervangen kost in 2026 ongeveer 45 tot 110 euro per m2 inclusief arbeid. Prijzen per soort pan, wanneer vervangen nodig is en hoe je bespaart.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kosten
+image: /img/kennis/dakpannen-vervangen-kosten.webp
+image_alt: Handen van dakdekker Bart Veldhuis die een gebarsten, bemoste betonpan vervangen door een nieuwe keramische dakpan
+image_title: Dakpannen vervangen: oude pan eruit, nieuwe erin
 illustration: pannendak
 keywords: dakpannen vervangen kosten, kosten nieuw dak, dak vervangen kosten, nieuw dak kosten, dakpannen vervangen en isoleren kosten
 related: wat-kost-een-dakdekker, dak-isoleren-kosten, dakinspectie, betrouwbare-dakdekker-kiezen

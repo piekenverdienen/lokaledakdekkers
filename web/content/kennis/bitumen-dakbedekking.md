@@ -1,9 +1,12 @@
 ---
 title: Bitumen dakbedekking: kosten, levensduur en wanneer je het (niet) kiest
-description: Bitumen is de goedkoopste dakbedekking voor een plat dak: 45 tot 70 euro per m2 gelegd in 2026, levensduur 20 tot 30 jaar. Soorten bitumen, overlagen of vervangen, onderhoud en het verschil met EPDM.
+description: Bitumen dakbedekking kost in 2026 ongeveer 30 tot 70 euro per m2 gelegd en gaat 20 tot 25 jaar mee. Prijzen, levensduur en het verschil met EPDM.
 date: 2026-10-05
 updated: 2026-10-05
 category: Dakbedekking
+image: /img/kennis/bitumen-dakbedekking.webp
+image_alt: Dakdekker Bart Veldhuis brandt een rol bitumen dakbedekking vast met een gasbrander, veiligheidsbril op en een brandblusser binnen handbereik
+image_title: Bitumen dakbedekking branden op een plat dak
 illustration: bitumen
 keywords: bitumen dakbedekking, bitumen dak, bitumineuze dakbedekking, bitumen dak vervangen kosten
 related: epdm-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, daklekkage

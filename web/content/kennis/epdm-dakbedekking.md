@@ -1,9 +1,12 @@
 ---
 title: EPDM dakbedekking: kosten, levensduur, voor- en nadelen (2026)
-description: EPDM is rubberfolie voor platte daken die 30 tot 50 jaar meegaat en in 2026 55 tot 85 euro per m2 kost, gelegd. Wanneer EPDM de beste keuze is, wat het verschil met bitumen is en waar je bij het leggen op let.
+description: EPDM-dakbedekking kost in 2026 zo'n 35 tot 80 euro per m2 gelegd en gaat 40 jaar mee. Voordelen, nadelen, prijzen en of je het zelf kunt leggen.
 date: 2026-10-05
 updated: 2026-10-05
 category: Dakbedekking
+image: /img/kennis/epdm-dakbedekking.webp
+image_alt: Dakdekker Bart Veldhuis drukt een rol EPDM-rubber aan op een geïsoleerd plat dak, met lijm en aandrukrol naast hem
+image_title: EPDM-dakbedekking aanbrengen op een geïsoleerd dak
 illustration: epdm
 keywords: epdm dakbedekking, epdm dak, epdm folie, epdm dakbedekking kosten
 related: bitumen-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, dak-isoleren-kosten

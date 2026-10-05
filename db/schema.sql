@@ -280,3 +280,7 @@ create table if not exists payments (
   consumer_name   text,
   created_at      timestamptz not null default now()
 );
+
+alter table businesses add column if not exists website_source text;
+alter table businesses add column if not exists website_checked_at timestamptz;
+create index if not exists businesses_website_check_idx on businesses (website_checked_at) where website is null;

@@ -79,6 +79,7 @@ Plaatspagina's met minder dan 3 bedrijven binnen 30 km krijgen automatisch noind
     MAIL_FROM           bijv. "Lokale Dakdekkers <noreply@mail.lokaledakdekkers.nl>"
     OVERHEID_IO_KEY     overheid.io (OpenKvK v3), voor de import van alle bedrijven met de SBI-codes van de vertical (staat)
     FORCE_KVK_IMPORT    zet op 1 om de KvK-import opnieuw te draaien bij de volgende start; daarna weer weghalen
+    SERPER_API_KEY      serper.dev, voor de websitezoeker (scripts/find-websites.mjs) die per bedrijf de eigen site zoekt en controleert
     ANTHROPIC_API_KEY   Paul: voor profiel-uit-URL (Claude Haiku); zonder sleutel valt de bouwer terug op meta-description en foto's
     EXTRACT_MODEL       optioneel, standaard claude-haiku-4-5
     MOLLIE_API_KEY      Paul: test_... voor testen, live_... na activatie; zonder sleutel is de betaalknop uitgeschakeld

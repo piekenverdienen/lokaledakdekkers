@@ -261,3 +261,6 @@ create or replace view indexable_places as
 select ps.*, p.slug, p.name
 from place_stats ps join places p on p.id = ps.place_id
 where ps.business_count >= 3;
+
+alter table businesses add column if not exists kvk_slug text;
+alter table businesses add column if not exists kvk_checked_at timestamptz;

@@ -19,4 +19,4 @@ COPY web/data ./data
 COPY web/content ./content
 COPY db ./db
 EXPOSE 3000
-CMD ["sh", "-c", "node scripts/migrate.mjs && (node scripts/import-kvk.mjs &) && node server.js"]
+CMD ["sh", "-c", "node scripts/migrate.mjs && (node scripts/import-kvk.mjs && node scripts/enrich-kvk.mjs &) && node server.js"]

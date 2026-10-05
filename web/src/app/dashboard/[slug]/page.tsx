@@ -42,8 +42,8 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   if (!user.is_admin && owner[0]?.owner_user_id !== user.id) redirect("/dashboard/");
   const photos = await q<{ id: string; url: string }>("select id, url from business_photos where business_id=$1 order by sort_order", [b.id]);
   const maxPhotos = b.status === "pro" ? 30 : 6;
-  const aanvragen = await q<{ id: string; name: string; phone: string; email: string | null; service_slug: string | null; description: string | null; wanted_when: string | null; address: string | null; size_m2: number | null; roof_type: string | null; contact_pref: string | null; photo_urls: string[]; created_at: string }>(`
-    select l.id, r.name, r.phone, r.email, r.service_slug, r.description, r.wanted_when, r.address, r.size_m2, r.roof_type, r.contact_pref, r.photo_urls, r.created_at::text
+  const aanvragen = await q<{ id: string; status: string; viewed_at: string | null; name: string; phone: string; email: string | null; service_slug: string | null; description: string | null; wanted_when: string | null; address: string | null; size_m2: number | null; roof_type: string | null; contact_pref: string | null; photo_urls: string[]; created_at: string }>(`
+    select l.id, l.status, l.viewed_at::text, r.name, r.phone, r.email, r.service_slug, r.description, r.wanted_when, r.address, r.size_m2, r.roof_type, r.contact_pref, r.photo_urls, r.created_at::text
     from leads l join lead_requests r on r.id=l.request_id where l.business_id=$1 order by r.created_at desc limit 50`, [b.id]);
   const WHEN: Record<string, string> = { spoed: "Spoed", "2weken": "Binnen 2 weken", "3maanden": "Binnen 3 maanden", orienterend: "Oriënterend" };
   const areas = await q<{ name: string }>("select p.name from business_areas a join places p on p.id=a.place_id where a.business_id=$1 order by p.name", [b.id]);
@@ -122,11 +122,13 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             <h2 style={{ fontSize: 18 }}>Offerteaanvragen ({aanvragen.length})</h2>
             {aanvragen.length === 0 && <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Nog geen aanvragen. Zodra je profiel online staat, kunnen bezoekers hier rechtstreeks een offerte aanvragen; die komt per mail binnen en staat ook hier.</p>}
             {aanvragen.map((a) => (
-              <div key={a.id} className="review" style={{ gap: 4 }}>
-                <div className="meta"><b>{a.name}</b><span>{a.created_at.slice(0, 10)}</span>{a.wanted_when && <span className={a.wanted_when === "spoed" ? "badge badge-spoed" : ""}>{WHEN[a.wanted_when] ?? a.wanted_when}</span>}{a.service_slug && <span>{v.services.find((s) => s.slug === a.service_slug)?.name ?? a.service_slug}</span>}{a.size_m2 && <span>ca. {a.size_m2} m2</span>}</div>
-                <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>{a.description}</p>
-                <div className="meta" style={{ fontSize: 14 }}><span>{a.address}</span><a href={`tel:${a.phone.replace(/\s/g, "")}`}>{a.phone}</a>{a.email && <a href={`mailto:${a.email}`}>{a.email}</a>}{a.contact_pref && <span>liefst {a.contact_pref}</span>}{a.photo_urls?.length > 0 && <span>{a.photo_urls.length} foto's: {a.photo_urls.map((u, i) => <a key={u} href={u} target="_blank" rel="noopener" style={{ marginRight: 6 }}>{i + 1}</a>)}</span>}</div>
-              </div>
+              <a key={a.id} href={`/dashboard/${slug}/aanvraag/${a.id}/`} className="card card-link" style={{ padding: "12px 14px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 10, borderColor: a.viewed_at ? "var(--line)" : "var(--amber)" }}>
+                <span>
+                  <b>{a.name}</b>{!a.viewed_at && <span className="badge" style={{ marginLeft: 8, background: "var(--amber-bg)", color: "var(--amber-ink)", borderColor: "var(--amber)" }}>Nieuw</span>}{a.wanted_when === "spoed" && <span className="badge badge-spoed" style={{ marginLeft: 8 }}>Spoed</span>}<br />
+                  <small>{v.services.find((s) => s.slug === a.service_slug)?.name ?? "Onbekend"}{a.size_m2 ? `, ca. ${a.size_m2} m2` : ""}{a.address ? `, ${a.address.split(",").pop()?.trim()}` : ""}, {new Date(a.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short" })}</small>
+                </span>
+                <span className="pill" style={{ fontSize: 13 }}>{({ new: "Nieuw", contacted: "Contact gehad", quoted: "Offerte gestuurd", won: "Opdracht", lost: "Niet doorgegaan" } as Record<string, string>)[a.status] ?? a.status}</span>
+              </a>
             ))}
           </section>
 

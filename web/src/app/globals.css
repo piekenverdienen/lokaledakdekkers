@@ -27,7 +27,7 @@ p { margin: 0; }
 .btn-amber { background: var(--amber-light); color: var(--ink); font-weight: 700; }
 .btn-outline { background: var(--surface); color: var(--blue); border: 1.5px solid var(--blue); }
 .btn-ghost { background: transparent; color: var(--blue); padding: 12px 8px; }
-.crumbs { font-size: 14px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0 12px; }
+.crumbs { font-size: 14px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 8px; padding-top: 20px; padding-bottom: 12px; }
 .crumbs a { text-decoration: none; }
 .crumbs b { color: var(--ink); }
 .lede { font-size: 17px; color: var(--ink-2); max-width: 720px; }
@@ -45,7 +45,7 @@ p { margin: 0; }
 .card-link { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 4px; }
 .card-link b { font-size: 17px; }
 .card-link small { color: var(--ink-3); font-size: 14px; }
-.layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding: 24px 0 48px; }
+.layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding-top: 24px; padding-bottom: 48px; }
 .main { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
 .aside { flex: 1 1 320px; min-width: 0; max-width: 380px; display: flex; flex-direction: column; gap: 16px; }
 .biz { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px; }
@@ -82,7 +82,7 @@ p { margin: 0; }
 .faq details { border-bottom: 1px solid var(--line); padding: 12px 0; }
 .faq summary { font-weight: 600; font-size: 17px; cursor: pointer; }
 .faq p { margin-top: 8px; color: var(--ink-2); }
-.footer { padding: 32px 0; color: var(--ink-3); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+.footer { padding-top: 32px; padding-bottom: 32px; color: var(--ink-3); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
 .footer div { display: flex; gap: 20px; }
 .hero { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding: 56px 0 40px; }
 .hero > div { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
@@ -119,7 +119,7 @@ p { margin: 0; }
   .menu[open] .navlinks { display: flex; flex-direction: column; align-items: stretch; gap: 0; position: absolute; left: 0; right: 0; top: 100%; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 16px; z-index: 20; }
   .menu[open] .navlinks a { padding: 12px 4px; border-bottom: 1px solid var(--line); min-height: 48px; display: flex; align-items: center; }
   .menu[open] .navlinks a.btn { border: 0; justify-content: center; margin-top: 12px; }
-  .hero { padding: 28px 0 24px; gap: 24px; }
+  .hero { padding-top: 28px; padding-bottom: 24px; gap: 24px; }
   .hero > div { gap: 16px; }
   .lede { font-size: 16px; }
   .hero .lede { font-size: 17px; }
@@ -138,10 +138,10 @@ p { margin: 0; }
   .biz { padding: 18px 16px; }
   .biz-title h2 { font-size: 18px; }
   .actions .btn-primary, .actions .btn-green, .actions .btn-outline { flex: 1 1 140px; justify-content: center; }
-  .footer { flex-direction: column; gap: 10px; padding: 24px 0 32px; }
+  .footer { flex-direction: column; gap: 10px; padding-top: 24px; padding-bottom: 32px; }
   .footer div { flex-direction: column; gap: 0; }
   .footer div a { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
-  .crumbs { padding: 14px 0 8px; }
+  .crumbs { padding-top: 14px; padding-bottom: 8px; }
 }
 .header { position: relative; }
 .menu { position: static; }
@@ -207,7 +207,7 @@ p { margin: 0; }
 .ex-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
 .hero h1 { font-size: clamp(28px, 4.6vw, 50px); }
 @media (max-width: 760px) {
-  .hero { padding: 20px 0 20px; }
+  .hero { padding-top: 20px; padding-bottom: 20px; }
   .hero > div { gap: 14px; }
   .hero h1 { font-size: 28px; line-height: 1.12; }
   .hero .lede { font-size: 16px; }

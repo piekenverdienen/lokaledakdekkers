@@ -8,6 +8,8 @@ export async function POST(req: Request) {
   const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   // alleen mailen als dit adres een bedrijf of account heeft; anders stil dezelfde melding tonen
+  const admin = (process.env.ADMIN_EMAIL ?? "").toLowerCase();
+  if (admin && email === admin) await one("insert into users (email, is_admin) values ($1, true) on conflict (email) do update set is_admin=true", [email]);
   const known = await one("select 1 from users where email=$1 union select 1 from businesses where owner_user_id is not null and email=$1", [email]);
   if (known && email.includes("@")) {
     const token = await createMagicLink(email, "login");

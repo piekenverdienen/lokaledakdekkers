@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CookieNotice from "@/components/CookieNotice";
 import { currentVertical, cap } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <a href="/kennis/">Kennis</a>
           </div>
         </footer>
+        <CookieNotice />
       </body>
     </html>
   );

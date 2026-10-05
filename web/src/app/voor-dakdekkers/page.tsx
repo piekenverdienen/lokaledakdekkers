@@ -79,7 +79,7 @@ export default async function VoorDakdekkers() {
           <p>{stats?.verified ? `${stats.verified} ${v.name_plural} gingen je voor.` : `Wees de eerste geverifieerde ${v.name_singular} in jouw regio.`} Zoek je bedrijf en claim het.</p>
           <div className="actions"><a href="/claim/" className="btn btn-amber">Claim je profiel</a><a href="/corrigeren/" className="btn btn-ghost" style={{ color: "#fff" }}>Alleen gegevens corrigeren</a></div>
         </div>
-        <div style={{ flex: "1 1 360px" }}><img src="/img/epdm-platdak-sm.webp" alt="Dakdekkers leggen EPDM op een plat dak" style={{ width: "100%", borderRadius: 16, display: "block" }} loading="lazy" /></div>
+        <div style={{ flex: "1 1 360px" }}><img src="/img/kennis/epdm-dakbedekking-sm.webp" alt="Dakdekker Bart Veldhuis brengt EPDM-dakbedekking aan op een plat dak" title="EPDM leggen op een plat dak" style={{ width: "100%", borderRadius: 16, display: "block" }} loading="lazy" /></div>
       </div></section>
     </main>
   );

@@ -57,7 +57,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="hero-photo">
-          <img src="/img/hero-pannendak.webp" srcSet="/img/hero-pannendak-sm.webp 720w, /img/hero-pannendak.webp 1344w" sizes="(max-width: 760px) 100vw, 560px" alt={`${cap(v.name_singular)} legt dakpannen op een rijtjeshuis in een Nederlandse woonwijk`} loading="eager" />
+          <img src="/img/hero-bart.webp" srcSet="/img/hero-bart-sm.webp 720w, /img/hero-bart.webp 1600w" sizes="(max-width: 760px) 100vw, 560px" alt="Dakdekker Bart Veldhuis legt nieuwe dakpannen op het dak van een rijtjeshuis in een Nederlandse woonwijk" title="Dakdekker aan het werk op een pannendak" loading="eager" />
         </div>
       </section></div>
 

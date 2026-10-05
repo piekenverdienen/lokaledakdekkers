@@ -13,7 +13,7 @@ const norm = (s) => s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g
 async function search(q) {
   const r = await fetch("https://google.serper.dev/search", { method: "POST", headers: { "X-API-KEY": KEY, "Content-Type": "application/json" }, body: JSON.stringify({ q, gl: "nl", hl: "nl", num: 6 }) });
   if (r.status === 429) { await sleep(3000); return search(q); }
-  if (!r.ok) throw new Error(`serper ${r.status}`);
+  if (!r.ok) throw new Error(`serper ${r.status}: ${(await r.text()).slice(0, 120)}`);
   return r.json();
 }
 async function pageText(url) {
@@ -34,7 +34,8 @@ let found = 0, done = 0, calls = 0;
 for (const b of rows) {
   let website = null, source = null;
   try {
-    const q = `"${b.name}" ${b.city ?? ""} dakdekker`;
+    const cleanName = b.name.replace(/["'`]/g, "").replace(/\s+/g, " ").trim();
+    const q = `"${cleanName}"${b.city ? ` ${b.city}` : ""} dakdekker`;
     const data = await search(q); calls++;
     const nameWords = norm(b.name).split(" ").filter((w) => w.length > 2);
     for (const hit of (data.organic ?? []).slice(0, 5)) {
@@ -50,7 +51,11 @@ for (const b of rows) {
       const kvkHit = b.kvk_number && text.replace(/\s/g, "").includes(b.kvk_number.replace(/^0+/, ""));
       if (kvkHit || textHits >= Math.min(2, nameWords.length) || (hostHit && textHits >= 1)) { website = `https://${host}`; source = kvkHit ? "serper_kvk" : "serper_naam"; break; }
     }
-  } catch (e) { console.error(`website-zoeker: ${b.name}: ${e.message}`); if (/serper 4/.test(e.message)) break; }
+  } catch (e) {
+    console.error(`website-zoeker: ${b.name}: ${e.message}`);
+    if (/serper (401|402|403)/.test(e.message)) break; // sleutel of credits: stoppen, later opnieuw
+    // andere fouten (400 op een rare naam, time-out): dit bedrijf overslaan en doorgaan
+  }
   await c.query("update businesses set website=$2, website_source=$3, website_checked_at=now() where id=$1", [b.id, website, source]);
   if (website) found++;
   done++;

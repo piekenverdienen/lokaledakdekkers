@@ -58,7 +58,8 @@ export function domainsMatch(email: string, website: string | null) {
 
 export async function sendMail(to: string, subject: string, html: string, text: string) {
   const key = process.env.RESEND_API_KEY;
-  const from = process.env.MAIL_FROM ?? "Lokale Dakdekkers <noreply@mail.lokaledakdekkers.nl>";
+  const raw = (process.env.MAIL_FROM ?? "").trim();
+  const from = /^[^<>]+<[^@\s<>]+@[^\s<>]+>$/.test(raw) || /^[^@\s<>]+@[^\s<>]+$/.test(raw) ? raw : "Lokale Dakdekkers <noreply@send.lokaledakdekkers.nl>";
   if (!key) {
     console.log(`[mail niet verzonden, geen RESEND_API_KEY] aan ${to}: ${subject}\n${text}`);
     return { ok: true, logged: true };

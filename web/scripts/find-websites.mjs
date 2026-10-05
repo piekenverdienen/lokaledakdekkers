@@ -28,7 +28,7 @@ async function pageText(url) {
 
 const c = new Client({ connectionString: process.env.DATABASE_URL });
 await c.connect();
-await c.query("update businesses set website_checked_at=null where website is null and website_checked_at between '2026-10-05 17:50+02' and '2026-10-05 19:30+02'");
+await c.query("update businesses set website_checked_at=null where website is null and website_checked_at between '2026-10-05 18:03+00' and '2026-10-05 18:13+00'");
 const rows = (await c.query("select id, name, city, kvk_number from businesses where source='kvk' and website is null and website_checked_at is null and status<>'hidden' order by (city is null), name limit $1", [LIMIT])).rows;
 console.log(`website-zoeker: ${rows.length} bedrijven te zoeken`);
 let found = 0, done = 0, calls = 0;

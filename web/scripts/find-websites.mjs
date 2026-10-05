@@ -28,6 +28,7 @@ async function pageText(url) {
 
 const c = new Client({ connectionString: process.env.DATABASE_URL });
 await c.connect();
+await c.query("update businesses set website_checked_at=null where website is null and website_checked_at between '2026-10-05 17:50+02' and '2026-10-05 19:30+02'");
 const rows = (await c.query("select id, name, city, kvk_number from businesses where source='kvk' and website is null and website_checked_at is null and status<>'hidden' order by (city is null), name limit $1", [LIMIT])).rows;
 console.log(`website-zoeker: ${rows.length} bedrijven te zoeken`);
 let found = 0, done = 0, calls = 0;
@@ -53,7 +54,7 @@ for (const b of rows) {
     }
   } catch (e) {
     console.error(`website-zoeker: ${b.name}: ${e.message}`);
-    if (/serper (401|402|403)/.test(e.message)) break; // sleutel of credits: stoppen, later opnieuw
+    if (/serper (401|402|403)/.test(e.message) || /Not enough credits/i.test(e.message)) { console.log("website-zoeker: gestopt (sleutel of credits), probeert later opnieuw"); break; }
     // andere fouten (400 op een rare naam, time-out): dit bedrijf overslaan en doorgaan
   }
   await c.query("update businesses set website=$2, website_source=$3, website_checked_at=now() where id=$1", [b.id, website, source]);

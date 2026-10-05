@@ -7,7 +7,7 @@ import { getBusiness, getBusinessesNear, getReviews } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
 export const revalidate = 86400;
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string; review?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BusinessPage({ params, searchParams }: Props) {
   const { slug } = await params;
-  const { eigenaar } = await searchParams;
+  const { eigenaar, review } = await searchParams;
   const v = await currentVertical();
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();
@@ -53,6 +53,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
         <span>/</span><b>{b.name}</b>
       </nav>
 
+      {review === "bevestigd" && <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)", marginTop: 8 }}><b>Bedankt, je review is bevestigd.</b> We plaatsen hem binnen een werkdag.</div>}
       {eigenaar && !claimed && (
         <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
           <div><b>Dit zien bezoekers over jouw bedrijf. Kloppen deze gegevens?</b><br /><span style={{ color: "var(--ink-2)" }}>Claim je profiel om het aan te vullen met logo, foto's en diensten. Verificatie via je website en e-mail, daarna 79,95 per jaar inclusief btw.</span></div>

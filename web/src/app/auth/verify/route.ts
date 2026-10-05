@@ -11,6 +11,16 @@ export async function GET(req: Request) {
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   const ml = await consumeMagicLink(token);
   if (!ml) return NextResponse.redirect(`${base}/dashboard/?fout=link`, 303);
+  if (ml.purpose === "review" && ml.payload.review_id) {
+    const r = await one<{ id: string; business_id: string; name: string; score: number; body: string }>("update reviews set email_verified_at=now() where id=$1 and email=$2 returning id, business_id, name, score, body", [ml.payload.review_id, ml.user_email]);
+    if (r) {
+      const bz = await one<{ name: string; slug: string }>("select name, slug from businesses where id=$1", [r.business_id]);
+      const { mailLayout, sendMail } = await import("@/lib/auth");
+      await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Review ter goedkeuring: ${bz?.name}`, mailLayout(v.brand, `Nieuwe review voor ${bz?.name}`, `<p>${r.score} sterren, door ${r.name}:</p><p>${r.body.replace(/</g, "&lt;")}</p><p>Goedkeuren: in de database reviews.status op published zetten (beheerscherm volgt).</p>`), `${r.score} sterren door ${r.name}: ${r.body}`);
+      return NextResponse.redirect(`${base}/bedrijf/${bz?.slug ?? ""}/?review=bevestigd`, 303);
+    }
+    return NextResponse.redirect(`${base}/?fout=link`, 303);
+  }
   const user = await upsertUser(ml.user_email);
   let target = `${base}/dashboard/`;
   if (ml.purpose === "claim" && ml.payload.business_id) {

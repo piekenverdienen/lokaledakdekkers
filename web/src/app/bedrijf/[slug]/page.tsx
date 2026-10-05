@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${b.name}, ${v.name_singular} in ${b.city ?? b.place_name ?? "Nederland"}`,
     description: claimed && b.description ? b.description.slice(0, 155) : `${b.name} is ${v.name_singular} in ${b.city ?? "Nederland"}. Contactgegevens, reviews en werkgebied op ${v.brand}.`,
     alternates: { canonical: businessPath(b) },
+    robots: b.source === "test" ? { index: false, follow: false } : undefined,
   };
 }
 

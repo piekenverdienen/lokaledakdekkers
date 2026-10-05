@@ -35,7 +35,7 @@ export type Business = {
   description: string | null; logo_url: string | null; usps: string[]; certifications: string[];
   founded_year: number | null; kvk_number: string | null; kvk_started: string | null;
   emergency: boolean; lat: number | null; lng: number | null; distance_km: number | null;
-  verified_at: string | null; kvk_checked_at: string | null; paid_until: string | null;
+  verified_at: string | null; kvk_checked_at: string | null; paid_until: string | null; source: string;
   avg_score: number | null; review_count: number; verified_reviews: number;
   services: string[]; place_name: string | null; place_slug: string | null;
   municipality_slug: string | null; province_slug: string | null;
@@ -50,7 +50,7 @@ export type Place = {
 const BUSINESS_SELECT = `
   b.id, b.name, b.slug, b.status, b.city, b.postcode, b.street, b.housenumber, b.phone, b.website, b.whatsapp, b.email,
   b.description, b.logo_url, b.usps, b.certifications, b.founded_year, b.kvk_number, b.kvk_started::text, b.emergency,
-  b.verified_at::text, b.kvk_checked_at::text, b.paid_until::text,
+  b.verified_at::text, b.kvk_checked_at::text, b.paid_until::text, b.source,
   st_y(b.geom) as lat, st_x(b.geom) as lng,
   (select round(avg(score)::numeric,1) from reviews r where r.business_id=b.id and r.status='published') as avg_score,
   (select count(*)::int from reviews r where r.business_id=b.id and r.status='published') as review_count,
@@ -176,5 +176,5 @@ export async function getAllMunicipalities() {
   return q<{ slug: string; province_slug: string }>(`select m.slug, pr.slug as province_slug from municipalities m join provinces pr on pr.id=m.province_id`);
 }
 export async function getPublicBusinessSlugs(verticalId: number) {
-  return q<{ slug: string; updated_at: string }>(`select slug, updated_at::text from businesses where vertical_id=$1 and status<>'hidden'`, [verticalId]);
+  return q<{ slug: string; updated_at: string }>(`select slug, updated_at::text from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'`, [verticalId]);
 }

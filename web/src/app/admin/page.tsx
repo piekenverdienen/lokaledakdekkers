@@ -23,7 +23,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
            (select count(*)::int from claims where method in ('correctie','verwijderverzoek') and verified_at is null) as verzoeken,
            (select count(*)::int from payments where status='paid' and paid_at > now() - interval '30 days') as betalingen,
            (select count(*)::int from businesses where vertical_id=$1 and status in ('claimed','pro')) as claims`, [v.id]))[0];
-  const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`]];
+  const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"]];
 
   const reviews = tab === "reviews" ? await q<{ id: string; name: string; score: number; body: string; service_slug: string | null; invoice_ref: string | null; created_at: string; business: string; slug: string }>(`
     select r.id, r.name, r.score, r.body, r.service_slug, r.invoice_ref, r.created_at::text, b.name as business, b.slug from reviews r join businesses b on b.id=r.business_id
@@ -70,6 +70,24 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
           {bedrijven.map((b) => (
             <Row key={b.id}><span><b><a href={`/bedrijf/${b.slug}/`}>{b.name}</a></b><br /><small>{b.city ?? ""}{b.kvk_number ? `, KvK ${b.kvk_number}` : ""}, {b.status}{b.website ? `, ${b.website.replace(/^https?:\/\//, "")}` : ""}</small></span>
               <div className="actions"><a href={`/dashboard/${b.slug}/`} className="btn btn-outline" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Bewerken</a>{b.status === "hidden" ? <Btn actie="bedrijf_toon" id={b.id} label="Weer tonen" /> : <Btn actie="bedrijf_verberg" id={b.id} label="Verbergen" />}</div></Row>
+          ))}
+        </>)}
+        {tab === "test" && (<>
+          <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <h3>Testbedrijf aanmaken</h3>
+            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Maak een bedrijf aan met een website waarvan jij een e-mailadres hebt. Daarmee doorloop je de hele claim-flow: inloglink, profiel bouwen uit de website, dashboard, betalen. Het testbedrijf staat niet in de sitemap en krijgt noindex. Daarna kun je het hier weer verwijderen.</p>
+            <form method="post" action="/admin/actie/" style={{ display: "grid", gap: 10, gridTemplateColumns: "1fr 1fr 1fr auto", alignItems: "end" }}>
+              <input type="hidden" name="actie" value="test_aanmaken" /><input type="hidden" name="id" value="-" />
+              <label style={{ fontSize: 14, fontWeight: 600 }}>Bedrijfsnaam<input name="naam" required placeholder="YourFellow Dakwerken" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 10, padding: "10px 12px", fontSize: 15, fontFamily: "inherit", boxSizing: "border-box" }} /></label>
+              <label style={{ fontSize: 14, fontWeight: 600 }}>Website<input name="website" required placeholder="yourfellow.nl" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 10, padding: "10px 12px", fontSize: 15, fontFamily: "inherit", boxSizing: "border-box" }} /></label>
+              <label style={{ fontSize: 14, fontWeight: 600 }}>Plaats<input name="plaats" required placeholder="Zwolle" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 10, padding: "10px 12px", fontSize: 15, fontFamily: "inherit", boxSizing: "border-box" }} /></label>
+              <button className="btn btn-primary" type="submit" style={{ minHeight: 44 }}>Aanmaken</button>
+            </form>
+            <span className="srnote">De bedrijfsnaam moet op de website voorkomen (de controle zoekt minstens twee woorden uit de naam, zonder woorden als B.V. of Dakwerken). "YourFellow" op yourfellow.nl werkt dus.</span>
+          </div>
+          {(await q<{ id: string; name: string; slug: string; city: string | null; status: string; website: string | null }>("select id, name, slug, city, status, website from businesses where vertical_id=$1 and source='test' order by created_at desc", [v.id])).map((b) => (
+            <Row key={b.id}><span><b><a href={`/bedrijf/${b.slug}/`}>{b.name}</a></b><br /><small>{b.city ?? ""}, {b.status}, {b.website}</small></span>
+              <div className="actions"><a href={`/claim/${b.slug}/`} className="btn btn-primary" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Claim-flow starten</a><a href={`/dashboard/${b.slug}/`} className="btn btn-outline" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Dashboard</a><Btn actie="test_verwijderen" id={b.id} label="Verwijderen" /></div></Row>
           ))}
         </>)}
         {tab === "claims" && (claims.length === 0 ? <div className="card">Nog geen geclaimde profielen.</div> : claims.map((b) => (

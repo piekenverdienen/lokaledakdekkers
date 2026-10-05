@@ -122,11 +122,11 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <label style={{ fontSize: 14, fontWeight: 600 }}>Plaats<input name="plaats" required placeholder="Zwolle" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 10, padding: "10px 12px", fontSize: 15, fontFamily: "inherit", boxSizing: "border-box" }} /></label>
               <button className="btn btn-primary" type="submit" style={{ minHeight: 44 }}>Aanmaken</button>
             </form>
-            <span className="srnote">De bedrijfsnaam moet op de website voorkomen (de controle zoekt minstens twee woorden uit de naam, zonder woorden als B.V. of Dakwerken). "YourFellow" op yourfellow.nl werkt dus.</span>
+            <span className="srnote">"Zet terug als aangemaakte pagina" maakt het testbedrijf weer niet-geclaimd, met een vooraf gebouwd profiel en jouw e-mailadres als bedrijfsadres. Zo test je de teaser: vraag een offerte aan op de pagina, ontvang de teaser-mail, claim, en zie de aanvraag gemaskeerd tot er betaald is. De bedrijfsnaam moet op de website voorkomen (de controle zoekt minstens twee woorden uit de naam, zonder woorden als B.V. of Dakwerken). "YourFellow" op yourfellow.nl werkt dus.</span>
           </div>
           {(await q<{ id: string; name: string; slug: string; city: string | null; status: string; website: string | null }>("select id, name, slug, city, status, website from businesses where vertical_id=$1 and source='test' order by created_at desc", [v.id])).map((b) => (
             <Row key={b.id}><span><b><a href={`/bedrijf/${b.slug}/`}>{b.name}</a></b><br /><small>{b.city ?? ""}, {b.status}, {b.website}</small></span>
-              <div className="actions"><a href={`/claim/${b.slug}/`} className="btn btn-primary" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Claim-flow starten</a><a href={`/dashboard/${b.slug}/`} className="btn btn-outline" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Dashboard</a><Btn actie="test_verwijderen" id={b.id} label="Verwijderen" /></div></Row>
+              <div className="actions"><Btn actie="test_reset" id={b.id} label="Zet terug als aangemaakte pagina" /><a href={`/claim/${b.slug}/`} className="btn btn-primary" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Claim-flow starten</a><a href={`/dashboard/${b.slug}/`} className="btn btn-outline" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Dashboard</a><Btn actie="test_verwijderen" id={b.id} label="Verwijderen" /></div></Row>
           ))}
         </>)}
         {tab === "claims" && (claims.length === 0 ? <div className="card">Nog geen geclaimde profielen.</div> : claims.map((b) => (

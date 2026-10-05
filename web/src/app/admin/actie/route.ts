@@ -23,6 +23,10 @@ export async function POST(req: Request) {
     }
     tab = "test";
   }
+  else if (actie === "test_reset") {
+    await q("update businesses set status='unclaimed', owner_user_id=null, paid_until=null, verified_at=null, profile_built_at=now(), outreach_email=$2, outreach_opt_out=false, description=coalesce(description, name || ' is een ' || 'dakdekkersbedrijf. Deze beschrijving is uit de website opgebouwd.'), updated_at=now() where id=$1 and source='test'", [id, user.email]);
+    await q("delete from outreach where business_id=$1", [id]); tab = "test";
+  }
   else if (actie === "test_verwijderen") { await q("delete from businesses where id=$1 and source='test'", [id]); tab = "test"; }
   else if (actie === "campagne") {
     const enabled = String(f.get("enabled") ?? "0") === "1" ? "1" : "0"; const perDay = String(parseInt(String(f.get("per_day") ?? "200"), 10) || 200);

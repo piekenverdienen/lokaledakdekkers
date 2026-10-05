@@ -100,3 +100,37 @@ controleert (1) of de bedrijfsnaam of het KvK-nummer op de site staat en (2) of 
 letterlijk op de site staat. Beide goed: magic link (30 minuten, eenmalig). Na de link is het bedrijf eigenaar, wordt het profiel
 direct uit de website gebouwd (lib/build.ts) en landt het in /dashboard/[slug]/ als concept. Betalen via /dashboard/[slug]/betaal/
 (Mollie) en de webhook /api/mollie/webhook/ zet status claimed, verified_at en paid_until. Pas dan is het profiel publiek met label.
+
+
+## Stand van zaken 5 oktober 2026, avond (ronde 6)
+
+Wat er sinds de ochtend bij is gekomen, in de volgorde waarin een developer het tegenkomt:
+
+- **Data**: 8.462 actieve dakdekkers (overheid.io, SBI 4391), geocoded en gekoppeld aan gemeente en plaats. Websites via de
+  websitezoeker (Serper + naamcontrole), nu 825; de zoeker hervat elke 6 uur vanzelf zodra er Serper-credits zijn.
+- **Profielen vooraf bouwen**: `/api/jobs/prebuild/` (via `scripts/worker.mjs`, 4 per minuut) bouwt uit de website een profiel
+  (Haiku) voor elk bedrijf met website; niet publiek, wel klaar. Bewaart ook `outreach_email` voor de campagne.
+- **Claim-flow**: website + e-mail, automatische verificatie (`lib/verify.ts`), inloglink, profiel direct gebouwd, dashboard met
+  potlood per blok, foto- en logo-upload (opslag in tabel `media`, webp, route `/media/[id]`), eigenaarsvoorbeeld van het profiel.
+- **Betalen**: Mollie (`/dashboard/[slug]/betaal/`, webhook `/api/mollie/webhook/`), 79,95 incl. btw, status claimed + paid_until,
+  factuur met nummer uit `invoice_seq` op `/factuur/[id]/` (printbaar), factuurmail. Verlengingsmail 30 dagen vooraf en terugval
+  naar basisvermelding 7 dagen na afloop via `/api/jobs/renewal/`. Verkopersgegevens via INVOICE_* env.
+- **Offertes**: formulier op elk profiel met eigenaar (`components/QuoteForm.tsx`, route `/offerte/[slug]/`), mail naar bedrijf,
+  aanvrager en beheerder; aanvragen met status in het dashboard (`/dashboard/[slug]/aanvraag/[id]/`).
+- **Reviews**: formulier, e-mailbevestiging, goedkeuring in beheer; label Geverifieerde klus.
+- **Campagne**: `/api/jobs/outreach/` stuurt de claim-mail (`lib/outreach.ts`) alleen als `settings.outreach_enabled=1`
+  (knop in beheer, tab Campagne), op werkdagen 8 tot 18 uur, max `outreach_per_day`, herinnering na 7 dagen, uitschrijven via
+  `/uitschrijven/[token]/`. Kliks worden geregistreerd via `?o=token` op het profiel.
+- **Beheer** (`/admin/`, ADMIN_EMAIL): reviews, correcties, betalingen, bedrijven verbergen, geverifieerd, testbedrijven,
+  campagne, bezoekers.
+- **Statistieken**: cookieloze teller (`components/Hit.tsx` naar `/api/hit/`), tabel `page_views`, per bedrijf `views_total`;
+  weekoverzichtsmail op maandag (`/api/jobs/weekly/`).
+- **Deelbaarheid**: deelafbeelding per bedrijf (`/og/[slug]/`, next/og met DejaVu uit public/fonts), deelblok in dashboard,
+  standaard `og-default.png` voor de rest. Kennisbank met vaste dakdekker Bart Veldhuis (Higgsfield-element
+  `0570cc62-3f7f-477c-93ed-cc3175832573`) op elke foto, alt en title in de frontmatter.
+- **Overig**: cookiemelding (alleen functionele cookies), honeypot `website2` op alle formulieren, limiet per IP op offertes,
+  healthcheck `/api/health/` voor deploys zonder onderbreking, testbedrijven (`source='test'`) noindex en buiten de sitemap.
+
+Jobs draaien binnen de container (`scripts/worker.mjs`) tegen de eigen server met een token afgeleid van SESSION_SECRET
+(`lib/jobs.ts`). Extra env sinds vandaag: MOLLIE_API_KEY, SERPER_API_KEY, PUBLIC_HOST, INVOICE_SELLER, INVOICE_ADDRESS,
+INVOICE_KVK, INVOICE_BTW, GOOGLE_SITE_VERIFICATION.

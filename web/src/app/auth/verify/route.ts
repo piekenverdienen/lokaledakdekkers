@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     if (r) {
       const bz = await one<{ name: string; slug: string }>("select name, slug from businesses where id=$1", [r.business_id]);
       const { mailLayout, sendMail } = await import("@/lib/auth");
-      await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Review ter goedkeuring: ${bz?.name}`, mailLayout(v.brand, `Nieuwe review voor ${bz?.name}`, `<p>${r.score} sterren, door ${r.name}:</p><p>${r.body.replace(/</g, "&lt;")}</p><p>Goedkeuren: in de database reviews.status op published zetten (beheerscherm volgt).</p>`), `${r.score} sterren door ${r.name}: ${r.body}`);
+      await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Review ter goedkeuring: ${bz?.name}`, mailLayout(v.brand, `Nieuwe review voor ${bz?.name}`, `<p>${r.score} sterren, door ${r.name}:</p><p>${r.body.replace(/</g, "&lt;")}</p><p><a href="${base}/admin/?tab=reviews">Beoordelen in het beheerscherm</a></p>`), `${r.score} sterren door ${r.name}: ${r.body}`);
       return NextResponse.redirect(`${base}/bedrijf/${bz?.slug ?? ""}/?review=bevestigd`, 303);
     }
     return NextResponse.redirect(`${base}/?fout=link`, 303);

@@ -29,7 +29,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     <main className="wrap" style={{ paddingTop: 32, paddingBottom: 64, maxWidth: 760 }}>
       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12, alignItems: "baseline" }}>
         <h1 style={{ fontSize: 30 }}>Jouw bedrijven</h1>
-        <span style={{ color: "var(--ink-3)", fontSize: 14 }}>{user.email} <a href="/uitloggen/">Uitloggen</a></span>
+        <span style={{ color: "var(--ink-3)", fontSize: 14 }}>{user.email} {user.is_admin && <a href="/admin/" style={{ fontWeight: 600 }}>Beheer</a>} <a href="/uitloggen/">Uitloggen</a></span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 20 }}>
         {mine.length === 0 && <div className="card">Je hebt nog geen bedrijf geclaimd. <a href="/claim/">Zoek je bedrijf</a>.</div>}

@@ -1,0 +1,16 @@
+// Achtergrondworker in de container: roept de jobs aan via de eigen server. Profielen bouwen, campagne, verlenging.
+import { createHash } from "node:crypto";
+const token = createHash("sha256").update("jobs:" + (process.env.SESSION_SECRET ?? "")).digest("hex").slice(0, 32);
+const base = "http://127.0.0.1:3000";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const call = async (path) => { try { const r = await fetch(`${base}${path}${path.includes("?") ? "&" : "?"}token=${token}`, { headers: { host: process.env.PUBLIC_HOST ?? "lokaledakdekkers.nl" } }); const j = await r.json().catch(() => ({})); return j; } catch (e) { return { error: String(e.message) }; } };
+await sleep(20000);
+let tick = 0;
+for (;;) {
+  tick++;
+  const pb = await call("/api/jobs/prebuild/?limit=4");
+  if (pb?.built || pb?.failed) console.log(`prebuild: ${pb.built} gebouwd, ${pb.failed} mislukt, ${pb.left} te gaan`);
+  if (tick % 5 === 0) { const o = await call("/api/jobs/outreach/"); if (o?.sent || o?.reminders) console.log(`campagne: ${o.sent} mails, ${o.reminders} herinneringen, vandaag ${o.sentToday} van ${o.perDay}`); }
+  if (tick % 60 === 1) { const r = await call("/api/jobs/renewal/"); if (r?.mailed || r?.expired) console.log(`verlenging: ${r.mailed} mails, ${r.expired} verlopen`); }
+  await sleep(pb?.left ? 45000 : 300000);
+}

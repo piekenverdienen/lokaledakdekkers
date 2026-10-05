@@ -3,9 +3,11 @@ import { getVertical, one, q } from "@/lib/db";
 import { mailLayout, sendMail } from "@/lib/auth";
 export async function POST(req: Request) {
   const f = await req.formData();
+  const bot = String(f.get("website2") ?? "").trim().length > 0;
   const slug = String(f.get("slug") ?? ""); const bericht = String(f.get("bericht") ?? "").slice(0, 2000); const email = String(f.get("email") ?? "").slice(0, 200);
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""; const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
+  if (bot) return NextResponse.redirect(`${base}/corrigeren/${slug}/?status=sent`, 303);
   const b = await one<{ id: string; name: string }>("select id, name from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
   if (b && bericht.trim()) {
     const verwijderen = f.get("verwijderen") === "on";

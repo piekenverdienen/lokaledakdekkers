@@ -31,7 +31,7 @@ export default async function ClaimBusiness({ params, searchParams }: { params: 
       {b.status !== "unclaimed" && <div className="card" style={{ marginTop: 24 }}>Dit profiel is al geclaimd. Ben jij de eigenaar? <a href="/dashboard/">Log in</a>.</div>}
       {b.status === "unclaimed" && sp.status !== "sent" && (
         <form method="post" action="/claim/start/" className="card" style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 14 }}>
-          <input type="hidden" name="slug" value={b.slug} />
+          <input type="hidden" name="slug" value={b.slug} /><input type="text" name="website2" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} aria-hidden="true" />
           <h2 style={{ fontSize: 20 }}>Claim je bedrijf in twee stappen</h2>
           <p style={{ color: "var(--ink-2)" }}>Vul je website en e-mailadres in. We controleren automatisch of de site van {b.name} is en sturen een inloglink. Daarna bouwen we je profiel uit je website; jij kijkt het na en zet het online.</p>
           <label style={{ fontWeight: 600 }}>Website<input name="website" type="text" required defaultValue={sp.website ?? b.website ?? ""} placeholder="www.jouwbedrijf.nl" style={input} /></label>

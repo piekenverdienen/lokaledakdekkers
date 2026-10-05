@@ -9,7 +9,7 @@ import { getBusiness, getBusinessesNear, getReviews, q } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
 export const revalidate = 86400;
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string; review?: string; offerte?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string; review?: string; offerte?: string; o?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BusinessPage({ params, searchParams }: Props) {
   const { slug } = await params;
-  const { eigenaar, review, offerte } = await searchParams;
+  const { eigenaar, review, offerte, o } = await searchParams;
+  if (o) await q("update outreach set clicked_at=coalesce(clicked_at, now()) where token=$1", [o]).catch(() => {});
   const v = await currentVertical();
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();

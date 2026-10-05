@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { q } from "@/lib/db";
+import { one, q } from "@/lib/db";
 import { getUser } from "@/lib/auth";
 import { currentVertical } from "@/lib/site";
 export const metadata: Metadata = { title: "Beheer", robots: { index: false, follow: false } };
@@ -23,7 +23,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
            (select count(*)::int from claims where method in ('correctie','verwijderverzoek') and verified_at is null) as verzoeken,
            (select count(*)::int from payments where status='paid' and paid_at > now() - interval '30 days') as betalingen,
            (select count(*)::int from businesses where vertical_id=$1 and status in ('claimed','pro')) as claims`, [v.id]))[0];
-  const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"]];
+  const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"], ["campagne", "Campagne"], ["stats", "Bezoekers"]];
 
   const reviews = tab === "reviews" ? await q<{ id: string; name: string; score: number; body: string; service_slug: string | null; invoice_ref: string | null; created_at: string; business: string; slug: string }>(`
     select r.id, r.name, r.score, r.body, r.service_slug, r.invoice_ref, r.created_at::text, b.name as business, b.slug from reviews r join businesses b on b.id=r.business_id
@@ -72,6 +72,41 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <div className="actions"><a href={`/dashboard/${b.slug}/`} className="btn btn-outline" style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>Bewerken</a>{b.status === "hidden" ? <Btn actie="bedrijf_toon" id={b.id} label="Weer tonen" /> : <Btn actie="bedrijf_verberg" id={b.id} label="Verbergen" />}</div></Row>
           ))}
         </>)}
+        {tab === "campagne" && (await (async () => {
+          const on = (await one<{ value: string }>("select value from settings where key='outreach_enabled'"))?.value === "1";
+          const perDay = (await one<{ value: string }>("select value from settings where key='outreach_per_day'"))?.value ?? "200";
+          const c = (await q<{ built: number; with_email: number; sent: number; reminded: number; clicked: number; claimed: number; optout: number; today: number }>(`
+            select (select count(*)::int from businesses where vertical_id=$1 and profile_built_at is not null) as built,
+                   (select count(*)::int from businesses where vertical_id=$1 and outreach_email is not null and profile_built_at is not null and status='unclaimed' and not outreach_opt_out) as with_email,
+                   (select count(*)::int from outreach) as sent, (select count(*)::int from outreach where reminder_at is not null) as reminded,
+                   (select count(*)::int from outreach where clicked_at is not null) as clicked,
+                   (select count(*)::int from outreach o join businesses b on b.id=o.business_id where b.owner_user_id is not null) as claimed,
+                   (select count(*)::int from businesses where outreach_opt_out) as optout,
+                   (select count(*)::int from outreach where sent_at::date=current_date or reminder_at::date=current_date) as today`, [v.id]))[0];
+          return (<>
+            <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h3>Claim-mailcampagne {on ? <span className="verified">Aan</span> : <span className="badge">Uit</span>}</h3>
+              <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Mails gaan alleen naar bedrijven met een vooraf gebouwd profiel en een e-mailadres van hun website, op werkdagen tussen 8 en 18 uur, maximaal het dagquotum. Na 7 dagen één herinnering. Uitschrijven kan met één klik.</p>
+              <div className="grid cols-4" style={{ gap: 10 }}>
+                {[["Profielen gebouwd", c.built], ["Klaar om te mailen", c.with_email], ["Verstuurd", c.sent], ["Herinnerd", c.reminded], ["Vandaag", c.today], ["Geclaimd na mail", c.claimed], ["Uitgeschreven", c.optout]].map(([k, val]) => <div key={String(k)} className="card" style={{ padding: "10px 12px" }}><b style={{ fontSize: 22, fontFamily: "Manrope, sans-serif" }}>{val}</b><br /><small>{k}</small></div>)}
+              </div>
+              <form method="post" action="/admin/actie/" style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+                <input type="hidden" name="actie" value="campagne" /><input type="hidden" name="id" value="-" />
+                <label style={{ fontSize: 14, fontWeight: 600 }}>Per dag <input name="per_day" type="number" min={1} max={1000} defaultValue={perDay} style={{ width: 90, marginLeft: 6, border: "1px solid var(--line)", borderRadius: 8, padding: "6px 8px" }} /></label>
+                <button className={`btn ${on ? "btn-outline" : "btn-primary"}`} name="enabled" value={on ? "0" : "1"} type="submit">{on ? "Campagne pauzeren" : "Campagne starten"}</button>
+              </form>
+            </div>
+            <div className="card"><h3 style={{ marginBottom: 8 }}>Zo ziet de mail eruit</h3><p style={{ fontSize: 15, color: "var(--ink-2)" }}>Onderwerp: "Jouw profiel op {v.brand} staat klaar, [bedrijfsnaam]". Tekst zoals goedgekeurd, met previewlink naar het eigen profiel, de regel over de plaats alleen als die klopt, en een uitschrijflink. De herinnering heeft "Nog even:" ervoor.</p></div>
+          </>);
+        })())}
+        {tab === "stats" && (await (async () => {
+          const days = await q<{ day: string; views: number; visitors: number }>("select day::text, sum(views)::int as views, sum(visitors)::int as visitors from page_views where day > current_date - 30 group by day order by day desc");
+          const top = await q<{ path: string; views: number }>("select path, sum(views)::int as views from page_views where day > current_date - 30 group by path order by views desc limit 25");
+          return (<>
+            <div className="card"><h3 style={{ marginBottom: 8 }}>Laatste 30 dagen</h3>{days.length === 0 ? <p style={{ color: "var(--ink-2)" }}>Nog geen bezoeken geteld.</p> : <table style={{ fontSize: 14, borderCollapse: "collapse" }}><tbody>{days.map((d) => <tr key={d.day}><td style={{ padding: "3px 16px 3px 0" }}>{d.day}</td><td style={{ padding: "3px 16px 3px 0" }}>{d.views} weergaven</td><td>{d.visitors} bezoekers</td></tr>)}</tbody></table>}</div>
+            <div className="card"><h3 style={{ marginBottom: 8 }}>Drukste pagina's</h3><table style={{ fontSize: 14, borderCollapse: "collapse" }}><tbody>{top.map((t) => <tr key={t.path}><td style={{ padding: "3px 16px 3px 0" }}><a href={t.path}>{t.path}</a></td><td>{t.views}</td></tr>)}</tbody></table></div>
+          </>);
+        })())}
         {tab === "test" && (<>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <h3>Testbedrijf aanmaken</h3>

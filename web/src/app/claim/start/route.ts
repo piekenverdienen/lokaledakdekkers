@@ -14,7 +14,9 @@ export async function POST(req: Request) {
   const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   const b = await one<{ id: string; name: string; kvk_number: string | null; status: string }>("select id, name, kvk_number, status from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
+  const bot = String(f.get("website2") ?? "").trim().length > 0;
   const back = (s: string, extra: Record<string, string> = {}) => NextResponse.redirect(`${base}/claim/${slug}/?${new URLSearchParams({ status: s, email, website, ...extra })}`, 303);
+  if (bot) return back("sent");
   if (!b || b.status !== "unclaimed" || !email.includes("@") || !website) return back("site");
   const n = await one<{ n: number }>("select count(*)::int as n from claims where business_id=$1 and created_at > now() - interval '24 hours'", [b.id]);
   if ((n?.n ?? 0) >= 8) return back("limiet");

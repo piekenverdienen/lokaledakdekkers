@@ -45,6 +45,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const aanvragen = await q<{ id: string; status: string; viewed_at: string | null; name: string; phone: string; email: string | null; service_slug: string | null; description: string | null; wanted_when: string | null; address: string | null; size_m2: number | null; roof_type: string | null; contact_pref: string | null; photo_urls: string[]; created_at: string }>(`
     select l.id, l.status, l.viewed_at::text, r.name, r.phone, r.email, r.service_slug, r.description, r.wanted_when, r.address, r.size_m2, r.roof_type, r.contact_pref, r.photo_urls, r.created_at::text
     from leads l join lead_requests r on r.id=l.request_id where l.business_id=$1 order by r.created_at desc limit 50`, [b.id]);
+  const views = (await one<{ total: number; month: number }>("select b.views_total as total, coalesce((select sum(views)::int from page_views pv where pv.business_id=b.id and pv.day > current_date - 30),0) as month from businesses b where b.id=$1", [b.id])) ?? { total: 0, month: 0 };
   const WHEN: Record<string, string> = { spoed: "Spoed", "2weken": "Binnen 2 weken", "3maanden": "Binnen 3 maanden", orienterend: "Oriënterend" };
   const areas = await q<{ name: string }>("select p.name from business_areas a join places p on p.id=a.place_id where a.business_id=$1 order by p.name", [b.id]);
   const live = b.status !== "unclaimed";
@@ -120,6 +121,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
 
           <section id="aanvragen" className="card" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <h2 style={{ fontSize: 18 }}>Offerteaanvragen ({aanvragen.length})</h2>
+            {views.total > 0 && <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>Je profiel is {views.total.toLocaleString("nl-NL")} keer bekeken{views.month ? `, ${views.month} keer in de laatste 30 dagen` : ""}.</p>}
             {aanvragen.length === 0 && <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Nog geen aanvragen. Zodra je profiel online staat, kunnen bezoekers hier rechtstreeks een offerte aanvragen; die komt per mail binnen en staat ook hier.</p>}
             {aanvragen.map((a) => (
               <a key={a.id} href={`/dashboard/${slug}/aanvraag/${a.id}/`} className="card card-link" style={{ padding: "12px 14px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 10, borderColor: a.viewed_at ? "var(--line)" : "var(--amber)" }}>

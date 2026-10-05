@@ -24,6 +24,12 @@ export async function POST(req: Request) {
     tab = "test";
   }
   else if (actie === "test_verwijderen") { await q("delete from businesses where id=$1 and source='test'", [id]); tab = "test"; }
+  else if (actie === "campagne") {
+    const enabled = String(f.get("enabled") ?? "0") === "1" ? "1" : "0"; const perDay = String(parseInt(String(f.get("per_day") ?? "200"), 10) || 200);
+    await q("insert into settings (key, value) values ('outreach_enabled',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [enabled]);
+    await q("insert into settings (key, value) values ('outreach_per_day',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [perDay]);
+    tab = "campagne";
+  }
   else if (actie === "verzoek_afgehandeld") { await q("update claims set verified_at=now() where id=$1", [id]); tab = "verzoeken"; }
   await q("refresh materialized view place_stats").catch(() => {});
   revalidatePath("/", "layout");

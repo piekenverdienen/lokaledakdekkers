@@ -306,3 +306,36 @@ alter table lead_requests add column if not exists size_m2 int;
 alter table lead_requests add column if not exists address text;
 alter table lead_requests add column if not exists contact_pref text;
 alter table leads add column if not exists viewed_at timestamptz;
+
+-- ronde 6: vooraf bouwen, campagne, facturen, statistieken
+alter table businesses add column if not exists profile_built_at timestamptz;
+alter table businesses add column if not exists profile_build_error text;
+alter table businesses add column if not exists outreach_email text;
+alter table businesses add column if not exists outreach_opt_out boolean not null default false;
+alter table businesses add column if not exists renewal_mailed_at timestamptz;
+alter table businesses add column if not exists views_total int not null default 0;
+create table if not exists outreach (
+  id            uuid primary key default gen_random_uuid(),
+  business_id   uuid references businesses(id) on delete cascade,
+  email         text not null,
+  token         text not null unique,
+  sent_at       timestamptz,
+  reminder_at   timestamptz,
+  opened_at     timestamptz,
+  clicked_at    timestamptz,
+  created_at    timestamptz not null default now()
+);
+create unique index if not exists outreach_business_idx on outreach (business_id);
+create table if not exists settings (key text primary key, value text not null, updated_at timestamptz not null default now());
+alter table payments add column if not exists invoice_no int;
+alter table payments add column if not exists invoice_sent_at timestamptz;
+create sequence if not exists invoice_seq start 1001;
+create table if not exists page_views (
+  day         date not null,
+  path        text not null,
+  business_id uuid,
+  views       int not null default 0,
+  visitors    int not null default 0,
+  primary key (day, path)
+);
+create table if not exists page_view_visitors (day date not null, path text not null, visitor text not null, primary key (day, path, visitor));

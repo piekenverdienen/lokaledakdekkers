@@ -12,6 +12,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""; const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   const f = await req.formData();
+  const bot = String(f.get("website2") ?? "").trim().length > 0;
+  if (bot) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=sent#offerte`, 303);
   const b = await one<{ id: string; name: string; email: string | null; status: string; place_id: number | null; owner_user_id: string | null }>("select id, name, email, status, place_id, owner_user_id from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
   const g = (k: string, max = 200) => String(f.get(k) ?? "").trim().slice(0, max);
   const name = g("name", 80), phone = g("phone", 40), email = g("email", 120).toLowerCase(), description = g("description", 3000), address = g("address", 200);

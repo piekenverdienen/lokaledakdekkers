@@ -20,4 +20,4 @@ COPY web/content ./content
 COPY db ./db
 EXPOSE 3000
 HEALTHCHECK --interval=10s --timeout=5s --start-period=40s --retries=5 CMD wget -qO- http://127.0.0.1:3000/api/health/ || exit 1
-CMD ["sh", "-c", "node scripts/migrate.mjs && (node scripts/import-kvk.mjs && node scripts/enrich-kvk.mjs && node scripts/find-websites.mjs &) && node server.js"]
+CMD ["sh", "-c", "node scripts/migrate.mjs && (node scripts/import-kvk.mjs && node scripts/enrich-kvk.mjs && node scripts/find-websites.mjs &) && (node scripts/worker.mjs &) && node server.js"]

@@ -17,7 +17,7 @@ export default async function Review({ params, searchParams }: { params: Promise
         <div className="card" style={{ marginTop: 20, borderColor: "var(--green)", background: "var(--green-bg)" }}><b>Bijna klaar.</b> Open de bevestigingslink in je mail (kijk ook in de spam). Zonder bevestiging plaatsen we de review niet.</div>
       ) : (
         <form method="post" action="/review/verstuur/" className="card" style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 14 }}>
-          <input type="hidden" name="slug" value={b.slug} />
+          <input type="hidden" name="slug" value={b.slug} /><input type="text" name="website2" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} aria-hidden="true" />
           <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
             <legend style={{ fontWeight: 600, marginBottom: 6 }}>Je beoordeling</legend>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>

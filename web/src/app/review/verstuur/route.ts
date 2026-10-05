@@ -3,9 +3,11 @@ import { getVertical, one, q } from "@/lib/db";
 import { createMagicLink, mailLayout, sendMail } from "@/lib/auth";
 export async function POST(req: Request) {
   const f = await req.formData();
+  const bot = String(f.get("website2") ?? "").trim().length > 0;
   const slug = String(f.get("slug") ?? ""); const email = String(f.get("email") ?? "").trim().toLowerCase();
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""; const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
+  if (bot) return NextResponse.redirect(`${base}/review/${slug}/?status=sent`, 303);
   const b = await one<{ id: string; name: string }>("select id, name from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
   const score = parseInt(String(f.get("score") ?? "0"), 10); const body = String(f.get("body") ?? "").replace(/—|–/g, ",").trim().slice(0, 2000);
   const name = String(f.get("name") ?? "").trim().slice(0, 80); const service = String(f.get("service") ?? "") || null; const invoice = String(f.get("invoice") ?? "").trim().slice(0, 120) || null;

@@ -14,7 +14,7 @@ export default async function Corrigeren({ params, searchParams }: { params: Pro
       <p className="lede" style={{ marginTop: 8 }}>Gratis en zonder account. Klopt het adres, telefoonnummer of de naam niet, of is het bedrijf gestopt? Laat het weten; we verwerken het binnen drie werkdagen. Wil je het profiel beheren, dan kun je het <a href={`/claim/${b.slug}/`}>claimen</a>.</p>
       {status === "sent" ? <div className="card" style={{ marginTop: 20, borderColor: "var(--green)", background: "var(--green-bg)" }}>Bedankt, we hebben je bericht ontvangen.</div> : (
         <form method="post" action="/corrigeren/verstuur/" className="card" style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
-          <input type="hidden" name="slug" value={b.slug} />
+          <input type="hidden" name="slug" value={b.slug} /><input type="text" name="website2" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} aria-hidden="true" />
           <label>Wat klopt er niet?<textarea name="bericht" required rows={5} style={{ ...input, minHeight: 120 }} /></label>
           <label>Je e-mailadres (voor een vraag terug)<input name="email" type="email" style={input} /></label>
           <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="verwijderen" /> Dit bedrijf bestaat niet meer of wil niet vermeld worden; haal het profiel weg</label>

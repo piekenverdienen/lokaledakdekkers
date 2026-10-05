@@ -5,7 +5,8 @@ const lab: React.CSSProperties = { fontWeight: 600, fontSize: 15, display: "flex
 export default function QuoteForm({ v, slug, name, status }: { v: Vertical; slug: string; name: string; status?: string }) {
   if (status === "sent") return <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)" }}><b>Je aanvraag is verstuurd naar {name}.</b> Je krijgt een kopie per mail. Reageert het bedrijf niet binnen twee werkdagen, bel dan even; dakdekkers zitten vaak op het dak.</div>;
   return (
-    <form id="offerte" method="post" action={`/offerte/${slug}/`} encType="multipart/form-data" className="card" style={{ display: "flex", flexDirection: "column", gap: 16, scrollMarginTop: 80 }}>
+    <form id="offerte" method="post" action={`/offerte/${slug}/`} encType="multipart/form-data" className="card" style={{ display: "flex", flexDirection: "column", gap: 16, scrollMarginTop: 80, position: "relative" }}>
+      <input type="text" name="website2" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} aria-hidden="true" />
       <div>
         <h2 style={{ fontSize: 22 }}>Vraag een offerte aan bij {name}</h2>
         <p style={{ color: "var(--ink-2)", marginTop: 6 }}>Hoe vollediger je aanvraag, hoe sneller en scherper de offerte. Twee minuten invullen, direct naar het bedrijf, nergens anders heen.</p>

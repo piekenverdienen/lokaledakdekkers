@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CookieNotice from "@/components/CookieNotice";
+import Hit from "@/components/Hit";
 import { currentVertical, cap } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: `${v.brand}: vind een betrouwbare ${v.name_singular} bij jou in de buurt`, template: `%s | ${v.brand}` },
     description: `Alle ${v.name_plural} van Nederland per plaats, met geverifieerde profielen, reviews met factuurbewijs en richtprijzen per regio.`,
     metadataBase: new URL(process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`),
+    openGraph: { siteName: v.brand, locale: "nl_NL", images: [{ url: "/og-default.png", width: 1200, height: 630, alt: `${v.brand}: alle ${v.name_plural} van Nederland op één kaart` }] },
     verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   };
 }
@@ -72,6 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </div>
         </footer>
         <CookieNotice />
+        <Hit />
       </body>
     </html>
   );

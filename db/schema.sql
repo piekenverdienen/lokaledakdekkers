@@ -299,3 +299,10 @@ create table if not exists media (
   created_at    timestamptz not null default now()
 );
 create index if not exists media_business_idx on media (business_id);
+
+alter table media alter column business_id drop not null;
+alter table lead_requests add column if not exists roof_type text;
+alter table lead_requests add column if not exists size_m2 int;
+alter table lead_requests add column if not exists address text;
+alter table lead_requests add column if not exists contact_pref text;
+alter table leads add column if not exists viewed_at timestamptz;

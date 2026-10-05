@@ -4,11 +4,12 @@ import Map from "@/components/Map";
 import { initials } from "@/components/BusinessCard";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { getUser } from "@/lib/auth";
-import { getBusiness, getBusinessesNear, getReviews } from "@/lib/db";
+import QuoteForm from "@/components/QuoteForm";
+import { getBusiness, getBusinessesNear, getReviews, q } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
 export const revalidate = 86400;
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string; review?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ eigenaar?: string; review?: string; offerte?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -26,13 +27,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BusinessPage({ params, searchParams }: Props) {
   const { slug } = await params;
-  const { eigenaar, review } = await searchParams;
+  const { eigenaar, review, offerte } = await searchParams;
   const v = await currentVertical();
   const b = await getBusiness(slug, v.id);
   if (!b || b.status === "hidden") notFound();
   const viewer = await getUser().catch(() => null);
   const ownerPreview = b.status === "unclaimed" && !!viewer && ((b as unknown as { owner_user_id?: string | null }).owner_user_id === viewer.id || viewer.is_admin);
   const claimed = b.status !== "unclaimed" || ownerPreview;
+  const photos = claimed ? await q<{ id: string; url: string }>("select id, url from business_photos where business_id=$1 order by sort_order limit 30", [b.id]) : [];
   const pro = b.status === "pro";
   const [reviews, others] = await Promise.all([getReviews(b.id), b.lat && b.lng ? getBusinessesNear(b.lat, b.lng, v.id, 30, 6) : Promise.resolve([])]);
   const nearby = others.filter((o) => o.id !== b.id).slice(0, 5);
@@ -108,10 +110,27 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             <div className="actions">
               {tel && <a href={tel} className="btn btn-primary">{formatPhone(b.phone)}</a>}
               {wa && <a href={wa} className="btn btn-green" rel="noopener">WhatsApp</a>}
-              {pro && <a href={`/offerte/?bedrijf=${b.slug}`} className="btn btn-outline">Vraag een offerte</a>}
+              {claimed && b.email && <a href="#offerte" className="btn btn-amber">Vraag een offerte aan</a>}
               {claimed && b.website && <a href={b.website} className="btn btn-ghost" rel="nofollow noopener" target="_blank">Website</a>}
             </div>
           </article>
+
+          {photos.length > 0 && (
+            <section className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h2 style={{ fontSize: 20 }}>Foto's van het werk</h2>
+              <div className="photos" style={{ gridTemplateColumns: photos.length === 1 ? "minmax(0, 480px)" : "repeat(auto-fill, minmax(160px, 1fr))" }}>
+                {photos.map((p) => <a key={p.id} href={p.url} target="_blank" rel="noopener"><img src={p.url} alt={`Werk van ${b.name}`} loading="lazy" /></a>)}
+              </div>
+            </section>
+          )}
+
+          {claimed && b.email && (
+            <>
+              {offerte === "fout" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)" }}>Er ontbreekt nog iets in je aanvraag: vul alle velden in en schrijf minimaal 30 tekens in de omschrijving.</div>}
+              {offerte === "limiet" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)" }}>Je hebt het maximum van drie aanvragen per uur bereikt.</div>}
+              <QuoteForm v={v} slug={b.slug} name={b.name} status={offerte} />
+            </>
+          )}
 
           <section className="card" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <h2 style={{ fontSize: 20 }}>Reviews{b.review_count > 0 ? ` (${b.review_count})` : ""}</h2>

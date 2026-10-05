@@ -202,7 +202,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
                     <img src={p.url} alt="" style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: 10, display: "block" }} />
                     <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
                       {i > 0 && <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="eerst" /><input type="hidden" name="url" value={p.url} /><button className="btn btn-outline" style={{ padding: "4px 10px", minHeight: 30, fontSize: 13 }}>Als eerste</button></form>}
-                      <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="verwijder" /><input type="hidden" name="url" value={p.url} /><button className="btn btn-outline" style={{ padding: "4px 10px", minHeight: 30, fontSize: 13 }}>Weg</button></form>
+                      <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="verwijder" /><input type="hidden" name="url" value={p.url} /><button className="btn btn-outline" style={{ padding: "4px 10px", minHeight: 30, fontSize: 13 }} aria-label="Foto verwijderen">✕ Verwijder</button></form>
                     </div>
                   </div>
                 ))}
@@ -214,7 +214,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             <div style={{ borderTop: "1px solid var(--line)", paddingTop: 14, display: "flex", flexWrap: "wrap", gap: 14, alignItems: "center" }}>
               <div style={{ width: 72, height: 72, borderRadius: 12, border: "1px solid var(--line)", display: "grid", placeItems: "center", overflow: "hidden", background: "#fff" }}>{b.logo_url ? <img src={b.logo_url} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }} /> : <span style={{ fontSize: 12, color: "var(--ink-3)" }}>Geen logo</span>}</div>
               <UploadForm action={`/dashboard/${slug}/upload/`} kind="logo" label={b.logo_url ? "Ander logo kiezen" : "Logo kiezen"} />
-              {b.logo_url && <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="logo_weg" /><button className="btn btn-outline" style={{ padding: "6px 10px", minHeight: 34, fontSize: 13 }}>Logo weg</button></form>}
+              {b.logo_url && <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="logo_weg" /><button className="btn btn-outline" style={{ padding: "6px 10px", minHeight: 34, fontSize: 13 }}>✕ Logo verwijderen</button></form>}
             </div>
           </section>
         </div>

@@ -26,10 +26,10 @@ De PRD staat als Claude Doc: "PRD Lokaledakdekkers.nl". Dit bestand is de techni
 
 OpenStreetMap heeft in Nederland bijna geen dakdekkers getagd: Overijssel 4 stuks op `craft=roofer`,
 en zoeken op "dak" in de naam levert er nog 3. OSM is dus alleen bruikbaar voor gemeenten en plaatsen.
-De bedrijven komen uit het KvK-adressenbestand (SBI 4391 dakdekken en bouwen van dakconstructies,
-plus 4399 met "dak" in de handelsnaam). Bestellen: tellen op kvk.nl met de Bedrijventeller, aanvraag
-mailen naar account@kvk.nl, levering als CSV binnen vijf werkdagen. Kolomnamen daarna invullen in
-`COLUMNS` bovenin `kvk_import.py`.
+De bedrijven komen via overheid.io (OpenKvK v3, abonnement Medium) met `web/scripts/import-kvk.mjs`, dat bij het
+opstarten van de container draait als OVERHEID_IO_KEY gezet is en er nog geen KvK-data staat. Per postcodegebied (2 cijfers)
+zodat elke query onder de pagineringslimiet blijft; alleen actieve vestigingen; eenmanszaken zonder straat en huisnummer.
+`importer/kvk_import.py` blijft bruikbaar voor een los KvK-adressenbestand (CSV).
 
 ## Draaien
 
@@ -77,6 +77,8 @@ Plaatspagina's met minder dan 3 bedrijven binnen 30 km krijgen automatisch noind
     ADMIN_EMAIL         ontvangt de brief-met-code verzoeken (staat: paul@yourfellow.nl)
     RESEND_API_KEY      Paul: aanmaken op resend.com, domein mail.lokaledakdekkers.nl verifiëren
     MAIL_FROM           bijv. "Lokale Dakdekkers <noreply@mail.lokaledakdekkers.nl>"
+    OVERHEID_IO_KEY     overheid.io (OpenKvK v3), voor de import van alle bedrijven met de SBI-codes van de vertical (staat)
+    FORCE_KVK_IMPORT    zet op 1 om de KvK-import opnieuw te draaien bij de volgende start; daarna weer weghalen
     ANTHROPIC_API_KEY   Paul: voor profiel-uit-URL (Claude Haiku); zonder sleutel valt de bouwer terug op meta-description en foto's
     EXTRACT_MODEL       optioneel, standaard claude-haiku-4-5
 

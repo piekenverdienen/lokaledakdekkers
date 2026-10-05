@@ -22,7 +22,7 @@ export default async function VoorDakdekkers() {
           <p className="lede" style={{ fontSize: 19 }}>{stats?.n.toLocaleString("nl-NL")} {v.name_plural} uit het KvK Handelsregister staan op de kaart van Nederland. Wie zijn profiel claimt, krijgt een compleet en gecontroleerd profiel dat bezoekers kunnen vertrouwen en dat gebouwd is om door Google en AI-assistenten gelezen te worden.</p>
           <div className="actions"><a href="/claim/" className="btn btn-primary" style={{ fontSize: 17, minHeight: 50 }}>Zoek je bedrijf en claim het</a><a href="#aanbod" className="btn btn-ghost">Bekijk het aanbod</a></div>
         </div>
-        <div><img src="/img/offerte-voordeur.webp" alt="Dakdekker bespreekt een offerte met een bewoner bij de voordeur" style={{ width: "100%", borderRadius: 20, display: "block" }} loading="eager" /></div>
+        <div className="hero-photo"><video controls playsInline preload="metadata" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 20, display: "block", background: "#0E2A3F" }}><source src="/video/claim.mp4" type="video/mp4" />Je browser kan deze video niet afspelen.</video></div>
       </div></section>
 
       <section className="wrap" style={{ paddingTop: 40, paddingBottom: 40 }}>

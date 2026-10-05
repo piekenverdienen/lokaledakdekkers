@@ -26,6 +26,11 @@ export default async function Home() {
     items: realExamples.map((r) => ({ slug: r.slug, name: r.name, city: r.city ?? "", area: r.area_count ? `${r.area_count} plaatsen` : "eigen plaats", verified: true, photo: r.photo ?? "/img/dakpan-handen-sm.webp", services: r.services.slice(0, 3).map((x) => v.services.find((y) => y.slug === x)?.name ?? x), reviews: r.review_count ? `${r.review_count} reviews` : "Nog geen reviews", href: `/bedrijf/${r.slug}/` })),
   } : { real: false, items: [] as { slug: string; name: string; city: string; area: string; verified: boolean; photo: string; services: string[]; reviews: string; href: string }[] };
   const featured = ["wat-kost-een-dakdekker", "betrouwbare-dakdekker-kiezen", "plat-dak-vervangen-kosten"].map((s) => getAllArticles().find((a) => a.slug === s)).filter(Boolean);
+  const munis = await q<{ name: string; slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
+    select m.name, m.slug, pr.slug as province_slug, st_y(st_centroid(m.geom)) as lat, st_x(st_centroid(m.geom)) as lng, count(b.id)::int as business_count
+    from municipalities m join provinces pr on pr.id=m.province_id
+    left join businesses b on b.municipality_id=m.id and b.vertical_id=$1 and b.status<>'hidden'
+    group by m.id, pr.slug having count(b.id)>0`, [v.id]);
   const cities = await q<{ name: string; slug: string; municipality_slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
     select p.name, p.slug, m.slug as municipality_slug, pr.slug as province_slug, st_y(p.geom) as lat, st_x(p.geom) as lng, ps.business_count::int
     from place_stats ps join places p on p.id=ps.place_id join municipalities m on m.id=p.municipality_id join provinces pr on pr.id=m.province_id
@@ -84,10 +89,10 @@ export default async function Home() {
 
       <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8 }}>
         <div className="map-card">
-          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={cities.map((c) => ({
-            lat: c.lat, lng: c.lng, label: `${c.name}`, count: c.business_count, href: `/${c.province_slug}/${c.municipality_slug}/${c.slug}/`,
+          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={munis.map((m) => ({
+            lat: m.lat, lng: m.lng, label: `${m.name} (${m.business_count})`, count: m.business_count, href: `/${m.province_slug}/${m.slug}/`,
           }))} />
-          <div className="map-foot"><span>Tik op een stad voor de {v.name_plural} daar</span></div>
+          <div className="map-foot"><span>Tik op een gemeente voor de {v.name_plural} daar</span></div>
         </div>
       </section>
 
@@ -123,7 +128,7 @@ export default async function Home() {
             </div>
           </div>
           <div style={{ flex: "1 1 360px", minWidth: 0 }}>
-            <img src="/img/offerte-voordeur-sm.webp" alt="Dakdekker bespreekt een offerte met een bewoner bij de voordeur" style={{ width: "100%", borderRadius: 16, display: "block" }} loading="lazy" />
+            <video controls playsInline preload="none" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 16, display: "block", background: "#0E2A3F" }}><source src="/video/claim.mp4" type="video/mp4" /></video>
           </div>
         </div>
       </section>

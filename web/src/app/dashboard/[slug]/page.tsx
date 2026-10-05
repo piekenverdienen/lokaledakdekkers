@@ -31,7 +31,7 @@ function Block({ title, slug, field, children, form }: { title: string; slug: st
   );
 }
 
-export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string; fotos?: string; overgeslagen?: string; logo?: string }> }) {
+export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string; fotos?: string; overgeslagen?: string; logo?: string; uitnodigingen?: string }> }) {
   const v = await currentVertical();
   const { slug } = await params;
   const sp = await searchParams;
@@ -47,6 +47,8 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
     select l.id, l.status, l.viewed_at::text, r.name, r.phone, r.email, r.service_slug, r.description, r.wanted_when, r.address, r.size_m2, r.roof_type, r.contact_pref, r.photo_urls, r.created_at::text
     from leads l join lead_requests r on r.id=l.request_id where l.business_id=$1 order by r.created_at desc limit 50`, [b.id]);
   const views = (await one<{ total: number; month: number }>("select b.views_total as total, coalesce((select sum(views)::int from page_views pv where pv.business_id=b.id and pv.day > current_date - 30),0) as month from businesses b where b.id=$1", [b.id])) ?? { total: 0, month: 0 };
+  const myReviews = await q<{ id: string; name: string; score: number; body: string; reply: string | null; created_at: string }>("select id, name, score, body, reply, created_at::text from reviews where business_id=$1 and status='published' order by created_at desc limit 20", [b.id]);
+  const avail = (await one<{ availability: string; available_from: string | null }>("select availability, available_from from businesses where id=$1", [b.id])) ?? { availability: "available", available_from: null };
   const WHEN: Record<string, string> = { spoed: "Spoed", "2weken": "Binnen 2 weken", "3maanden": "Binnen 3 maanden", orienterend: "Oriënterend" };
   const areas = await q<{ name: string }>("select p.name from business_areas a join places p on p.id=a.place_id where a.business_id=$1 order by p.name", [b.id]);
   const live = b.status !== "unclaimed";
@@ -119,6 +121,51 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
           </>}>
             <div className="chips">{b.certifications.map((c) => <span key={c} className="chip">{c}</span>)}{b.usps.map((u) => <span key={u} className="chip" style={{ background: "var(--green-bg)" }}>{u}</span>)}{!b.certifications.length && !b.usps.length && <span style={{ color: "var(--ink-3)" }}>Nog niets ingevuld.</span>}</div>
           </Block>
+
+          {live && (
+            <section id="reviews" className="card" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <h2 style={{ fontSize: 18 }}>Reviews ({myReviews.length})</h2>
+              {sp.uitnodigingen && <span className="srnote" style={{ color: "var(--green)" }}>{sp.uitnodigingen} uitnodigingen verstuurd.</span>}
+              <form method="post" action={`/dashboard/${slug}/reviews/`} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <label style={{ fontWeight: 600, fontSize: 15 }}>Vraag reviews aan je klanten<textarea name="emails" rows={2} placeholder="E-mailadressen van recente klanten, maximaal 5 per keer, gescheiden door komma of enter" style={{ ...input, minHeight: 60 }} /></label>
+                <input name="note" placeholder="Optioneel: een persoonlijke regel, bijvoorbeeld: Bedankt voor het vertrouwen bij het nieuwe dak in maart" style={input} />
+                <button className="btn btn-primary" type="submit" style={{ alignSelf: "flex-start" }}>Uitnodigingen sturen</button>
+                <span className="srnote">Ze krijgen een korte mail met een link naar je reviewpagina. Met factuurnummer krijgt hun review het label Geverifieerde klus.</span>
+              </form>
+              {myReviews.map((r) => (
+                <div key={r.id} className="review">
+                  <div className="meta"><span className="stars">{"★".repeat(r.score)}{"☆".repeat(5 - r.score)}</span><b>{r.name}</b><span>{r.created_at.slice(0, 10)}</span></div>
+                  <p style={{ color: "var(--ink-2)", margin: 0 }}>{r.body}</p>
+                  <form method="post" action={`/dashboard/${slug}/reageer/`} style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
+                    <input type="hidden" name="review" value={r.id} />
+                    <textarea name="reply" rows={2} defaultValue={r.reply ?? ""} placeholder="Reageer op deze review (zichtbaar op je profiel)" style={{ ...input, minHeight: 50, flex: "1 1 280px" }} />
+                    <button className="btn btn-outline" type="submit" style={{ minHeight: 44 }}>{r.reply ? "Reactie aanpassen" : "Reageren"}</button>
+                  </form>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {live && (
+            <section id="beschikbaar" className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h2 style={{ fontSize: 18 }}>Beschikbaarheid</h2>
+              <form method="post" action={`/dashboard/${slug}/beschikbaar/`} style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+                <select name="availability" defaultValue={avail.availability} style={{ ...input, width: "auto" }}><option value="available">Direct beschikbaar</option><option value="from">Beschikbaar vanaf</option><option value="full">Vol, geen nieuwe aanvragen</option></select>
+                <input name="available_from" defaultValue={avail.available_from ?? ""} placeholder="bijvoorbeeld december 2026" style={{ ...input, width: 220 }} />
+                <button className="btn btn-outline" type="submit">Opslaan</button>
+              </form>
+              <span className="srnote">Bij "vol" verdwijnt het offerteformulier tijdelijk van je profiel; je blijft wel zichtbaar en geverifieerd.</span>
+            </section>
+          )}
+
+          {live && (
+            <section id="badge" className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h2 style={{ fontSize: 18 }}>Badge voor je eigen website</h2>
+              <img src={`/badge/${slug}/`} alt="Geverifieerd bedrijf op Lokale Dakdekkers" width={240} height={64} style={{ display: "block" }} />
+              <textarea readOnly rows={3} value={`<a href="https://${v.domain}/bedrijf/${slug}/" title="${b.name} is een geverifieerd bedrijf op ${v.brand}"><img src="https://${v.domain}/badge/${slug}/" alt="Geverifieerd bedrijf op ${v.brand}" width="240" height="64"></a>`} style={{ ...input, minHeight: 80, fontFamily: "monospace", fontSize: 13 }} />
+              <span className="srnote">Plak deze code in de footer van je website, of stuur hem naar je websitebouwer. Bezoekers van je site zien dat je gecontroleerd bent en kunnen je profiel bekijken.</span>
+            </section>
+          )}
 
           {live && (
             <section id="delen" className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>

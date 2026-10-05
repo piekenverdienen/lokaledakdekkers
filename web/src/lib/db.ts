@@ -35,7 +35,7 @@ export type Business = {
   description: string | null; logo_url: string | null; usps: string[]; certifications: string[];
   founded_year: number | null; kvk_number: string | null; kvk_started: string | null;
   emergency: boolean; lat: number | null; lng: number | null; distance_km: number | null;
-  verified_at: string | null; kvk_checked_at: string | null; paid_until: string | null; source: string; owner_user_id: string | null;
+  verified_at: string | null; kvk_checked_at: string | null; paid_until: string | null; source: string; owner_user_id: string | null; profile_built_at: string | null; outreach_email: string | null; availability: string; available_from: string | null;
   avg_score: number | null; review_count: number; verified_reviews: number;
   services: string[]; place_name: string | null; place_slug: string | null;
   municipality_slug: string | null; province_slug: string | null;
@@ -50,7 +50,7 @@ export type Place = {
 const BUSINESS_SELECT = `
   b.id, b.name, b.slug, b.status, b.city, b.postcode, b.street, b.housenumber, b.phone, b.website, b.whatsapp, b.email,
   b.description, b.logo_url, b.usps, b.certifications, b.founded_year, b.kvk_number, b.kvk_started::text, b.emergency,
-  b.verified_at::text, b.kvk_checked_at::text, b.paid_until::text, b.source, b.owner_user_id,
+  b.verified_at::text, b.kvk_checked_at::text, b.paid_until::text, b.source, b.owner_user_id, b.profile_built_at::text, b.outreach_email, b.availability, b.available_from,
   st_y(b.geom) as lat, st_x(b.geom) as lng,
   (select round(avg(score)::numeric,1) from reviews r where r.business_id=b.id and r.status='published') as avg_score,
   (select count(*)::int from reviews r where r.business_id=b.id and r.status='published') as review_count,
@@ -128,7 +128,7 @@ export async function getBusinessesNear(lat: number, lng: number, verticalId: nu
       round((st_distance(b.geom::geography, st_setsrid(st_makepoint($2,$1),4326)::geography)/1000)::numeric,1) as distance_km
     from businesses b ${BUSINESS_JOIN}
     where b.vertical_id=$3 and b.status<>'hidden' and b.geom is not null
-      and st_dwithin(b.geom::geography, st_setsrid(st_makepoint($2,$1),4326)::geography, $4*1000)
+      and st_dwithin(b.geom::geography, st_setsrid(st_makepoint($2,$1),4326)::geography, (case when b.status in ('claimed','pro') then $4 else 4 end)*1000)
     order by ${BUSINESS_ORDER} limit $5`, [lat, lng, verticalId, radiusKm, limit]);
 }
 
@@ -147,8 +147,8 @@ export async function getBusiness(slug: string, verticalId: number) {
 }
 
 export async function getReviews(businessId: string) {
-  return q<{ id: string; name: string; score: number; body: string; service_slug: string | null; invoice_verified: boolean; created_at: string }>(`
-    select id, name, score, body, service_slug, invoice_verified, created_at::text from reviews
+  return q<{ id: string; name: string; score: number; body: string; service_slug: string | null; invoice_verified: boolean; created_at: string; reply: string | null }>(`
+    select id, name, score, body, service_slug, invoice_verified, created_at::text, reply from reviews
     where business_id=$1 and status='published' order by created_at desc limit 20`, [businessId]);
 }
 
@@ -176,5 +176,5 @@ export async function getAllMunicipalities() {
   return q<{ slug: string; province_slug: string }>(`select m.slug, pr.slug as province_slug from municipalities m join provinces pr on pr.id=m.province_id`);
 }
 export async function getPublicBusinessSlugs(verticalId: number) {
-  return q<{ slug: string; updated_at: string }>(`select slug, updated_at::text from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'`, [verticalId]);
+  return q<{ slug: string; updated_at: string }>(`select slug, updated_at::text from businesses where vertical_id=$1 and status in ('claimed','pro') and source<>'test'`, [verticalId]);
 }

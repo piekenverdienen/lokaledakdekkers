@@ -5,7 +5,7 @@ import { initials } from "@/components/BusinessCard";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { getUser } from "@/lib/auth";
 import QuoteForm from "@/components/QuoteForm";
-import { getBusiness, getBusinessesNear, getReviews, q } from "@/lib/db";
+import { getBusiness, getBusinessesNear, getReviews, one, q } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, businessSchema, currentVertical, cap, formatPhone, serviceName, telHref, waHref } from "@/lib/site";
 
 export const revalidate = 86400;
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${b.name}, ${v.name_singular} in ${b.city ?? b.place_name ?? "Nederland"}`,
     description: claimed && b.description ? b.description.slice(0, 155) : `${b.name} is ${v.name_singular} in ${b.city ?? "Nederland"}. Contactgegevens, reviews en werkgebied op ${v.brand}.`,
     alternates: { canonical: businessPath(b) },
-    robots: b.source === "test" ? { index: false, follow: false } : undefined,
+    robots: b.source === "test" || b.status === "unclaimed" ? { index: false, follow: true } : undefined,
     openGraph: { title: `${b.name}, ${v.name_singular} in ${b.city ?? "Nederland"}`, type: "profile", images: [{ url: `/og/${b.slug}/`, width: 1200, height: 630, alt: `${b.name} op ${v.brand}` }] },
   };
 }
@@ -36,6 +36,9 @@ export default async function BusinessPage({ params, searchParams }: Props) {
   const viewer = await getUser().catch(() => null);
   const ownerPreview = b.status === "unclaimed" && !!viewer && ((b as unknown as { owner_user_id?: string | null }).owner_user_id === viewer.id || viewer.is_admin);
   const claimed = b.status !== "unclaimed" || ownerPreview;
+  const built = !claimed && !!b.profile_built_at; // vooraf gebouwd: tekst, logo, diensten en werkgebied publiek, foto's en contact na claim
+  const photoCount = built ? ((await one<{ n: number }>("select count(*)::int as n from business_photos where business_id=$1", [b.id]))?.n ?? 0) : 0;
+  const canQuote = (claimed && !!b.email) || (built && !!b.outreach_email);
   const photos = claimed ? await q<{ id: string; url: string }>("select id, url from business_photos where business_id=$1 order by sort_order limit 30", [b.id]) : [];
   const pro = b.status === "pro";
   const [reviews, others] = await Promise.all([getReviews(b.id), b.lat && b.lng ? getBusinessesNear(b.lat, b.lng, v.id, 30, 6) : Promise.resolve([])]);
@@ -90,29 +93,30 @@ export default async function BusinessPage({ params, searchParams }: Props) {
               </div>
             </div>
 
-            {claimed && b.description ? (
-              <p style={{ color: "var(--ink-2)", fontSize: 17 }}>{b.description}</p>
-            ) : (
-              <div className="card" style={{ background: "var(--ground)", borderStyle: "dashed" }}>
-                <p style={{ color: "var(--ink-2)" }}>Dit profiel is nog niet geclaimd door het bedrijf. De gegevens komen uit het KvK Handelsregister. Ben jij de eigenaar? Claim het profiel gratis en vul het aan met diensten, foto's en werkgebied.</p>
-                <a href={`/claim/${b.slug}/`} className="btn btn-outline" style={{ marginTop: 12 }}>Dit is mijn bedrijf</a>
+            {(claimed || built) && b.description && <p style={{ color: "var(--ink-2)", fontSize: 17 }}>{b.description}</p>}
+            {!claimed && (
+              <div className="card" style={{ background: "var(--ground)", borderStyle: "dashed", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                <p style={{ color: "var(--ink-2)", margin: 0 }}>{built ? "Dit bedrijf heeft zijn pagina nog niet bevestigd." : "Dit bedrijf heeft zijn pagina nog niet bevestigd; de gegevens komen uit het KvK Handelsregister."} Ben jij de eigenaar? <b>Claim je pagina</b> en maak hem persoonlijk{photoCount ? `, inclusief je ${photoCount} foto's` : ""}.</p>
+                <a href={`/claim/${b.slug}/`} className="btn btn-outline">Dit is mijn bedrijf</a>
               </div>
             )}
 
-            {b.services.length > 0 && (
+            {(claimed || built) && b.services.length > 0 && (
               <div><h3 style={{ marginBottom: 8 }}>Diensten</h3><div className="chips">{b.services.map((s) => <span key={s} className="chip">{serviceName(v, s)}</span>)}</div></div>
             )}
-            {b.certifications.length > 0 && (
+            {(claimed || built) && b.certifications.length > 0 && (
               <div><h3 style={{ marginBottom: 8 }}>Keurmerken</h3><div className="chips">{b.certifications.map((c) => <span key={c} className="chip">{c}</span>)}</div></div>
             )}
-            {b.usps.length > 0 && (
+            {(claimed || built) && b.usps.length > 0 && (
               <ul style={{ margin: 0, paddingLeft: 20, color: "var(--ink-2)" }}>{b.usps.map((u) => <li key={u}>{u}</li>)}</ul>
             )}
 
             <div className="actions">
-              {tel && <a href={tel} className="btn btn-primary">{formatPhone(b.phone)}</a>}
-              {wa && <a href={wa} className="btn btn-green" rel="noopener">WhatsApp</a>}
-              {claimed && b.email && <a href="#offerte" className="btn btn-amber">Vraag een offerte aan</a>}
+              {claimed && tel && <a href={tel} className="btn btn-primary">{formatPhone(b.phone)}</a>}
+              {claimed && wa && <a href={wa} className="btn btn-green" rel="noopener">WhatsApp</a>}
+              {canQuote && b.availability !== "full" && <a href="#offerte" className="btn btn-amber">Vraag een offerte aan</a>}
+              {claimed && b.availability === "full" && <span className="badge">Momenteel vol{b.available_from ? `, weer beschikbaar vanaf ${b.available_from}` : ""}</span>}
+              {claimed && b.availability === "from" && b.available_from && <span className="badge">Beschikbaar vanaf {b.available_from}</span>}
               {claimed && b.website && <a href={b.website} className="btn btn-ghost" rel="nofollow noopener" target="_blank">Website</a>}
             </div>
           </article>
@@ -126,7 +130,15 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             </section>
           )}
 
-          {claimed && b.email && (
+          {built && photoCount > 0 && (
+            <section className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <h2 style={{ fontSize: 20 }}>Foto's van het werk</h2>
+              <div className="photos">{Array.from({ length: Math.min(photoCount, 4) }).map((_, i) => <div key={i} style={{ aspectRatio: "4 / 3", borderRadius: 10, background: "linear-gradient(135deg, #C2D1DB, #E3EAF0)" }} />)}</div>
+              <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>{photoCount} foto's worden zichtbaar zodra het bedrijf zijn pagina heeft bevestigd.</p>
+            </section>
+          )}
+
+          {canQuote && b.availability !== "full" && (
             <>
               {offerte === "fout" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)" }}>Er ontbreekt nog iets in je aanvraag: vul alle velden in en schrijf minimaal 30 tekens in de omschrijving.</div>}
               {offerte === "limiet" && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)" }}>Je hebt het maximum van drie aanvragen per uur bereikt.</div>}
@@ -141,6 +153,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
               <div key={r.id} className="review">
                 <div className="meta"><span className="stars" aria-label={`${r.score} van 5`}>{"★".repeat(r.score)}{"☆".repeat(5 - r.score)}</span><b>{r.name}</b>{r.invoice_verified && <span className="verified">Geverifieerde klus</span>}{r.service_slug && <span>{serviceName(v, r.service_slug)}</span>}</div>
                 <p style={{ color: "var(--ink-2)" }}>{r.body}</p>
+                {r.reply && <div style={{ borderLeft: "3px solid var(--amber)", paddingLeft: 12, marginTop: 6 }}><small style={{ color: "var(--ink-3)" }}>Reactie van {b.name}</small><p style={{ color: "var(--ink-2)", margin: "2px 0 0", fontSize: 15 }}>{r.reply}</p></div>}
               </div>
             ))}
             <a href={`/review/${b.slug}/`} className="btn btn-outline" style={{ alignSelf: "flex-start", marginTop: 8 }}>Schrijf een review</a>
@@ -157,7 +170,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <h2 style={{ fontSize: 17 }}>Zo controleer je dit bedrijf</h2>
             <p style={{ color: "var(--ink-2)", fontSize: 15 }}>
-              {claimed ? "Dit bedrijf heeft zijn profiel geverifieerd via het websitedomein en de KvK-inschrijving." : "Dit profiel is niet geverifieerd. Controleer het KvK-nummer zelf op kvk.nl voordat je een opdracht geeft."} Betaal nooit een voorschot aan een {v.name_singular} die ongevraagd aan de deur komt, en vraag altijd een schriftelijke offerte.
+              {claimed ? "Dit bedrijf heeft zijn profiel geverifieerd via het websitedomein en de KvK-inschrijving." : "Dit bedrijf heeft zijn pagina nog niet bevestigd. Controleer het KvK-nummer zelf op kvk.nl voordat je een opdracht geeft."} Betaal nooit een voorschot aan een {v.name_singular} die ongevraagd aan de deur komt, en vraag altijd een schriftelijke offerte.
             </p>
             <a href={`/betrouwbare-${v.name_singular}/`} style={{ fontWeight: 600, fontSize: 15 }}>Meer tips voor een betrouwbare {v.name_singular}</a>
             <a href={`/corrigeren/${b.slug}/`} style={{ fontSize: 14, color: "var(--ink-3)" }}>Kloppen deze gegevens niet? Geef een correctie door (gratis)</a>

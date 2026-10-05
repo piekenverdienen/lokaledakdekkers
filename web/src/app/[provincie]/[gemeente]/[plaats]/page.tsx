@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Map from "@/components/Map";
+import PlaceCookie from "@/components/PlaceCookie";
 import BusinessCard from "@/components/BusinessCard";
 import { getBusinessesNear, getNearbyIndexablePlaces, getPageContent, getPlace } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, currentVertical, cap, dataFaq, faqSchema } from "@/lib/site";
@@ -48,6 +49,7 @@ export default async function PlacePage({ params, searchParams }: Props) {
 
   return (
     <main className="wrap">
+      <PlaceCookie name={p.name} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <nav className="crumbs" aria-label="Kruimelpad">
         <a href="/">Nederland</a><span>/</span><a href={`/${p.province_slug}/`}>{p.province_name}</a><span>/</span>

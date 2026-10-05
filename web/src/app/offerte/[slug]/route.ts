@@ -14,10 +14,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   const f = await req.formData();
   const bot = String(f.get("website2") ?? "").trim().length > 0;
   if (bot) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=sent#offerte`, 303);
-  const b = await one<{ id: string; name: string; email: string | null; status: string; place_id: number | null; owner_user_id: string | null }>("select id, name, email, status, place_id, owner_user_id from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
+  const b = await one<{ id: string; name: string; email: string | null; status: string; place_id: number | null; owner_user_id: string | null; outreach_email: string | null; profile_built_at: string | null; city: string | null; slug: string }>("select id, name, email, status, place_id, owner_user_id, outreach_email, profile_built_at, city, slug from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
   const g = (k: string, max = 200) => String(f.get(k) ?? "").trim().slice(0, max);
   const name = g("name", 80), phone = g("phone", 40), email = g("email", 120).toLowerCase(), description = g("description", 3000), address = g("address", 200);
-  if (!b || b.status === "hidden" || (b.status === "unclaimed" && !b.owner_user_id) || !b.email || !name || !phone || !email.includes("@") || description.length < 30 || !address) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=fout#offerte`, 303);
+  const live = !!b && (b.status === "claimed" || b.status === "pro" || !!b.owner_user_id);
+  const teaser = !!b && !live && !!b.profile_built_at && !!b.outreach_email;
+  if (!b || b.status === "hidden" || (!live && !teaser) || (live && !b.email) || !name || !phone || !email.includes("@") || description.length < 30 || !address) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=fout#offerte`, 303);
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? ""; const ipHash = createHash("sha256").update(ip + (process.env.SESSION_SECRET ?? "")).digest("hex").slice(0, 32);
   const recent = await one<{ n: number }>("select count(*)::int as n from lead_requests where ip_hash=$1 and created_at > now() - interval '1 hour'", [ipHash]);
   if ((recent?.n ?? 0) >= 3) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=limiet#offerte`, 303);
@@ -42,6 +44,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   const photosHtml = urls.length ? `<p><b>Foto's</b></p>${urls.map((u) => `<p><a href="${u}"><img src="${u}" style="max-width:280px;border-radius:8px" alt=""></a></p>`).join("")}` : "";
   const html = `${table}<p><b>Omschrijving</b><br>${esc(description).replace(/\n/g, "<br>")}</p>${photosHtml}`;
   const text = rows.map(([k, val]) => `${k}: ${val}`).join("\n") + `\n\nOmschrijving:\n${description}\n${urls.length ? `\nFoto's:\n${urls.join("\n")}` : ""}`;
+  if (!live && teaser) {
+    const place = address.split(",").pop()?.trim() ?? b.city ?? "";
+    const teaserHtml = `<p>Er is zojuist een offerteaanvraag voor <b>${b.name}</b> binnengekomen via ${v.brand}:</p>
+      <table style="border-collapse:collapse;font-size:15px"><tr><td style="padding:4px 12px 4px 0;color:#5A6975">Wat</td><td><b>${esc(serviceName)}</b></td></tr><tr><td style="padding:4px 12px 4px 0;color:#5A6975">Soort dak</td><td><b>${esc(ROOF[roof] ?? roof)}</b></td></tr><tr><td style="padding:4px 12px 4px 0;color:#5A6975">Oppervlakte</td><td><b>${size ? `ongeveer ${size} m2` : "niet opgegeven"}</b></td></tr><tr><td style="padding:4px 12px 4px 0;color:#5A6975">Wanneer</td><td><b>${esc(WHEN[when] ?? when)}</b></td></tr><tr><td style="padding:4px 12px 4px 0;color:#5A6975">Plaats</td><td><b>${esc(place)}</b></td></tr>${urls.length ? `<tr><td style="padding:4px 12px 4px 0;color:#5A6975">Foto's</td><td><b>${urls.length} meegestuurd</b></td></tr>` : ""}</table>
+      <p>De naam, het telefoonnummer en de volledige omschrijving zie je zodra je je pagina hebt bevestigd. Dat duurt twee minuten: website en e-mailadres invullen, nakijken, 79,95 per jaar inclusief btw. Daarna komen alle aanvragen rechtstreeks bij jou, hoeveel het er ook zijn.</p>
+      <p style="color:#5A6975;font-size:13px">Reageer je niet binnen 48 uur, dan laten we de aanvrager weten dat je via ons niet bereikbaar bent en wijzen we geverifieerde ${v.name_plural} in de buurt aan.</p>`;
+    await sendMail(b.outreach_email!, `${when === "spoed" ? "SPOED: " : ""}Er wacht een offerteaanvraag op ${b.name} (${serviceName}, ${place})`, mailLayout(v.brand, "Er wacht een aanvraag op je", teaserHtml, { href: `${base}/claim/${b.slug}/`, label: "Bevestig je pagina en bekijk de aanvraag" }), `Offerteaanvraag voor ${b.name}: ${serviceName}, ${place}. Bevestig je pagina om de gegevens te zien: ${base}/claim/${b.slug}/`).catch(() => {});
+    await q("update leads set teaser_sent_at=now() where request_id=$1 and business_id=$2", [r!.id, b.id]);
+    await sendMail(email, `Je offerteaanvraag bij ${b.name}`, mailLayout(v.brand, `Je aanvraag is doorgestuurd naar ${b.name}`, `<p>${b.name} heeft zijn pagina op ${v.brand} nog niet bevestigd. We hebben je aanvraag doorgestuurd en vragen het bedrijf te reageren. Horen we binnen 48 uur niets, dan krijg je van ons een mail met geverifieerde ${v.name_plural} bij jou in de buurt.</p>${html}`), text);
+    await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Lead (teaser): ${b.name} (${serviceName})`, mailLayout(v.brand, `Offerteaanvraag voor niet-geclaimd ${b.name}`, html), text).catch(() => {});
+    return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=sent#offerte`, 303);
+  }
   if (b.email) await sendMail(b.email, `${when === "spoed" ? "SPOED: " : ""}Offerteaanvraag via ${v.brand}: ${serviceName} in ${address.split(",").pop()?.trim() ?? ""}`, mailLayout(v.brand, `Nieuwe offerteaanvraag voor ${b.name}`, `<p>Deze aanvraag is alleen naar jou gestuurd. Reageer het liefst vandaag; bel of app ${name} op ${esc(phone)}.</p>${html}<p style="margin-top:20px"><a href="${base}/dashboard/${slug}/#aanvragen">Alle aanvragen in je dashboard</a></p>`), text);
   await sendMail(email, `Je offerteaanvraag bij ${b.name}`, mailLayout(v.brand, `Je aanvraag is verstuurd naar ${b.name}`, `<p>Dit is wat we hebben doorgestuurd. Geen reactie binnen twee werkdagen? Bel het bedrijf even.</p>${html}<p style="margin-top:20px;font-size:13px;color:#5A6975">Tip: vraag altijd een schriftelijke offerte met vaste prijs, en betaal nooit vooraf het volledige bedrag.</p>`), text);
   await sendMail(process.env.ADMIN_EMAIL ?? "paul@yourfellow.nl", `Lead: ${b.name} (${serviceName})`, mailLayout(v.brand, `Offerteaanvraag voor ${b.name}`, html), text).catch(() => {});

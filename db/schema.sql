@@ -339,3 +339,12 @@ create table if not exists page_views (
   primary key (day, path)
 );
 create table if not exists page_view_visitors (day date not null, path text not null, visitor text not null, primary key (day, path, visitor));
+
+-- ronde 7: gratis vs betaald, aanvraag als haak
+alter table businesses add column if not exists availability text not null default 'available';
+alter table businesses add column if not exists available_from text;
+alter table reviews add column if not exists reply text;
+alter table reviews add column if not exists replied_at timestamptz;
+alter table leads add column if not exists teaser_sent_at timestamptz;
+alter table leads add column if not exists requester_notified_at timestamptz;
+create table if not exists review_invites (id uuid primary key default gen_random_uuid(), business_id uuid references businesses(id) on delete cascade, email text not null, sent_at timestamptz not null default now());

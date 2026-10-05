@@ -14,7 +14,7 @@ export function ArticleCard({ a }: { a: Article }) {
   );
 }
 
-export default function ArticleView({ a, v, base, canonical, related }: { a: Article; v: Vertical; base: string; canonical: string; related: Article[] }) {
+export default function ArticleView({ a, v, base, canonical, related, nearby }: { a: Article; v: Vertical; base: string; canonical: string; related: Article[]; nearby?: React.ReactNode }) {
   const schema = [
     {
       "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.description, image: a.image ? [`${base}${a.image}`] : undefined,
@@ -45,12 +45,14 @@ export default function ArticleView({ a, v, base, canonical, related }: { a: Art
           {a.faq.length > 0 && (
             <section className="faq"><h2 id="veelgestelde-vragen">Veelgestelde vragen</h2>{a.faq.map((f, i) => <details key={i} open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
           )}
-          <p className="srnote" style={{ marginTop: 24 }}>Bronnen: richtprijzen samengesteld uit Nederlandse prijsgidsen en offerteplatforms (2026) en de subsidieregels van RVO. Prijzen zijn indicaties inclusief btw tenzij anders vermeld en verschillen per regio, dak en bedrijf. Zodra {v.brand} per provincie minimaal vijf facturen van geverifieerde klussen heeft, vervangen echte regionale cijfers deze indicaties.</p>
+          <p className="srnote" style={{ marginTop: 24 }}>Richtprijzen 2026, inclusief btw tenzij anders vermeld. Prijzen verschillen per regio, dak en bedrijf; vraag altijd een offerte met vaste prijs.</p>
         </article>
+          {nearby}
+
         <aside className="aside">
           <div className="cta-navy">
             <h2 style={{ fontSize: 17 }}>Een {v.name_singular} in de buurt?</h2>
-            <p>Vergelijk geverifieerde {v.name_plural} in jouw plaats en vraag in één keer 3 offertes aan.</p>
+            <p>Vergelijk geverifieerde {v.name_plural} in jouw plaats en vraag direct een offerte aan.</p>
             <form action="/zoeken/" method="get" style={{ display: "flex", gap: 8 }}><input name="q" placeholder="Jouw plaats" aria-label="Plaats" style={{ flex: 1, minWidth: 0, border: 0, borderRadius: 10, padding: "0 12px", minHeight: 44, fontSize: 16, fontFamily: "inherit" }} /><button className="btn btn-amber" type="submit">Zoek</button></form>
           </div>
           {related.length > 0 && (
@@ -69,3 +71,4 @@ export default function ArticleView({ a, v, base, canonical, related }: { a: Art
     </main>
   );
 }
+

@@ -35,33 +35,28 @@ export default async function VoorDakdekkers() {
       </section>
 
       <section id="aanbod" className="wrap" style={{ paddingTop: 8, paddingBottom: 48 }}>
-        <h2>Het aanbod, zonder kleine lettertjes</h2>
-        <div className="grid cols-3" style={{ marginTop: 16, alignItems: "stretch" }}>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <h3>Basisvermelding</h3>
-            <b style={{ fontSize: 26, fontFamily: "Manrope, sans-serif" }}>Gratis</b>
-            <ul style={{ margin: 0, paddingLeft: 18, color: "var(--ink-2)", fontSize: 15 }}><li>Naam, plaats, KvK-nummer en startdatum uit het Handelsregister</li><li>Staat op de kaart en op de plaatspagina's, onderaan</li><li>Gratis correcties doorgeven</li></ul>
-            <span className="srnote">Dit is wat er nu staat, zonder dat je iets doet.</span>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10, border: "2px solid var(--amber)" }}>
-            <h3>Geverifieerd profiel</h3>
-            <b style={{ fontSize: 26, fontFamily: "Manrope, sans-serif" }}>{priceText} euro per jaar</b>
-            <span className="srnote">Inclusief btw, via iDEAL, geen automatische incasso.</span>
-            <ul style={{ margin: 0, paddingLeft: 18, color: "var(--ink-2)", fontSize: 15 }}>
-              <li>Compleet profiel: logo, tot 6 projectfoto's, diensten, werkgebied, keurmerken, beschrijving</li>
-              <li>Label Geverifieerd, met uitleg wat gecontroleerd is</li>
-              <li>Link naar je website</li>
-              <li>Reviews verzamelen, met factuurbewijs</li>
-              <li>Offerteblok op je profiel: aanvragen komen rechtstreeks bij jou, worden niet doorverkocht</li>
-              <li>Boven de niet-geclaimde bedrijven in de lijsten</li>
-            </ul>
-          </div>
-          <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <h3>Pro</h3>
-            <b style={{ fontSize: 26, fontFamily: "Manrope, sans-serif" }}>Binnenkort</b>
-            <ul style={{ margin: 0, paddingLeft: 18, color: "var(--ink-2)", fontSize: 15 }}><li>Bovenaan in je hele werkgebied</li><li>Offerteaanvragen vanaf de plaatspagina's (maximaal 3 bedrijven per aanvraag)</li><li>WhatsApp-knop, 30 foto's, statistieken</li></ul>
-            <span className="srnote">Komt zodra er genoeg geverifieerde bedrijven per regio zijn.</span>
-          </div>
+        <h2>Gratis of geclaimd: dit is het verschil</h2>
+        <div className="card" style={{ marginTop: 16, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
+            <thead><tr style={{ textAlign: "left", borderBottom: "2px solid var(--line)" }}><th style={{ padding: "8px 10px 8px 0" }}></th><th style={{ padding: "8px 10px" }}>Gratis vermelding</th><th style={{ padding: "8px 10px", color: "var(--amber-ink)" }}>Geclaimd profiel, {priceText} euro per jaar</th></tr></thead>
+            <tbody>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Pagina vindbaar in Google en voor AI-assistenten</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee, alleen in de lijst van je plaats</td><td style={{ padding: "8px 10px" }}>Ja, eigen geïndexeerde pagina met gestructureerde data</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Logo, beschrijving, diensten, werkgebied, keurmerken</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Alleen naam, plaats en KvK-nummer</td><td style={{ padding: "8px 10px" }}>Ja, uit je website opgebouwd en zelf aan te passen</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Foto's van je werk</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Tot 6 foto's, uploaden vanaf je telefoon</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Telefoon, WhatsApp en link naar je website</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Ja</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Offerteaanvragen</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee; bewoners worden doorverwezen naar geverifieerde bedrijven</td><td style={{ padding: "8px 10px" }}>Formulier op je pagina, aanvragen rechtstreeks naar jou, met foto's en adres</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Zichtbaar in plaatsen rondom je</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Alleen je eigen plaats</td><td style={{ padding: "8px 10px" }}>Tot 30 km, op alle plaatspagina's in dat gebied</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Positie in de lijsten</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Onderaan</td><td style={{ padding: "8px 10px" }}>Bovenaan, met het label Geverifieerd</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Reviews</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Verzamelen met factuurbewijs, klanten uitnodigen, reageren</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Vermelding bij kennisartikelen</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>In het blok Geverifieerde dakdekkers bij jou in de buurt, onder elk artikel</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Badge voor je eigen website</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Ja, met link naar je profiel</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Delen op social media</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Eigen deelafbeelding met je logo en knoppen</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Beschikbaarheid en spoed</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Status direct, vanaf of vol; label voor spoed</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Inzicht</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Bezoekers en aanvragen in je dashboard</td></tr>
+              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Factuur</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Niet van toepassing</td><td style={{ padding: "8px 10px" }}>Met btw-specificatie, direct na betaling</td></tr>
+            </tbody>
+          </table>
+          <p style={{ marginTop: 12, fontSize: 15, color: "var(--ink-2)" }}>Inclusief btw, via iDEAL, één vast bedrag of je nu vijf of vijftig aanvragen krijgt. Geen incasso, geen stilzwijgende verlenging.</p>
         </div>
         <div className="card" style={{ marginTop: 16, display: "grid", gap: 10, fontSize: 15, color: "var(--ink-2)" }}>
           <div><b style={{ color: "var(--ink)" }}>Wat verificatie inhoudt.</b> We controleren dat het bedrijf actief is ingeschreven bij de KvK en dat jij de eigenaar bent: je website moet je bedrijfsnaam of KvK-nummer tonen en je e-mailadres moet bij die website horen. Het label zegt niets over de kwaliteit van je werk; dat doen reviews met factuurbewijs.</div>

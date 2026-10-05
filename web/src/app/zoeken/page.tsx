@@ -25,7 +25,7 @@ export default async function Zoeken({ searchParams }: { searchParams: Promise<{
       <h1 style={{ fontSize: 28 }}>{t ? `Zoekresultaten voor "${t}"` : `Zoek een plaats of ${v.name_singular}`}</h1>
       <form className="search" method="get" style={{ marginTop: 16 }}>
         <input name="q" defaultValue={t} placeholder="Plaats, bedrijfsnaam of KvK-nummer" autoComplete="off" />
-        <button type="submit" className="btn btn-primary">Zoek {v.name_singular}</button>
+        <button type="submit" className="btn btn-primary">Zoek<span className="btn-long"> {v.name_singular}</span></button>
       </form>
       {biz.length > 0 && (
         <section style={{ marginTop: 20 }}>

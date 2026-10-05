@@ -50,7 +50,7 @@ export default async function Home() {
           <form className="search" action="/zoeken/" method="get">
             <label htmlFor="zoek" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>Plaats of bedrijfsnaam</label>
             <input id="zoek" name="q" type="text" placeholder="Plaats, postcode of bedrijfsnaam" autoComplete="off" />
-            <button type="submit" className="btn btn-primary">Zoek {v.name_singular}</button>
+            <button type="submit" className="btn btn-primary">Zoek<span className="btn-long"> {v.name_singular}</span></button>
           </form>
           <div className="stats">
             <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} uit het KvK Handelsregister</small></div>

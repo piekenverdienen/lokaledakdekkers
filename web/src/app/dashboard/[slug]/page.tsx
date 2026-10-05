@@ -129,7 +129,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             ) : (
               <>
                 <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Voor {priceText} euro per jaar inclusief btw (iDEAL, geen incasso, verlengen is een mail vooraf en één klik) gaat je profiel online met het label Geverifieerd, logo en foto's, een link naar je website, reviews met factuurbewijs en een offerteblok. Je staat dan boven de niet-geclaimde bedrijven.</p>
-                <form method="post" action={`/dashboard/${slug}/betaal/`}><button className="btn btn-primary" type="submit" disabled={!mollieEnabled()} style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Betaal {priceText} euro en zet online</button></form>
+                <form method="post" action={`/dashboard/${slug}/betaal/`}><span className="srnote" style={{ display: "block", marginBottom: 8 }}>Met betalen ga je akkoord met de <a href="/voorwaarden/" target="_blank">voorwaarden</a>.</span><button className="btn btn-primary" type="submit" disabled={!mollieEnabled()} style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Betaal {priceText} euro en zet online</button></form>
                 {!mollieEnabled() && <span className="srnote">Betalen wordt binnenkort geactiveerd. Je profiel blijft bewaard.</span>}
               </>
             )}

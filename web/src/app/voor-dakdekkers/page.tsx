@@ -68,6 +68,7 @@ export default async function VoorDakdekkers() {
           <div><b style={{ color: "var(--ink)" }}>Verlenging en opzeggen.</b> Je betaalt één jaar vooruit. Dertig dagen voor het einde krijg je een mail; verlengen is één klik, niet verlengen is niets doen. Geen incasso, geen stilzwijgende verlenging.</div>
           <div><b style={{ color: "var(--ink)" }}>Als je niet betaalt.</b> Dan blijft de gratis basisvermelding staan zoals nu, met de KvK-gegevens. Je ingevulde profiel bewaren we, zodat je later alsnog kunt publiceren.</div>
           <div><b style={{ color: "var(--ink)" }}>Hoe we sorteren.</b> Geverifieerde profielen staan boven niet-geclaimde, daarbinnen op reviewscore en afstand. Een hogere plek betekent dat het bedrijf geverifieerd is, niet dat het beter is.</div>
+          <div><b style={{ color: "var(--ink)" }}>Voorwaarden.</b> De volledige <a href="/voorwaarden/">algemene voorwaarden voor bedrijven</a>.</div>
           <div><b style={{ color: "var(--ink)" }}>Google en AI-assistenten.</b> Elk profiel heeft gestructureerde data en een vaste, controleerbare opbouw, zodat zoekmachines en AI-assistenten het kunnen lezen en citeren. We beloven geen positie of vermelding; wel een compleet, actueel en controleerbaar profiel.</div>
         </div>
       </section>

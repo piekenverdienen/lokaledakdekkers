@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: `${v.brand}: vind een betrouwbare ${v.name_singular} bij jou in de buurt`, template: `%s | ${v.brand}` },
     description: `Alle ${v.name_plural} van Nederland per plaats, met geverifieerde profielen, reviews met factuurbewijs en richtprijzen per regio.`,
     metadataBase: new URL(process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`),
+    verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   };
 }
 
@@ -64,6 +65,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <a href="/privacy/">Privacy</a>
             <a href="/bedrijf-verwijderen/">Bedrijf verwijderen</a>
             <a href="/reviewbeleid/">Reviewbeleid</a>
+            <a href="/voorwaarden/">Voorwaarden</a>
+            <a href="/contact/">Contact</a>
             <a href="/kennis/">Kennis</a>
           </div>
         </footer>

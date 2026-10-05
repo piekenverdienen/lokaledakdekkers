@@ -12,10 +12,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""; const v = await getVertical(host);
   const base = process.env.BASE_URL_OVERRIDE ?? `https://${v.domain}`;
   const f = await req.formData();
-  const b = await one<{ id: string; name: string; email: string | null; status: string; place_id: number | null }>("select id, name, email, status, place_id from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
+  const b = await one<{ id: string; name: string; email: string | null; status: string; place_id: number | null; owner_user_id: string | null }>("select id, name, email, status, place_id, owner_user_id from businesses where vertical_id=$1 and slug=$2", [v.id, slug]);
   const g = (k: string, max = 200) => String(f.get(k) ?? "").trim().slice(0, max);
   const name = g("name", 80), phone = g("phone", 40), email = g("email", 120).toLowerCase(), description = g("description", 3000), address = g("address", 200);
-  if (!b || b.status === "unclaimed" || b.status === "hidden" || !name || !phone || !email.includes("@") || description.length < 30 || !address) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=fout#offerte`, 303);
+  if (!b || b.status === "hidden" || (b.status === "unclaimed" && !b.owner_user_id) || !b.email || !name || !phone || !email.includes("@") || description.length < 30 || !address) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=fout#offerte`, 303);
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? ""; const ipHash = createHash("sha256").update(ip + (process.env.SESSION_SECRET ?? "")).digest("hex").slice(0, 32);
   const recent = await one<{ n: number }>("select count(*)::int as n from lead_requests where ip_hash=$1 and created_at > now() - interval '1 hour'", [ipHash]);
   if ((recent?.n ?? 0) >= 3) return NextResponse.redirect(`${base}/bedrijf/${slug}/?offerte=limiet#offerte`, 303);

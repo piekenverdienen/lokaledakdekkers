@@ -287,3 +287,15 @@ create index if not exists businesses_website_check_idx on businesses (website_c
 
 alter table reviews add column if not exists email_verified_at timestamptz;
 alter table reviews add column if not exists invoice_ref text;
+
+create table if not exists media (
+  id            uuid primary key default gen_random_uuid(),
+  business_id   uuid references businesses(id) on delete cascade,
+  kind          text not null default 'photo',
+  mime          text not null,
+  bytes         bytea not null,
+  width         int,
+  height        int,
+  created_at    timestamptz not null default now()
+);
+create index if not exists media_business_idx on media (business_id);

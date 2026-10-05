@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getBusiness, q, one } from "@/lib/db";
 import { mollieEnabled } from "@/lib/mollie";
+import UploadForm from "@/components/UploadForm";
 import { getUser } from "@/lib/auth";
 import { currentVertical, cap, serviceName, websiteDomainSafe } from "@/lib/site";
 import { initials } from "@/components/BusinessCard";
@@ -29,7 +30,7 @@ function Block({ title, slug, field, children, form }: { title: string; slug: st
   );
 }
 
-export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string }> }) {
+export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string; fotos?: string; overgeslagen?: string; logo?: string }> }) {
   const v = await currentVertical();
   const { slug } = await params;
   const sp = await searchParams;
@@ -40,6 +41,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const owner = await q<{ owner_user_id: string | null; website: string | null; available_from: string | null }>("select owner_user_id, website, available_from::text from businesses where id=$1", [b.id]);
   if (!user.is_admin && owner[0]?.owner_user_id !== user.id) redirect("/dashboard/");
   const photos = await q<{ id: string; url: string }>("select id, url from business_photos where business_id=$1 order by sort_order", [b.id]);
+  const maxPhotos = b.status === "pro" ? 30 : 6;
   const areas = await q<{ name: string }>("select p.name from business_areas a join places p on p.id=a.place_id where a.business_id=$1 order by p.name", [b.id]);
   const live = b.status !== "unclaimed";
   const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
@@ -112,13 +114,33 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             <div className="chips">{b.certifications.map((c) => <span key={c} className="chip">{c}</span>)}{b.usps.map((u) => <span key={u} className="chip" style={{ background: "var(--green-bg)" }}>{u}</span>)}{!b.certifications.length && !b.usps.length && <span style={{ color: "var(--ink-3)" }}>Nog niets ingevuld.</span>}</div>
           </Block>
 
-          <Block title={`Foto's (${photos.length})`} slug={slug} field="photos" form={<>
-            <label>Foto-adressen, één per regel (maximaal {b.status === "pro" ? 30 : 6})<textarea name="photos" defaultValue={photos.map((p) => p.url).join("\n")} rows={6} style={{ ...input, minHeight: 120 }} /></label>
-            <label>Logo-adres<input name="logo_url" defaultValue={b.logo_url ?? ""} style={input} /></label>
-            <span className="srnote">Uploaden vanaf je telefoon komt in een volgende ronde; nu kun je adressen van foto's op je eigen website gebruiken.</span>
-          </>}>
-            {photos.length ? <div className="photos">{photos.slice(0, 4).map((p) => <img key={p.id} src={p.url} alt="" />)}</div> : <span style={{ color: "var(--ink-3)" }}>Nog geen foto's.</span>}
-          </Block>
+          <section id="fotos" className="card" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+              <h2 style={{ fontSize: 18 }}>Foto's van je werk ({photos.length} van {maxPhotos})</h2>
+              {sp.fotos && <span className="srnote" style={{ color: "var(--green)" }}>{sp.fotos} foto's toegevoegd{sp.overgeslagen ? `, ${sp.overgeslagen} overgeslagen` : ""}</span>}
+            </div>
+            {photos.length > 0 && (
+              <div className="photos" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))" }}>
+                {photos.map((p, i) => (
+                  <div key={p.id} style={{ position: "relative" }}>
+                    <img src={p.url} alt="" style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: 10, display: "block" }} />
+                    <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+                      {i > 0 && <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="eerst" /><input type="hidden" name="url" value={p.url} /><button className="btn btn-outline" style={{ padding: "4px 10px", minHeight: 30, fontSize: 13 }}>Als eerste</button></form>}
+                      <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="verwijder" /><input type="hidden" name="url" value={p.url} /><button className="btn btn-outline" style={{ padding: "4px 10px", minHeight: 30, fontSize: 13 }}>Weg</button></form>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {photos.length < maxPhotos && (
+              <UploadForm action={`/dashboard/${slug}/upload/`} kind="photo" multiple label="Foto's kiezen of maken" note={`Vanaf je telefoon kun je direct een foto maken. Maximaal ${maxPhotos} foto's, we verkleinen ze zelf.`} />
+            )}
+            <div style={{ borderTop: "1px solid var(--line)", paddingTop: 14, display: "flex", flexWrap: "wrap", gap: 14, alignItems: "center" }}>
+              <div style={{ width: 72, height: 72, borderRadius: 12, border: "1px solid var(--line)", display: "grid", placeItems: "center", overflow: "hidden", background: "#fff" }}>{b.logo_url ? <img src={b.logo_url} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }} /> : <span style={{ fontSize: 12, color: "var(--ink-3)" }}>Geen logo</span>}</div>
+              <UploadForm action={`/dashboard/${slug}/upload/`} kind="logo" label={b.logo_url ? "Ander logo kiezen" : "Logo kiezen"} />
+              {b.logo_url && <form method="post" action={`/dashboard/${slug}/foto/`}><input type="hidden" name="actie" value="logo_weg" /><button className="btn btn-outline" style={{ padding: "6px 10px", minHeight: 34, fontSize: 13 }}>Logo weg</button></form>}
+            </div>
+          </section>
         </div>
 
         <aside className="aside">

@@ -137,7 +137,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             <a href={`/betrouwbare-${v.name_singular}/`} style={{ fontWeight: 600, fontSize: 15 }}>Meer tips voor een betrouwbare {v.name_singular}</a>
             <a href={`/corrigeren/${b.slug}/`} style={{ fontSize: 14, color: "var(--ink-3)" }}>Kloppen deze gegevens niet? Geef een correctie door (gratis)</a>
           </div>
-          {nearby.length > 0 && (
+          {!claimed && nearby.length > 0 && (
             <div className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <h2 style={{ fontSize: 17 }}>Andere {v.name_plural} in de buurt</h2>
               {nearby.map((o) => <a key={o.id} href={businessPath(o)} style={{ fontSize: 15 }}>{o.name}{o.city ? `, ${o.city}` : ""}</a>)}

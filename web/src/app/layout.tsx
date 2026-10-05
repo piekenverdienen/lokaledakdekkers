@@ -26,12 +26,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <header className="header">
           <nav className="wrap nav">
             <a href="/" className="brand" aria-label={v.brand}>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /></svg>
-              <span style={{ color: "inherit" }}>{first}</span>&nbsp;<span>{rest.join(" ")}</span>
+              <span className="logo-mark" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3.5 12.5L12 5l8.5 7.5" stroke="#F2B45C" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M6.5 11.5V19h11v-7.5" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /><path d="M10.5 19v-4.5h3V19" stroke="#FFFFFF" strokeWidth="2" strokeLinejoin="round" /></svg>
+              </span>
+              <span className="brand-text"><span>{first} <span>{rest.join(" ")}</span></span><small>Geverifieerd, lokaal, eerlijk</small></span>
             </a>
             <div className="navlinks desktop">
               <a href="/#provincies">Plaatsen</a>
               <a href="/kosten/">Kosten</a>
+              <a href="/kennis/">Kennis</a>
               <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
               <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
             </div>
@@ -42,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <div className="navlinks mobile">
                 <a href="/#provincies">Plaatsen</a>
                 <a href="/kosten/">Kosten</a>
+                <a href="/kennis/">Kennis</a>
                 <a href={`/betrouwbare-${v.name_singular}/`}>Betrouwbaar kiezen</a>
                 <a href="/dashboard/">Inloggen</a>
                 <a href="/claim/" className="btn btn-primary">Claim je profiel</a>
@@ -58,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <a href="/privacy/">Privacy</a>
             <a href="/bedrijf-verwijderen/">Bedrijf verwijderen</a>
             <a href="/reviewbeleid/">Reviewbeleid</a>
+            <a href="/kennis/">Kennis</a>
           </div>
         </footer>
       </body>

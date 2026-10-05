@@ -154,3 +154,30 @@ p { margin: 0; }
 @media (max-width: 560px) { .trust { grid-template-columns: 1fr; gap: 8px; } .trust div { padding: 10px 12px; } }
 .building { background: var(--amber-bg); border: 1px solid var(--amber-light); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--amber-ink); }
 .hero-bg { background: linear-gradient(180deg, #EAF2F7 0%, var(--ground) 100%); }
+.navlinks a.btn-primary, .menu[open] .navlinks a.btn-primary { color: #fff; background: var(--blue); }
+.navlinks a.btn-primary:hover { background: var(--blue-dark); color: #fff; }
+.logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 9px; background: var(--navy); flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; line-height: 1; }
+.brand-text small { font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-top: 3px; }
+/* kennisbank */
+.art-card { gap: 8px; padding: 0 0 16px; overflow: hidden; }
+.art-card .art-thumb { margin: 0 0 6px; border-radius: 14px 14px 0 0; overflow: hidden; }
+.art-card .art-thumb svg { border-radius: 0; }
+.art-card small, .art-card b { padding: 0 16px; }
+.art-card b { font-size: 16px; line-height: 1.3; }
+.prose h2 { font-size: 24px; margin-top: 28px; margin-bottom: 8px; }
+.prose h3 { font-size: 18px; margin-top: 20px; margin-bottom: 6px; }
+.prose p { margin: 10px 0; color: var(--ink-2); font-size: 17px; }
+.prose ul, .prose ol { color: var(--ink-2); font-size: 17px; padding-left: 22px; margin: 10px 0; }
+.prose li { margin: 4px 0; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 14px 0; display: block; overflow-x: auto; }
+.prose th, .prose td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.prose th { background: var(--surface); font-weight: 600; color: var(--ink); }
+.prose tbody tr:nth-child(odd) { background: rgba(255,255,255,0.6); }
+.prose strong { color: var(--ink); }
+.prose a { font-weight: 600; }
+.toc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 16px 0; font-size: 15px; }
+.toc ol { margin: 8px 0 0; padding-left: 20px; }
+.toc li { margin: 4px 0; }
+.toc a { text-decoration: none; }
+@media (max-width: 760px) { .prose p, .prose ul, .prose ol { font-size: 16px; } .prose h2 { font-size: 21px; } }

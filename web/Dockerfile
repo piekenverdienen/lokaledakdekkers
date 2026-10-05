@@ -16,6 +16,7 @@ COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
 COPY web/scripts ./scripts
 COPY web/data ./data
+COPY web/content ./content
 COPY db ./db
 EXPOSE 3000
 CMD ["sh", "-c", "node scripts/migrate.mjs && node server.js"]

@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { currentVertical, cap } from "@/lib/site";
-export const metadata: Metadata = { title: "Wat kost dakwerk? Richtprijzen per regio uit echte facturen", alternates: { canonical: "/kosten/" } };
+import { ArticleCard } from "@/components/ArticleView";
+import { getAllArticles } from "@/lib/kennis";
+import { currentVertical } from "@/lib/site";
+export const metadata: Metadata = { title: "Wat kost dakwerk in 2026? Richtprijzen per klus", description: "Richtprijzen 2026 voor een nieuw dak, plat dak, dakpannen, dakkapel, isolatie en reparaties, plus de regionale cijfers uit facturen zodra die er zijn.", alternates: { canonical: "/kosten/" } };
 export default async function Kosten() {
   const v = await currentVertical();
+  const prijs = getAllArticles().filter((a) => a.category === "Kosten" || a.category === "Isolatie");
   return (
-    <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 800 }}>
-      <h1>Wat kost dakwerk?</h1>
-      <p className="lede" style={{ marginTop: 12 }}>Richtprijzen op {v.brand} komen uit facturen van geverifieerde klussen, per provincie en per soort dakwerk. Een richtprijs verschijnt pas bij minimaal vijf facturen, met de steekproefgrootte en de datum erbij. Geen cijfers uit andere websites, geen schattingen.</p>
-      <div className="card" style={{ marginTop: 24 }}>Er zijn nog geen vijf geverifieerde facturen per provincie. Zodra die er zijn, staan hier de richtprijzen per m2 voor pannendaken, platte daken, dakkapellen en dakisolatie.</div>
-      <p style={{ marginTop: 24 }}><a href="/">Terug naar alle {v.name_plural}</a></p>
+    <main className="wrap" style={{ padding: "24px 0 64px" }}>
+      <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><b>Kosten</b></nav>
+      <h1>Wat kost dakwerk in 2026?</h1>
+      <p className="lede" style={{ marginTop: 8 }}>Richtprijzen per klus, samengesteld uit Nederlandse prijsgidsen van 2026. Zodra {v.brand} per provincie minimaal vijf facturen van geverifieerde klussen heeft, staan hier echte regionale cijfers, met de steekproef erbij.</p>
+      <div className="grid cols-3" style={{ marginTop: 24 }}>{prijs.map((a) => <ArticleCard key={a.slug} a={a} />)}</div>
+      <div className="building" style={{ marginTop: 24 }}>Regionale richtprijzen uit facturen: nog geen vijf geverifieerde klussen per provincie. Liever geen cijfer dan een verzonnen cijfer.</div>
     </main>
   );
 }

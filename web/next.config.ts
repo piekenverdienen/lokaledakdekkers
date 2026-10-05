@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: true,
+  outputFileTracingIncludes: { "/kennis/**": ["./content/**/*"], "/kosten": ["./content/**/*"], "/": ["./content/**/*"], "/betrouwbaar": ["./content/**/*"], "/sitemap.xml": ["./content/**/*"] },
   images: { remotePatterns: [{ protocol: "https", hostname: "**" }] },
   async rewrites() {
     // /betrouwbare-dakdekker/ en straks /betrouwbare-hovenier/ delen één pagina

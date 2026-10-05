@@ -92,7 +92,7 @@ export default async function PlacePage({ params, searchParams }: Props) {
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <h2 style={{ fontSize: 17 }}>Wat kost dakwerk in {p.name}?</h2>
             <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Richtprijzen per m2 verschijnen zodra er in {p.province_name} minimaal vijf facturen van geverifieerde klussen zijn. Tot die tijd tonen we niets, liever geen cijfer dan een verzonnen cijfer.</p>
-            <a href={`/kosten/`} style={{ fontWeight: 600, fontSize: 15 }}>Hoe de richtprijzen werken</a>
+            <a href="/kennis/wat-kost-een-dakdekker/" style={{ fontWeight: 600, fontSize: 15 }}>Landelijke richtprijzen 2026</a>
           </div>
           <div className="cta-navy">
             <h2 style={{ fontSize: 17 }}>{cap(v.name_singular)} in {p.name}?</h2>
@@ -117,6 +117,7 @@ export default async function PlacePage({ params, searchParams }: Props) {
             <a href={`/${p.province_slug}/${p.municipality_slug}/`}>Alle {v.name_plural} in gemeente {p.municipality_name}</a>
             <a href={`/${p.province_slug}/`}>Alle gemeenten in {p.province_name}</a>
             <a href={`/betrouwbare-${v.name_singular}/`}>Zo herken je een betrouwbare {v.name_singular}</a>
+            <a href="/kennis/">Kennisbank: kosten, dakbedekking, lekkage</a>
           </div>
         </div>
       </section>

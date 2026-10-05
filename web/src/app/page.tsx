@@ -1,4 +1,6 @@
 import Map from "@/components/Map";
+import { ArticleCard } from "@/components/ArticleView";
+import { getAllArticles } from "@/lib/kennis";
 import { getProvinces, q } from "@/lib/db";
 import { currentVertical, cap } from "@/lib/site";
 
@@ -12,6 +14,7 @@ export default async function Home() {
            (select count(*)::int from businesses where vertical_id=$1 and status in ('claimed','pro')) as verified,
            (select count(*)::int from place_stats where vertical_id=$1 and business_count>=3) as places`, [v.id]);
   const t = totals[0];
+  const featured = ["wat-kost-een-dakdekker", "betrouwbare-dakdekker-kiezen", "plat-dak-vervangen-kosten"].map((s) => getAllArticles().find((a) => a.slug === s)).filter(Boolean);
   const cities = await q<{ name: string; slug: string; municipality_slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
     select p.name, p.slug, m.slug as municipality_slug, pr.slug as province_slug, st_y(p.geom) as lat, st_x(p.geom) as lng, ps.business_count::int
     from place_stats ps join places p on p.id=ps.place_id join municipalities m on m.id=p.municipality_id join provinces pr on pr.id=m.province_id
@@ -67,6 +70,14 @@ export default async function Home() {
             </a>
           ))}
         </div>
+      </section>
+
+      <section className="wrap" style={{ padding: "0 24px 56px", display: "flex", flexDirection: "column", gap: 18 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+          <h2>Lees dit voordat je een {v.name_singular} belt</h2>
+          <a href="/kennis/" style={{ fontWeight: 600 }}>Alle artikelen</a>
+        </div>
+        <div className="grid cols-3">{featured.map((a) => <ArticleCard key={a!.slug} a={a!} />)}</div>
       </section>
 
       <section className="band">

@@ -9,7 +9,7 @@ export default async function Kennis() {
   const all = getAllArticles();
   const cats = [...new Set(all.map((a) => a.category))];
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px" }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64 }}>
       <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><b>Kennis</b></nav>
       <h1>Alles over je dak, voordat je een {v.name_singular} belt</h1>
       <p className="lede" style={{ marginTop: 8 }}>Wat dakwerk kost in 2026, welke dakbedekking bij jouw dak past, hoe je een lekkage opspoort en hoe je een betrouwbaar bedrijf herkent. Geschreven om je te helpen kiezen, niet om je iets te verkopen.</p>

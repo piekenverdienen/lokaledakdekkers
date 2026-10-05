@@ -202,3 +202,41 @@ p { margin: 0; }
 .sorteer { font-size: 14px; color: var(--ink-3); }
 .sorteer summary { cursor: pointer; }
 .sorteer p { margin: 6px 0 0; }
+
+/* 2.2: mobiel strak */
+.ex-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.hero h1 { font-size: clamp(28px, 4.6vw, 50px); }
+@media (max-width: 760px) {
+  .hero { padding: 20px 0 20px; }
+  .hero > div { gap: 14px; }
+  .hero h1 { font-size: 28px; line-height: 1.12; }
+  .hero .lede { font-size: 16px; }
+  .hero-photo { order: -1; }
+  .hero-photo img { aspect-ratio: 16 / 10; max-height: none; height: auto; object-position: center 45%; border-radius: 14px; }
+  .stats { gap: 10px 20px; }
+  .stats b { font-size: 22px; }
+  .stats small { font-size: 13px; }
+  .trust div { font-size: 14px; }
+  .ex-photo { aspect-ratio: 16 / 10; }
+  .biz-title h3 { font-size: 17px; }
+  .cols-4 .card-link b { font-size: 15px; }
+  .cols-4 .card-link small { font-size: 13px; }
+  .cols-4 .card { padding: 12px 14px; }
+  .art-card b { font-size: 15px; }
+  .map.tall { height: 320px; }
+  .band h2 { font-size: 24px; }
+  .band p { font-size: 16px; }
+  h2 { font-size: 22px; }
+  .wrap > section, section.wrap { padding-left: 16px; padding-right: 16px; }
+  .layout { gap: 20px; padding-top: 16px; }
+  .aside { max-width: none; }
+  .biz-head { gap: 12px; }
+  .logo { width: 48px; height: 48px; font-size: 16px; }
+  .crumbs { font-size: 13px; }
+  .btn { padding: 12px 14px; }
+}
+@media (max-width: 400px) {
+  .cols-4 { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 26px; }
+}
+.grid.cols-3 > .biz, .grid.cols-3 > .card { height: 100%; }

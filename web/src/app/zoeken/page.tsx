@@ -21,7 +21,7 @@ export default async function Zoeken({ searchParams }: { searchParams: Promise<{
   if (hits.length === 1 && biz.length === 0) redirect(`/${hits[0].province_slug}/${hits[0].municipality_slug}/${hits[0].slug}/`);
   const postcode = /^\d{4}/.test(t);
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px", maxWidth: 720 }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 720 }}>
       <h1 style={{ fontSize: 28 }}>{t ? `Zoekresultaten voor "${t}"` : `Zoek een plaats of ${v.name_singular}`}</h1>
       <form className="search" method="get" style={{ marginTop: 16 }}>
         <input name="q" defaultValue={t} placeholder="Plaats, bedrijfsnaam of KvK-nummer" autoComplete="off" />

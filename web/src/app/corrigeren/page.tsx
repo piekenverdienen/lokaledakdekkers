@@ -6,7 +6,7 @@ export default async function CorrigerenZoek({ searchParams }: { searchParams: P
   const v = await currentVertical(); const { q: term } = await searchParams;
   const hits = term && term.trim().length >= 2 ? await q<{ name: string; slug: string; city: string | null }>(`select name, slug, city from businesses where vertical_id=$1 and status<>'hidden' and (name ilike '%'||$2||'%' or kvk_number=$2) order by name limit 20`, [v.id, term.trim()]) : [];
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px", maxWidth: 720 }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 720 }}>
       <h1 style={{ fontSize: 30 }}>Gegevens corrigeren</h1>
       <p className="lede" style={{ marginTop: 8 }}>Zoek het bedrijf waarvan de gegevens niet kloppen. Corrigeren is gratis en kan zonder account.</p>
       <form className="search" method="get" style={{ marginTop: 16 }}><input name="q" defaultValue={term ?? ""} placeholder="Bedrijfsnaam of KvK-nummer" /><button className="btn btn-primary" type="submit">Zoek</button></form>

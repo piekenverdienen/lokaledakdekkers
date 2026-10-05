@@ -43,7 +43,7 @@ export default async function Home() {
       <div className="hero-bg"><section className="wrap hero">
         <div>
           <span className="eyebrow">Alle {v.name_plural} van Nederland op één kaart</span>
-          <h1>Vind een {v.name_singular} bij jou in de buurt, en weet wat je kiest</h1>
+          <h1>Vind een {v.name_singular} in de buurt en weet wat je kiest</h1>
           <p className="lede" style={{ fontSize: 19 }}>
             Bekijk {v.name_plural} in jouw buurt en vergelijk hun diensten, werkgebied en bedrijfsgegevens. Bij geverifieerde profielen zie je precies welke gegevens zijn gecontroleerd.
           </p>
@@ -63,7 +63,7 @@ export default async function Home() {
         </div>
       </section></div>
 
-      <section className="wrap" style={{ padding: "28px 24px 8px" }}>
+      <section className="wrap" style={{ paddingTop: 28, paddingBottom: 8 }}>
         <div className="trust">
           <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg><span><b>Wat Geverifieerd betekent</b>KvK-inschrijving gecontroleerd en de eigenaar bevestigd via website en e-mail, met datum. Het zegt niets over de kwaliteit van het dakwerk.</span></div>
           <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M8 13h8M8 17h5" /></svg><span><b>Reviews met factuurbewijs</b>Alleen reviews die aan een factuur gekoppeld zijn krijgen het label Geverifieerde klus en tellen mee in de richtprijzen.</span></div>
@@ -71,7 +71,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="wrap" style={{ padding: "32px 24px 8px", display: "flex", flexDirection: "column", gap: 16 }}>
+      <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
           <h2>Zo ziet een bedrijfsprofiel eruit</h2>
           {examples.real ? <span className="srnote">Geverifieerde bedrijven, willekeurig gekozen</span> : <span className="building" style={{ padding: "6px 12px" }}>Voorbeeldprofielen: fictieve bedrijven, tot de eerste geverifieerde profielen er zijn</span>}
@@ -79,9 +79,9 @@ export default async function Home() {
         <div className="grid cols-3">
           {examples.items.map((e) => (
             <article key={e.slug} className="biz" style={{ padding: 0, overflow: "hidden" }}>
-              <img src={e.photo} alt="" style={{ width: "100%", aspectRatio: "4 / 3", objectFit: "cover", display: "block" }} loading="lazy" />
+              <img src={e.photo} alt="" className="ex-photo" loading="lazy" />
               <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 8 }}>
-                <div className="biz-title"><h3 style={{ fontSize: 18 }}>{e.name}</h3>{e.verified && <span className="verified">Geverifieerd</span>}{!examples.real && <span className="badge" style={{ background: "var(--chip)", color: "var(--ink-2)", borderColor: "var(--line)" }}>Voorbeeld</span>}</div>
+                <div className="biz-title"><h3 style={{ fontSize: 18 }}>{e.name}</h3>{examples.real ? <span className="verified">Geverifieerd</span> : <span className="badge" style={{ background: "var(--chip)", color: "var(--ink-2)", borderColor: "var(--line)" }}>Voorbeeld</span>}</div>
                 <div className="meta"><span>{e.city}</span><span>Werkgebied {e.area}</span></div>
                 <div className="chips">{e.services.map((s) => <span key={s} className="chip">{s}</span>)}</div>
                 <span className="srnote">{e.reviews}</span>
@@ -92,16 +92,16 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="wrap" style={{ padding: "32px 24px 8px" }}>
+      <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8 }}>
         <div className="map-card">
-          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall markers={cities.map((c) => ({
+          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={cities.map((c) => ({
             lat: c.lat, lng: c.lng, label: `${c.name}`, count: c.business_count, href: `/${c.province_slug}/${c.municipality_slug}/${c.slug}/`,
           }))} />
           <div className="map-foot"><span>Het getal is het aantal {v.name_plural} binnen 30 km. Tik op een stad voor de lijst.</span></div>
         </div>
       </section>
 
-      <section className="wrap" id="provincies" style={{ padding: "8px 24px 56px", display: "flex", flexDirection: "column", gap: 18 }}>
+      <section className="wrap" id="provincies" style={{ paddingTop: 8, paddingBottom: 56, display: "flex", flexDirection: "column", gap: 18 }}>
         <h2>Zoek per provincie</h2>
         <div className="grid cols-4">
           {provinces.map((p) => (

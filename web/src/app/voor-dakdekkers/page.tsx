@@ -25,7 +25,7 @@ export default async function VoorDakdekkers() {
         <div><img src="/img/offerte-voordeur.webp" alt="Dakdekker bespreekt een offerte met een bewoner bij de voordeur" style={{ width: "100%", borderRadius: 20, display: "block" }} loading="eager" /></div>
       </div></section>
 
-      <section className="wrap" style={{ padding: "40px 24px" }}>
+      <section className="wrap" style={{ paddingTop: 40, paddingBottom: 40 }}>
         <h2>Zo werkt het, in twee minuten</h2>
         <ol className="grid cols-3" style={{ listStyle: "none", padding: 0, margin: "16px 0 0" }}>
           <li className="card"><b style={{ fontFamily: "Manrope, sans-serif", fontSize: 24, color: "var(--amber-ink)" }}>1</b><h3 style={{ margin: "6px 0" }}>Zoek je bedrijf</h3><p style={{ color: "var(--ink-2)" }}>Op naam, plaats of KvK-nummer. Klik op "Dit is mijn bedrijf".</p></li>
@@ -34,7 +34,7 @@ export default async function VoorDakdekkers() {
         </ol>
       </section>
 
-      <section id="aanbod" className="wrap" style={{ padding: "8px 24px 48px" }}>
+      <section id="aanbod" className="wrap" style={{ paddingTop: 8, paddingBottom: 48 }}>
         <h2>Het aanbod, zonder kleine lettertjes</h2>
         <div className="grid cols-3" style={{ marginTop: 16, alignItems: "stretch" }}>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>

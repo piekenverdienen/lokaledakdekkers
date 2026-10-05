@@ -7,7 +7,7 @@ export default async function Kosten() {
   const v = await currentVertical();
   const prijs = getAllArticles().filter((a) => a.category === "Kosten" || a.category === "Isolatie");
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px" }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64 }}>
       <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><b>Kosten</b></nav>
       <h1>Wat kost dakwerk in 2026?</h1>
       <p className="lede" style={{ marginTop: 8 }}>Richtprijzen per klus, samengesteld uit Nederlandse prijsgidsen van 2026. Zodra {v.brand} per provincie minimaal vijf facturen van geverifieerde klussen heeft, staan hier echte regionale cijfers, met de steekproef erbij.</p>

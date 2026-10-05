@@ -10,7 +10,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const user = await getUser();
   if (!user) {
     return (
-      <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 560 }}>
+      <main className="wrap" style={{ paddingTop: 32, paddingBottom: 64, maxWidth: 560 }}>
         <h1 style={{ fontSize: 30 }}>Inloggen</h1>
         <p className="lede" style={{ marginTop: 8 }}>Geen wachtwoord nodig. Vul het e-mailadres in waarmee je je profiel hebt geclaimd; je krijgt een inloglink.</p>
         {fout === "link" && <div className="card" style={{ marginTop: 16, borderColor: "var(--amber)", background: "var(--amber-bg)" }}>Die link is verlopen of al gebruikt. Vraag hieronder een nieuwe aan.</div>}
@@ -26,7 +26,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   }
   const mine = await q<{ name: string; slug: string; status: string; city: string | null }>("select name, slug, status, city from businesses where owner_user_id=$1 and vertical_id=$2 order by name", [user.id, v.id]);
   return (
-    <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 760 }}>
+    <main className="wrap" style={{ paddingTop: 32, paddingBottom: 64, maxWidth: 760 }}>
       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12, alignItems: "baseline" }}>
         <h1 style={{ fontSize: 30 }}>Jouw bedrijven</h1>
         <span style={{ color: "var(--ink-3)", fontSize: 14 }}>{user.email} <a href="/uitloggen/">Uitloggen</a></span>

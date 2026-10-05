@@ -11,7 +11,7 @@ export default async function Claim({ searchParams }: { searchParams: Promise<{ 
     where vertical_id=$1 and status<>'hidden' and (name ilike '%'||$2||'%' or city ilike $2||'%' or kvk_number=$2)
     order by status='unclaimed' desc, name limit 25`, [v.id, term.trim()]) : [];
   return (
-    <main className="wrap" style={{ padding: "32px 24px 64px", maxWidth: 760 }}>
+    <main className="wrap" style={{ paddingTop: 32, paddingBottom: 64, maxWidth: 760 }}>
       <h1>Claim je bedrijf op {v.brand}</h1>
       <p className="lede" style={{ marginTop: 12 }}>Zoek je bedrijf op naam, plaats of KvK-nummer. Staat het erbij, dan claim je het met je website en e-mailadres; we bouwen je profiel automatisch op. Staat het er niet, mail dan naar info@{v.domain} met je KvK-nummer.</p>
       <form className="search" method="get" style={{ marginTop: 20 }}>

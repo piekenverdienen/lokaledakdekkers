@@ -41,12 +41,12 @@ export default function Map({ center, zoom = 11, markers, tall = false, fit = tr
         maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers',
       }).addTo(map);
       const group: any[] = [];
-      const layer = cluster ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 48, iconCreateFunction: (c: any) => L.divIcon({ html: `<div class="lk-cluster">${c.getChildCount()}</div>`, className: "", iconSize: [40, 40] }) }) : null;
+      const layer = cluster ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 56, iconCreateFunction: (c: any) => { const kids = c.getAllChildMarkers(); const sum = kids.reduce((a: number, k: any) => a + (k.options.lkCount ?? 1), 0); return L.divIcon({ html: `<div class="lk-cluster">${sum}</div>`, className: "", iconSize: [44, 44] }); } }) : null;
       for (const m of markers) {
         let mk: any;
         if (m.count != null) {
           const size = Math.max(30, Math.min(52, 22 + Math.sqrt(m.count) * 2));
-          mk = L.marker([m.lat, m.lng], { icon: L.divIcon({ html: `<div class="lk-count" style="width:${size}px;height:${size}px;line-height:${size}px">${m.count}</div>`, className: "", iconSize: [size, size] }) });
+          mk = L.marker([m.lat, m.lng], { lkCount: m.count, icon: L.divIcon({ html: `<div class="lk-count" style="width:${size}px;height:${size}px;line-height:${size}px">${m.count}</div>`, className: "", iconSize: [size, size] }) });
         } else {
           mk = L.circleMarker([m.lat, m.lng], { radius: m.size ?? (m.pro ? 10 : 8), color: "#fff", weight: 2, fillColor: m.pro ? "#C97A0F" : "#0B5C8F", fillOpacity: 1 });
         }

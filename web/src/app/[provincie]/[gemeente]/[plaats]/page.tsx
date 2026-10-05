@@ -105,7 +105,7 @@ export default async function PlacePage({ params, searchParams }: Props) {
         </aside>
       </div>
 
-      <section style={{ display: "flex", flexWrap: "wrap", gap: 48, padding: "8px 0 48px" }}>
+      <section style={{ display: "flex", flexWrap: "wrap", gap: 48, paddingTop: 8, paddingBottom: 48 }}>
         <div className="faq" style={{ flex: "2 1 480px", minWidth: 0 }}>
           <h2 style={{ marginBottom: 12 }}>Veelgestelde vragen over {v.name_plural} in {p.name}</h2>
           {faq.map((f, i) => <details key={i} open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}

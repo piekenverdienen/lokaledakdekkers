@@ -80,7 +80,7 @@ export default async function MunicipalityPage({ params }: Props) {
         </aside>
       </div>
 
-      <section className="faq" style={{ padding: "8px 0 48px", maxWidth: 760 }}>
+      <section className="faq" style={{ paddingTop: 8, paddingBottom: 48, maxWidth: 760 }}>
         <h2 style={{ marginBottom: 12 }}>Veelgestelde vragen over {v.name_plural} in {m.name}</h2>
         {faq.map((f, i) => (
           <details key={i} open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>

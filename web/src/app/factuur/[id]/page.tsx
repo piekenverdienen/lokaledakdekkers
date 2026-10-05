@@ -25,11 +25,11 @@ export default async function Factuur({ params }: { params: Promise<{ id: string
         </div>
         <div style={{ marginTop: 28, fontSize: 15 }}><span style={{ color: "var(--ink-3)" }}>Aan</span><br /><b>{p.name}</b><br />{p.street ? `${p.street} ${p.housenumber ?? ""}` : ""}{p.street && p.postcode ? <br /> : null}{p.postcode ? `${p.postcode} ${p.city ?? ""}` : p.city ?? ""}{p.kvk_number ? <><br />KvK {p.kvk_number}</> : null}</div>
         <table style={{ width: "100%", marginTop: 28, borderCollapse: "collapse", fontSize: 15 }}>
-          <thead><tr style={{ borderBottom: "2px solid var(--line)", textAlign: "left" }}><th style={{ padding: "8px 0" }}>Omschrijving</th><th style={{ textAlign: "right" }}>Bedrag</th></tr></thead>
+          <thead><tr style={{ borderBottom: "2px solid var(--line)", textAlign: "left" }}><th style={{ paddingTop: 8, paddingBottom: 8 }}>Omschrijving</th><th style={{ textAlign: "right" }}>Bedrag</th></tr></thead>
           <tbody>
-            <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "10px 0" }}>Geverifieerd profiel op {v.domain}, 12 maanden vanaf {date}</td><td style={{ textAlign: "right" }}>{f(excl)}</td></tr>
-            <tr><td style={{ padding: "8px 0", color: "var(--ink-2)" }}>Btw 21%</td><td style={{ textAlign: "right", color: "var(--ink-2)" }}>{f(btw)}</td></tr>
-            <tr style={{ borderTop: "2px solid var(--line)" }}><td style={{ padding: "10px 0" }}><b>Totaal, voldaan</b></td><td style={{ textAlign: "right" }}><b>{f(incl)} euro</b></td></tr>
+            <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ paddingTop: 10, paddingBottom: 10 }}>Geverifieerd profiel op {v.domain}, 12 maanden vanaf {date}</td><td style={{ textAlign: "right" }}>{f(excl)}</td></tr>
+            <tr><td style={{ paddingTop: 8, paddingBottom: 8, color: "var(--ink-2)" }}>Btw 21%</td><td style={{ textAlign: "right", color: "var(--ink-2)" }}>{f(btw)}</td></tr>
+            <tr style={{ borderTop: "2px solid var(--line)" }}><td style={{ paddingTop: 10, paddingBottom: 10 }}><b>Totaal, voldaan</b></td><td style={{ textAlign: "right" }}><b>{f(incl)} euro</b></td></tr>
           </tbody>
         </table>
         <p style={{ color: "var(--ink-3)", fontSize: 13, marginTop: 24 }}>Deze factuur is al betaald; er hoeft niets te worden overgemaakt. Vragen: info@{v.domain}.</p>

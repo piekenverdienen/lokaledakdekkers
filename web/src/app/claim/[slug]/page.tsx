@@ -21,7 +21,7 @@ export default async function ClaimBusiness({ params, searchParams }: { params: 
     limiet: <><b>Te veel pogingen.</b> Probeer het morgen opnieuw of mail naar info@{v.domain}.</>,
   };
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px", maxWidth: 680 }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 680 }}>
       <nav className="crumbs"><a href="/claim/">Claim je bedrijf</a><span>/</span><b>{b.name}</b></nav>
       <h1 style={{ fontSize: 32 }}>{b.name}</h1>
       <p className="lede" style={{ marginTop: 8 }}>{b.city ?? ""}{b.kvk_number ? `, KvK ${b.kvk_number}` : ""}</p>

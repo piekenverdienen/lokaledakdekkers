@@ -8,7 +8,7 @@ export default async function Corrigeren({ params, searchParams }: { params: Pro
   const v = await currentVertical(); const { slug } = await params; const { status } = await searchParams;
   const b = await getBusiness(slug, v.id); if (!b) notFound();
   return (
-    <main className="wrap" style={{ padding: "24px 0 64px", maxWidth: 640 }}>
+    <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 640 }}>
       <nav className="crumbs"><a href={`/bedrijf/${b.slug}/`}>{b.name}</a><span>/</span><b>Gegevens corrigeren</b></nav>
       <h1 style={{ fontSize: 30 }}>Gegevens corrigeren voor {b.name}</h1>
       <p className="lede" style={{ marginTop: 8 }}>Gratis en zonder account. Klopt het adres, telefoonnummer of de naam niet, of is het bedrijf gestopt? Laat het weten; we verwerken het binnen drie werkdagen. Wil je het profiel beheren, dan kun je het <a href={`/claim/${b.slug}/`}>claimen</a>.</p>

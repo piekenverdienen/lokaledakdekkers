@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <span className="logo-mark" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3.5 12.5L12 5l8.5 7.5" stroke="#F2B45C" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M6.5 11.5V19h11v-7.5" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /><path d="M10.5 19v-4.5h3V19" stroke="#FFFFFF" strokeWidth="2" strokeLinejoin="round" /></svg>
               </span>
-              <span className="brand-text"><span>{first} <span>{rest.join(" ")}</span></span><small>Geverifieerd, lokaal, eerlijk</small></span>
+              <span className="brand-text"><span>{first} <span>{rest.join(" ")}</span></span><small>De beste {v.name_singular} bij jou in de buurt</small></span>
             </a>
             <div className="navlinks desktop">
               <a href="/#provincies">Plaatsen</a>

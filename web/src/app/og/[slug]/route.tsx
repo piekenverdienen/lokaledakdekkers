@@ -25,7 +25,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
           <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F2B33D", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E2A3F" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-6h4v6" /></svg>
           </div>
-          <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 30, fontWeight: 700 }}>{v.brand}</span><span style={{ fontSize: 16, color: "#F2B33D", letterSpacing: 2 }}>GEVERIFIEERD, LOKAAL, EERLIJK</span></div>
+          <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 30, fontWeight: 700 }}>{v.brand}</span><span style={{ fontSize: 16, color: "#F2B33D", }}>De beste {v.name_singular} bij jou in de buurt</span></div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
           {logo && <div style={{ width: 160, height: 160, borderRadius: 24, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", padding: 14 }}><img src={logo} width={132} height={132} style={{ objectFit: "contain" }} /></div>}

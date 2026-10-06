@@ -36,5 +36,5 @@ export function infoMail(v: Vertical, b: { name: string; slug: string; kvk_numbe
   return { subject, html: mailLayout(v.brand, "Uw bedrijfsgegevens", html), text };
 }
 export function unsubHeaders(base: string, token: string, domain: string) {
-  return { "List-Unsubscribe": `<${base}/api/unsubscribe/${token}>, <mailto:info@${domain}?subject=uitschrijven%20${token}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" };
+  return { "List-Unsubscribe": `<${base}/api/unsubscribe/${token}/>, <mailto:info@${domain}?subject=uitschrijven%20${token}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" };
 }

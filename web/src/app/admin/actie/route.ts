@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getVertical, q } from "@/lib/db";
 import { getUser } from "@/lib/auth";
+import { activateAfterPayment } from "@/lib/activate";
+import { one } from "@/lib/db";
 export async function POST(req: Request) {
   const user = await getUser();
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? ""; const v = await getVertical(host);
@@ -29,12 +31,30 @@ export async function POST(req: Request) {
   }
   else if (actie === "test_verwijderen") { await q("delete from businesses where id=$1 and source='test'", [id]); tab = "test"; }
   else if (actie === "campagne") {
-    const enabled = String(f.get("enabled") ?? "0") === "1" ? "1" : "0"; const perDay = String(parseInt(String(f.get("per_day") ?? "200"), 10) || 200);
+    const enabled = String(f.get("enabled") ?? "0") === "1" ? "1" : "0"; const perDay = String(f.get("per_day") ?? "auto"); const regions = String(f.get("regions") ?? "").slice(0, 500);
+    const was = (await one<{ value: string }>("select value from settings where key='outreach_enabled'"))?.value;
     await q("insert into settings (key, value) values ('outreach_enabled',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [enabled]);
-    await q("insert into settings (key, value) values ('outreach_per_day',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [perDay]);
+    await q("insert into settings (key, value) values ('outreach_per_day',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [perDay === "auto" ? "auto" : String(parseInt(perDay, 10) || 50)]);
+    await q("insert into settings (key, value) values ('outreach_regions',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [regions]);
+    if (enabled === "1" && was !== "1") await q("insert into settings (key, value) values ('outreach_started_at',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [new Date().toISOString()]);
+    tab = "campagne";
+  }
+  else if (actie === "testmail") {
+    const { claimMail } = await import("@/lib/outreach"); const { sendMail } = await import("@/lib/auth");
+    const b = await one<{ name: string; city: string | null; slug: string }>("select name, city, slug from businesses where vertical_id=$1 and status='unclaimed' and profile_built_at is not null and outreach_email is not null and source<>'test' order by random() limit 1", [v.id]);
+    if (b) {
+      const totals = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'", [v.id]))?.n ?? 0;
+      const m = claimMail(v, b, 0, totals, base, "test");
+      await sendMail(user.email, `[TEST] ${m.subject}`, m.html, m.text).catch(() => {});
+    }
     tab = "campagne";
   }
   else if (actie === "weekly") { await q("insert into settings (key, value) values ('weekly_enabled',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [String(f.get("enabled") ?? "0") === "1" ? "1" : "0"]); tab = "campagne"; }
+  else if (actie === "bank_ontvangen") {
+    const pay = await one<{ id: string; business_id: string }>("select id, business_id from payments where id=$1 and provider='bank' and status='open'", [id]);
+    if (pay) await activateAfterPayment(v, pay.business_id, pay.id, base);
+    tab = "betalingen";
+  }
   else if (actie === "verzoek_afgehandeld") { await q("update claims set verified_at=now() where id=$1", [id]); tab = "verzoeken"; }
   await q("refresh materialized view place_stats").catch(() => {});
   revalidatePath("/", "layout");

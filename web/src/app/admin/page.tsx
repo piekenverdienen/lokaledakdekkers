@@ -21,7 +21,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   const counts = (await q<{ reviews: number; verzoeken: number; betalingen: number; claims: number }>(`
     select (select count(*)::int from reviews where status='pending' and email_verified_at is not null) as reviews,
            (select count(*)::int from claims where method in ('correctie','verwijderverzoek') and verified_at is null) as verzoeken,
-           (select count(*)::int from payments where status='paid' and paid_at > now() - interval '30 days') as betalingen,
+           (select count(*)::int from payments where (status='paid' and paid_at > now() - interval '30 days') or (provider='bank' and status='open')) as betalingen,
            (select count(*)::int from businesses where vertical_id=$1 and status in ('claimed','pro')) as claims`, [v.id]))[0];
   const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"], ["campagne", "Campagne"], ["stats", "Bezoekers"]];
 
@@ -31,8 +31,8 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   const verzoeken = tab === "verzoeken" ? await q<{ id: string; email: string; method: string; code: string | null; created_at: string; business: string; slug: string; bid: string }>(`
     select c.id, c.email, c.method, c.code, c.created_at::text, b.name as business, b.slug, b.id as bid from claims c join businesses b on b.id=c.business_id
     where c.method in ('correctie','verwijderverzoek') and c.verified_at is null order by c.created_at`) : [];
-  const betalingen = tab === "betalingen" ? await q<{ id: string; amount_cents: number; status: string; paid_at: string | null; consumer_name: string | null; provider_id: string; business: string; slug: string }>(`
-    select p.id, p.amount_cents, p.status, p.paid_at::text, p.consumer_name, p.provider_id, b.name as business, b.slug from payments p join businesses b on b.id=p.business_id order by p.created_at desc limit 100`) : [];
+  const betalingen = tab === "betalingen" ? await q<{ id: string; amount_cents: number; status: string; paid_at: string | null; consumer_name: string | null; provider_id: string; provider: string; business: string; slug: string }>(`
+    select p.id, p.amount_cents, p.status, p.paid_at::text, p.consumer_name, p.provider_id, p.provider, b.name as business, b.slug from payments p join businesses b on b.id=p.business_id order by p.created_at desc limit 100`) : [];
   const bedrijven = tab === "bedrijven" && term.length >= 2 ? await q<{ id: string; name: string; slug: string; city: string | null; status: string; kvk_number: string | null; website: string | null }>(`
     select id, name, slug, city, status, kvk_number, website from businesses where vertical_id=$1 and (name ilike '%'||$2||'%' or kvk_number=$2 or slug=$2) order by name limit 30`, [v.id, term]) : [];
   const claims = tab === "claims" ? await q<{ id: string; name: string; slug: string; city: string | null; status: string; verified_at: string | null; paid_until: string | null; email: string | null }>(`
@@ -63,7 +63,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
           </div>
         )))}
         {tab === "betalingen" && (betalingen.length === 0 ? <div className="card">Nog geen betalingen.</div> : betalingen.map((p) => (
-          <Row key={p.id}><span><b><a href={`/bedrijf/${p.slug}/`}>{p.business}</a></b><br /><small>{(p.amount_cents / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })} euro, {p.status}{p.paid_at ? `, betaald ${p.paid_at.slice(0, 10)}` : ""}{p.consumer_name ? `, ${p.consumer_name}` : ""}</small></span><small style={{ color: "var(--ink-3)" }}>{p.provider_id}</small></Row>
+          <Row key={p.id}><span><b><a href={`/bedrijf/${p.slug}/`}>{p.business}</a></b><br /><small>{(p.amount_cents / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })} euro, {p.provider === "bank" ? "bankoverschrijving" : "iDEAL"}, {p.status === "open" ? (p.provider === "bank" ? "wacht op ontvangst" : "open") : p.status}{p.paid_at ? `, betaald ${p.paid_at.slice(0, 10)}` : ""}{p.consumer_name ? `, ${p.consumer_name}` : ""}</small></span><span style={{ display: "flex", gap: 8, alignItems: "center" }}><small style={{ color: "var(--ink-3)" }}>{p.provider_id}</small>{p.provider === "bank" && p.status === "open" && <Btn actie="bank_ontvangen" id={p.id} label="Betaling ontvangen, zet online" kind="btn-primary" />}</span></Row>
         )))}
         {tab === "bedrijven" && (<>
           <form className="search" method="get"><input type="hidden" name="tab" value="bedrijven" /><input name="q" defaultValue={term} placeholder="Naam, KvK-nummer of slug" /><button className="btn btn-primary" type="submit">Zoek</button></form>
@@ -74,7 +74,21 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
         </>)}
         {tab === "campagne" && (await (async () => {
           const on = (await one<{ value: string }>("select value from settings where key='outreach_enabled'"))?.value === "1";
-          const perDay = (await one<{ value: string }>("select value from settings where key='outreach_per_day'"))?.value ?? "200";
+          const perDay = (await one<{ value: string }>("select value from settings where key='outreach_per_day'"))?.value ?? "auto";
+          const regions = (await one<{ value: string }>("select value from settings where key='outreach_regions'"))?.value ?? "";
+          const regionList = regions.split(",").map((r) => r.trim().toLowerCase()).filter(Boolean);
+          const inRegion = (await one<{ n: number }>(`select count(*)::int as n from businesses b left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
+            where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test'
+            and not exists (select 1 from outreach o where o.business_id=b.id) and (cardinality($2::text[])=0 or lower(pr.slug)=any($2) or lower(m.slug)=any($2) or lower(b.city)=any($2))`, [v.id, regionList]))?.n ?? 0;
+          const checks: [string, boolean, string][] = [
+            ["Mailsleutel (Resend)", !!process.env.RESEND_API_KEY, "RESEND_API_KEY in Coolify"],
+            ["Afzender send.lokaledakdekkers.nl", !!process.env.RESEND_API_KEY, "domein geverifieerd in Resend"],
+            ["Betalen: iDEAL (Mollie)", !!process.env.MOLLIE_API_KEY && !String(process.env.MOLLIE_API_KEY).startsWith("test_"), process.env.MOLLIE_API_KEY ? "nu alleen testsleutel" : "MOLLIE_API_KEY ontbreekt"],
+            ["Betalen: bankoverschrijving", !!process.env.INVOICE_IBAN, "INVOICE_IBAN in Coolify"],
+            ["Factuurgegevens", !!process.env.INVOICE_KVK && !!process.env.INVOICE_BTW && !!process.env.INVOICE_ADDRESS, "INVOICE_ADDRESS, INVOICE_KVK, INVOICE_BTW"],
+            ["Profielbouwer (Anthropic)", !!process.env.ANTHROPIC_API_KEY, "ANTHROPIC_API_KEY"],
+          ];
+          const readyToSend = checks[0][1] && (checks[2][1] || checks[3][1]);
           const c = (await q<{ built: number; with_email: number; sent: number; reminded: number; clicked: number; claimed: number; optout: number; today: number }>(`
             select (select count(*)::int from businesses where vertical_id=$1 and profile_built_at is not null) as built,
                    (select count(*)::int from businesses where vertical_id=$1 and outreach_email is not null and profile_built_at is not null and status='unclaimed' and not outreach_opt_out) as with_email,
@@ -90,10 +104,24 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <div className="grid cols-4" style={{ gap: 10 }}>
                 {[["Profielen gebouwd", c.built], ["Klaar om te mailen", c.with_email], ["Verstuurd", c.sent], ["Herinnerd", c.reminded], ["Vandaag", c.today], ["Geclaimd na mail", c.claimed], ["Uitgeschreven", c.optout]].map(([k, val]) => <div key={String(k)} className="card" style={{ padding: "10px 12px" }}><b style={{ fontSize: 22, fontFamily: "Manrope, sans-serif" }}>{val}</b><br /><small>{k}</small></div>)}
               </div>
-              <form method="post" action="/admin/actie/" style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+              <div className="card" style={{ display: "grid", gap: 6, background: "var(--ground)" }}>
+                <b>Checklist</b>
+                {checks.map(([k, ok, hint]) => <div key={k} style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 15 }}><span style={{ width: 22, height: 22, borderRadius: "50%", display: "grid", placeItems: "center", color: "#fff", background: ok ? "var(--green)" : "var(--amber-ink)", fontSize: 13, flexShrink: 0 }}>{ok ? "✓" : "!"}</span><span>{k}{ok ? "" : <small style={{ color: "var(--ink-3)" }}>, {hint}</small>}</span></div>)}
+                <small style={{ color: "var(--ink-3)", marginTop: 4 }}>{readyToSend ? "Klaar om te versturen: er is een werkend betaalpad." : "Nog niet versturen: zonder iDEAL of IBAN kan niemand betalen."}</small>
+              </div>
+              <form method="post" action="/admin/actie/" style={{ display: "grid", gap: 10 }}>
                 <input type="hidden" name="actie" value="campagne" /><input type="hidden" name="id" value="-" />
-                <label style={{ fontSize: 14, fontWeight: 600 }}>Per dag <input name="per_day" type="number" min={1} max={1000} defaultValue={perDay} style={{ width: 90, marginLeft: 6, border: "1px solid var(--line)", borderRadius: 8, padding: "6px 8px" }} /></label>
-                <button className={`btn ${on ? "btn-outline" : "btn-primary"}`} name="enabled" value={on ? "0" : "1"} type="submit">{on ? "Campagne pauzeren" : "Campagne starten"}</button>
+                <label style={{ fontSize: 14, fontWeight: 600 }}>Regio's (provincie-, gemeente- of plaatsnamen, gescheiden door komma's; leeg is heel Nederland)<input name="regions" defaultValue={regions} placeholder="bijvoorbeeld: noord-brabant, overijssel of zevenbergen, hengelo, enschede" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 8, padding: "8px 10px", marginTop: 4, fontFamily: "inherit", fontSize: 15 }} /><small style={{ color: "var(--ink-3)", fontWeight: 400 }}>{inRegion} mailbare bedrijven in deze selectie.</small></label>
+                <label style={{ fontSize: 14, fontWeight: 600 }}>Per dag <select name="per_day" defaultValue={perDay} style={{ marginLeft: 6, border: "1px solid var(--line)", borderRadius: 8, padding: "6px 8px", fontFamily: "inherit" }}><option value="auto">Automatisch opbouwen: 50, na 3 dagen 100, na 7 dagen 200</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select></label>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <button className="btn btn-outline" name="enabled" value={on ? "1" : "0"} type="submit">Instellingen opslaan</button>
+                  <button className={`btn ${on ? "btn-outline" : "btn-primary"}`} name="enabled" value={on ? "0" : "1"} type="submit">{on ? "Campagne pauzeren" : "Campagne starten"}</button>
+                </div>
+              </form>
+              <form method="post" action="/admin/actie/" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", borderTop: "1px solid var(--line)", paddingTop: 12 }}>
+                <input type="hidden" name="actie" value="testmail" /><input type="hidden" name="id" value="-" />
+                <span style={{ fontSize: 14 }}>Stuur de claim-mail van een willekeurig mailbaar bedrijf naar <b>{user.email}</b>:</span>
+                <button className="btn btn-outline" type="submit">Testmail sturen</button>
               </form>
             </div>
             <div className="card" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>

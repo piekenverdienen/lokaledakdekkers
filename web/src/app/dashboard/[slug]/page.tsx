@@ -31,7 +31,7 @@ function Block({ title, slug, field, children, form }: { title: string; slug: st
   );
 }
 
-export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string; fotos?: string; overgeslagen?: string; logo?: string; uitnodigingen?: string }> }) {
+export default async function Edit({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ welkom?: string; gebouwd?: string; fout?: string; betaald?: string; fotos?: string; overgeslagen?: string; logo?: string; uitnodigingen?: string; bank?: string }> }) {
   const v = await currentVertical();
   const { slug } = await params;
   const sp = await searchParams;
@@ -55,6 +55,8 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
   const paidUntil = (await one<{ d: string | null }>("select paid_until::text as d from businesses where id=$1", [b.id]))?.d ?? null;
   const priceText = (price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 });
+  const iban = process.env.INVOICE_IBAN ?? ""; const seller = process.env.INVOICE_SELLER ?? "Rombots Digital B.V.";
+  const bankOpen = await one<{ provider_id: string; created_at: string }>("select provider_id, created_at::text from payments where business_id=$1 and provider='bank' and status='open'", [b.id]);
   const site = owner[0]?.website ?? "";
 
   return (
@@ -228,8 +230,18 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
               <>
                 <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Je profiel gaat online met het label Geverifieerd, je logo en foto's, een link naar je website en een offerteblok. Je staat boven de niet-geclaimde bedrijven.</p>
                 <p style={{ fontSize: 15 }}><b>{priceText} euro per jaar</b> <span style={{ color: "var(--ink-2)" }}>inclusief btw, via iDEAL. Geen incasso, geen stilzwijgende verlenging.</span></p>
-                <form method="post" action={`/dashboard/${slug}/betaal/`}><span className="srnote" style={{ display: "block", marginBottom: 8 }}>Met betalen ga je akkoord met de <a href="/voorwaarden/" target="_blank">voorwaarden</a>.</span><button className="btn btn-primary" type="submit" disabled={!mollieEnabled()} style={{ width: "100%", fontSize: 17, minHeight: 52, ...(mollieEnabled() ? {} : { background: "var(--chip)", color: "var(--ink-3)", borderColor: "var(--line)", cursor: "not-allowed" }) }}>{mollieEnabled() ? `Betaal ${priceText} euro en zet online` : "Betalen is binnenkort mogelijk"}</button></form>
-                {!mollieEnabled() && <span className="srnote">Je profiel blijft bewaard; je krijgt een mail zodra je kunt betalen.</span>}
+                <span className="srnote" style={{ display: "block" }}>Met betalen ga je akkoord met de <a href="/voorwaarden/" target="_blank">voorwaarden</a>.</span>
+                {mollieEnabled() && <form method="post" action={`/dashboard/${slug}/betaal/`}><button className="btn btn-primary" type="submit" style={{ width: "100%", fontSize: 17, minHeight: 52 }}>Betaal {priceText} euro via iDEAL</button></form>}
+                {iban && (bankOpen ? (
+                  <div style={{ borderRadius: 10, padding: "12px 14px", background: "var(--green-bg)", border: "1px solid var(--green)", fontSize: 15 }}><b>Overschrijving gemeld.</b> Zodra {priceText} euro met kenmerk <b>{bankOpen.provider_id}</b> op onze rekening staat, zetten we je profiel online en krijg je de factuur. Meestal binnen één werkdag.</div>
+                ) : (
+                  <details className="card" style={{ padding: "12px 14px", fontSize: 15 }} open={!mollieEnabled()}>
+                    <summary style={{ cursor: "pointer", fontWeight: 600 }}>{mollieEnabled() ? "Liever per bankoverschrijving?" : "Betalen per bankoverschrijving"}</summary>
+                    <p style={{ color: "var(--ink-2)", margin: "8px 0" }}>Maak <b>{priceText} euro</b> over naar <b>{iban}</b> t.n.v. {seller}, onder vermelding van <b>{b.name}</b>. Klik daarna op de knop; zodra het bedrag binnen is, zetten we je profiel online en sturen we de factuur.</p>
+                    <form method="post" action={`/dashboard/${slug}/bank/`}><button className="btn btn-outline" type="submit">Ik heb overgemaakt</button></form>
+                  </details>
+                ))}
+                {!mollieEnabled() && !iban && <span className="srnote">Betalen is binnenkort mogelijk; je profiel blijft bewaard.</span>}
               </>
             )}
             <a href={`/bedrijf/${slug}/`} className="btn btn-outline" style={{ justifyContent: "center" }}>{live ? "Bekijk je profiel" : "Bekijk voorbeeld"}</a>

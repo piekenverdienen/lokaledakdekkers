@@ -259,20 +259,31 @@ p { margin: 0; }
 .section-tight { padding-top: 40px; padding-bottom: 40px; }
 @media (max-width: 760px) { .section { padding-top: 44px; padding-bottom: 44px; } .section-tight { padding-top: 28px; padding-bottom: 28px; } .wrap { padding-left: 20px; padding-right: 20px; } }
 .benefits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.benefits > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 8px; }
+.benefits > div { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
+.benefits-open > div { border-top: 2px solid var(--line); padding-top: 18px; }
 .benefits svg { color: var(--amber-ink); }
 .benefits h3 { font-size: 19px; }
 .benefits p { color: var(--ink-2); font-size: 15.5px; margin: 0; }
 @media (max-width: 760px) { .benefits { grid-template-columns: 1fr; } }
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: stap; list-style: none; padding: 0; margin: 0; }
-.steps li { position: relative; padding: 22px 22px 22px 70px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
-.steps li::before { counter-increment: stap; content: counter(stap); position: absolute; left: 22px; top: 20px; width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; display: grid; place-items: center; }
-.steps b { display: block; font-family: 'Manrope', sans-serif; font-size: 18px; margin-bottom: 4px; }
-.steps span { color: var(--ink-2); font-size: 15.5px; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; list-style: none; padding: 0; margin: 0; }
+.steps li { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.steps .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--amber-ink); color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 18px; display: grid; place-items: center; margin-bottom: 4px; }
+.steps h3 { font-size: 20px; color: var(--ink); }
+.steps p { color: var(--ink-2); font-size: 16px; max-width: 34ch; margin: 0; }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 .search-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 15px; }
 .hero .lede { max-width: 560px; }
 .band { background: var(--navy); }
 .band p { color: #D6DEE2; }
-.trust div { border-radius: var(--radius-lg); background: var(--sage-soft); border-color: transparent; }
+.trust > a, .trust div { border-radius: var(--radius-lg); background: var(--sage-soft); border: 0; padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start; font-size: 15.5px; color: var(--ink-2); text-decoration: none; }
+.trust > a:hover { background: #DDE6DF; color: var(--ink-2); }
+.trust em { display: block; font-style: normal; color: var(--blue); font-weight: 600; margin-top: 6px; font-size: 14px; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+/* feedbackronde merkgids */
+.desk-only { display: none; } @media (min-width: 900px) { .desk-only { display: inline; } }
+.hero h1 { font-size: clamp(38px, 5.2vw, 64px); }
+.roofline { display: block; width: 100%; }
+.srnote { font-size: 15px; } .meta { font-size: 16px; } .trust b { font-size: 16.5px; } .art-card small { font-size: 14.5px; } .search-label { font-size: 16px; } .chip { font-size: 14px; }
+.map.tall { height: 560px; }
+@media (max-width: 760px) { .map.tall { height: 360px; } .steps { gap: 22px; } }

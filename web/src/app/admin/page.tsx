@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { one, q } from "@/lib/db";
+import { SEGMENTS, segmentRows } from "@/lib/funnel";
 import { getUser } from "@/lib/auth";
 import { currentVertical } from "@/lib/site";
 export const metadata: Metadata = { title: "Beheer", robots: { index: false, follow: false } };
@@ -11,19 +12,19 @@ const Btn = ({ actie, id, label, kind = "btn-outline", extra }: { actie: string;
   <form method="post" action="/admin/actie/" style={{ display: "inline" }}><input type="hidden" name="actie" value={actie} /><input type="hidden" name="id" value={id} />{extra && Object.entries(extra).map(([k, val]) => <input key={k} type="hidden" name={k} value={val} />)}<button className={`btn ${kind}`} style={{ padding: "8px 12px", minHeight: 38, fontSize: 14 }}>{label}</button></form>
 );
 
-export default async function Admin({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string; ok?: string }> }) {
+export default async function Admin({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string; ok?: string; seg?: string; regio?: string }> }) {
   const user = await getUser();
   if (!user) redirect("/dashboard/");
   if (!user.is_admin) redirect("/dashboard/");
   const v = await currentVertical();
-  const { tab = "reviews", q: term = "", ok } = await searchParams;
+  const { tab = "dashboard", q: term = "", ok, seg = "warm", regio = "" } = await searchParams;
 
   const counts = (await q<{ reviews: number; verzoeken: number; betalingen: number; claims: number }>(`
     select (select count(*)::int from reviews where status='pending' and email_verified_at is not null) as reviews,
            (select count(*)::int from claims where method in ('correctie','verwijderverzoek') and verified_at is null) as verzoeken,
            (select count(*)::int from payments where (status='paid' and paid_at > now() - interval '30 days') or (provider='bank' and status='open')) as betalingen,
            (select count(*)::int from businesses where vertical_id=$1 and status in ('claimed','pro')) as claims`, [v.id]))[0];
-  const tabs = [["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"], ["campagne", "Campagne"], ["stats", "Bezoekers"]];
+  const tabs = [["dashboard", "Dashboard"], ["reviews", `Reviews (${counts.reviews})`], ["verzoeken", `Correcties (${counts.verzoeken})`], ["betalingen", `Betalingen (${counts.betalingen})`], ["bedrijven", "Bedrijven"], ["claims", `Geverifieerd (${counts.claims})`], ["test", "Testen"], ["campagne", "Campagne"], ["stats", "Bezoekers"]];
 
   const reviews = tab === "reviews" ? await q<{ id: string; name: string; score: number; body: string; service_slug: string | null; invoice_ref: string | null; created_at: string; business: string; slug: string }>(`
     select r.id, r.name, r.score, r.body, r.service_slug, r.invoice_ref, r.created_at::text, b.name as business, b.slug from reviews r join businesses b on b.id=r.business_id
@@ -129,6 +130,67 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <form method="post" action="/admin/actie/"><input type="hidden" name="actie" value="weekly" /><input type="hidden" name="id" value="-" /><button className="btn btn-outline" name="enabled" value={(await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value === "1" ? "0" : "1"} type="submit">{(await one<{ value: string }>("select value from settings where key='weekly_enabled'"))?.value === "1" ? "Uitzetten" : "Aanzetten"}</button></form>
             </div>
             <div className="card"><h3 style={{ marginBottom: 8 }}>Zo ziet de mail eruit</h3><p style={{ fontSize: 15, color: "var(--ink-2)" }}>Onderwerp: "Jouw profiel op {v.brand} staat klaar, [bedrijfsnaam]". Tekst zoals goedgekeurd, met previewlink naar het eigen profiel, de regel over de plaats alleen als die klopt, en een uitschrijflink. De herinnering heeft "Nog even:" ervoor.</p></div>
+          </>);
+        })())}
+        {tab === "dashboard" && (await (async () => {
+          const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
+          const t = (await q<{ mailbaar: number; verstuurd: number; herinnerd: number; geopend: number; geklikt: number; geclaimd: number; betaald: number; omzet: number; uitgeschreven: number; aanvragen: number; bank: number }>(`
+            select (select count(*)::int from businesses where vertical_id=$1 and source<>'test' and profile_built_at is not null and outreach_email is not null and not outreach_opt_out) as mailbaar,
+              (select count(*)::int from outreach) as verstuurd, (select count(*)::int from outreach where reminder_at is not null) as herinnerd,
+              (select count(*)::int from outreach where opened_at is not null) as geopend, (select count(*)::int from outreach where clicked_at is not null) as geklikt,
+              (select count(*)::int from businesses where vertical_id=$1 and source<>'test' and owner_user_id is not null) as geclaimd,
+              (select count(*)::int from businesses where vertical_id=$1 and source<>'test' and status in ('claimed','pro')) as betaald,
+              coalesce((select sum(amount_cents)::int from payments p join businesses b on b.id=p.business_id where p.status='paid' and b.source<>'test'),0) as omzet,
+              (select count(*)::int from businesses where vertical_id=$1 and outreach_opt_out) as uitgeschreven,
+              (select count(*)::int from lead_requests) as aanvragen,
+              (select count(*)::int from payments where provider='bank' and status='open') as bank`, [v.id]))[0];
+          const pct = (a: number, b: number) => b ? `${Math.round((a / b) * 1000) / 10}%` : "0%";
+          const eur = (c: number) => (c / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const days = await q<{ d: string; sent: number; opened: number; clicked: number; claimed: number; paid: number }>(`
+            with d as (select generate_series(current_date - 13, current_date, interval '1 day')::date as d)
+            select d.d::text,
+              (select count(*)::int from outreach where sent_at::date=d.d) as sent, (select count(*)::int from outreach where opened_at::date=d.d) as opened,
+              (select count(*)::int from outreach where clicked_at::date=d.d) as clicked,
+              (select count(*)::int from businesses where vertical_id=$1 and source<>'test' and owner_user_id is not null and verified_at::date=d.d) as claimed,
+              (select count(*)::int from payments p join businesses b on b.id=p.business_id where p.status='paid' and b.source<>'test' and p.paid_at::date=d.d) as paid
+            from d order by d.d desc`, [v.id]);
+          const prov = await q<{ slug: string; name: string; mailbaar: number; verstuurd: number; geklikt: number; geclaimd: number; betaald: number }>(`
+            select pr.slug, pr.name,
+              count(*) filter (where b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out)::int as mailbaar,
+              count(o.id)::int as verstuurd, count(o.clicked_at)::int as geklikt,
+              count(*) filter (where b.owner_user_id is not null)::int as geclaimd, count(*) filter (where b.status in ('claimed','pro'))::int as betaald
+            from businesses b join municipalities m on m.id=b.municipality_id join provinces pr on pr.id=m.province_id left join outreach o on o.business_id=b.id
+            where b.vertical_id=$1 and b.source<>'test' group by pr.slug, pr.name order by betaald desc, geklikt desc, pr.name`, [v.id]);
+          const rows = await segmentRows(v.id, seg, regio, 200);
+          const funnel: [string, number, string][] = [["Mailbaar", t.mailbaar, ""], ["Verstuurd", t.verstuurd, pct(t.verstuurd, t.mailbaar) + " van mailbaar"], ["Geopend", t.geopend, pct(t.geopend, t.verstuurd) + " van verstuurd"], ["Geklikt", t.geklikt, pct(t.geklikt, t.verstuurd) + " van verstuurd"], ["Geclaimd", t.geclaimd, pct(t.geclaimd, t.verstuurd) + " van verstuurd"], ["Betaald", t.betaald, pct(t.betaald, t.geclaimd) + " van geclaimd"]];
+          const max = Math.max(1, t.mailbaar, t.verstuurd);
+          const cell: React.CSSProperties = { padding: "6px 10px", borderBottom: "1px solid var(--line)", textAlign: "right" };
+          return (<>
+            <div className="grid cols-4" style={{ gap: 10 }}>
+              {[["Betalende bedrijven", String(t.betaald)], ["Omzet totaal", `${eur(t.omzet)} euro`], ["Jaaromzet nu (ARR)", `${eur(t.betaald * price)} euro`], ["Offerteaanvragen", String(t.aanvragen)], ["Geclaimd, onbetaald", String(Math.max(0, t.geclaimd - t.betaald))], ["Overschrijving open", String(t.bank)], ["Herinneringen verstuurd", String(t.herinnerd)], ["Uitgeschreven", String(t.uitgeschreven)]].map(([k, val]) => <div key={k} className="card" style={{ padding: "12px 14px" }}><b style={{ fontSize: 24, fontFamily: "Manrope, sans-serif" }}>{val}</b><br /><small>{k}</small></div>)}
+            </div>
+            <div className="card" style={{ display: "grid", gap: 8 }}>
+              <h3>Funnel</h3>
+              {funnel.map(([k, n, sub]) => <div key={k} style={{ display: "grid", gridTemplateColumns: "120px 1fr 160px", gap: 10, alignItems: "center", fontSize: 14 }}><b>{k}</b><span style={{ background: "var(--chip)", borderRadius: 6, height: 22, position: "relative" }}><span style={{ position: "absolute", inset: 0, width: `${Math.max(1, (n / max) * 100)}%`, background: k === "Betaald" ? "var(--green)" : "var(--navy)", borderRadius: 6 }} /></span><span>{n.toLocaleString("nl-NL")} <small style={{ color: "var(--ink-3)" }}>{sub}</small></span></div>)}
+              <small style={{ color: "var(--ink-3)" }}>Geopend is een ondergrens of overschatting: sommige mailprogramma's laden geen afbeeldingen, Apple Mail laadt ze altijd. Kliks en claims zijn exact.</small>
+            </div>
+            <div className="card" style={{ overflowX: "auto" }}>
+              <h3 style={{ marginBottom: 8 }}>Laatste 14 dagen</h3>
+              <table style={{ borderCollapse: "collapse", fontSize: 14, width: "100%" }}><thead><tr>{["Dag", "Verstuurd", "Geopend", "Geklikt", "Geclaimd", "Betaald"].map((h) => <th key={h} style={{ ...cell, textAlign: h === "Dag" ? "left" : "right" }}>{h}</th>)}</tr></thead>
+                <tbody>{days.map((d) => <tr key={d.d}><td style={{ ...cell, textAlign: "left" }}>{new Date(d.d).toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "short" })}</td><td style={cell}>{d.sent}</td><td style={cell}>{d.opened}</td><td style={cell}>{d.clicked}</td><td style={cell}>{d.claimed}</td><td style={cell}>{d.paid}</td></tr>)}</tbody></table>
+            </div>
+            <div className="card" style={{ overflowX: "auto" }}>
+              <h3 style={{ marginBottom: 8 }}>Per provincie</h3>
+              <table style={{ borderCollapse: "collapse", fontSize: 14, width: "100%" }}><thead><tr>{["Provincie", "Mailbaar", "Verstuurd", "Geklikt", "Geclaimd", "Betaald"].map((h) => <th key={h} style={{ ...cell, textAlign: h === "Provincie" ? "left" : "right" }}>{h}</th>)}</tr></thead>
+                <tbody>{prov.map((p) => <tr key={p.slug}><td style={{ ...cell, textAlign: "left" }}><a href={`/admin/?tab=dashboard&seg=${seg}&regio=${p.slug}`}>{p.name}</a></td><td style={cell}>{p.mailbaar}</td><td style={cell}>{p.verstuurd}</td><td style={cell}>{p.geklikt}</td><td style={cell}>{p.geclaimd}</td><td style={cell}>{p.betaald}</td></tr>)}</tbody></table>
+            </div>
+            <div className="card" style={{ display: "grid", gap: 10 }}>
+              <h3>Bedrijven per fase{regio ? `, ${prov.find((p) => p.slug === regio)?.name ?? regio}` : ""}</h3>
+              <div className="chips">{SEGMENTS.map(([k, label]) => <a key={k} href={`/admin/?tab=dashboard&seg=${k}${regio ? `&regio=${regio}` : ""}`} className={`pill${seg === k ? " on" : ""}`} style={{ fontSize: 13 }}>{label}</a>)}{regio && <a href={`/admin/?tab=dashboard&seg=${seg}`} className="pill" style={{ fontSize: 13 }}>Alle provincies</a>}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}><small>{rows.length}{rows.length === 200 ? "+" : ""} bedrijven</small><a href={`/admin/export/?seg=${seg}${regio ? `&regio=${regio}` : ""}`} className="btn btn-outline" style={{ padding: "6px 12px", minHeight: 36, fontSize: 14 }}>Download als bellijst (CSV)</a></div>
+              <div style={{ overflowX: "auto" }}><table style={{ borderCollapse: "collapse", fontSize: 14, width: "100%" }}><thead><tr>{["Bedrijf", "Plaats", "Telefoon", "E-mail", "Verstuurd", "Geopend", "Geklikt", "Status", "Aanvragen"].map((h) => <th key={h} style={{ ...cell, textAlign: "left" }}>{h}</th>)}</tr></thead>
+                <tbody>{rows.map((r) => <tr key={r.id}><td style={{ ...cell, textAlign: "left" }}><a href={`/bedrijf/${r.slug}/`}>{r.name}</a></td><td style={{ ...cell, textAlign: "left" }}>{r.city}</td><td style={{ ...cell, textAlign: "left", whiteSpace: "nowrap" }}>{r.phone ? <a href={`tel:${r.phone.replace(/\s/g, "")}`}>{r.phone}</a> : ""}</td><td style={{ ...cell, textAlign: "left" }}>{r.email ? <a href={`mailto:${r.email}`}>{r.email}</a> : ""}</td><td style={{ ...cell, textAlign: "left" }}>{r.sent_at?.slice(5, 10) ?? ""}</td><td style={{ ...cell, textAlign: "left" }}>{r.opened_at?.slice(5, 10) ?? ""}</td><td style={{ ...cell, textAlign: "left" }}>{r.clicked_at?.slice(5, 10) ?? ""}</td><td style={{ ...cell, textAlign: "left" }}>{r.status === "claimed" || r.status === "pro" ? `Betaald tot ${r.paid_until ?? ""}` : r.claimed ? "Geclaimd" : "Niet geclaimd"}</td><td style={cell}>{r.leads}</td></tr>)}</tbody></table></div>
+            </div>
           </>);
         })())}
         {tab === "stats" && (await (async () => {

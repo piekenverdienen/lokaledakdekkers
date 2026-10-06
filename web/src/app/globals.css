@@ -77,13 +77,9 @@ p { margin: 0; }
 .cta-navy { background: var(--navy); color: #fff; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
 .cta-navy p { color: #C9D6E0; font-size: 15px; }
 .band { background: var(--navy); color: #fff; }
-.band .wrap { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding: 56px 24px; }
+.band .wrap { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding: 48px 24px; }
 .band h2 { font-size: 32px; font-weight: 800; }
 .band p { color: #C9D6E0; font-size: 18px; max-width: 520px; }
-.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; flex: 1 1 360px; }
-.steps li { display: flex; gap: 16px; align-items: flex-start; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 14px; padding: 16px 18px; }
-.steps li span { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 22px; color: var(--amber-light); min-width: 28px; }
-.steps li small { color: #C9D6E0; font-size: 15px; display: block; }
 .faq details { border-bottom: 1px solid var(--line); padding: 12px 0; }
 .faq summary { font-weight: 600; font-size: 17px; cursor: pointer; }
 .faq p { margin-top: 8px; color: var(--ink-2); }
@@ -256,8 +252,8 @@ p { margin: 0; }
 /* Merkgids: ritme, kaarten, buurtlijn */
 .card, .biz, .map-card { box-shadow: var(--shadow-card); }
 .section { padding-top: 72px; padding-bottom: 72px; }
-.section-tight { padding-top: 40px; padding-bottom: 40px; }
-@media (max-width: 760px) { .section { padding-top: 44px; padding-bottom: 44px; } .section-tight { padding-top: 28px; padding-bottom: 28px; } .wrap { padding-left: 20px; padding-right: 20px; } }
+.section-tight { padding-top: 28px; padding-bottom: 28px; }
+@media (max-width: 760px) { .section { padding-top: 44px; padding-bottom: 44px; } .section-tight { padding-top: 22px; padding-bottom: 22px; } .wrap { padding-left: 20px; padding-right: 20px; } }
 .benefits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .benefits > div { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
 .benefits-open > div { border-top: 2px solid var(--line); padding-top: 18px; }
@@ -265,7 +261,7 @@ p { margin: 0; }
 .benefits h3 { font-size: 19px; }
 .benefits p { color: var(--ink-2); font-size: 15.5px; margin: 0; }
 @media (max-width: 760px) { .benefits { grid-template-columns: 1fr; } }
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; list-style: none; padding: 0; margin: 0; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; list-style: none; padding: 0; margin: 0; }
 .steps li { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .steps .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--amber-ink); color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 18px; display: grid; place-items: center; margin-bottom: 4px; }
 .steps h3 { font-size: 20px; color: var(--ink); }

@@ -55,7 +55,7 @@ export default function Map({ center, zoom = 11, markers, tall = false, fit = tr
         group.push(mk);
       }
       if (layer) map.addLayer(layer);
-      if (fit && group.length > 1) map.fitBounds(L.featureGroup(group).getBounds().pad(0.2));
+      if (fit && group.length > 1) map.fitBounds(L.featureGroup(group).getBounds().pad(0.04));
     }).catch(() => {});
     return () => { if (map) map.remove(); };
   }, []);

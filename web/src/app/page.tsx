@@ -48,7 +48,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
           <img src="/img/kennis/wat-kost-een-dakdekker.webp" srcSet="/img/kennis/wat-kost-een-dakdekker-sm.webp 800w, /img/kennis/wat-kost-een-dakdekker.webp 1600w" sizes="(max-width: 760px) 100vw, 600px" alt={`${cap(v.name_singular)} overlegt vanaf een ladder met twee bewoners bij hun rijtjeshuis`} loading="eager" />
         </div>
       </section>
-      <div className="wrap" style={{ paddingTop: 8 }}><Roofline /></div></div>
+      <div className="wrap" style={{ paddingTop: 4, paddingBottom: 4 }}><Roofline /></div></div>
 
       <section className="wrap section-tight">
         <div className="benefits benefits-open">
@@ -108,7 +108,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
         </div>
       </section>
 
-      <div className="wrap" style={{ paddingBottom: 12 }}><Roofline /></div>
+      <div className="wrap" style={{ paddingTop: 8, paddingBottom: 8 }}><Roofline /></div>
       <section className="band">
         <div className="wrap">
           <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 14 }}>
@@ -133,7 +133,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
               </a>
             ) : (
               <div className="biz" style={{ padding: 0, overflow: "hidden" }}>
-                <img src="/img/kennis/betrouwbare-dakdekker-kiezen-sm.webp" alt={`${cap(v.name_singular)} bij de voordeur van een klant`} className="ex-photo" loading="lazy" />
+                <img src="/img/kennis/betrouwbare-dakdekker-kiezen-sm.webp" alt={`${cap(v.name_singular)} bij de voordeur van een klant`} className="ex-photo" style={{ aspectRatio: "16 / 10" }} loading="lazy" />
                 <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 6, fontSize: 15, color: "var(--ink-2)" }}>
                   <b style={{ color: "var(--ink)", fontFamily: "Manrope, sans-serif", fontSize: 17 }}>Zo ziet jouw profiel eruit</b>
                   <span>Je logo en foto's van je werk, je diensten en werkgebied, en bij elk gegeven wat er gecontroleerd is. Bewoners vragen rechtstreeks bij jou een offerte aan.</span>

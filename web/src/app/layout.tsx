@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CookieNotice from "@/components/CookieNotice";
+import Script from "next/script";
 import BrandMark from "@/components/BrandMark";
 import Hit from "@/components/Hit";
 import { currentVertical, cap } from "@/lib/site";
@@ -73,6 +74,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <a href="/kennis/">Kennis</a>
           </div>
         </footer>
+        <Script id="ga-consent" strategy="beforeInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});try{if(document.cookie.indexOf('ld_consent=analytics')>-1){gtag('consent','update',{analytics_storage:'granted'});}}catch(e){}gtag('js',new Date());gtag('config','G-P5N8E6YY81');`}</Script>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-P5N8E6YY81" strategy="afterInteractive" />
         <CookieNotice />
         <Hit />
       </body>

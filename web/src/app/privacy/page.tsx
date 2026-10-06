@@ -14,7 +14,7 @@ export default async function Privacy() {
       <h2>Reviews en offerteaanvragen</h2>
       <p>Bij een review bewaren we je naam, e-mailadres, de tekst en eventueel een factuurverwijzing. Je e-mailadres is niet zichtbaar. Een offerteaanvraag gaat naar het bedrijf dat je zelf kiest, of naar maximaal drie bedrijven als je daarvoor kiest, en wordt niet aan anderen verkocht. We bewaren aanvragen 12 maanden.</p>
       <h2>Cookies en statistieken</h2>
-      <p>We gebruiken alleen functionele cookies, bijvoorbeeld om je ingelogd te houden. Kaarten komen van OpenStreetMap.</p>
+      <p>We gebruiken functionele cookies, bijvoorbeeld om je ingelogd te houden en je cookiekeuze te onthouden. Alleen als je daarvoor toestemming geeft, gebruiken we Google Analytics 4 om anoniem te meten hoe de site wordt gebruikt; IP-adressen worden daarbij niet opgeslagen en de gegevens worden niet voor advertenties gebruikt of met andere Google-diensten gedeeld. Zonder toestemming plaatst Google geen cookies. Je keuze wijzigen kan door de cookie ld_consent in je browser te verwijderen. Daarnaast tellen we paginaweergaven zonder cookies op onze eigen server. Kaarten komen van OpenStreetMap.</p>
       <h2>Je rechten</h2>
       <p>Je kunt je gegevens inzien, laten corrigeren of laten verwijderen. Mail naar info@{v.domain}. Je kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
       <h2>Verwerkers</h2>

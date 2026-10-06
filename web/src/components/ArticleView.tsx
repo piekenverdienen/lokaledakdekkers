@@ -51,18 +51,18 @@ export default function ArticleView({ a, v, base, canonical, related, nearby }: 
 
         <aside className="aside">
           <div className="cta-navy">
-            <h2 style={{ fontSize: 17 }}>Een {v.name_singular} in de buurt?</h2>
+            <p className="aside-title">Een {v.name_singular} in de buurt?</p>
             <p>Vergelijk geverifieerde {v.name_plural} in jouw plaats en vraag direct een offerte aan.</p>
             <form action="/zoeken/" method="get" style={{ display: "flex", gap: 8 }}><input name="q" placeholder="Jouw plaats" aria-label="Plaats" style={{ flex: 1, minWidth: 0, border: 0, borderRadius: 10, padding: "0 12px", minHeight: 44, fontSize: 16, fontFamily: "inherit" }} /><button className="btn btn-amber" type="submit">Zoek</button></form>
           </div>
           {related.length > 0 && (
             <div className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <h2 style={{ fontSize: 17 }}>Lees ook</h2>
+              <p className="aside-title">Lees ook</p>
               {related.map((r) => <a key={r.slug} href={`/kennis/${r.slug}/`} style={{ fontSize: 15, fontWeight: 600 }}>{r.title}</a>)}
             </div>
           )}
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <h2 style={{ fontSize: 17 }}>Ben je {v.name_singular}?</h2>
+            <p className="aside-title">Ben je {v.name_singular}?</p>
             <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Claim je profiel gratis en ontvang offerteaanvragen uit je regio.</p>
             <a href="/claim/" className="btn btn-outline" style={{ justifyContent: "center" }}>Claim je profiel</a>
           </div>

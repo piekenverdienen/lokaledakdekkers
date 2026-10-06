@@ -417,3 +417,5 @@ main { overflow-x: clip; }
 @media (max-width: 760px) { .vd-table table { min-width: 0; font-size: 14px; } .vd-table th, .vd-table td { padding: 8px 6px; } }
 .vbadge:not([open]) .vbadge-pop { display: none; }
 @media (max-width: 760px) { .vbadge { position: static; } .vbadge-pop { left: 12px; right: 12px; width: auto; } }
+
+.aside-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 17px; margin: 0; color: inherit; }

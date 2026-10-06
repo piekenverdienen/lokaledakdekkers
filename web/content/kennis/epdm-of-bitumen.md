@@ -1,6 +1,6 @@
 ---
 title: EPDM of bitumen: welke dakbedekking is beter voor jouw plat dak?
-description: EPDM of bitumen? Vergelijk prijs per m2, levensduur, onderhoud en reparatie in 2026. Met een duidelijk advies per situatie: woning, aanbouw, schuur of dakterras.
+description: EPDM of bitumen? Vergelijk prijs per m2, levensduur, onderhoud en reparatie in 2026, met advies per situatie: woning, aanbouw, schuur of dakterras.
 date: 2026-10-06
 updated: 2026-10-06
 category: Dakbedekking

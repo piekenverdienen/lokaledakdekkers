@@ -9,7 +9,7 @@ image_alt: Handen van dakdekker Bart Veldhuis die een gebarsten, bemoste betonpa
 image_title: Dakpannen vervangen: oude pan eruit, nieuwe erin
 illustration: pannendak
 keywords: dakpannen vervangen kosten, kosten nieuw dak, dak vervangen kosten, nieuw dak kosten, dakpannen vervangen en isoleren kosten
-related: nieuw-dak-kosten, hoe-lang-gaan-dakpannen-mee, dak-reinigen-coaten, wat-kost-een-dakdekker, dak-isoleren-kosten, dakinspectie
+related: dakraam-plaatsen-kosten, schoorsteen-renoveren, nieuw-dak-kosten, hoe-lang-gaan-dakpannen-mee, dak-reinigen-coaten, wat-kost-een-dakdekker
 ---
 
 Dakpannen vervangen kost in 2026 gemiddeld **75 tot 120 euro per m2 voor betonnen pannen en 95 tot 150 euro per m2 voor keramische pannen**, inclusief leggen, panlatten, folie en afvoer van de oude pannen. Voor een pannendak van 80 m2 betaal je dus 6.000 tot 12.000 euro. Moet ook het dakbeschot vervangen worden of wil je isoleren, dan loopt een compleet nieuw dak op tot 150 tot 250 euro per m2.
@@ -69,7 +69,7 @@ Zie je nog geen lekkage maar twijfel je, laat dan een [dakinspectie](/kennis/dak
 
 Als de pannen nog gezond zijn maar lelijk, kan reinigen en coaten voor 15 tot 40 euro per m2. Dat verlengt de levensduur met 10 tot 15 jaar en houdt mos weg. Het is geen oplossing voor poreuze of gebroken pannen; een eerlijke dakdekker zegt dat erbij.
 
-Lees ook: [een compleet nieuw dak](/kennis/nieuw-dak-kosten/), [hoe lang dakpannen meegaan](/kennis/hoe-lang-gaan-dakpannen-mee/), [dak reinigen en coaten](/kennis/dak-reinigen-coaten/).
+Lees ook: [een compleet nieuw dak](/kennis/nieuw-dak-kosten/), [hoe lang dakpannen meegaan](/kennis/hoe-lang-gaan-dakpannen-mee/), [dak reinigen en coaten](/kennis/dak-reinigen-coaten/), [dakraam plaatsen](/kennis/dakraam-plaatsen-kosten/), [schoorsteen renoveren](/kennis/schoorsteen-renoveren/).
 
 ## Veelgestelde vragen
 

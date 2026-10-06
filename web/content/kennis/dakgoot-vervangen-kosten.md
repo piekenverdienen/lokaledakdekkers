@@ -1,6 +1,6 @@
 ---
 title: Dakgoot vervangen: kosten per meter voor zink, kunststof en aluminium (2026)
-description: Een dakgoot vervangen kost in 2026 zo'n 35 tot 140 euro per meter, afhankelijk van zink, kunststof of aluminium. Prijzen per woning, levensduur en wat erbij komt.
+description: Een dakgoot vervangen kost in 2026 zo'n 35 tot 140 euro per meter: zink, kunststof of aluminium. Prijzen per woning, levensduur en wat erbij komt.
 date: 2026-10-06
 updated: 2026-10-06
 category: Dakgoot
@@ -54,7 +54,7 @@ Plus regenpijpen en eventueel steiger.
 
 ## Repareren of vervangen?
 
-E©n lek of losse naad is meestal te [repareren](/kennis/dakgoot-repareren/) voor 150 tot 400 euro. Vervangen is zinvol als:
+EÃ©n lek of losse naad is meestal te [repareren](/kennis/dakgoot-repareren/) voor 150 tot 400 euro. Vervangen is zinvol als:
 
 - de goot op meerdere plekken lekt of doorgeroest is;
 - zink dun is geworden of witte poederige vlekken heeft;

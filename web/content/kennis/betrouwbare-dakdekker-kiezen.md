@@ -1,6 +1,6 @@
 ---
 title: Een betrouwbare dakdekker kiezen: 9 controles voordat je tekent
-description: Negen controles voor een betrouwbare dakdekker: KvK, verzekering, referenties, offerte met vaste prijs, nooit vooraf betalen. Zo herken je oplichters aan de deur.
+description: Negen controles voor een betrouwbare dakdekker: KvK, verzekering, referenties, offerte met vaste prijs, nooit vooraf betalen. Herken oplichters aan de deur.
 date: 2026-10-05
 updated: 2026-10-05
 category: Kiezen

@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis bekijkt met een zaklamp een vochtplek op het 
 image_title: Daklekkage opsporen op zolder bij de schoorsteen
 illustration: lekkage
 keywords: lekkage dak, dak lekkage, daklekkage repareren kosten, lekkage plat dak, lekkage dak verzekering, dak lekkage opsporen
-related: plat-dak-repareren, afvoer-plat-dak, afschot-plat-dak, dakinspectie, wat-kost-een-dakdekker, bitumen-dakbedekking
+related: dak-lekt-bij-hevige-regen, daklekkage-verzekering, plat-dak-repareren, afvoer-plat-dak, afschot-plat-dak, dakinspectie
 ---
 
 Een natte plek op het plafond betekent zelden dat het hele dak versleten is. In de meeste gevallen is de oorzaak klein: een verschoven dakpan, een open naad in de bitumen, een verstopte afvoer of kapot loodwerk rond de schoorsteen. Een reparatie kost dan **250 tot 900 euro**. Dit artikel helpt je de bron te vinden, de schade te beperken en de juiste dakdekker te bellen, zonder onnodig een nieuw dak te kopen.
@@ -65,7 +65,7 @@ De opstalverzekering dekt doorgaans schade door storm (windkracht 7 of meer), ee
 - Elke twee tot drie jaar een dakinspectie laten doen bij een dak ouder dan 15 jaar; lees [Dakinspectie: wat het is en wat het kost](/kennis/dakinspectie/).
 - Lood- en kitwerk rond doorvoeren meenemen bij elk ander dakwerk.
 
-Meer over een plat dak: [repareren of renoveren](/kennis/plat-dak-repareren/), [de afvoer](/kennis/afvoer-plat-dak/), [afschot](/kennis/afschot-plat-dak/).
+Meer over een plat dak: [repareren of renoveren](/kennis/plat-dak-repareren/), [de afvoer](/kennis/afvoer-plat-dak/), [afschot](/kennis/afschot-plat-dak/). Zie ook [lekt het alleen bij hevige regen](/kennis/dak-lekt-bij-hevige-regen/), [daklekkage en de verzekering](/kennis/daklekkage-verzekering/).
 
 ## Veelgestelde vragen
 

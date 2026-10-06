@@ -1,6 +1,6 @@
 ---
 title: Asbest dak vervangen: regels, kosten en wat je zelf mag (2026)
-description: Asbest op het dak van je woning of schuur? Wat de regels zijn, wanneer je zelf golfplaten mag verwijderen, wat een gecertificeerd bedrijf kost en hoe het vervangen gaat.
+description: Asbest op je dak? De regels, wanneer je zelf golfplaten mag verwijderen, wat een gecertificeerd bedrijf kost en hoe het vervangen gaat.
 date: 2026-10-06
 updated: 2026-10-06
 category: Dak vervangen

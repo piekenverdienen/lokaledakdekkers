@@ -1,6 +1,6 @@
 ---
 title: Plat dak isoleren: warm dak, omgekeerd dak of binnenzijde (kosten 2026)
-description: Een plat dak isoleren kost in 2026 zo'n 30 tot 120 euro per m2. Warm dak, omgekeerd dak of van binnenuit: wat het verschil is, welke Rd-waarde en welke subsidie.
+description: Plat dak isoleren kost in 2026 zo'n 30 tot 120 euro per m2. Warm dak, omgekeerd dak of van binnenuit: het verschil, de Rd-waarde en de subsidie.
 date: 2026-10-06
 updated: 2026-10-06
 category: Isolatie

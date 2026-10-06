@@ -1,6 +1,6 @@
 ---
 title: Dakkapel met balkon: kosten, vergunning en mogelijkheden (2026)
-description: Een dakkapel met balkon of Franse balkondeuren kost in 2026 zo'n 12.000 tot 25.000 euro. Waarom je altijd een vergunning nodig hebt en waar de constructeur naar kijkt.
+description: Een dakkapel met balkon of Franse balkondeuren kost in 2026 zo'n 12.000 tot 25.000 euro. Waarom een vergunning altijd nodig is en waar je op let.
 date: 2026-10-06
 updated: 2026-10-06
 category: Dakkapel

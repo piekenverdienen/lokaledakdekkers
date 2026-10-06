@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis controleert gehurkt naast de schoorsteen het 
 image_title: Dakinspectie: loodwerk rond de schoorsteen controleren
 illustration: inspectie
 keywords: dakinspectie, dakinspectie kosten, onafhankelijke dakinspectie, dak onderhoud
-related: hoe-lang-gaan-dakpannen-mee, dak-reinigen-coaten, wespennest-onder-dakpannen, daklekkage, dakpannen-vervangen-kosten, plat-dak-vervangen-kosten
+related: schoorsteen-renoveren, rieten-dak, hoe-lang-gaan-dakpannen-mee, dak-reinigen-coaten, wespennest-onder-dakpannen, daklekkage
 ---
 
 Een dakinspectie is een controle van het complete dak door een dakdekker of een onafhankelijke inspecteur, met een rapport en foto's als resultaat. Het kost in 2026 **150 tot 400 euro** en is de goedkoopste manier om te weten of je dak nog vijf jaar meekan, aan een reparatie toe is of echt vervangen moet worden. Bij een woning die je koopt, een dak ouder dan 15 jaar of een offerte van duizenden euro's is het geld altijd waard.
@@ -65,7 +65,7 @@ Herken een goede inspectie aan:
 
 Dat kost een uur per jaar en verlengt de levensduur van elk dak. Alles wat klimmen op een schuin dak vraagt, laat je aan een dakdekker over.
 
-Lees ook: [hoe lang dakpannen meegaan](/kennis/hoe-lang-gaan-dakpannen-mee/), [dak reinigen en coaten](/kennis/dak-reinigen-coaten/), [wespen onder de dakpannen](/kennis/wespennest-onder-dakpannen/).
+Lees ook: [hoe lang dakpannen meegaan](/kennis/hoe-lang-gaan-dakpannen-mee/), [dak reinigen en coaten](/kennis/dak-reinigen-coaten/), [wespen onder de dakpannen](/kennis/wespennest-onder-dakpannen/), [schoorsteen renoveren](/kennis/schoorsteen-renoveren/), [rieten dak](/kennis/rieten-dak/).
 
 ## Veelgestelde vragen
 

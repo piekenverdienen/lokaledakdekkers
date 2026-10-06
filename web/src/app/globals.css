@@ -368,3 +368,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .vd-price b { font-size: 38px; }
   .vd-card-btns { grid-template-columns: 1fr; }
 }
+
+.claimbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--navy); color: #fff; box-shadow: 0 -8px 24px rgba(20,46,58,0.25); }
+.claimbar-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; padding-bottom: 12px; font-size: 15px; }
+.claimbar-in b { font-family: 'Manrope', sans-serif; }
+body:has(.claimbar) { padding-bottom: 96px; }

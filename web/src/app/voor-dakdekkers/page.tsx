@@ -44,6 +44,7 @@ export default async function VoorDakdekkers() {
           <div className="vd-card-head"><span className="vd-initials">JD</span><div><b>Jouw dakbedrijf</b><small>Dakrenovatie, onderhoud, reparatie</small></div></div>
           <div className="vd-card-photos"><img src="/img/kennis/dakkapel-kosten-sm.webp" alt="" /><img src="/img/kennis/epdm-dakbedekking-sm.webp" alt="" /><img src="/img/kennis/dakinspectie-sm.webp" alt="" /></div>
           <div className="vd-card-btns"><span className="btn btn-primary">Bel het bedrijf</span><span className="btn btn-outline">Vraag een offerte aan</span></div>
+          <a href="/voorbeeld/" style={{ textAlign: "center", fontWeight: 600, fontSize: 15 }}>Bekijk een compleet voorbeeldprofiel</a>
         </div>
       </div></section>
 

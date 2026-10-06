@@ -35,7 +35,8 @@ export default async function BusinessPage({ params, searchParams }: Props) {
   if (!b || b.status === "hidden") notFound();
   const viewer = await getUser().catch(() => null);
   const ownerPreview = b.status === "unclaimed" && !!viewer && ((b as unknown as { owner_user_id?: string | null }).owner_user_id === viewer.id || viewer.is_admin);
-  const claimed = b.status !== "unclaimed" || ownerPreview;
+  const ownerPitch = b.status === "unclaimed" && !ownerPreview && !!eigenaar && !!b.profile_built_at; // vanuit de claim-mail: laat de complete versie zien
+  const claimed = b.status !== "unclaimed" || ownerPreview || ownerPitch;
   const built = !claimed && !!b.profile_built_at; // vooraf gebouwd: tekst, logo, diensten en werkgebied publiek, foto's en contact na claim
   const photoCount = built ? ((await one<{ n: number }>("select count(*)::int as n from business_photos where business_id=$1", [b.id]))?.n ?? 0) : 0;
   const canQuote = (claimed && !!b.email) || (built && !!b.outreach_email);
@@ -66,10 +67,24 @@ export default async function BusinessPage({ params, searchParams }: Props) {
 
       {ownerPreview && <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}><div><b>Voorbeeld: zo ziet je profiel eruit zodra het online staat.</b><br /><span style={{ color: "var(--ink-2)" }}>Bezoekers zien nu nog de basisvermelding. Na betaling wordt dit de publieke pagina.</span></div><a href={`/dashboard/${b.slug}/`} className="btn btn-primary">Terug naar het dashboard</a></div>}
       {review === "bevestigd" && <div className="card" style={{ borderColor: "var(--green)", background: "var(--green-bg)", marginTop: 8 }}><b>Bedankt, je review is bevestigd.</b> We plaatsen hem binnen een werkdag.</div>}
-      {eigenaar && !claimed && (
+      {ownerPitch && (
         <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-          <div><b>Dit zien bezoekers over jouw bedrijf. Kloppen deze gegevens?</b><br /><span style={{ color: "var(--ink-2)" }}>Claim je profiel om het aan te vullen met logo, foto's en diensten. Verificatie via je website en e-mail, daarna 79,95 per jaar inclusief btw.</span></div>
-          <a href={`/claim/${b.slug}/`} className="btn btn-primary">Ja, dit is mijn bedrijf</a>
+          <div><b>Zo ziet jouw pagina eruit zodra je hem hebt geclaimd.</b><br /><span style={{ color: "var(--ink-2)" }}>Met je eigen foto's, diensten en contactknoppen. Bezoekers zien nu nog de kale versie. Kloppen de gegevens? Claim je pagina en pas aan wat je wilt.</span></div>
+          <a href={`/claim/${b.slug}/`} className="btn btn-amber">Ja, dit is mijn bedrijf</a>
+        </div>
+      )}
+      {eigenaar && b.status === "unclaimed" && !ownerPitch && !ownerPreview && (
+        <div className="card" style={{ borderColor: "var(--amber)", background: "var(--amber-bg)", marginTop: 8, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+          <div><b>Dit zien bezoekers over jouw bedrijf. Kloppen deze gegevens?</b><br /><span style={{ color: "var(--ink-2)" }}>Claim je pagina en vul hem aan met logo, foto's en diensten. <a href="/voorbeeld/">Bekijk een compleet voorbeeldprofiel</a>.</span></div>
+          <a href={`/claim/${b.slug}/`} className="btn btn-amber">Ja, dit is mijn bedrijf</a>
+        </div>
+      )}
+      {ownerPitch && (
+        <div className="claimbar" role="region" aria-label="Claim je pagina">
+          <div className="wrap claimbar-in">
+            <span><b>Dit is jouw pagina.</b> Claim hem en zet dit online: {(((v as unknown as { verified_price_year_cents?: number }).verified_price_year_cents ?? 7995) / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })} euro per jaar inclusief btw, geen incasso.</span>
+            <a href={`/claim/${b.slug}/`} className="btn btn-amber">Claim je pagina</a>
+          </div>
         </div>
       )}
       <div className="layout" style={{ paddingTop: 8 }}>
@@ -96,7 +111,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             {(claimed || built) && b.description && <p style={{ color: "var(--ink-2)", fontSize: 17 }}>{b.description}</p>}
             {!claimed && (
               <div className="card" style={{ background: "var(--ground)", borderStyle: "dashed", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-                <p style={{ color: "var(--ink-2)", margin: 0 }}>{built ? "Dit bedrijf heeft zijn pagina nog niet bevestigd." : "Dit bedrijf heeft zijn pagina nog niet bevestigd; de gegevens komen uit het KvK Handelsregister."} Ben jij de eigenaar? <b>Claim je pagina</b> en maak hem persoonlijk{photoCount ? `, inclusief je ${photoCount} foto's` : ""}.</p>
+                <p style={{ color: "var(--ink-2)", margin: 0, fontSize: 15 }}>{built ? "Dit bedrijf heeft zijn pagina nog niet bevestigd." : "Dit bedrijf heeft zijn pagina nog niet bevestigd; de gegevens komen uit het KvK Handelsregister."} Ben jij de eigenaar? <a href={`/bedrijf/${b.slug}/?eigenaar=1`}><b>Bekijk hoe jouw pagina eruit kan zien</b></a> of <a href="/voorbeeld/">bekijk een compleet voorbeeld</a>.</p>
                 <a href={`/claim/${b.slug}/`} className="btn btn-outline">Dit is mijn bedrijf</a>
               </div>
             )}
@@ -134,7 +149,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             <section className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <h2 style={{ fontSize: 20 }}>Foto's van het werk</h2>
               <div className="photos">{Array.from({ length: Math.min(photoCount, 4) }).map((_, i) => <div key={i} style={{ aspectRatio: "4 / 3", borderRadius: 10, background: "linear-gradient(135deg, #C2D1DB, #E3EAF0)" }} />)}</div>
-              <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>{photoCount} foto's worden zichtbaar zodra het bedrijf zijn pagina heeft bevestigd.</p>
+              <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>{photoCount === 1 ? "1 foto wordt zichtbaar" : `${photoCount} foto's worden zichtbaar`} zodra het bedrijf zijn pagina heeft bevestigd.</p>
             </section>
           )}
 

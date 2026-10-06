@@ -373,3 +373,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .claimbar-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; padding-bottom: 12px; font-size: 15px; }
 .claimbar-in b { font-family: 'Manrope', sans-serif; }
 body:has(.claimbar) { padding-bottom: 96px; }
+
+.vd-ai { background: var(--surface); border-bottom: 1px solid var(--line); }
+.vd-ai-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-top: 44px; padding-bottom: 44px; }
+.vd-ai-text { display: flex; flex-direction: column; gap: 12px; }
+.vd-ai-text p { color: var(--ink-2); font-size: 17px; max-width: 56ch; }
+.vd-ai-urgent { background: var(--amber-bg); border-left: 4px solid var(--amber); padding: 12px 14px; border-radius: 0 10px 10px 0; color: var(--ink) !important; font-size: 16px !important; }
+.vd-ai-figure { margin: 0; }
+.vd-ai-figure img { width: 100%; border-radius: var(--radius-lg); box-shadow: 0 14px 40px rgba(20,46,58,0.14); display: block; border: 1px solid var(--line); }
+.vd-ai-figure figcaption { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; }
+@media (max-width: 900px) { .vd-ai-in { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; padding-bottom: 28px; } }

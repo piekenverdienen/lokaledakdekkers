@@ -54,6 +54,20 @@ export default async function VoorDakdekkers() {
         <div><span className="vd-ico">€</span><div><b>Eigen profiel en offerteplek</b><span>Klanten vragen rechtstreeks bij jou een offerte aan. Eén vast jaarbedrag.</span></div></div>
       </div></section>
 
+      <section className="vd-ai"><div className="wrap vd-ai-in">
+        <div className="vd-ai-text">
+          <span className="eyebrow">ChatGPT en AI-assistenten</span>
+          <h2>Jouw klanten zoeken steeds vaker via ChatGPT.</h2>
+          <p>Vermeldingen op externe sites zoals {v.domain} verstevigen jouw positie: AI-assistenten halen hun antwoorden uit gidsen met gestructureerde, gecontroleerde bedrijfsgegevens. Claim jouw profiel en vergroot de kans op nieuwe klanten in 2027.</p>
+          <p className="vd-ai-urgent"><b>Claim als eerste in jouw plaats.</b> Wie het eerst claimt, staat bovenaan in de lijst van zijn plaats en in de plaatsen eromheen.</p>
+          <a href="/claim/" className="btn btn-amber" style={{ alignSelf: "flex-start" }}>Zoek je bedrijf</a>
+        </div>
+        <figure className="vd-ai-figure">
+          <img src="/video/claim-poster.webp" alt="Voorbeeld van een AI-assistent die drie dakdekkers uit Twente noemt met lokaledakdekkers.nl als bron" loading="lazy" />
+          <figcaption>Illustratie: zo kan een antwoord eruitzien als jouw profiel compleet is.</figcaption>
+        </figure>
+      </div></section>
+
       <section className="wrap section-tight">
         <h2>Dit krijgen klanten van jouw bedrijf te zien.</h2>
         <div className="vd-tiles">

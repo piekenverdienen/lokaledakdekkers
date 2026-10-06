@@ -30,13 +30,13 @@ export default function ArticleView({ a, v, base, canonical, related, nearby }: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <nav className="crumbs" aria-label="Kruimelpad"><a href="/">Nederland</a><span>/</span><a href="/kennis/">Kennis</a><span>/</span><b>{a.category}</b></nav>
       <div className="layout" style={{ paddingTop: 0 }}>
-        <article className="main prose" style={{ maxWidth: 760 }}>
+        <article className="main prose" style={{ maxWidth: 840 }}>
           <span className="eyebrow">{a.category}</span>
           <h1>{a.title}</h1>
           <p className="lede">{a.description}</p>
           <div className="meta"><span>Bijgewerkt {new Date(a.updated).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}</span><span>{a.readMinutes} min lezen</span><span>Richtprijzen 2026, bronnen onderaan</span></div>
           {a.image ? (
-            <figure style={{ margin: "8px 0 4px" }}><img src={a.image} srcSet={`${a.image.replace(".webp", "-sm.webp")} 800w, ${a.image} 1600w`} sizes="(max-width: 760px) 100vw, 760px" alt={a.imageAlt} title={a.imageTitle} loading="eager" style={{ width: "100%", borderRadius: 16, display: "block" }} /></figure>
+            <figure style={{ margin: "8px 0 4px" }}><img src={a.image} srcSet={`${a.image.replace(".webp", "-sm.webp")} 800w, ${a.image} 1600w`} sizes="(max-width: 760px) 100vw, 840px" alt={a.imageAlt} title={a.imageTitle} loading="eager" style={{ width: "100%", borderRadius: 16, display: "block" }} /></figure>
           ) : <div style={{ margin: "8px 0 4px" }}><Illustration kind={a.illustration} /></div>}
           {a.toc.length > 2 && (
             <nav className="toc" aria-label="Inhoud"><b>In dit artikel</b><ol>{a.toc.map((t) => <li key={t.id}><a href={`#${t.id}`}>{t.text}</a></li>)}</ol></nav>

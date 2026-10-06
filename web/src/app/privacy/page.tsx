@@ -6,7 +6,7 @@ export default async function Privacy() {
   return (
     <main className="wrap prose" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 760 }}>
       <h1>Privacyverklaring</h1>
-      <p>{v.brand} (onderdeel van YourFellow B.V.) is een bedrijvengids voor {v.name_plural} in Nederland. Hieronder staat welke gegevens we gebruiken en waarom.</p>
+      <p>{v.brand} (onderdeel van Rombots Digital B.V.) is een bedrijvengids voor {v.name_plural} in Nederland. Hieronder staat welke gegevens we gebruiken en waarom.</p>
       <h2>Bedrijfsgegevens in de gids</h2>
       <p>De basisvermeldingen komen uit het openbare Handelsregister van de Kamer van Koophandel: handelsnaam, KvK-nummer, vestigingsnummer, vestigingsplaats, rechtsvorm en inschrijvingsdatum. Van eenmanszaken en vof's tonen we geen straatnaam en huisnummer, omdat dat vaak een woonadres is. Grondslag is ons gerechtvaardigd belang als bedrijvengids. Een bedrijf kan zijn vermelding laten corrigeren of verwijderen via de knop Gegevens corrigeren op het profiel; we verwerken dat binnen drie werkdagen.</p>
       <h2>Geclaimde profielen</h2>

@@ -6,7 +6,7 @@ export default async function Voorwaarden() {
   return (
     <main className="wrap prose" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 760 }}>
       <h1>Algemene voorwaarden voor bedrijven</h1>
-      <p>Deze voorwaarden gelden voor bedrijven die een profiel claimen of een betaald profiel afnemen op {v.brand}, een dienst van YourFellow B.V. Door een profiel te claimen ga je akkoord met deze voorwaarden. Versie 5 oktober 2026.</p>
+      <p>Deze voorwaarden gelden voor bedrijven die een profiel claimen of een betaald profiel afnemen op {v.brand}, een dienst van Rombots Digital B.V. Door een profiel te claimen ga je akkoord met deze voorwaarden. Versie 5 oktober 2026.</p>
       <h2>1. Wat {v.brand} is</h2>
       <p>{v.brand} is een online bedrijvengids voor {v.name_plural} in Nederland. We tonen bedrijfsvermeldingen op basis van het Handelsregister en bieden bedrijven de mogelijkheid hun profiel te claimen, aan te vullen en als Geverifieerd profiel te publiceren. We zijn geen partij bij overeenkomsten tussen bedrijven en hun klanten en bemiddelen niet.</p>
       <h2>2. Basisvermelding</h2>
@@ -28,7 +28,7 @@ export default async function Voorwaarden() {
       <h2>9. Aansprakelijkheid</h2>
       <p>We doen ons best de gids juist en beschikbaar te houden, maar geven geen garantie op volledigheid of ononderbroken beschikbaarheid. Onze aansprakelijkheid is beperkt tot het bedrag dat het bedrijf in de twaalf maanden voor de schade aan ons heeft betaald.</p>
       <h2>10. Overig</h2>
-      <p>Op deze voorwaarden is Nederlands recht van toepassing. We kunnen de voorwaarden wijzigen; bij een wezenlijke wijziging informeren we bedrijven per e-mail ten minste dertig dagen vooraf. Vragen: info@{v.domain}. YourFellow B.V., Nederland.</p>
+      <p>Op deze voorwaarden is Nederlands recht van toepassing. We kunnen de voorwaarden wijzigen; bij een wezenlijke wijziging informeren we bedrijven per e-mail ten minste dertig dagen vooraf. Vragen: info@{v.domain}. Rombots Digital B.V., Nederland.</p>
     </main>
   );
 }

@@ -61,7 +61,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {children}
         <footer className="wrap footer">
           <span>
-            {v.brand} is onderdeel van de Lokaal-gidsen. Plaatsen en gemeenten uit OpenStreetMap-data, ODbL. Bedrijfsgegevens uit het KvK Handelsregister.
+            {v.brand} is een dienst van Rombots Digital B.V. Plaatsen en gemeenten uit OpenStreetMap-data, ODbL. Bedrijfsgegevens uit het KvK Handelsregister.
           </span>
           <div>
             <a href="/privacy/">Privacy</a>

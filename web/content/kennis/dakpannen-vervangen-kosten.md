@@ -1,5 +1,6 @@
 ---
 title: Dakpannen vervangen of een nieuw dak: kosten per m2 in 2026
+h1: Dakpannen vervangen: wat kost het per m2?
 description: Dakpannen vervangen kost in 2026 ongeveer 45 tot 110 euro per m2 inclusief arbeid. Prijzen per soort pan, wanneer vervangen nodig is en hoe je bespaart.
 date: 2026-10-05
 updated: 2026-10-05
@@ -16,7 +17,7 @@ Dakpannen vervangen kost in 2026 gemiddeld **75 tot 120 euro per m2 voor betonne
 
 De bedragen zijn richtprijzen uit meerdere Nederlandse bronnen in 2026, inclusief btw. Echte regionale cijfers uit facturen volgen zodra deze site er per provincie genoeg heeft.
 
-## Drie niveaus van vervangen
+## Losse pannen, alle pannen of een nieuw dak: wat kost het?
 
 | Wat | Richtprijs 2026 per m2 | Wanneer |
 | --- | --- | --- |
@@ -24,7 +25,7 @@ De bedragen zijn richtprijzen uit meerdere Nederlandse bronnen in 2026, inclusie
 | Alle pannen vervangen (dakbeschot blijft) | 75 tot 150 euro | Pannen poreus of verweerd, beschot nog goed |
 | Compleet nieuw dak: pannen, folie, isolatie, beschot | 150 tot 250 euro | Beschot verrot, isolatie ontbreekt, asbest |
 
-## Betonnen of keramische dakpannen
+## Betonnen of keramische dakpannen?
 
 | | Betonnen dakpannen | Keramische dakpannen |
 | --- | --- | --- |
@@ -36,7 +37,7 @@ De bedragen zijn richtprijzen uit meerdere Nederlandse bronnen in 2026, inclusie
 
 Keramisch is duurder in aanschaf maar gaat langer mee en blijft mooier. Bij een woning waar je lang blijft wonen is dat meestal de betere koop; bij een schuur of een huis dat je over een paar jaar verkoopt, is beton verdedigbaar.
 
-## Rekenvoorbeelden
+## Rekenvoorbeelden: dakpannen vervangen per woning
 
 | Dak | Betonnen pannen | Keramische pannen | Compleet nieuw dak met isolatie |
 | --- | --- | --- | --- |
@@ -46,7 +47,7 @@ Keramisch is duurder in aanschaf maar gaat langer mee en blijft mooier. Bij een 
 
 Het dakoppervlak is bij een schuin dak groter dan de plattegrond. Een tussenwoning van 5 bij 9 meter heeft al snel 60 m2 dakvlak. Laat de dakdekker het meten en zet het aantal m2 in de offerte.
 
-## Wat bepaalt de prijs
+## Wat bepaalt de prijs van dakpannen vervangen?
 
 1. **Steiger**: bij een pannendak vrijwel altijd nodig, 800 tot 2.000 euro, soms inbegrepen.
 2. **Dakbeschot**: is het hout nat of verrot, dan komt daar 85 tot 120 euro per m2 bij.
@@ -55,7 +56,7 @@ Het dakoppervlak is bij een schuin dak groter dan de plattegrond. Een tussenwoni
 5. **Lood- en zinkwerk**: kilgoten, nokvorsten en aansluitingen rond de schoorsteen zijn vaak aan vervanging toe als de pannen eraf gaan. Reken op 500 tot 2.500 euro.
 6. **Asbest**: bij golfplaten of oude dakbeschotplaten van voor 1994. Sanering door een gecertificeerd bedrijf kost 20 tot 40 euro per m2 extra.
 
-## Wanneer zijn dakpannen aan vervanging toe?
+## Wanneer moeten dakpannen vervangen worden?
 
 - Poreuze pannen die water opnemen en in de winter kapotvriezen.
 - Veel gebroken of verschoven pannen na elke storm.
@@ -65,7 +66,7 @@ Het dakoppervlak is bij een schuin dak groter dan de plattegrond. Een tussenwoni
 
 Zie je nog geen lekkage maar twijfel je, laat dan een [dakinspectie](/kennis/dakinspectie/) doen. Die kost 150 tot 400 euro en geeft een rapport waarmee je gerichte offertes kunt aanvragen.
 
-## Pannen reinigen of coaten als goedkoper alternatief
+## Dakpannen reinigen of coaten in plaats van vervangen
 
 Als de pannen nog gezond zijn maar lelijk, kan reinigen en coaten voor 15 tot 40 euro per m2. Dat verlengt de levensduur met 10 tot 15 jaar en houdt mos weg. Het is geen oplossing voor poreuze of gebroken pannen; een eerlijke dakdekker zegt dat erbij.
 

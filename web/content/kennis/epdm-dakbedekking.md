@@ -1,5 +1,6 @@
 ---
 title: EPDM dakbedekking: kosten, levensduur, voor- en nadelen (2026)
+h1: EPDM dakbedekking: kosten, levensduur, voor- en nadelen
 description: EPDM-dakbedekking kost in 2026 zo'n 35 tot 80 euro per m2 gelegd en gaat 40 jaar mee. Voordelen, nadelen, prijzen en of je het zelf kunt leggen.
 date: 2026-10-05
 updated: 2026-10-05
@@ -14,11 +15,11 @@ related: epdm-of-bitumen, plat-dak-repareren, bitumen-dakbedekking, dakbedekking
 
 EPDM is een rubberen dakfolie voor platte en licht hellende daken. Het gaat **30 tot 50 jaar** mee, heeft nauwelijks naden en wordt zonder vuur gelegd. In 2026 kost EPDM gelegd door een dakdekker **55 tot 85 euro per m2**, inclusief verwijderen van de oude laag en btw. Daarmee is het duurder dan bitumen in aanschaf, maar per jaar levensduur vrijwel altijd goedkoper.
 
-## Wat is EPDM precies?
+## Wat is EPDM dakbedekking?
 
 EPDM staat voor ethyleen-propyleen-dieen-monomeer, een synthetisch rubber. Het komt als grote folie van de rol, in dikte 1,1 tot 1,5 mm, soms als één stuk voor een heel dak zodat er geen naden zijn. De folie rekt tot 300 procent en krimpt terug, waardoor hij werkt met het dak mee bij hitte en vorst. Het materiaal wordt al sinds de jaren zestig op daken gebruikt; de oudste Nederlandse EPDM-daken liggen er ruim 40 jaar.
 
-## Kosten van EPDM in 2026
+## Wat kost EPDM per m2?
 
 | Onderdeel | Richtprijs 2026 |
 | --- | --- |
@@ -31,7 +32,7 @@ EPDM staat voor ethyleen-propyleen-dieen-monomeer, een synthetisch rubber. Het k
 
 Bij kleine daken rekent een dakdekker vaak een minimumprijs van 800 tot 1.200 euro. Meer rekenvoorbeelden staan in [Plat dak vervangen: kosten per m2](/kennis/plat-dak-vervangen-kosten/).
 
-## Voordelen
+## Voordelen van EPDM dakbedekking
 
 - **Levensduur**: 30 tot 50 jaar, tegenover 20 tot 30 jaar voor bitumen.
 - **Geen naden** bij folie uit één stuk, dus geen zwakke plekken.
@@ -41,7 +42,7 @@ Bij kleine daken rekent een dakdekker vaak een minimumprijs van 800 tot 1.200 eu
 - **Geschikt voor groendak en zonnepanelen** op een ballastsysteem.
 - **Zelf te leggen** op een schuur of carport.
 
-## Nadelen
+## Nadelen van EPDM dakbedekking
 
 - **Duurder in aanschap** dan bitumen, 10 tot 25 euro per m2 meer.
 - **Kwetsbaar voor scherpe voorwerpen** tijdens het leggen en bij werk op het dak.
@@ -49,7 +50,7 @@ Bij kleine daken rekent een dakdekker vaak een minimumprijs van 800 tot 1.200 eu
 - **Oliën en vetten** tasten EPDM aan; bij een afzuiging van een restaurant is PVC beter.
 - **Zwart** warmt op in de zomer; onder een dakterras of bij slechte isolatie merk je dat.
 
-## EPDM of bitumen?
+## EPDM of bitumen: wat is beter?
 
 | | EPDM | Bitumen |
 | --- | --- | --- |
@@ -62,7 +63,7 @@ Bij kleine daken rekent een dakdekker vaak een minimumprijs van 800 tot 1.200 eu
 
 De uitgebreide vergelijking, ook met PVC, staat in [Dakbedekking voor een plat dak: welke kies je?](/kennis/dakbedekking-plat-dak/). Kort: voor een woning waar je blijft wonen is EPDM meestal de betere koop; voor een schuur die over tien jaar toch weggaat is bitumen genoeg.
 
-## Waar je op let bij het leggen
+## EPDM aanbrengen: waar let je op?
 
 1. **Ondergrond droog en vlak.** EPDM kan op schone, droge oude bitumen. Nat dakbeschot moet eerst weg; vraag een vochtmeting.
 2. **Afschot.** Een plat dak hoort 1 tot 2 cm per meter af te lopen naar de afvoer. Blijft water staan, dan gaat elke dakbedekking korter mee.
@@ -70,7 +71,7 @@ De uitgebreide vergelijking, ook met PVC, staat in [Dakbedekking voor een plat d
 4. **Dakranden en doorvoeren.** De zwakke plekken zitten bij de randen en rond pijpen. Daar hoort EPDM-vormwerk of een hoekstuk, geen kit.
 5. **Garantie op papier.** Fabrieksgarantie op het materiaal (vaak 20 jaar of meer) plus garantie van de dakdekker op de uitvoering (5 tot 10 jaar). Vraag beide.
 
-## Zelf EPDM leggen?
+## Kun je EPDM zelf leggen?
 
 Op een schuur, carport of klein tuinhuis kan dat prima: folie op maat bestellen, ondergrond schoonmaken, lijmen, randen afwerken. Reken een dag voor 15 m2. Bij een woning, een dak boven een slaapkamer of een dak met meerdere doorvoeren is een dakdekker verstandiger; één slecht verlijmde rand kost meer dan het hele uurtarief.
 

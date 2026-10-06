@@ -1,5 +1,6 @@
 ---
 title: Plat dak vervangen: kosten per m2 in 2026 (bitumen, EPDM, PVC)
+h1: Plat dak vervangen: wat kost het per m2?
 description: Een plat dak vervangen kost in 2026 zo'n 50 tot 120 euro per m2, inclusief isolatie meer. Richtprijzen voor EPDM en bitumen, en wanneer repareren nog kan.
 date: 2026-10-05
 updated: 2026-10-05
@@ -16,7 +17,7 @@ Een plat dak vervangen kost in 2026 gemiddeld **45 tot 105 euro per m2**, inclus
 
 Dit zijn landelijke richtprijzen uit 2026 op basis van meerdere prijsgidsen. Regionale cijfers uit facturen van geverifieerde klussen volgen op deze site zodra er per provincie minimaal vijf zijn.
 
-## Kosten per m2 per dakbedekking
+## Wat kost plat dak vervangen per m2?
 
 | Dakbedekking | Richtprijs 2026 per m2 | Levensduur | Wanneer logisch |
 | --- | --- | --- | --- |
@@ -27,7 +28,7 @@ Dit zijn landelijke richtprijzen uit 2026 op basis van meerdere prijsgidsen. Reg
 
 Verschillen tussen deze materialen lees je in [Dakbedekking voor een plat dak: welke kies je?](/kennis/dakbedekking-plat-dak/).
 
-## Rekenvoorbeelden
+## Rekenvoorbeelden: plat dak vervangen
 
 | Dak | Bitumen | EPDM | EPDM plus isolatie |
 | --- | --- | --- | --- |
@@ -37,7 +38,7 @@ Verschillen tussen deze materialen lees je in [Dakbedekking voor een plat dak: w
 
 Bij kleine daken ligt de prijs per m2 hoger dan in de tabel, omdat voorrijden, opstarten en afvoer over minder meters worden verdeeld. Reken bij een dak onder de 15 m2 op een minimumprijs van 800 tot 1.200 euro.
 
-## Wat zit er in de prijs en wat niet
+## Wat zit er in de prijs van plat dak vervangen?
 
 Meestal inbegrepen: verwijderen en afvoeren van de oude dakbedekking, de nieuwe laag, dakranden en kleine aansluitingen, afwerken van bestaande dakdoorvoeren.
 
@@ -50,17 +51,17 @@ Meestal niet inbegrepen, dus apart in de offerte:
 - **Lichtkoepel of dakraam vervangen**: 400 tot 1.500 euro per stuk.
 - **Asbest**: bij daken van voor 1994 mogelijk aanwezig; sanering 20 tot 40 euro per m2 extra.
 
-## Vervangen of overlagen?
+## Plat dak vervangen of overlagen?
 
 Bij bitumen kan een dakdekker soms een nieuwe laag over de oude branden (overlagen). Dat scheelt afvoer en kost 30 tot 50 euro per m2. Het kan alleen als de oude laag droog en vlak is, er nog niet twee lagen liggen en het dakbeschot gezond is. Vraag de dakdekker om een vochtmeting; bij nat dakbeschot is overlagen weggegooid geld.
 
 EPDM kan vaak direct op een oude bitumenlaag gelegd worden, mits die droog en schoon is. Dat is een van de redenen dat EPDM populair is bij renovatie.
 
-## Isolatie meenemen: ja, bijna altijd
+## Plat dak isoleren bij vervanging
 
 Als het dak toch open ligt, is isoleren het goedkoopste moment. Je bespaart de hele arbeid die je anders later apart betaalt, en voor dakisolatie met een Rd-waarde van minimaal 3,5 geldt in 2026 de landelijke ISDE-subsidie van 16,25 euro per m2 (32,50 euro bij twee maatregelen). Rekenvoorbeeld in [Dak isoleren: kosten en subsidie 2026](/kennis/dak-isoleren-kosten/).
 
-## Wanneer is een plat dak aan vervanging toe?
+## Wanneer moet een plat dak vervangen worden?
 
 - Blaren, scheuren of losse naden in de dakbedekking.
 - Plassen die na een dag nog niet weg zijn (slechte afschot).

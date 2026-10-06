@@ -1,5 +1,6 @@
 ---
 title: EPDM of bitumen: welke dakbedekking is beter voor jouw plat dak?
+h1: EPDM of bitumen: welke dakbedekking kies je?
 description: EPDM of bitumen? Vergelijk prijs per m2, levensduur, onderhoud en reparatie in 2026, met advies per situatie: woning, aanbouw, schuur of dakterras.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: epdm-dakbedekking, bitumen-dakbedekking, dakbedekking-plat-dak, plat-da
 
 Kort antwoord: **EPDM** gaat langer mee (30 tot 50 jaar), heeft bijna geen naden en wordt zonder vuur gelegd. **Bitumen** is goedkoper in aanschaf, sterker tegen belopen en elke dakdekker werkt ermee. Per jaar levensduur is EPDM meestal voordeliger; voor een dak dat veel belopen wordt of een schuur die over tien jaar weggaat is bitumen een prima keuze.
 
-## Het verschil in één tabel
+## Verschil tussen EPDM en bitumen
 
 | | EPDM | Bitumen |
 | --- | --- | --- |
@@ -47,7 +48,7 @@ Meer over prijs, levensduur en nadelen in [EPDM dakbedekking](/kennis/epdm-dakbe
 
 Meer over soorten en prijzen in [bitumen dakbedekking](/kennis/bitumen-dakbedekking/).
 
-## Rekenvoorbeeld: aanbouw van 25 m2
+## EPDM of bitumen: rekenvoorbeeld voor een aanbouw
 
 | | EPDM | Bitumen |
 | --- | --- | --- |
@@ -57,7 +58,7 @@ Meer over soorten en prijzen in [bitumen dakbedekking](/kennis/bitumen-dakbedekk
 
 Over dertig jaar betaal je bij bitumen dus waarschijnlijk één keer extra voor vervanging. Bij EPDM niet.
 
-## En PVC of TPO?
+## En PVC of TPO dakbedekking?
 
 Naast EPDM en bitumen bestaan er kunststof dakbanen van **PVC** en **TPO**. Ze worden heet aan elkaar gelast en zijn vooral gangbaar op grote bedrijfsdaken. Voor woningen kiezen de meeste dakdekkers EPDM of bitumen. Het complete overzicht staat in [dakbedekking voor een plat dak](/kennis/dakbedekking-plat-dak/).
 

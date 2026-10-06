@@ -1,5 +1,6 @@
 ---
 title: Plat dak repareren of renoveren: kosten en wanneer vervangen (2026)
+h1: Plat dak repareren of renoveren: wanneer is vervangen nodig?
 description: Een plat dak repareren kost in 2026 vaak 150 tot 600 euro. Zo herken je wat te repareren is en wanneer renoveren of vervangen goedkoper is.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: plat-dak-vervangen-kosten, daklekkage, afschot-plat-dak, epdm-of-bitume
 
 Een lekkend plat dak is meestal te repareren: een scheur, een losgekomen naad of een lekkende afvoer kost in 2026 **150 tot 600 euro** om te herstellen. Vervangen wordt pas zinvol als de dakbedekking op meerdere plekken versleten is of het dak ouder is dan zijn levensduur: bitumen na 20 tot 25 jaar, EPDM na 35 tot 50 jaar. Dan kost [plat dak vervangen](/kennis/plat-dak-vervangen-kosten/) 50 tot 120 euro per m2.
 
-## Repareren, renoveren of vervangen?
+## Plat dak repareren, renoveren of vervangen?
 
 | Situatie | Advies | Richtprijs 2026 |
 | --- | --- | --- |
@@ -25,7 +26,7 @@ Een lekkend plat dak is meestal te repareren: een scheur, een losgekomen naad of
 | Nat of rot dakbeschot | Vervangen inclusief beschot | 80 tot 140 euro per m2 |
 | Water blijft staan | Afschot herstellen bij vervanging | zie [afschot plat dak](/kennis/afschot-plat-dak/) |
 
-## De meest voorkomende reparaties
+## Veelvoorkomende reparaties aan een plat dak
 
 **Blazen in bitumen.** Een bolling in de dakbedekking ontstaat door vocht of lucht eronder. Kleine blazen zijn onschuldig zolang ze dicht zijn. Barst een blaas, dan snijdt de dakdekker hem kruislings open, laat hem drogen, brandt hem plat en legt er een reparatiestuk over.
 
@@ -37,11 +38,11 @@ Een lekkend plat dak is meestal te repareren: een scheur, een losgekomen naad of
 
 **EPDM.** Een gat of scheur in EPDM repareer je met een EPDM-reparatiestrip of -tape; lees meer bij [EPDM dakbedekking](/kennis/epdm-dakbedekking/).
 
-## Renoveren: een extra laag bitumen
+## Plat dak renoveren met een extra laag bitumen
 
 Is de bitumen nog redelijk maar wat op leeftijd, dan kan een dakdekker er een nieuwe toplaag overheen branden. Dat heet renoveren. Het is goedkoper dan vervangen omdat de oude laag niet weg hoeft, maar het kan maar één keer: twee lagen over elkaar is het maximum, en het dakbeschot moet gezond en droog zijn. Vraag de dakdekker altijd om een vochtmeting voordat hij een laag overlegt.
 
-## Waar je op let bij de offerte
+## Waar let je op bij een offerte voor plat dak reparatie?
 
 - **Oorzaak benoemd.** Een goede dakdekker zegt waar het lek zit en waarom, niet alleen "dak lekt".
 - **Vaste prijs**, inclusief voorrijkosten en materiaal.

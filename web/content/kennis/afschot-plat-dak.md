@@ -1,5 +1,6 @@
 ---
 title: Afschot plat dak: hoeveel cm per meter, herstellen en kosten (2026)
+h1: Afschot op een plat dak: hoeveel heb je nodig en hoe herstel je het?
 description: Een plat dak hoort 1 tot 2 cm per meter af te lopen. Zo meet je het afschot, zo herstel je het met afschotisolatie of spieën, en dit kost het in 2026.
 date: 2026-10-06
 updated: 2026-10-06
@@ -27,14 +28,14 @@ De Nederlandse richtlijn voor platte daken gaat uit van een helling van minimaal
 
 Let op dat het water ook écht naar de afvoer loopt en niet naar een hoek zonder uitloop. Een dak met goed afschot naar de verkeerde kant is net zo erg als een dak zonder afschot.
 
-## Waarom afschot zo belangrijk is
+## Wat gebeurt er als een plat dak te weinig afschot heeft?
 
 - **Staand water verkort de levensduur.** Bitumen en EPDM kunnen tegen water, maar niet tegen water dat weken blijft staan: naden worden zwakker, er groeit mos, en bij vorst zet het ijs uit.
 - **Gewicht.** Een plas van 5 cm diep over 4 m2 weegt 200 kilo. Op een oud houten dak gaat dat doorbuigen, waardoor de plas groter wordt.
 - **Lekkage op de zwakste plek.** Het water zoekt de naad, de dakdoorvoer of de rand. Bij [daklekkage](/kennis/daklekkage/) op een plat dak is te weinig afschot een van de meest voorkomende oorzaken.
 - **Garantie.** Veel fabrikanten van dakbedekking eisen een minimaal afschot voor hun garantie.
 
-## Zo controleer je het afschot zelf
+## Afschot van je plat dak zelf meten
 
 1. Kijk een dag na een flinke regenbui op het dak (alleen als het veilig bereikbaar is, bijvoorbeeld via een dakterras). Staat er water dieper dan 1 cm, dan is er iets mis.
 2. Leg een lange waterpas of rechte lat op het dak, richting de afvoer. Meet aan het lage einde hoeveel ruimte er onder zit en reken terug naar centimeters per meter.
@@ -42,7 +43,7 @@ Let op dat het water ook écht naar de afvoer loopt en niet naar een hoek zonder
 
 Ga bij een hoog of glad dak niet zelf het dak op. Een dakdekker doet dit tijdens een [dakinspectie](/kennis/dakinspectie/) in een kwartier.
 
-## Afschot herstellen: de mogelijkheden
+## Hoe herstel je het afschot van een plat dak?
 
 | Methode | Wanneer | Richtprijs 2026 inclusief btw |
 | --- | --- | --- |
@@ -55,7 +56,7 @@ Ga bij een hoog of glad dak niet zelf het dak op. Een dakdekker doet dit tijdens
 
 **Een extra afvoer** is vaak de goedkoopste oplossing als het afschot op zich goed is maar de afvoer op de verkeerde plek zit. Meer daarover in [afvoer op een plat dak](/kennis/afvoer-plat-dak/).
 
-## Wat kost het in de praktijk?
+## Wat kost afschot herstellen op een plat dak?
 
 | Situatie | Totaalprijs indicatie 2026 |
 | --- | --- |

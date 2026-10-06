@@ -1,5 +1,6 @@
 ---
 title: Lichtkoepel of lichtstraat op een plat dak: kosten en verschil (2026)
+h1: Lichtkoepel of lichtstraat op een plat dak: verschil en kosten
 description: Een lichtkoepel kost in 2026 650 tot 2.000 euro geplaatst, een lichtstraat 2.000 tot 6.500 euro. Het verschil, de soorten en waar de dakdekker op let.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: plat-dak-vervangen-kosten, afvoer-plat-dak, plat-dak-isoleren, daklekka
 
 Een **lichtkoepel** is een koepel of vlak dakraam van kunststof of glas in een plat dak; geplaatst kost hij in 2026 **650 tot 2.000 euro**. Een **lichtstraat** is een lange glazen strook, vaak over de hele breedte van een aanbouw, en kost **2.000 tot 6.500 euro** inclusief montage. Combineer het plaatsen het liefst met het vervangen van de dakbedekking: dan is de aansluiting het netst en bespaar je dubbele kosten.
 
-## Lichtkoepel, lichtstraat of plat dakraam?
+## Verschil tussen lichtkoepel, lichtstraat en plat dakraam
 
 | | Lichtkoepel | Plat dakraam (glas) | Lichtstraat |
 | --- | --- | --- | --- |
@@ -24,7 +25,7 @@ Een **lichtkoepel** is een koepel of vlak dakraam van kunststof of glas in een p
 | Prijs geplaatst 2026 | 650 tot 2.000 euro | 1.200 tot 3.500 euro | 2.000 tot 6.500 euro |
 | Kan open | Ja, handmatig of elektrisch | Vaak elektrisch | Soms, met ventilatieklep |
 
-## Kosten in detail
+## Wat kost een lichtkoepel of lichtstraat inclusief montage?
 
 | Onderdeel | Richtprijs inclusief btw |
 | --- | --- |
@@ -40,7 +41,7 @@ Een **lichtkoepel** is een koepel of vlak dakraam van kunststof of glas in een p
 
 Een bestaande koepel **vervangen** is goedkoper dan een nieuwe plaatsen: het gat zit er al. Reken 500 tot 1.300 euro voor een standaardmaat.
 
-## Waar de dakdekker op let
+## Waar let je op bij een lichtkoepel of lichtstraat?
 
 1. **Constructie.** Voor een nieuw gat moeten balken worden onderbroken en opgevangen (raveling). Bij een lichtstraat over de breedte soms een stalen ligger. Dat werk bepaalt een groot deel van de prijs.
 2. **Opstand.** De koepel of het raam staat op een opstand van minimaal 15 cm boven het dak, zodat water er niet in loopt. De dakbedekking loopt daar netjes tegenop.
@@ -48,7 +49,7 @@ Een bestaande koepel **vervangen** is goedkoper dan een nieuwe plaatsen: het gat
 4. **Afschot en afvoer.** Een lichtstraat of koepel mag geen water tegenhouden. Het water moet eromheen naar de [afvoer](/kennis/afvoer-plat-dak/) kunnen.
 5. **Isolatie.** Een enkelwandige koepel is een koudebrug. Kies meerwandig of HR++-glas als eronder een woonruimte zit.
 
-## Vergunning nodig?
+## Heb je een vergunning nodig voor een lichtkoepel of lichtstraat?
 
 Een lichtkoepel of lichtstraat in een plat dak is in de meeste gevallen **vergunningsvrij**, zolang hij niet boven de dakrand uitsteekt op een manier die het aanzicht verandert aan de voorkant en de constructie niet wezenlijk wijzigt. Bij een monument of in een beschermd stadsgezicht geldt altijd een vergunningsplicht. Check het vooraf in het Omgevingsloket.
 

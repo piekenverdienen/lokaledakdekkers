@@ -1,5 +1,6 @@
 ---
 title: Plat dak isoleren: warm dak, omgekeerd dak of binnenzijde (kosten 2026)
+h1: Plat dak isoleren: warm dak, omgekeerd dak of van binnenuit
 description: Plat dak isoleren kost in 2026 zo'n 30 tot 120 euro per m2. Warm dak, omgekeerd dak of van binnenuit: het verschil, de Rd-waarde en de subsidie.
 date: 2026-10-06
 updated: 2026-10-06
@@ -22,7 +23,7 @@ Een plat dak isoleer je bij voorkeur **aan de buitenkant**, op het moment dat de
 | Omgekeerd dak | Isolatie (XPS) bovenop de bestaande dakbedekking, met grind of tegels als ballast | 50 tot 100 euro | Als de dakbedekking nog goed is en het dak het gewicht aankan |
 | Binnenzijde (koud dak) | Isolatie tussen of onder de balken, vanaf de kamer | 30 tot 50 euro, plus afwerking plafond | Alleen als buitenkant niet kan, met goede dampremmende folie |
 
-## Warm dak: de beste keuze
+## Plat dak isoleren als warm dak
 
 Bij een warm dak ligt de isolatie aan de buitenkant van de constructie. De balken en het beschot blijven warm en droog, dus er is geen kans op condens in het hout. De volgorde van onder naar boven:
 
@@ -33,11 +34,11 @@ Bij een warm dak ligt de isolatie aan de buitenkant van de constructie. De balke
 
 Omdat de dakopbouw dikker wordt, moet de daktrim omhoog en soms het loodwerk langs de gevel worden aangepast. Reken daarvoor een paar honderd euro extra.
 
-## Omgekeerd dak
+## Plat dak isoleren als omgekeerd dak
 
 Bij een omgekeerd dak blijft de bestaande dakbedekking liggen en komt de isolatie erbovenop. Dat kan alleen met XPS-platen, die tegen water kunnen, en met ballast erop (grind of tegels) tegen opwaaien. Voordeel: de dakbedekking ligt beschermd tegen zon en vorst. Nadeel: het gewicht. Laat altijd eerst checken of de constructie de 50 tot 100 kilo per m2 aan ballast kan dragen.
 
-## Van binnenuit isoleren
+## Kun je een plat dak van binnenuit isoleren?
 
 Van binnenuit isoleren lijkt aantrekkelijk: geen dakdekker nodig, goedkoper. Het risico is condens: warme, vochtige lucht uit de kamer trekt in de isolatie en slaat neer tegen het koude dakbeschot. Op een plat dak kan dat binnen een paar jaar houtrot geven. Doe je het toch, dan:
 
@@ -45,7 +46,7 @@ Van binnenuit isoleren lijkt aantrekkelijk: geen dakdekker nodig, goedkoper. Het
 - Met een **luchtspouw** tussen isolatie en dakbeschot, die geventileerd wordt.
 - Alleen bij een dakbedekking die nog jaren meegaat.
 
-## Hoe dik moet de isolatie?
+## Hoe dik moet de isolatie op een plat dak zijn?
 
 | Doel | Rd-waarde | PIR-dikte ongeveer |
 | --- | --- | --- |
@@ -55,7 +56,7 @@ Van binnenuit isoleren lijkt aantrekkelijk: geen dakdekker nodig, goedkoper. Het
 
 De Rd-waarde zegt hoe goed de isolatie zelf isoleert, de Rc-waarde gaat over de hele dakopbouw. Hoe hoger, hoe beter.
 
-## Kosten in de praktijk
+## Wat kost plat dak isoleren in de praktijk?
 
 | Situatie | Totaal indicatie 2026 inclusief btw |
 | --- | --- |
@@ -64,7 +65,7 @@ De Rd-waarde zegt hoe goed de isolatie zelf isoleert, de Rc-waarde gaat over de 
 | Rijtjeswoning plat dak 45 m2, warm dak plus EPDM | 6.000 tot 9.000 euro |
 | Omgekeerd dak 30 m2 op bestaande bitumen | 1.800 tot 3.000 euro |
 
-## Subsidie
+## Subsidie voor plat dak isoleren
 
 Met de ISDE-subsidie krijg je in 2026 een vast bedrag per m2 dakisolatie, mits de Rd-waarde minimaal 3,5 is en je een minimale oppervlakte isoleert. Het bedrag verdubbelt als je twee of meer isolatiemaatregelen neemt. De actuele bedragen en voorwaarden staan in ons artikel [dak isoleren: kosten en subsidie](/kennis/dak-isoleren-kosten/) en op de site van RVO.
 

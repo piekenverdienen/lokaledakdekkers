@@ -1,5 +1,6 @@
 ---
 title: Wat kost een nieuw dak? Prijs per m2 met dakpannen en isolatie (2026)
+h1: Wat kost een nieuw dak?
 description: Een nieuw pannendak kost in 2026 zo'n 75 tot 150 euro per m2, met isolatie 130 tot 250 euro. Prijzen per dak, wat erbij komt en wanneer renoveren genoeg is.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakpannen-vervangen-kosten, dak-isoleren-kosten, hoe-lang-gaan-dakpanne
 
 Een compleet nieuw pannendak kost in 2026 gemiddeld **75 tot 150 euro per m2**: oude pannen eraf, nieuwe dakfolie, panlatten en dakpannen erop, inclusief btw. Laat je het dak meteen van buitenaf isoleren, dan kom je uit op **130 tot 250 euro per m2**. Voor een gemiddelde rijtjeswoning met zo'n 60 m2 dak betekent dat 4.500 tot 9.000 euro zonder en 8.000 tot 15.000 euro met isolatie.
 
-## Kosten nieuw dak per m2
+## Wat kost een nieuw dak per m2?
 
 | Werk | Richtprijs per m2 2026, inclusief btw |
 | --- | --- |
@@ -25,7 +26,7 @@ Een compleet nieuw pannendak kost in 2026 gemiddeld **75 tot 150 euro per m2**: 
 | Nieuwe dakconstructie (gordingen, beschot) | 150 tot 300 euro |
 | Alleen dakpannen vervangen, bestaande latten | 55 tot 85 euro |
 
-## Wat kost een nieuw dak voor jouw woning?
+## Wat kost een nieuw dak per woningtype?
 
 | Woning en dak | Zonder isolatie | Met isolatie |
 | --- | --- | --- |
@@ -36,7 +37,7 @@ Een compleet nieuw pannendak kost in 2026 gemiddeld **75 tot 150 euro per m2**: 
 
 Daarbovenop kunnen komen: steiger (600 tot 1.500 euro), nieuwe dakgoten (zie [dakgoot vervangen](/kennis/dakgoot-vervangen-kosten/)), loodwerk rond schoorsteen en dakkapel (300 tot 1.200 euro), en het afvoeren van asbest als dat in het oude dak zit.
 
-## Wat zit er in een nieuw dak?
+## Wat zit er in de prijs van een nieuw dak?
 
 1. **Sloop en afvoer** van de oude pannen, panlatten en eventueel folie.
 2. **Controle van de constructie:** gordingen en beschot worden gecontroleerd op rot en zo nodig vervangen.
@@ -46,7 +47,7 @@ Daarbovenop kunnen komen: steiger (600 tot 1.500 euro), nieuwe dakgoten (zie [da
 6. **Dakpannen**, nokvorsten en de afwerking aan randen en gevels.
 7. **Loodwerk** rond schoorsteen, dakkapel en dakramen.
 
-## Renoveren of compleet vervangen?
+## Dak renoveren of compleet vervangen?
 
 Een compleet nieuw dak is niet altijd nodig. Zijn de pannen nog goed maar lekt het op een paar plekken, dan is herstel van loodwerk en een paar pannen genoeg. Zijn de pannen poreus of verweerd, maar is het beschot gezond, dan kun je alleen [dakpannen vervangen](/kennis/dakpannen-vervangen-kosten/). Een compleet nieuw dak is zinvol als:
 
@@ -55,7 +56,7 @@ Een compleet nieuw dak is niet altijd nodig. Zijn de pannen nog goed maar lekt h
 - er houtrot of doorbuiging in de constructie zit;
 - er asbest in het oude dak zit, zie [asbest dak vervangen](/kennis/asbest-dak-vervangen/).
 
-## Subsidie
+## Subsidie voor een nieuw dak
 
 Isoleer je het dak mee, dan kun je in 2026 ISDE-subsidie aanvragen: 16,25 euro per m2 bij één maatregel, 32,50 euro per m2 als je binnen 24 maanden een tweede isolatiemaatregel of een warmtepomp neemt (Rd-waarde minimaal 3,5). Voor alleen nieuwe dakpannen bestaat geen landelijke subsidie.
 

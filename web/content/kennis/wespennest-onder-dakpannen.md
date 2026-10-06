@@ -1,5 +1,6 @@
 ---
 title: Wespennest onder dakpannen: wat te doen en wat het kost (2026)
+h1: Wespennest onder de dakpannen: wat doe je eraan?
 description: Wespen die onder je dakpannen in en uit vliegen? Zo herken je het nest, wat bestrijding kost, wanneer het vanzelf ophoudt en hoe je het volgend jaar voorkomt.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,13 +15,13 @@ related: dakinspectie, hoe-lang-gaan-dakpannen-mee, dak-reinigen-coaten, betrouw
 
 Wespen die onder je dakpannen in en uit vliegen, hebben bijna altijd een nest in de ruimte tussen pannen, latten en isolatie. Een ongediertebestrijder haalt het in 2026 weg voor **75 tot 175 euro**. Laat je het zitten, dan sterft het volk in de herfst vanzelf en wordt het nest niet opnieuw gebruikt. Voorkomen doe je met **vogelschroot** onder de onderste pannenrij en het dichtmaken van kieren.
 
-## Is het een wespennest?
+## Is het een wespennest, of zijn het bijen?
 
 - **Wespen:** geel-zwart, slank, vliegen in een vaste lijn naar één opening, vooral van juni tot september.
 - **Bijen en hommels:** behaard, bruiner. Die zijn beschermd en worden niet bestreden; een imker of de bijenvereniging kan helpen.
 - **Hoe groot:** een wespennest kan in de zomer duizenden wespen bevatten en uitgroeien tot de grootte van een voetbal.
 
-## Wat kost het?
+## Wat kost het verwijderen van een wespennest onder de dakpannen?
 
 | Werk | Richtprijs 2026 inclusief btw |
 | --- | --- |
@@ -31,15 +32,15 @@ Wespen die onder je dakpannen in en uit vliegen, hebben bijna altijd een nest in
 
 Een ongediertebestrijder brengt een middel aan bij de ingang van het nest, zonder dat de pannen eraf hoeven. Na een dag of twee is het nest dood. Vraag naar een bestrijder met KPMB-certificaat.
 
-## Zelf doen?
+## Kun je een wespennest onder de dakpannen zelf verwijderen?
 
 Doe het liever niet. Wespen verdedigen het nest fel, en op een ladder bij de dakgoot is een wespensteek levensgevaarlijk: je valt eerder dan je reageert. Middelen uit de winkel werken bij een nest achter de pannen slecht, omdat je het nest zelf niet bereikt.
 
-## Laten zitten?
+## Mag je een wespennest onder de dakpannen laten zitten?
 
 Als het nest niemand stoort, kun je het laten zitten. In de herfst sterven de werksters en de oude koningin; alleen de jonge koninginnen overwinteren elders. Het nest wordt **niet** opnieuw gebruikt, maar een plek die makkelijk bereikbaar is, trekt volgend jaar wel nieuwe koninginnen aan.
 
-## Voorkomen
+## Hoe voorkom je wespen onder de dakpannen?
 
 1. **Vogelschroot** (een kunststof of metalen kam) onder de onderste pannenrij. Houdt vogels én wespen buiten, laat ventilatie door.
 2. **Kieren bij nok, gevel en dakkapel** dichtmaken met ventilerend gaas.

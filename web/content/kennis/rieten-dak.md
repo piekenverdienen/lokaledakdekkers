@@ -1,5 +1,6 @@
 ---
 title: Rieten dak: kosten, levensduur en onderhoud (2026)
+h1: Rieten dak: kosten, levensduur en onderhoud
 description: Een nieuw rieten dak kost in 2026 zo'n 90 tot 160 euro per m2 en gaat 25 tot 40 jaar mee. Onderhoud, nokvervanging, verzekering en de rietdekker kiezen.
 date: 2026-10-06
 updated: 2026-10-06
@@ -11,7 +12,7 @@ related: nieuw-dak-kosten, hoe-lang-gaan-dakpannen-mee, dakinspectie, betrouwbar
 
 Een **nieuw rieten dak** kost in 2026 ongeveer **90 tot 160 euro per m2**, inclusief het verwijderen van het oude riet en btw. Riet gaat **25 tot 40 jaar** mee, de zuidkant korter dan de noordkant. De **nok** moet elke **10 tot 15 jaar** vervangen worden. Riet is werk voor een gespecialiseerde **rietdekker**, niet voor een gewone dakdekker.
 
-## Kosten 2026
+## Wat kost een rieten dak per m2?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -34,7 +35,7 @@ Voorbeeld: een woonboerderij met 150 m2 dakvlak kost 13.500 tot 24.000 euro voor
 
 De levensduur hangt af van de dakhelling (steiler is beter: minimaal 45 graden), de kwaliteit van het riet, ventilatie en onderhoud. Bomen vlak bij het dak houden het riet vochtig en verkorten de levensduur.
 
-## Onderhoud
+## Onderhoud van een rieten dak
 
 1. **Mos en blad verwijderen** zodra het zich ophoopt; mos houdt vocht vast.
 2. **Nok controleren** elke paar jaar: een kapotte nok laat water direct het riet in.
@@ -42,11 +43,11 @@ De levensduur hangt af van de dakhelling (steiler is beter: minimaal 45 graden),
 4. **Vogels en ongedierte** weren met gaas waar nodig.
 5. **Inspectie door een rietdekker** elke vijf jaar, zie ook [dakinspectie](/kennis/dakinspectie/).
 
-## Verzekering en brandveiligheid
+## Rieten dak verzekeren en brandveiligheid
 
 Een rieten dak heeft een hogere brandverzekeringspremie dan een pannendak. Veel verzekeraars geven korting als er een **brandwerende plaat** onder het riet ligt of het riet brandvertragend behandeld is. Let op bij houtkachels, barbecues en vuurkorven in de buurt van het dak.
 
-## Rietdekker kiezen
+## Een goede rietdekker kiezen
 
 Riet is een vak apart. Let op lidmaatschap van de vakvereniging voor rietdekkers, referenties van recente daken en een schriftelijke garantie. Algemene tips staan in [betrouwbare dakdekker kiezen](/kennis/betrouwbare-dakdekker-kiezen/).
 

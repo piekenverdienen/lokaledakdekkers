@@ -1,5 +1,6 @@
 ---
 title: Verholen goot bij een dakkapel: wat het is, problemen en kosten (2026)
+h1: Verholen goot: wat het is, waarom hij lekt en wat herstel kost
 description: Een verholen goot zit verstopt in de rand van je dakkapel of dak. Waarom hij vaker lekt, hoe je dat herkent en wat herstel of vervangen kost in 2026.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,21 +15,21 @@ related: dakgoot-vervangen-kosten, dakgoot-repareren, dakkapel-kosten, daklekkag
 
 Een **verholen goot** is een dakgoot die niet buiten aan de gevel hangt, maar is weggewerkt in de dakrand of de bovenkant van een dakkapel. Van buiten zie je alleen een strakke rand. Mooi, maar riskanter: lekt hij, dan loopt het water niet langs de gevel maar **naar binnen**, in de muur of het plafond. Herstel kost in 2026 meestal **200 tot 600 euro**, een nieuwe verholen goot **100 tot 200 euro per meter**.
 
-## Waarom verholen goten vaker lekken
+## Waarom lekt een verholen goot vaker?
 
 - **Je ziet ze niet**, dus verstopping met bladeren of mos valt pas op als het lekt.
 - **Zink scheurt** bij de soldeernaden door uitzetten en krimpen, en na 30 tot 40 jaar is het op.
 - **Achterliggend hout** (de gootbak) rot als er jarenlang een klein lek zit.
 - **Te weinig afschot** naar de afvoer, waardoor water blijft staan.
 
-## Zo herken je een lekkende verholen goot
+## Hoe herken je een lekkende verholen goot?
 
 - Vochtplekken of loszittend stucwerk **bovenin de muur** of op het plafond, vlak onder de dakrand.
 - **Algengroei of witte uitslag** op de gevel net onder de rand.
 - Water dat bij hevige regen **over de rand** loopt in plaats van via de regenpijp.
 - Een **rotte gootbak** of boeiboord.
 
-## Kosten 2026
+## Wat kost een verholen goot repareren of vervangen?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -40,7 +41,7 @@ Een **verholen goot** is een dakgoot die niet buiten aan de gevel hangt, maar is
 
 Bij een **dakkapel** is de verholen goot vaak kort (3 tot 6 meter), dus herstel valt mee. Bij een rijtjeswoning met een verholen goot over de hele lengte loopt het hoger op; dan is **bekleden met EPDM** vaak de voordeligste oplossing met een lange levensduur.
 
-## Onderhoud
+## Onderhoud van een verholen goot
 
 1. Twee keer per jaar laten **schoonmaken**, in het voorjaar en eind van de herfst.
 2. **Bladvanger** op de afvoer.

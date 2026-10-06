@@ -1,5 +1,6 @@
 ---
 title: Schoorsteen renoveren, voegen of verwijderen: kosten (2026)
+h1: Schoorsteen renoveren, voegen of verwijderen
 description: Een schoorsteen opnieuw voegen kost in 2026 zo'n 300 tot 900 euro, renoveren 500 tot 2.500 euro en verwijderen 600 tot 2.000 euro. Wanneer wat nodig is.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: daklekkage, dak-lekt-bij-hevige-regen, dakinspectie, daklekkage-verzeke
 
 Een gemetselde schoorsteen op het dak heeft na 40 tot 60 jaar meestal onderhoud nodig: verweerde **voegen**, losse stenen, een kapotte **afdekplaat** of lekkend **loodwerk**. Opnieuw voegen kost in 2026 **300 tot 900 euro**, een complete renovatie **500 tot 2.500 euro**. Gebruik je de schoorsteen niet meer, dan is **verwijderen** (600 tot 2.000 euro) vaak de duurzaamste oplossing: geen onderhoud en geen lekrisico meer.
 
-## Kosten 2026
+## Wat kost een schoorsteen renoveren, voegen of verwijderen?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -26,7 +27,7 @@ Een gemetselde schoorsteen op het dak heeft na 40 tot 60 jaar meestal onderhoud 
 | Schoorsteen verwijderen tot onder de pannen, dak dichtmaken | 600 tot 2.000 euro |
 | Steiger of hoogwerker indien nodig | 300 tot 900 euro |
 
-## Herken je wat er nodig is?
+## Welk onderhoud heeft je schoorsteen nodig?
 
 - **Zanderige, uitgesleten voegen** of voegen die je met een sleutel kunt uitkrabben: opnieuw voegen.
 - **Stenen die afbrokkelen** of loszitten: stenen vervangen, soms bovenste deel opnieuw opmetselen.
@@ -34,7 +35,7 @@ Een gemetselde schoorsteen op het dak heeft na 40 tot 60 jaar meestal onderhoud 
 - **Scheve of scheurende schoorsteen:** direct laten beoordelen, kan een veiligheidsrisico zijn bij storm.
 - **Groene aanslag of mos** aan de noordkant: vocht trekt in de stenen.
 
-## Verwijderen: de duurzame optie
+## Schoorsteen verwijderen in plaats van renoveren
 
 Veel woningen hebben een schoorsteen die sinds de cv-ketel niet meer wordt gebruikt. Verwijderen tot onder de pannen en het dak dichtleggen met pannen en folie:
 
@@ -44,7 +45,7 @@ Veel woningen hebben een schoorsteen die sinds de cv-ketel niet meer wordt gebru
 
 Let op: bij een **monument** of beschermd gezicht kan voor verwijderen een vergunning nodig zijn. En is de schoorsteen gedeeld met de buren, overleg dan eerst.
 
-## Lekkage en verzekering
+## Lekkage bij de schoorsteen en de verzekering
 
 Lekkage via de schoorsteen bij storm wordt vaak door de opstalverzekering gedekt, lekkage door verweerd loodwerk niet. Lees [daklekkage en de verzekering](/kennis/daklekkage-verzekering/).
 

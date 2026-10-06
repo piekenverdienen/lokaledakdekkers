@@ -1,5 +1,6 @@
 ---
 title: Dak lekt alleen bij hevige regen of harde wind: oorzaken en oplossing
+h1: Dak lekt alleen bij hevige regen of harde wind: oorzaken en oplossing
 description: Lekt je dak alleen bij een stortbui of storm? De zeven meest voorkomende oorzaken, wat je direct doet en wat de reparatie in 2026 meestal kost.
 date: 2026-10-06
 updated: 2026-10-06
@@ -11,7 +12,7 @@ related: daklekkage, daklekkage-verzekering, plat-dak-repareren, dakgoot-reparer
 
 Een dak dat alleen bij een **stortbui of harde wind** lekt, is niet lek op een vaste plek, maar laat water door als het in grote hoeveelheden of schuin komt. De oorzaak zit meestal bij een **overlopende goot**, **verschoven of te vlakke pannen**, het **loodwerk** rond schoorsteen of dakkapel, of een **afvoer op een plat dak** die de hoeveelheid niet aankan. Reparatie kost in 2026 meestal **150 tot 600 euro**.
 
-## De zeven meest voorkomende oorzaken
+## Waarom lekt je dak alleen bij hevige regen? Zeven oorzaken
 
 | Oorzaak | Hoe je het herkent | Oplossing |
 | --- | --- | --- |
@@ -23,7 +24,7 @@ Een dak dat alleen bij een **stortbui of harde wind** lekt, is niet lek op een v
 | Afvoer plat dak te klein of verstopt | Water over de dakrand of lek rond de uitloop | Zie [afvoer plat dak](/kennis/afvoer-plat-dak/) |
 | Stuifsneeuw of opwaaiend water onder de pannen | Druppels op zolder bij storm, geen vaste plek | Dampopen folie of vogelschroot met dichtere kam |
 
-## Wat je direct doet
+## Wat doe je als je dak lekt tijdens een stortbui?
 
 1. **Emmer en handdoeken** onder de druppel, en zet spullen apart.
 2. **Kijk op zolder** waar het water precies vandaan komt; markeer de plek met krijt of tape. Bij een plat dak: kijk naar plassen en de afvoer.
@@ -31,7 +32,7 @@ Een dak dat alleen bij een **stortbui of harde wind** lekt, is niet lek op een v
 4. **Ga niet in storm het dak op.** Bel een dakdekker voor een noodreparatie als het blijft lekken.
 5. **Noteer bij welke wind** het lekt (richting en kracht). Dat helpt de dakdekker enorm.
 
-## Kosten reparatie 2026
+## Wat kost het om een lek bij hevige regen te repareren?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |

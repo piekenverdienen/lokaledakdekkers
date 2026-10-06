@@ -1,5 +1,6 @@
 ---
 title: Dakkapel kosten in 2026: prijs per meter, inclusief montage
+h1: Wat kost een dakkapel? Prijs per meter inclusief montage
 description: Een dakkapel kost in 2026 tussen 4.500 en 15.000 euro, afhankelijk van breedte, prefab of maatwerk en vergunning. Alle prijzen per type en wat erbij komt.
 date: 2026-10-05
 updated: 2026-10-05
@@ -16,7 +17,7 @@ Een dakkapel kost in 2026 gemiddeld **6.500 tot 12.000 euro inclusief montage**,
 
 Dit zijn richtprijzen op basis van Nederlandse prijsgidsen en offerteplatforms in 2026, inclusief btw. Regionale verschillen zijn er: in de Randstad ligt de prijs vaak 5 tot 15 procent hoger.
 
-## Kosten dakkapel per breedte
+## Wat kost een dakkapel per breedte (2 tot 6 meter)?
 
 | Breedte | Richtprijs 2026 inclusief montage | Ramen |
 | --- | --- | --- |
@@ -29,7 +30,7 @@ Dit zijn richtprijzen op basis van Nederlandse prijsgidsen en offerteplatforms i
 
 Een bredere dakkapel is per strekkende meter goedkoper: bij 4 meter betaal je rond de 2.200 euro per meter, bij 5 meter rond de 1.950 euro. De vaste kosten (kraan, montageploeg, aansluiting op het dak) zijn namelijk hetzelfde.
 
-## Kosten per materiaal
+## Dakkapel kosten per materiaal: kunststof, polyester of hout
 
 | Materiaal | Richtprijs 3 meter | Levensduur | Onderhoud |
 | --- | --- | --- | --- |
@@ -40,7 +41,7 @@ Een bredere dakkapel is per strekkende meter goedkoper: bij 4 meter betaal je ro
 
 Prefab dakkapellen worden in de fabriek gebouwd en in één dag geplaatst. Dat is goedkoper en sneller dan maatwerk op het dak, en de kwaliteit is tegenwoordig gelijkwaardig. Maatwerk is nodig bij een afwijkende dakhelling, een monument of een ongebruikelijke breedte.
 
-## Extra kosten die vaak buiten de offerte vallen
+## Extra kosten van een dakkapel die vaak buiten de offerte vallen
 
 - **Vergunning**: 150 tot 500 euro leges als een omgevingsvergunning nodig is.
 - **Kraan**: meestal inbegrepen bij prefab, soms apart 400 tot 900 euro.
@@ -51,7 +52,7 @@ Prefab dakkapellen worden in de fabriek gebouwd en in één dag geplaatst. Dat i
 - **Dakisolatie van het resterende dakvlak**: vaak slim om direct mee te nemen, zie [Dak isoleren: kosten en subsidie 2026](/kennis/dak-isoleren-kosten/).
 - **Asbest of verrot dakbeschot**: komt soms pas boven water bij het openmaken. Vraag hoe dit in de offerte is afgedekt.
 
-## Vergunning: wel of niet nodig?
+## Heb je een vergunning nodig voor een dakkapel?
 
 Een dakkapel aan de achterkant of zijkant (niet grenzend aan openbaar gebied) is meestal vergunningsvrij als hij aan de landelijke regels voldoet: een plat dak, hoogte maximaal 1,75 meter gemeten vanaf de voet, de onderkant tussen 0,5 en 1 meter boven de dakvoet, en minimaal 0,5 meter afstand tot de nok en tot de zijkanten van het dakvlak. Aan de voorkant is bijna altijd een vergunning nodig, en bij een monument of beschermd stadsgezicht altijd. Check het vooraf op de site van je gemeente; een goede dakkapelbouwer doet de vergunningcheck voor je. Alle regels op een rij staan in [dakkapel zonder vergunning](/kennis/dakkapel-vergunningsvrij/).
 
@@ -59,7 +60,7 @@ Een dakkapel aan de achterkant of zijkant (niet grenzend aan openbaar gebied) is
 
 Een dakkapel van 4 meter geeft ongeveer 4 tot 6 m2 extra stahoogte en maakt van een zolder vaak een volwaardige slaapkamer. Makelaars rekenen doorgaans met een waardestijging die tussen de 50 en 100 procent van de investering ligt, afhankelijk van de woning en de buurt. De grootste winst zit bij woningen waar de zolder nu niet als kamer telt.
 
-## Zo vergelijk je offertes voor een dakkapel
+## Offertes voor een dakkapel vergelijken
 
 1. Vraag drie offertes aan met dezelfde breedte, hetzelfde materiaal en dezelfde ramen.
 2. Controleer per regel: kraan, dakaansluiting, lood- en zinkwerk, binnenafwerking, vergunningcheck, afvoer.

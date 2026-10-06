@@ -1,5 +1,6 @@
 ---
 title: Dakgoot schoonmaken: hoe vaak, zelf of laten doen en kosten (2026)
+h1: Dakgoot schoonmaken: hoe vaak, zelf of laten doen?
 description: Dakgoten laten schoonmaken kost in 2026 zo'n 75 tot 200 euro per keer. Hoe vaak het moet, hoe je het zelf veilig doet en waarom het lekkage en houtrot voorkomt.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakgoot-repareren, dakgoot-vervangen-kosten, dak-reinigen-coaten, afvoe
 
 Een dakgoot moet **twee keer per jaar** schoon: in het voorjaar en aan het eind van de herfst, na de bladval. Laten doen kost in 2026 **75 tot 200 euro** per keer voor een tussenwoning, vaak goedkoper in een abonnement of samen met de buren. Zelf doen kan vanaf een stevige ladder bij een woning van twee verdiepingen; hoger of bij twijfel: laat het doen.
 
-## Waarom schoonmaken belangrijk is
+## Waarom moet je je dakgoot schoonmaken?
 
 - **Overlopen.** Een verstopte goot loopt over en het water zakt langs de gevel, met vochtplekken en algen tot gevolg.
 - **Terugloop onder de pannen.** Water dat niet weg kan, loopt terug onder de onderste pannenrij naar het dakbeschot.
@@ -22,7 +23,7 @@ Een dakgoot moet **twee keer per jaar** schoon: in het voorjaar en aan het eind 
 - **Gewicht en vorst.** Natte bladeren en ijs in de goot trekken beugels los.
 - **Verstopte regenpijp,** die bij vorst kan barsten.
 
-## Kosten 2026
+## Wat kost dakgoten laten schoonmaken?
 
 | Wat | Richtprijs inclusief btw |
 | --- | --- |
@@ -34,7 +35,7 @@ Een dakgoot moet **twee keer per jaar** schoon: in het voorjaar en aan het eind 
 | Bladvanger of gootrooster plaatsen | 5 tot 15 euro per meter |
 | Jaarabonnement, twee beurten | 120 tot 250 euro |
 
-## Zelf schoonmaken
+## Dakgoot zelf schoonmaken: zo doe je het veilig
 
 1. **Veilige ladder:** stevig, met stabilisator, en iemand die hem vasthoudt. Nooit op het dak stappen.
 2. **Handschoenen en emmer** met een haak aan de ladder.
@@ -44,7 +45,7 @@ Een dakgoot moet **twee keer per jaar** schoon: in het voorjaar en aan het eind 
 
 Gebruik geen hogedrukreiniger op de pannen of de goot: dat spuit water onder de pannen en beschadigt de toplaag.
 
-## Hoe vaak?
+## Hoe vaak moet een dakgoot schoongemaakt worden?
 
 | Situatie | Hoe vaak |
 | --- | --- |

@@ -1,5 +1,6 @@
 ---
 title: Rc-waarde en Rd-waarde van een dak uitgelegd (2026)
+h1: Rc-waarde en Rd-waarde van een dak uitgelegd
 description: Wat de Rc- en Rd-waarde betekenen, welke waarde een dak nodig heeft voor de ISDE-subsidie en het Bbl, en hoe dik je isolatie daarvoor moet zijn.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,13 +15,13 @@ related: dak-isoleren-kosten, schuin-dak-isoleren, plat-dak-isoleren, nieuw-dak-
 
 De **Rd-waarde** zegt hoe goed één isolatiemateriaal isoleert; de **Rc-waarde** zegt hoe goed de hele dakopbouw isoleert, inclusief beschot, pannen en spouw. Hoe hoger, hoe beter. Voor de ISDE-subsidie moet dakisolatie in 2026 minimaal **Rd 3,5** hebben; een nieuw gebouwd dak moet volgens het Bbl minimaal **Rc 6,3** halen.
 
-## Rd en Rc in gewone taal
+## Wat is het verschil tussen Rc- en Rd-waarde?
 
 - **Rd** (declared resistance) staat op het etiket van de isolatieplaat of rol. Het hangt af van de dikte en het materiaal: Rd = dikte in meters gedeeld door de lambda.
 - **Rc** (construction) is de warmteweerstand van de complete constructie. Die rekent een adviseur of leverancier uit en ligt meestal iets hoger dan de Rd van de isolatie alleen.
 - **Lambda** is de warmtegeleiding van een materiaal. Hoe lager, hoe beter het isoleert per centimeter.
 
-## Welke waarde heb je nodig?
+## Welke Rc- of Rd-waarde moet een dak hebben?
 
 | Situatie | Minimale waarde |
 | --- | --- |
@@ -29,7 +30,7 @@ De **Rd-waarde** zegt hoe goed één isolatiemateriaal isoleert; de **Rc-waarde*
 | Nieuwbouw (Bbl) | Rc 6,3 |
 | Goed geïsoleerde renovatie, advies | Rc 4,5 tot 6 |
 
-## Hoe dik moet de isolatie zijn?
+## Hoe dik moet dakisolatie zijn voor Rd 3,5 of hoger?
 
 | Materiaal | Lambda | Rd 3,5 | Rd 4,5 | Rd 6,0 |
 | --- | --- | --- | --- | --- |
@@ -40,7 +41,7 @@ De **Rd-waarde** zegt hoe goed één isolatiemateriaal isoleert; de **Rc-waarde*
 
 Afgerond naar gangbare plaatdiktes.
 
-## Wat levert een hogere waarde op?
+## Loont een hogere Rc-waarde voor je dak?
 
 Van een ongeïsoleerd dak naar Rd 3,5 bespaar je verreweg het meest; daarna wordt elke extra centimeter minder rendabel. Toch is het slim om bij een renovatie voor Rc 4,5 tot 6 te gaan: het dak gaat er weer 30 tot 50 jaar mee, en het verschil in prijs zit vooral in het materiaal, niet in het werk.
 

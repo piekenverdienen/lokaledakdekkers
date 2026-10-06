@@ -1,5 +1,6 @@
 ---
 title: Afvoer plat dak: hemelwaterafvoer, bladvanger en stadsuitloop (2026)
+h1: Afvoer van een plat dak: hemelwaterafvoer, bladvanger en noodoverloop
 description: Hoe het regenwater van je platte dak af moet, hoeveel afvoeren je nodig hebt, wat een bladvanger en stadsuitloop doen en wat vervangen kost in 2026.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: afschot-plat-dak, plat-dak-repareren, daklekkage, dakbedekking-plat-dak
 
 Regenwater op een plat dak gaat via een **hemelwaterafvoer** (HWA) naar beneden: een uitloop in het dak met een pijp naar binnen of langs de gevel. Bij een kleine aanbouw volstaat vaak één afvoer, maar zodra die verstopt raakt staat het dak vol. Een **bladvanger** van een paar tientjes voorkomt het meeste, een **noodoverloop** in de dakrand vangt de rest op. Een nieuwe afvoer laten maken kost in 2026 zo'n **250 tot 600 euro**.
 
-## De onderdelen van een afvoer op een plat dak
+## Onderdelen van de hemelwaterafvoer op een plat dak
 
 | Onderdeel | Wat het doet |
 | --- | --- |
@@ -30,7 +31,7 @@ Een **stadsuitloop** is een rechthoekige uitloop door de dakrand, veel gebruikt 
 
 Als vuistregel: **één afvoer per 50 tot 75 m2 dak**, en altijd minimaal één noodoverloop. Bij een aanbouw van 20 m2 is één goede uitloop met een noodoverloop genoeg. Grotere daken krijgen er twee, zodat het water bij verstopping van één afvoer toch weg kan. Belangrijker dan het aantal is de plek: de afvoer hoort op het **laagste punt** van het dak te zitten. Hoe dat zit, lees je in [afschot plat dak](/kennis/afschot-plat-dak/).
 
-## Bladvanger: klein ding, groot verschil
+## Waarom een bladvanger op de afvoer van een plat dak?
 
 Op een plat dak met bomen in de buurt is de afvoer in de herfst binnen weken dicht. Een bladvanger (een metalen of kunststof korf op de uitloop) houdt bladeren, takjes en mos tegen.
 
@@ -38,7 +39,7 @@ Op een plat dak met bomen in de buurt is de afvoer in de herfst binnen weken dic
 - **Onderhoud:** twee keer per jaar leeg halen, eind november en in het voorjaar.
 - **Let op:** een bladvanger die zelf vol zit, werkt als een prop. Zet hem niet en vergeet hem niet.
 
-## Kosten afvoer plat dak 2026
+## Wat kost een hemelwaterafvoer op een plat dak?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -51,7 +52,7 @@ Op een plat dak met bomen in de buurt is de afvoer in de herfst binnen weken dic
 
 Wordt het hele dak vervangen, dan zitten nieuwe uitlopen meestal al in de prijs van [plat dak vervangen](/kennis/plat-dak-vervangen-kosten/). Vraag dat na in de offerte.
 
-## Problemen herkennen
+## Problemen met de afvoer van een plat dak herkennen
 
 - **Water blijft staan rond de afvoer:** de uitloop ligt hoger dan het dak eromheen, of het afschot loopt de verkeerde kant op.
 - **Vochtplek op het plafond onder de afvoer:** de aansluiting tussen de uitloop en de dakbedekking lekt. Dat is een van de meest voorkomende oorzaken van [daklekkage](/kennis/daklekkage/) bij platte daken.

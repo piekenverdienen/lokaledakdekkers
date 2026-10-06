@@ -17,7 +17,7 @@ export function ArticleCard({ a }: { a: Article }) {
 export default function ArticleView({ a, v, base, canonical, related, nearby }: { a: Article; v: Vertical; base: string; canonical: string; related: Article[]; nearby?: React.ReactNode }) {
   const schema = [
     {
-      "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.description, image: a.image ? [`${base}${a.image}`] : undefined,
+      "@context": "https://schema.org", "@type": "Article", headline: a.h1, description: a.description, image: a.image ? [`${base}${a.image}`] : undefined,
       datePublished: a.date, dateModified: a.updated, inLanguage: "nl-NL",
       author: { "@type": "Organization", name: v.brand, url: base }, publisher: { "@type": "Organization", name: v.brand, url: base },
       mainEntityOfPage: `${base}${canonical}`, keywords: a.keywords.join(", "),
@@ -32,7 +32,7 @@ export default function ArticleView({ a, v, base, canonical, related, nearby }: 
       <div className="layout" style={{ paddingTop: 0 }}>
         <article className="main prose" style={{ maxWidth: 840 }}>
           <span className="eyebrow">{a.category}</span>
-          <h1>{a.title}</h1>
+          <h1>{a.h1}</h1>
           <p className="lede">{a.description}</p>
           <div className="meta"><span>Bijgewerkt {new Date(a.updated).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}</span><span>{a.readMinutes} min lezen</span><span>Richtprijzen 2026, bronnen onderaan</span></div>
           {a.image ? (

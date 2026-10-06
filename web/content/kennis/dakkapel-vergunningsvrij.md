@@ -1,5 +1,6 @@
 ---
 title: Dakkapel zonder vergunning: alle regels op een rij (2026)
+h1: Dakkapel zonder vergunning: wanneer mag het?
 description: Wanneer mag je een dakkapel plaatsen zonder vergunning? De zes voorwaarden uit het Bbl, de maten, en wanneer je toch een vergunning nodig hebt.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakkapel-kosten, dakkapel-met-balkon, dakkapel-binnenkant-afwerken, ver
 
 Een dakkapel aan de **achterkant** of aan een **zijkant die niet aan openbaar gebied grenst** mag je in de meeste gevallen zonder vergunning plaatsen, als hij aan zes landelijke voorwaarden voldoet: een plat dak, maximaal **1,75 meter hoog**, de onderkant tussen **0,5 en 1 meter** boven de dakvoet, en minimaal **0,5 meter** afstand tot de nok en tot de zijkanten van het dak. Aan de voorkant, bij een monument of met een balkon heb je wel een vergunning nodig.
 
-## De zes voorwaarden
+## Zes voorwaarden voor een vergunningsvrije dakkapel
 
 De regels staan sinds de Omgevingswet in het Besluit bouwwerken leefomgeving (Bbl, artikel 2.29). Een dakkapel is vergunningsvrij als alles hieronder klopt:
 
@@ -33,7 +34,7 @@ Daarnaast:
 - **Geen balkon of dakterras** op of aan de dakkapel. Lees [dakkapel met balkon](/kennis/dakkapel-met-balkon/).
 - De **constructie** moet veilig zijn: ook een vergunningsvrije dakkapel moet voldoen aan de bouwtechnische regels.
 
-## Wanneer heb je wel een vergunning nodig?
+## Wanneer heb je wel een vergunning nodig voor een dakkapel?
 
 - **Aan de voorkant** of aan een zijkant die naar een weg, plein, park of water kijkt.
 - Bij een **schuin of afgerond dak** op de dakkapel.
@@ -43,7 +44,7 @@ Daarnaast:
 
 Een vergunning aanvragen gaat via het Omgevingsloket. De leges verschillen per gemeente; reken op een paar honderd euro, en op acht weken beslistermijn (soms verlengd met zes weken).
 
-## Zo check je het vooraf
+## Zo check je vooraf of je dakkapel vergunningsvrij is
 
 1. Doe de **vergunningcheck** in het Omgevingsloket met de exacte maten.
 2. Laat de dakkapelbouwer een **tekening met maten** maken: hoogte, afstand tot nok, goot en zijkanten.

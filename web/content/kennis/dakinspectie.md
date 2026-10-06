@@ -1,5 +1,6 @@
 ---
 title: Dakinspectie: wat het is, wat het kost en wanneer je er een laat doen
+h1: Dakinspectie: wat het is, wat het kost en wanneer je er een laat doen
 description: Een dakinspectie kost in 2026 meestal 100 tot 250 euro en voorkomt dure lekkage. Wat de dakdekker controleert, hoe vaak het nodig is en wat het rapport zegt.
 date: 2026-10-05
 updated: 2026-10-05
@@ -14,7 +15,7 @@ related: schoorsteen-renoveren, rieten-dak, hoe-lang-gaan-dakpannen-mee, dak-rei
 
 Een dakinspectie is een controle van het complete dak door een dakdekker of een onafhankelijke inspecteur, met een rapport en foto's als resultaat. Het kost in 2026 **150 tot 400 euro** en is de goedkoopste manier om te weten of je dak nog vijf jaar meekan, aan een reparatie toe is of echt vervangen moet worden. Bij een woning die je koopt, een dak ouder dan 15 jaar of een offerte van duizenden euro's is het geld altijd waard.
 
-## Wat kost een dakinspectie in 2026
+## Wat kost een dakinspectie?
 
 | Soort inspectie | Richtprijs 2026 (incl. btw) |
 | --- | --- |
@@ -26,7 +27,7 @@ Een dakinspectie is een controle van het complete dak door een dakdekker of een 
 
 Veel dakdekkers verrekenen de inspectiekosten als je de reparatie of vervanging bij hen laat doen. Dat is prima, zolang je vooraf weet dat je vrij bent om het ergens anders te laten doen.
 
-## Wat wordt er gecontroleerd
+## Wat wordt er gecontroleerd bij een dakinspectie?
 
 **Pannendak**: staat van de pannen (poreus, gebroken, verschoven), panlatten, folie, nok en kilgoten, lood- en zinkwerk rond schoorsteen en dakramen, dakgoten en afvoeren, de staat van het dakbeschot vanaf de zolder, ventilatie en isolatie.
 
@@ -34,7 +35,7 @@ Veel dakdekkers verrekenen de inspectiekosten als je de reparatie of vervanging 
 
 Een goed rapport bevat per onderdeel een foto, een oordeel (goed, matig, slecht), een advies (niets doen, repareren, vervangen) en een indicatie van de termijn en de kosten.
 
-## Wanneer is een dakinspectie zinvol
+## Wanneer is een dakinspectie zinvol?
 
 1. **Bij aankoop van een woning.** Een dak vervangen is de duurste verrassing na de koop. Een bouwkundige keuring bekijkt het dak meestal alleen van buiten; een aparte dakinspectie gaat verder.
 2. **Bij een dak ouder dan 15 jaar**, elke twee tot drie jaar. Een reparatie van 300 euro op tijd voorkomt een nieuw dakbeschot.
@@ -43,7 +44,7 @@ Een goed rapport bevat per onderdeel een foto, een oordeel (goed, matig, slecht)
 5. **Na een zware storm** of hagel, ook voor de verzekering.
 6. **Voor zonnepanelen.** Een dak dat binnen tien jaar vervangen moet, wil je niet eerst vol panelen leggen.
 
-## Onafhankelijk of door de dakdekker?
+## Dakinspectie door een onafhankelijke inspecteur of de dakdekker?
 
 Een inspectie door een dakdekker is goedkoper en vaak uitstekend, maar het bedrijf heeft er belang bij om werk te vinden. Een onafhankelijke inspecteur (die zelf geen dakwerk uitvoert) is objectiever en is de betere keuze bij aankoop van een woning of bij een second opinion op een dure offerte.
 
@@ -55,7 +56,7 @@ Herken een goede inspectie aan:
 - Geen druk om direct te tekenen.
 - Een KvK-nummer en een bedrijf dat al jaren bestaat; op de profielen op deze site staat de startdatum erbij.
 
-## Jaarlijks onderhoud dat je zelf doet
+## Dakonderhoud dat je zelf kunt doen
 
 - Dakgoten en afvoeren schoonmaken na de bladval en in het voorjaar.
 - Na storm even kijken naar verschoven pannen of losse stroken.

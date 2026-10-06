@@ -1,5 +1,6 @@
 ---
 title: Een betrouwbare dakdekker kiezen: 9 controles voordat je tekent
+h1: Een betrouwbare dakdekker kiezen: 9 controles voordat je tekent
 description: Negen controles voor een betrouwbare dakdekker: KvK, verzekering, referenties, offerte met vaste prijs, nooit vooraf betalen. Herken oplichters aan de deur.
 date: 2026-10-05
 updated: 2026-10-05
@@ -52,7 +53,7 @@ Een aanbetaling van 10 tot 30 procent bij opdracht is normaal, bijvoorbeeld voor
 
 "Dit aanbod geldt alleen vandaag", "we zijn toevallig in de buurt", "we moeten nu beginnen anders wordt het erger": haast is het gereedschap van een slechte dakdekker. Een goed bedrijf heeft het druk, plant een paar weken vooruit en vindt het prima dat je nadenkt.
 
-## Checklist om op te slaan
+## Checklist: zo herken je een betrouwbare dakdekker
 
 - Niet aan de deur, niet contant, geen voorschot.
 - KvK-nummer en startdatum gecontroleerd.

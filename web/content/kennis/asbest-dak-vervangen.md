@@ -1,5 +1,6 @@
 ---
 title: Asbest dak vervangen: regels, kosten en wat je zelf mag (2026)
+h1: Asbest dak vervangen: wat mag je zelf en wat kost het?
 description: Asbest op je dak? De regels, wanneer je zelf golfplaten mag verwijderen, wat een gecertificeerd bedrijf kost en hoe het vervangen gaat.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: nieuw-dak-kosten, plat-dak-vervangen-kosten, betrouwbare-dakdekker-kiez
 
 Asbest zit vooral in **golfplaten** van schuren en garages en soms in daken, dakbeschot of leien van huizen gebouwd vóór 1994. Er is **geen verplichting** om een asbestdak te vervangen; het algemene verbod dat in 2024 had moeten ingaan, is in 2019 door de Eerste Kamer weggestemd. Wil je het wel weg, dan mag je als particulier onder voorwaarden zelf tot **35 m2 hechtgebonden golfplaten** van je eigen schuur halen. Daarboven of bij twijfel laat je het doen door een **gecertificeerd** saneerder: reken in 2026 op 15 tot 40 euro per m2 plus 300 tot 800 euro voor de inventarisatie.
 
-## Herken je asbest op het dak?
+## Hoe herken je asbest op het dak?
 
 - **Golfplaten** van vóór 1994, vaak grijs, met een vezelige breukrand.
 - **Kunstleien** (vezelcement) op woningen uit de jaren zeventig en tachtig.
@@ -23,7 +24,7 @@ Asbest zit vooral in **golfplaten** van schuren en garages en soms in daken, dak
 
 Zeker weten kan alleen met een laboratoriumonderzoek of een asbestinventarisatie door een gecertificeerd bureau.
 
-## Wat mag je zelf?
+## Mag je asbest golfplaten zelf verwijderen?
 
 Als particulier mag je **hechtgebonden asbestcement golfplaten** zelf verwijderen als:
 
@@ -35,7 +36,7 @@ Als particulier mag je **hechtgebonden asbestcement golfplaten** zelf verwijdere
 
 Voor asbest in de woning zelf (kunstleien, beschot, isolatie) of losser gebonden asbest geldt dit niet: dat laat je altijd doen door een gecertificeerd bedrijf.
 
-## Kosten 2026
+## Wat kost het om een asbestdak te laten verwijderen?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -46,7 +47,7 @@ Voor asbest in de woning zelf (kunstleien, beschot, isolatie) of losser gebonden
 | Nieuw dak na sanering (EPDM, golfplaat of pannen) | zie hieronder |
 | Zelf afvoeren naar milieupark | vaak gratis tot een maximum, verpakt |
 
-## Het nieuwe dak
+## Welk dak komt er na de asbestsanering?
 
 Na de sanering kun je kiezen:
 
@@ -56,7 +57,7 @@ Na de sanering kun je kiezen:
 
 Plan sanering en nieuw dak in één keer; zo staat je dak het kortst open.
 
-## Subsidie
+## Is er subsidie voor het verwijderen van een asbestdak?
 
 De landelijke subsidie voor het verwijderen van asbestdaken is in 2019 gestopt. Een aantal gemeenten en provincies heeft een eigen regeling of een gratis inzamelpunt. Kijk op de site van je gemeente.
 

@@ -1,5 +1,6 @@
 ---
 title: Daklekkage: oorzaken, zelf opsporen, repareren en wat het kost in 2026
+h1: Daklekkage: oorzaak vinden, schade beperken en laten repareren
 description: Daklekkage? Zo vind je de oorzaak, wat je zelf tijdelijk doet en wat reparatie in 2026 kost: meestal 150 tot 600 euro. Plus wanneer je direct moet bellen.
 date: 2026-10-05
 updated: 2026-10-05
@@ -14,7 +15,7 @@ related: dak-lekt-bij-hevige-regen, daklekkage-verzekering, plat-dak-repareren, 
 
 Een natte plek op het plafond betekent zelden dat het hele dak versleten is. In de meeste gevallen is de oorzaak klein: een verschoven dakpan, een open naad in de bitumen, een verstopte afvoer of kapot loodwerk rond de schoorsteen. Een reparatie kost dan **250 tot 900 euro**. Dit artikel helpt je de bron te vinden, de schade te beperken en de juiste dakdekker te bellen, zonder onnodig een nieuw dak te kopen.
 
-## Eerst: schade beperken
+## Wat doe je eerst bij daklekkage?
 
 1. Zet een emmer of bak onder de druppel en haal spullen weg.
 2. Prik bij een bollend plafond met een schroevendraaier een gaatje op het laagste punt, zodat het water gecontroleerd wegloopt in plaats van het plafond naar beneden komt.
@@ -22,7 +23,7 @@ Een natte plek op het plafond betekent zelden dat het hele dak versleten is. In 
 4. Maak foto's van alles, ook van buiten. Die heb je nodig voor de verzekering en voor de dakdekker.
 5. Bij storm en een gat in het dak: bel een dakdekker met spoedservice voor een noodafdekking. Op de plaatspagina's van deze site staat welke bedrijven spoed doen.
 
-## Zo vind je de oorzaak
+## Hoe vind je de oorzaak van een daklekkage?
 
 Water loopt. De plek op het plafond zit zelden recht onder het lek; het kan meters verderop binnenkomen en langs een balk naar beneden lopen.
 
@@ -34,13 +35,13 @@ Water loopt. De plek op het plafond zit zelden recht onder het lek; het kan mete
 
 **Wanneer lekt het?** Alleen bij storm uit het westen: waarschijnlijk een pan of een naad aan die kant. Alleen bij langdurige regen: vaak een verstopte afvoer of plasvorming. In de winter bij dooi: soms is het geen lekkage maar condens door slechte isolatie of ventilatie.
 
-## Zelf repareren of dakdekker?
+## Daklekkage zelf repareren of een dakdekker bellen?
 
 Een verschoven pan terugleggen of een afvoer schoonmaken kun je zelf doen als je veilig bij het dak kunt. Alles wat met een brander, lood of klimmen op een schuin dak te maken heeft laat je over aan een dakdekker. Vallen van een dak is de meest voorkomende ernstige klusongeval in Nederland.
 
 Noodmaatregel voor een plat dak: een plak EPDM-tape of een tube dakkit op een droge plek houdt het meestal een paar weken dicht. Zeg dat er tegen de dakdekker, zodat hij de echte reparatie goed kan doen.
 
-## Wat kost daklekkage repareren in 2026
+## Wat kost het om een daklekkage te repareren?
 
 | Reparatie | Richtprijs 2026 (incl. btw) |
 | --- | --- |
@@ -54,11 +55,11 @@ Noodmaatregel voor een plat dak: een plak EPDM-tape of een tube dakkit op een dr
 
 Komt de dakdekker met het advies om direct het hele dak te vervangen, vraag dan waarom reparatie niet kan en vraag een tweede mening. Bij een dak dat ouder is dan 25 jaar met meerdere lekken is vervangen vaak wel de betere koop; zie [Plat dak vervangen](/kennis/plat-dak-vervangen-kosten/) of [Dakpannen vervangen](/kennis/dakpannen-vervangen-kosten/).
 
-## Wat vergoedt de verzekering?
+## Vergoedt de verzekering daklekkage?
 
 De opstalverzekering dekt doorgaans schade door storm (windkracht 7 of meer), een omgevallen boom of een plotselinge gebeurtenis. Schade door slijtage, achterstallig onderhoud of een al jaren lekkend dak valt er meestal buiten. Vaak vergoedt de verzekeraar de gevolgschade binnen (plafond, vloer) wel, maar het dakherstel zelf niet als de oorzaak slijtage is. Bel de verzekeraar voordat je opdracht geeft en bewaar foto's en facturen. Bij een huurwoning is daklekkage een zaak voor de verhuurder.
 
-## Zo voorkom je de volgende lekkage
+## Hoe voorkom je daklekkage?
 
 - Dakgoten en afvoeren twee keer per jaar schoonmaken, in elk geval na de bladval.
 - Na elke zware storm even naar het dak kijken.

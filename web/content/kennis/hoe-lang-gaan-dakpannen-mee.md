@@ -1,5 +1,6 @@
 ---
 title: Hoe lang gaan dakpannen mee? Levensduur van beton, keramiek en leien
+h1: Hoe lang gaan dakpannen mee?
 description: Betonnen dakpannen gaan 40 tot 60 jaar mee, keramische 60 tot 100 jaar. Zo herken je dat je pannen op zijn en wat je doet om de levensduur te verlengen.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakpannen-vervangen-kosten, nieuw-dak-kosten, dak-reinigen-coaten, daki
 
 **Betonnen dakpannen** gaan gemiddeld **40 tot 60 jaar** mee, **keramische dakpannen** **60 tot 100 jaar** en natuurleien zelfs langer. Maar de pannen zijn zelden het eerste wat op is: dakfolie, panlatten en loodwerk hebben vaak een kortere levensduur. Een dak van 40 jaar oud met nog goede pannen kan dus toch onderhoud nodig hebben.
 
-## Levensduur per dakbedekking
+## Levensduur van dakpannen en andere dakbedekking
 
 | Dakbedekking | Gemiddelde levensduur |
 | --- | --- |
@@ -36,11 +37,11 @@ De onderdelen onder de pannen:
 | Loodwerk rond schoorsteen en dakkapel | 30 tot 50 jaar |
 | Kitvoegen en pvc-onderdelen | 10 tot 20 jaar |
 
-## Waarom betonpannen eerder op zijn
+## Waarom gaan betonnen dakpannen korter mee?
 
 Betonnen dakpannen hebben een cementgebonden kleurlaag die door zon, regen en vorst langzaam verweert. Na 25 tot 30 jaar worden ze ruwer, nemen ze meer water op en groeit er makkelijker mos op. Keramische pannen zijn gebakken en daardoor harder en minder poreus. Ze verkleuren nauwelijks en blijven waterdicht, vooral met een engobe of glazuurlaag.
 
-## Zo herken je dat je dakpannen op zijn
+## Hoe herken je dat dakpannen aan vervanging toe zijn?
 
 - **Poreus:** na een regenbui blijven de pannen donker en nat terwijl andere daken al droog zijn.
 - **Afschilferen of kruimelen** aan de randen, vooral na vorst.
@@ -50,7 +51,7 @@ Betonnen dakpannen hebben een cementgebonden kleurlaag die door zon, regen en vo
 
 Twijfel je, laat dan een [dakinspectie](/kennis/dakinspectie/) doen; een dakdekker ziet in een uur of je met onderhoud verder kunt of dat [dakpannen vervangen](/kennis/dakpannen-vervangen-kosten/) verstandiger is.
 
-## Levensduur verlengen
+## Hoe verleng je de levensduur van dakpannen?
 
 1. **Mos laten verwijderen** voordat het wortels tussen de pannen krijgt. Lees [dak reinigen en coaten](/kennis/dak-reinigen-coaten/).
 2. **Kapotte pannen direct vervangen.** Eén gebroken pan laat water door naar de latten en de folie.

@@ -1,5 +1,6 @@
 ---
 title: Wat kost een dakdekker in 2026? Uurtarief, prijs per m2 en voorbeeldoffertes
+h1: Wat kost een dakdekker?
 description: Een dakdekker kost in 2026 gemiddeld 45 tot 75 euro per uur. Richtprijzen per m2 voor pannendak, plat dak, dakkapel en reparaties, en hoe je een offerte leest.
 date: 2026-10-05
 updated: 2026-10-05
@@ -16,7 +17,7 @@ Een dakdekker rekent in 2026 gemiddeld **45 tot 75 euro per uur** exclusief btw,
 
 De bedragen zijn bandbreedtes uit meerdere Nederlandse prijsgidsen en offerteplatforms van 2026, afgerond. Zodra Lokale Dakdekkers genoeg facturen van geverifieerde klussen heeft, vervangen we ze door echte regionale cijfers; dan staat erbij op hoeveel facturen een prijs gebaseerd is.
 
-## Uurtarief van een dakdekker
+## Wat is het uurtarief van een dakdekker?
 
 | Situatie | Richtprijs 2026 (excl. btw) |
 | --- | --- |
@@ -27,7 +28,7 @@ De bedragen zijn bandbreedtes uit meerdere Nederlandse prijsgidsen en offertepla
 
 Het uurtarief zie je vooral bij reparaties en inspecties. Let op: in de Randstad en rond grote steden ligt het tarief eerder aan de bovenkant, in het noorden en oosten vaak lager. Veel bedrijven rekenen daarnaast met een minimum van twee tot drie uur, inclusief aanrijden.
 
-## Prijs per m2 per soort dak
+## Wat kost een dakdekker per m2?
 
 | Werk | Richtprijs 2026 per m2 (incl. materiaal en arbeid) |
 | --- | --- |
@@ -41,7 +42,7 @@ Het uurtarief zie je vooral bij reparaties en inspecties. Let op: in de Randstad
 
 Deze prijzen gaan uit van een normaal bereikbaar dak zonder asbest en zonder verrotte constructie. Verdieping per onderwerp vind je in [Plat dak vervangen: kosten per m2](/kennis/plat-dak-vervangen-kosten/) en [Dakpannen vervangen of een nieuw dak](/kennis/dakpannen-vervangen-kosten/).
 
-## Vaste projectprijzen
+## Wat kosten veelvoorkomende dakklussen?
 
 | Project | Richtprijs 2026 (incl. btw) |
 | --- | --- |
@@ -52,7 +53,7 @@ Deze prijzen gaan uit van een normaal bereikbaar dak zonder asbest en zonder ver
 | Dakkapel plaatsen | 6.500 tot 12.000 euro |
 | Dakgoot vervangen (zink of pvc) | 40 tot 120 euro per meter |
 
-## Wat de prijs bepaalt
+## Wat bepaalt de prijs van een dakdekker?
 
 1. **Bereikbaarheid.** Een steiger kost al snel 500 tot 1.500 euro. Bij een plat dak op de begane grond is dat niet nodig; bij een rijtjeshuis met voortuin meestal wel.
 2. **Staat van de ondergrond.** Nat dakbeschot, verrot hout of oude isolatie moet eerst weg. Dat merkt de dakdekker vaak pas als het dak open ligt, dus vraag hoe dat in de offerte is afgedekt.
@@ -61,7 +62,7 @@ Deze prijzen gaan uit van een normaal bereikbaar dak zonder asbest en zonder ver
 5. **Seizoen.** In het voorjaar en de zomer zitten dakdekkers vol. In het najaar en de winter is er ruimte en soms onderhandelingsmarge, al kan bitumen bij vorst niet verwerkt worden.
 6. **Afvoer en stort.** Oude dakbedekking is afval dat betaald gestort wordt. Bij asbest komt daar een gecertificeerde sanering bij, vaak 20 tot 40 euro per m2 extra.
 
-## Zo lees je een offerte van een dakdekker
+## Hoe lees je een offerte van een dakdekker?
 
 Een goede offerte is een A4 met regels die je kunt controleren, niet één totaalbedrag. Let op deze punten:
 
@@ -75,7 +76,7 @@ Een goede offerte is een A4 met regels die je kunt controleren, niet één totaa
 
 Vraag altijd twee of drie offertes aan en vergelijk ze per regel, niet alleen op het eindbedrag. Op de plaatspagina's van deze site staat welke dakdekkers in jouw buurt geverifieerd zijn; via de knop Vraag 3 offertes aan gaat je aanvraag naar maximaal drie van hen.
 
-## Besparen zonder op kwaliteit in te leveren
+## Besparen op de dakdekker zonder kwaliteitsverlies
 
 - Combineer werk: dakbedekking plus isolatie plus dakgoten in één keer scheelt een steiger en voorrijkosten.
 - Plan in het najaar of de winter.

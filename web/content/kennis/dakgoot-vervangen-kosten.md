@@ -1,5 +1,6 @@
 ---
 title: Dakgoot vervangen: kosten per meter voor zink, kunststof en aluminium (2026)
+h1: Dakgoot vervangen: kosten per meter voor zink, kunststof en aluminium
 description: Een dakgoot vervangen kost in 2026 zo'n 35 tot 140 euro per meter: zink, kunststof of aluminium. Prijzen per woning, levensduur en wat erbij komt.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakgoot-repareren, dakgoot-schoonmaken, verholen-goot-dakkapel, nieuw-d
 
 Een dakgoot vervangen kost in 2026 gemiddeld **35 tot 140 euro per strekkende meter**, inclusief montage en btw. **Kunststof** is het goedkoopst (35 tot 70 euro per meter), **zink** het meest gekozen bij woningen (70 tot 140 euro per meter). Voor een tussenwoning met 6 meter goot voor en achter ben je **900 tot 1.700 euro** kwijt aan zink, exclusief steiger.
 
-## Kosten per meter
+## Wat kost een nieuwe dakgoot per meter?
 
 | Materiaal | Richtprijs per meter 2026, inclusief montage | Levensduur |
 | --- | --- | --- |
@@ -35,7 +36,7 @@ Extra onderdelen:
 | Steiger of hoogwerker | 300 tot 900 euro |
 | Oude goot afvoeren | vaak inbegrepen |
 
-## Kosten per woning
+## Wat kost dakgoten vervangen per woningtype?
 
 | Woning | Gootlengte ongeveer | Kunststof | Zink |
 | --- | --- | --- | --- |
@@ -46,13 +47,13 @@ Extra onderdelen:
 
 Plus regenpijpen en eventueel steiger.
 
-## Zink, kunststof of aluminium?
+## Zinken, kunststof of aluminium dakgoot?
 
 - **Zink** past bij de meeste Nederlandse woningen, gaat lang mee en is goed te repareren door te solderen. Het meest gekozen bij vervanging.
 - **Kunststof** is goedkoop en licht, maar wordt na 20 jaar bros door uv-licht en zet sterk uit bij warmte. Prima voor schuur, garage of carport.
 - **Aluminium** gaat heel lang mee, is licht en vrijwel onderhoudsvrij, vaak in een kleur gecoat. Duurder dan kunststof, goedkoper dan koper.
 
-## Repareren of vervangen?
+## Dakgoot repareren of vervangen?
 
 Eén lek of losse naad is meestal te [repareren](/kennis/dakgoot-repareren/) voor 150 tot 400 euro. Vervangen is zinvol als:
 

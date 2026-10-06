@@ -1,5 +1,6 @@
 ---
 title: Daklekkage en de verzekering: wat wordt vergoed en wat niet (2026)
+h1: Daklekkage en de verzekering: wat wordt vergoed?
 description: Dekt je opstalverzekering daklekkage? Wat meestal wel wordt vergoed (gevolgschade), wat niet (achterstallig onderhoud, het dak zelf) en hoe je de schade meldt.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: daklekkage, dak-lekt-bij-hevige-regen, plat-dak-repareren, dakinspectie
 
 Bij daklekkage vergoedt de **opstalverzekering** meestal de **gevolgschade**: het plafond, de muren, de vloer. De **reparatie van het dak zelf** wordt meestal niet vergoed, en bij **achterstallig onderhoud** (een verstopte goot, versleten bitumen, rot loodwerk) kan de verzekeraar alles weigeren. Schade aan je spullen valt onder de **inboedelverzekering**. Meld de schade snel, maak foto's en bewaar de factuur van de dakdekker.
 
-## Wat wordt meestal wel en niet vergoed?
+## Wat vergoedt de verzekering bij daklekkage wel en niet?
 
 | Situatie | Opstalverzekering | Inboedelverzekering |
 | --- | --- | --- |
@@ -28,7 +29,7 @@ Bij daklekkage vergoedt de **opstalverzekering** meestal de **gevolgschade**: he
 
 Lees altijd je eigen polisvoorwaarden: de verschillen tussen verzekeraars en pakketten (basis of all-risk) zijn groot.
 
-## Wat is achterstallig onderhoud?
+## Wanneer is daklekkage achterstallig onderhoud?
 
 Verzekeraars verwachten dat je je dak normaal onderhoudt. Ze weigeren vaak als:
 
@@ -39,7 +40,7 @@ Verzekeraars verwachten dat je je dak normaal onderhoudt. Ze weigeren vaak als:
 
 Een periodieke [dakinspectie](/kennis/dakinspectie/) en het bewaren van facturen van onderhoud helpen bij een discussie met de verzekeraar.
 
-## Zo meld je daklekkage
+## Zo meld je daklekkage bij je verzekeraar
 
 1. **Beperk de schade:** emmer, zeil, spullen weg. Verzekeraars verwachten dat je dat doet.
 2. **Maak foto's** van de vochtplekken, het dak (als het veilig kan) en het weer.
@@ -47,7 +48,7 @@ Een periodieke [dakinspectie](/kennis/dakinspectie/) en het bewaren van facturen
 4. **Meld de schade** binnen een paar dagen bij je verzekeraar, met foto's en de verklaring.
 5. **Bewaar alle facturen**, ook van de noodreparatie.
 
-## Huurder of VvE?
+## Daklekkage als huurder of in een VvE
 
 - **Huurder:** het dak is van de verhuurder. Meld het direct bij de verhuurder; jouw inboedelverzekering dekt je spullen.
 - **Appartement:** het dak valt meestal onder de **opstalverzekering van de VvE**. Meld het bij de VvE-beheerder. Lekkage van bovenburen gaat via hun verzekering of die van de VvE.

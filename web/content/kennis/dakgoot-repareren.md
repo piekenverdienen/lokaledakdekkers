@@ -1,5 +1,6 @@
 ---
 title: Dakgoot repareren: lekkage, losse naad of doorhangen (kosten 2026)
+h1: Dakgoot repareren: lekkage, losse naad of doorhangende goot
 description: Een lekkende dakgoot repareren kost in 2026 meestal 150 tot 450 euro. De meest voorkomende problemen, hoe ze worden opgelost en wanneer vervangen beter is.
 date: 2026-10-06
 updated: 2026-10-06
@@ -14,7 +15,7 @@ related: dakgoot-vervangen-kosten, dakgoot-schoonmaken, verholen-goot-dakkapel, 
 
 De meeste problemen met een dakgoot zijn te repareren: een lekkende naad solderen, een losse beugel vastzetten of een doorhangend stuk opnieuw op afschot hangen. Een dakdekker rekent daar in 2026 meestal **150 tot 450 euro** voor, inclusief voorrijkosten. Pas als de goot op meerdere plekken doorgeroest is, wordt [vervangen](/kennis/dakgoot-vervangen-kosten/) voordeliger.
 
-## Veelvoorkomende problemen en oplossingen
+## Veelvoorkomende problemen met een dakgoot en wat reparatie kost
 
 | Probleem | Oorzaak | Oplossing | Richtprijs 2026 |
 | --- | --- | --- | --- |
@@ -35,11 +36,11 @@ Zink is goed te repareren omdat het gesoldeerd kan worden. Een dakdekker maakt d
 
 Kunststof goten hebben lijm- of rubberverbindingen. Een losse verbinding kan opnieuw gelijmd worden, een gescheurd stuk wordt vervangen door een nieuw stuk met koppelstukken. Na 20 jaar wordt kunststof bros; dan scheurt het bij elke reparatie op een andere plek.
 
-## Verholen goot
+## Lekkende verholen goot repareren
 
 Een goot die weggewerkt is in de dakrand of een dakkapel lekt naar binnen in plaats van langs de gevel. Lees [verholen goot](/kennis/verholen-goot-dakkapel/) als je vochtplekken bovenin een muur ziet.
 
-## Voorkomen
+## Hoe voorkom je problemen met je dakgoot?
 
 - Twee keer per jaar [laten schoonmaken](/kennis/dakgoot-schoonmaken/), in het voorjaar en na de bladval.
 - Een bladvanger of gootrooster op de uitloop.

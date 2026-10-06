@@ -1,5 +1,6 @@
 ---
 title: Dakraam plaatsen of vervangen: kosten inclusief montage (2026)
+h1: Dakraam plaatsen of vervangen: kosten en vergunning
 description: Een dakraam plaatsen kost in 2026 zo'n 800 tot 1.600 euro inclusief montage, vervangen 600 tot 1.200 euro. Wat de prijs bepaalt en de vergunningsregels.
 date: 2026-10-06
 updated: 2026-10-06
@@ -11,7 +12,7 @@ related: lichtkoepel-lichtstraat-plat-dak, dakkapel-kosten, schuin-dak-isoleren,
 
 Een dakraam in een schuin dak laten plaatsen kost in 2026 gemiddeld **800 tot 1.600 euro** inclusief raam, gootstuk, montage en btw. Een bestaand dakraam **vervangen** is goedkoper: **600 tot 1.200 euro**, omdat het gat er al is. Een dakraam in het dakvlak is in de meeste gevallen **vergunningsvrij**. Voor een plat dak, zie [lichtkoepel of lichtstraat](/kennis/lichtkoepel-lichtstraat-plat-dak/).
 
-## Kosten 2026
+## Wat kost een dakraam inclusief montage?
 
 | Werk | Richtprijs inclusief btw |
 | --- | --- |
@@ -23,7 +24,7 @@ Een dakraam in een schuin dak laten plaatsen kost in 2026 gemiddeld **800 tot 1.
 | Elektrische bediening of rolluik | plus 300 tot 900 euro |
 | 4-pans dakraam (klein, voor schuur of zolderberging) | 250 tot 500 euro |
 
-## Wat bepaalt de prijs?
+## Wat bepaalt de prijs van een dakraam?
 
 1. **Maat en type:** tuimelraam, uitzetraam, dakraam met balkonfunctie.
 2. **Glas:** HR++ of triple, eventueel geluidwerend of inbraakwerend.
@@ -32,11 +33,11 @@ Een dakraam in een schuin dak laten plaatsen kost in 2026 gemiddeld **800 tot 1.
 5. **Bereikbaarheid:** hoog dak of steiger nodig.
 6. **Afwerking binnen:** aftimmeren, isoleren rond het kozijn, vensterbank.
 
-## Vergunning
+## Heb je een vergunning nodig voor een dakraam?
 
 Een dakraam in een schuin dakvlak is meestal **vergunningsvrij**, ook aan de voorkant. Uitzondering: bij een **monument**, in een **beschermd stads- of dorpsgezicht**, of als het omgevingsplan van je gemeente iets anders zegt. Een dakraam dat als balkon openklapt, kan vergunningsplichtig zijn. Doe de vergunningcheck in het Omgevingsloket.
 
-## Waar de dakdekker op let
+## Waar let je op bij het plaatsen van een dakraam?
 
 - **Gootstuk** passend bij de pannen, zodat water er langs loopt zonder te lekken.
 - **Isolatie rondom** het kozijn, met een isolatieframe, om koudebruggen en condens te voorkomen.

@@ -1,5 +1,6 @@
 ---
 title: Bitumen dakbedekking: kosten, levensduur en wanneer je het (niet) kiest
+h1: Bitumen dakbedekking: kosten, levensduur, voor- en nadelen
 description: Bitumen dakbedekking kost in 2026 ongeveer 30 tot 70 euro per m2 gelegd en gaat 20 tot 25 jaar mee. Prijzen, levensduur en het verschil met EPDM.
 date: 2026-10-05
 updated: 2026-10-05
@@ -14,7 +15,7 @@ related: epdm-of-bitumen, plat-dak-repareren, epdm-dakbedekking, dakbedekking-pl
 
 Bitumen is al tientallen jaren de standaard dakbedekking op Nederlandse platte daken: schuren, garages, aanbouwen en dakkapellen. Het is het **goedkoopste** materiaal (45 tot 70 euro per m2 gelegd in 2026), gaat **20 tot 30 jaar** mee en is overal te repareren. Het nadeel is dat het met een brander wordt verwerkt en meer naden heeft dan EPDM.
 
-## Wat is bitumen?
+## Wat is bitumen dakbedekking?
 
 Bitumen is een restproduct van aardolie, verwerkt in rollen dakleer met een drager van polyester of glasvlies. Een dakdekker brandt de banen met een gasbrander op elkaar en op de ondergrond, in twee lagen: een onderlaag en een toplaag met leislag (de korrels die tegen uv-straling beschermen). Op het dak zie je dus altijd overlappende banen van een meter breed.
 
@@ -23,7 +24,7 @@ Er zijn twee hoofdsoorten:
 - **APP-bitumen**: hard, bestand tegen hitte, goed bij veel zon. Meest gebruikt op woningen.
 - **SBS-bitumen**: elastischer, beter bij kou en werking van het dak. Vaak op grotere daken en bij isolatie met beweging.
 
-## Kosten van bitumen in 2026
+## Wat kost bitumen dakbedekking per m2?
 
 | Werk | Richtprijs 2026 |
 | --- | --- |
@@ -36,7 +37,7 @@ Er zijn twee hoofdsoorten:
 
 Rekenvoorbeelden voor grotere daken en vergelijkingen met EPDM en PVC staan in [Plat dak vervangen: kosten per m2](/kennis/plat-dak-vervangen-kosten/).
 
-## Voordelen
+## Voordelen van bitumen dakbedekking
 
 - Goedkoopste dakbedekking per m2.
 - Elke dakdekker kan ermee werken; materiaal overal verkrijgbaar.
@@ -44,7 +45,7 @@ Rekenvoorbeelden voor grotere daken en vergelijkingen met EPDM en PVC staan in [
 - Overlagen is mogelijk als de ondergrond droog is, zonder sloop.
 - Stevig: je kunt erop lopen voor onderhoud aan goten of zonnepanelen.
 
-## Nadelen
+## Nadelen van bitumen dakbedekking
 
 - Levensduur 20 tot 30 jaar, korter dan EPDM.
 - Veel naden; elke naad is een plek die kan openstaan.
@@ -52,7 +53,7 @@ Rekenvoorbeelden voor grotere daken en vergelijkingen met EPDM en PVC staan in [
 - Wordt bros door uv-straling; zonder leislag of coating veroudert het sneller.
 - Zwart en warm in de zomer; isolatie eronder is dan geen luxe.
 
-## Overlagen of vervangen?
+## Bitumen dak overlagen of vervangen?
 
 Overlagen betekent dat een nieuwe toplaag over de bestaande bitumen wordt gebrand. Dat kan als:
 
@@ -72,7 +73,7 @@ Is het dakbeschot nat, dan is overlagen weggegooid geld: het vocht blijft zitten
 
 Een kleine reparatie op tijd kost 150 tot 400 euro. Een lekkage die maanden doorsijpelt kost een nieuw dakbeschot en vaak ook een plafond. Bij twijfel helpt een [dakinspectie](/kennis/dakinspectie/).
 
-## Bitumen of EPDM?
+## Bitumen of EPDM: wat is beter?
 
 Voor een schuur, garage of carport is bitumen een prima keuze: goedkoop, snel, makkelijk te repareren. Voor het dak van een woning, een aanbouw boven een woonkamer of een dakkapel is EPDM meestal de betere koop: het gaat 10 tot 20 jaar langer mee, heeft geen naden en wordt zonder vuur gelegd. Het volledige overzicht staat in [EPDM dakbedekking](/kennis/epdm-dakbedekking/) en [Dakbedekking voor een plat dak](/kennis/dakbedekking-plat-dak/).
 

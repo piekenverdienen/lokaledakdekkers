@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { marked } from "marked";
 
 export type Article = {
-  slug: string; title: string; description: string; date: string; updated: string;
+  slug: string; title: string; h1: string; description: string; date: string; updated: string;
   illustration: string; category: string; readMinutes: number; keywords: string[];
   image: string | null; imageAlt: string; imageTitle: string;
   faq: { q: string; a: string }[]; related: string[]; html: string; toc: { id: string; text: string }[];
@@ -46,7 +46,7 @@ export function getArticle(slug: string): Article | null {
   const html = marked.parse(main, { renderer }) as string;
   const words = main.split(/\s+/).length;
   return {
-    slug, title: meta.title, description: meta.description, date: meta.date, updated: meta.updated ?? meta.date,
+    slug, title: meta.title, h1: meta.h1 ?? meta.title, description: meta.description, date: meta.date, updated: meta.updated ?? meta.date,
     illustration: meta.illustration ?? slug, category: meta.category ?? "Kennis", readMinutes: Math.max(3, Math.round(words / 200)),
     image: meta.image ?? null, imageAlt: meta.image_alt ?? meta.title ?? "", imageTitle: meta.image_title ?? meta.title ?? "",
     keywords: (meta.keywords ?? "").split(",").map((s) => s.trim()).filter(Boolean),

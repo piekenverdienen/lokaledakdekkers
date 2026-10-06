@@ -283,3 +283,88 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .srnote { font-size: 15px; } .meta { font-size: 16px; } .trust b { font-size: 16.5px; } .art-card small { font-size: 14.5px; } .search-label { font-size: 16px; } .chip { font-size: 14px; }
 .map.tall { height: 560px; }
 @media (max-width: 760px) { .map.tall { height: 360px; } .steps { gap: 22px; } }
+
+/* Voor dakdekkers: campagnepagina */
+.vd h2 { margin-bottom: 18px; }
+.vd-hero { background: var(--ground); position: relative; overflow: hidden; }
+.vd-hero::before { content: ""; position: absolute; right: -80px; top: 40px; width: 520px; height: 520px; background: radial-gradient(circle at 60% 40%, rgba(199,107,70,0.14), transparent 62%); pointer-events: none; }
+.vd-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center; padding-top: 48px; padding-bottom: 48px; position: relative; }
+.vd-hero-text { display: flex; flex-direction: column; gap: 14px; }
+.vd-hero h1 { font-size: clamp(38px, 5vw, 60px); line-height: 1.05; }
+.vd-price { display: flex; align-items: center; gap: 12px; margin: 6px 0 2px; }
+.vd-price b { font-family: 'Manrope', sans-serif; font-size: 44px; color: var(--amber-ink); letter-spacing: -0.02em; }
+.vd-price b::before { content: "€ "; font-size: 32px; }
+.vd-price span { font-size: 14px; color: var(--ink-2); line-height: 1.3; }
+.vd-search { max-width: 560px; align-items: center; }
+.vd-note { font-size: 15px; color: var(--ink-2); }
+.vd-note small { color: var(--ink-3); font-size: 13.5px; }
+.vd-card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: 0 14px 40px rgba(20,46,58,0.14); padding: 14px; display: flex; flex-direction: column; gap: 12px; position: relative; }
+.vd-tag { position: absolute; top: 22px; left: 22px; background: var(--green-bg); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; }
+.vd-card-hero { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; }
+.vd-card-head { display: flex; gap: 12px; align-items: center; }
+.vd-card-head b { font-family: 'Manrope', sans-serif; font-size: 20px; display: block; }
+.vd-card-head small { color: var(--ink-3); font-size: 14px; }
+.vd-initials { width: 48px; height: 48px; border-radius: 12px; background: var(--navy); color: #fff; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 18px; display: grid; place-items: center; }
+.vd-card-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.vd-card-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; display: block; }
+.vd-card-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vd-card-btns .btn { justify-content: center; pointer-events: none; }
+.vd-strip { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.vd-strip-in { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-top: 22px; padding-bottom: 22px; }
+.vd-strip-in > div { display: flex; gap: 14px; align-items: flex-start; }
+.vd-strip b { display: block; font-family: 'Manrope', sans-serif; font-size: 17px; margin-bottom: 2px; }
+.vd-strip span:not(.vd-ico) { color: var(--ink-2); font-size: 15px; }
+.vd-ico { width: 48px; height: 48px; border-radius: 50%; background: var(--sage-soft); color: var(--navy); font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 17px; display: grid; place-items: center; flex-shrink: 0; }
+.vd-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.vd-tiles h3 { font-size: 19px; margin-top: 14px; }
+.vd-tiles p { color: var(--ink-2); font-size: 15.5px; margin-top: 4px; }
+.vd-tile-img { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 12px; min-height: 190px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.vd-grid3 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.vd-grid3 img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; display: block; }
+.vd-btns .btn { justify-content: center; pointer-events: none; }
+.vd-info { font-size: 14px; color: var(--ink); gap: 6px; }
+.vd-info > b { font-family: 'Manrope', sans-serif; font-size: 15px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.vd-info > div { padding: 4px 0; border-bottom: 1px solid var(--line); }
+.vd-info > div:last-child { border-bottom: 0; }
+.vd-info small { display: block; color: var(--ink-3); font-size: 12.5px; }
+.vd-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.vd-steps li { display: flex; gap: 14px; align-items: flex-start; }
+.vd-steps .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--amber-ink); color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 18px; display: grid; place-items: center; flex-shrink: 0; }
+.vd-steps li:nth-child(3) .step-num { background: var(--amber-bg); color: var(--amber-ink); }
+.vd-steps h3 { font-size: 19px; }
+.vd-steps p { color: var(--ink-2); font-size: 15.5px; margin-top: 4px; }
+.vd-dark { background: var(--navy); color: #fff; }
+.vd-dark-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 40px; align-items: center; padding-top: 48px; padding-bottom: 48px; }
+.vd-dark h2 { color: #fff; }
+.vd-checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; font-size: 16.5px; }
+.vd-checks li { display: flex; gap: 12px; align-items: center; }
+.vd-dark-note { margin-top: 18px; color: #D6DEE2; font-size: 15px; }
+.vd-pricecard { background: var(--surface); color: var(--ink); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; box-shadow: 0 14px 40px rgba(0,0,0,0.25); }
+.vd-pricecard b { font-family: 'Manrope', sans-serif; font-size: 48px; letter-spacing: -0.02em; line-height: 1; }
+.vd-pricecard b::before { content: "€ "; font-size: 34px; }
+.vd-pricecard > span { color: var(--ink-2); font-size: 15px; }
+.vd-pricecard .btn { width: 100%; justify-content: center; margin-top: 6px; }
+.vd-pricecard small { color: var(--ink-3); font-size: 13.5px; }
+.vd-table summary { cursor: pointer; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 18px; padding: 12px 0; }
+.vd-table table { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--surface); border-radius: var(--radius-md); overflow: hidden; }
+.vd-table th, .vd-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.vd-table th { font-family: 'Manrope', sans-serif; }
+.vd-table th:last-child { color: var(--amber-ink); }
+.vd-faq { display: flex; flex-direction: column; gap: 8px; }
+.vd-faq details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0 18px; }
+.vd-faq summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.vd-faq summary::-webkit-details-marker { display: none; }
+.vd-faq summary::after { content: "+"; font-size: 22px; color: var(--ink-3); font-weight: 400; }
+.vd-faq details[open] summary::after { content: "\2013"; }
+.vd-faq p { color: var(--ink-2); padding-bottom: 16px; margin: 0; font-size: 15.5px; }
+.vd-final { background: var(--ground); position: relative; overflow: hidden; }
+.vd-final-in { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; padding-top: 56px; padding-bottom: 36px; position: relative; }
+.vd-final-in h2 { margin: 0; flex: 1 1 420px; }
+.vd-final-roof { flex-basis: 100%; margin-top: 16px; opacity: 0.8; }
+.vd-final .srnote { flex-basis: 100%; }
+@media (max-width: 900px) {
+  .vd-hero-in, .vd-dark-in { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; padding-bottom: 28px; }
+  .vd-strip-in, .vd-tiles, .vd-steps { grid-template-columns: 1fr; gap: 18px; }
+  .vd-price b { font-size: 38px; }
+  .vd-card-btns { grid-template-columns: 1fr; }
+}

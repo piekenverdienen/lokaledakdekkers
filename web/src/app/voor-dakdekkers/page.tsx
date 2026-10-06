@@ -1,80 +1,125 @@
 import type { Metadata } from "next";
 import { currentVertical, cap } from "@/lib/site";
 import { one } from "@/lib/db";
+import Roofline from "@/components/Roofline";
 
 export const metadata: Metadata = {
   title: "Voor dakdekkers: goed werk verdient een gezicht",
-  description: "Jouw bedrijf staat al op Lokale Dakdekkers. Claim het, laat je profiel automatisch opbouwen uit je website en sta geverifieerd online voor 79,95 per jaar inclusief btw. Geen handwerk, geen doorverkochte leads.",
+  description: "Maak van je bedrijfsvermelding op Lokale Dakdekkers een compleet profiel: vindbaar in Google, leesbaar voor ChatGPT, met je eigen foto's en een offerteplek. Eén vast bedrag van 79,95 per jaar inclusief btw.",
   alternates: { canonical: "/voor-dakdekkers/" },
 };
+
+const Check = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#C76B46" /><path d="M7 12.5l3 3 7-7" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 
 export default async function VoorDakdekkers() {
   const v = await currentVertical();
   const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
   const priceText = (price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 });
-  const stats = await one<{ n: number; verified: number }>("select count(*)::int as n, count(*) filter (where status in ('claimed','pro'))::int as verified from businesses where vertical_id=$1 and status<>'hidden'", [v.id]);
+  const stats = await one<{ n: number; verified: number }>("select count(*)::int as n, count(*) filter (where status in ('claimed','pro'))::int as verified from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'", [v.id]);
+  const faq = [
+    ["Wat wordt er precies gecontroleerd?", "We controleren of je bedrijf actief staat ingeschreven bij de KvK en of jij het profiel mag beheren: je bedrijfsnaam of KvK-nummer staat op je website, en je bevestigt via een e-mailadres dat bij die website hoort. Het label zegt niets over de kwaliteit van je dakwerk; dat doen reviews met factuurbewijs."],
+    ["Wat gebeurt er na het eerste jaar?", "Dertig dagen voor het einde krijg je een mail. Verlengen is één klik en opnieuw " + priceText + " euro. Doe je niets, dan valt je profiel terug naar de gratis basisvermelding; je foto's en teksten bewaren we. Geen incasso, geen stilzwijgende verlenging."],
+    ["Wat als mijn bedrijf er nog niet tussen staat?", "Alle actieve dakdekkersbedrijven uit het Handelsregister staan erin. Staat je bedrijf onder een andere activiteit ingeschreven, mail dan je KvK-nummer naar info@" + v.domain + "; we voegen het toe."],
+    ["Word ik gegarandeerd gevonden via Google of AI?", "Nee, niemand kan dat garanderen. Wat we wel doen: je profiel krijgt een eigen pagina die Google indexeert en gestructureerde data die AI-assistenten kunnen lezen. Gratis vermeldingen staan op noindex en hebben dat niet. Hoe completer je profiel, hoe meer er te vinden is."],
+    ["Wat kost een offerteaanvraag?", "Niets extra. Aanvragen komen rechtstreeks bij jou binnen, hoeveel het er ook zijn. We verkopen ze niet door en sturen ze niet naar concurrenten."],
+  ];
   return (
-    <main>
-      <section className="hero-bg"><div className="wrap hero" style={{ paddingBottom: 32 }}>
-        <div>
+    <main className="vd">
+      <section className="vd-hero"><div className="wrap vd-hero-in">
+        <div className="vd-hero-text">
           <span className="eyebrow">Voor {v.name_plural}</span>
           <h1>Goed werk verdient een gezicht.</h1>
-          <p className="lede" style={{ fontSize: 19 }}>{stats?.n.toLocaleString("nl-NL")} {v.name_plural} uit het KvK Handelsregister staan op de kaart van Nederland. Wie zijn profiel claimt, krijgt een compleet en gecontroleerd profiel dat bezoekers kunnen vertrouwen en dat gebouwd is om door Google en AI-assistenten gelezen te worden.</p>
-          <div className="actions"><a href="/claim/" className="btn btn-primary" style={{ fontSize: 17, minHeight: 50 }}>Zoek je bedrijf en claim het</a><a href="#aanbod" className="btn btn-ghost">Bekijk het aanbod</a></div>
+          <p className="lede">Maak van je bedrijfsvermelding een compleet profiel. Laat je werk zien en maak het klanten makkelijk om contact op te nemen.</p>
+          <div className="vd-price"><b>{priceText}</b><span>euro per jaar<br />inclusief btw</span></div>
+          <form className="search vd-search" action="/claim/" method="get">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" style={{ marginLeft: 8, color: "var(--ink-3)", flexShrink: 0 }}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+            <input name="q" placeholder="Bedrijfsnaam, plaats of KvK-nummer" aria-label="Zoek je bedrijf" />
+            <button className="btn btn-amber" type="submit">Zoek je bedrijf</button>
+          </form>
+          <p className="vd-note">Eerst je profiel bekijken en controleren. Daarna betalen.<br /><small>Geen incasso. Geen stilzwijgende verlenging.</small></p>
         </div>
-        <div className="hero-photo"><video controls playsInline preload="metadata" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 20, display: "block", background: "#142E3A" }}><source src="/video/claim.mp4" type="video/mp4" />Je browser kan deze video niet afspelen.</video></div>
+        <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">
+          <span className="vd-tag">Zo kan jouw profiel eruitzien</span>
+          <img src="/img/hero-bart.webp" alt="" className="vd-card-hero" />
+          <div className="vd-card-head"><span className="vd-initials">JD</span><div><b>Jouw dakbedrijf</b><small>Dakrenovatie, onderhoud, reparatie</small></div></div>
+          <div className="vd-card-photos"><img src="/img/kennis/dakkapel-kosten-sm.webp" alt="" /><img src="/img/kennis/epdm-dakbedekking-sm.webp" alt="" /><img src="/img/kennis/dakinspectie-sm.webp" alt="" /></div>
+          <div className="vd-card-btns"><span className="btn btn-primary">Bel het bedrijf</span><span className="btn btn-outline">Vraag een offerte aan</span></div>
+        </div>
       </div></section>
 
-      <section className="wrap" style={{ paddingTop: 40, paddingBottom: 40 }}>
-        <h2>Zo werkt het, in twee minuten</h2>
-        <ol className="grid cols-3" style={{ listStyle: "none", padding: 0, margin: "16px 0 0" }}>
-          <li className="card"><b style={{ fontFamily: "Manrope, sans-serif", fontSize: 24, color: "var(--amber-ink)" }}>1</b><h3 style={{ margin: "6px 0" }}>Zoek je bedrijf</h3><p style={{ color: "var(--ink-2)" }}>Op naam, plaats of KvK-nummer. Klik op "Dit is mijn bedrijf".</p></li>
-          <li className="card"><b style={{ fontFamily: "Manrope, sans-serif", fontSize: 24, color: "var(--amber-ink)" }}>2</b><h3 style={{ margin: "6px 0" }}>Website en e-mail</h3><p style={{ color: "var(--ink-2)" }}>We controleren automatisch of de site van jou is en sturen een inloglink. Daarna bouwen we je profiel uit je website: logo, foto's, diensten, werkgebied.</p></li>
-          <li className="card"><b style={{ fontFamily: "Manrope, sans-serif", fontSize: 24, color: "var(--amber-ink)" }}>3</b><h3 style={{ margin: "6px 0" }}>Nakijken en online</h3><p style={{ color: "var(--ink-2)" }}>Elk blok heeft een potlood. Klopt het, dan betaal je via iDEAL en staat je profiel direct online.</p></li>
+      <section className="vd-strip"><div className="wrap vd-strip-in">
+        <div><span className="vd-ico">G</span><div><b>Zichtbaar in Google</b><span>Een eigen pagina die Google indexeert, met je naam, plaats en diensten.</span></div></div>
+        <div><span className="vd-ico">AI</span><div><b>Leesbaar voor ChatGPT</b><span>Gestructureerde bedrijfsdata die AI-assistenten kunnen lezen en citeren.</span></div></div>
+        <div><span className="vd-ico">€</span><div><b>Eigen profiel en offerteplek</b><span>Klanten vragen rechtstreeks bij jou een offerte aan. Eén vast jaarbedrag.</span></div></div>
+      </div></section>
+
+      <section className="wrap section-tight">
+        <h2>Dit krijgen klanten van jouw bedrijf te zien.</h2>
+        <div className="vd-tiles">
+          <div><div className="vd-tile-img vd-grid3"><img src="/img/kennis/dakkapel-kosten-sm.webp" alt="" /><img src="/img/kennis/plat-dak-vervangen-kosten-sm.webp" alt="" /><img src="/img/kennis/dakpannen-vervangen-kosten-sm.webp" alt="" /><img src="/img/kennis/bitumen-dakbedekking-sm.webp" alt="" /></div><h3>Je werk in beeld</h3><p>Je logo, diensten en foto's van je projecten op één plek.</p></div>
+          <div><div className="vd-tile-img vd-btns"><span className="btn btn-primary">Bel het bedrijf</span><span className="btn btn-green">WhatsApp</span><span className="btn btn-outline">Vraag een offerte aan</span></div><h3>Een directe lijn naar jou</h3><p>Bellen, WhatsApp en offerteaanvragen via jouw profiel, zonder tussenpartij.</p></div>
+          <div><div className="vd-tile-img vd-info"><b>Over Jouw dakbedrijf</b><div><small>Werkgebied</small>Utrecht en omgeving</div><div><small>Diensten</small>Dakrenovatie, onderhoud, reparatie</div><div><small>KvK-nummer</small>12345678, gecontroleerd</div></div><h3>Duidelijke bedrijfsinformatie</h3><p>Je werkgebied en gecontroleerde gegevens inzichtelijk voor bewoners.</p></div>
+        </div>
+      </section>
+
+      <section className="wrap section-tight">
+        <h2>Van vermelding naar jouw eigen profiel.</h2>
+        <ol className="vd-steps">
+          <li><span className="step-num">1</span><div><h3>Zoek je bedrijf</h3><p>Op naam, plaats of KvK-nummer. Je staat er al in.</p></div></li>
+          <li><span className="step-num">2</span><div><h3>Maak je profiel compleet</h3><p>Website en e-mail invullen; we bouwen je profiel uit je site. Jij vult aan met foto's.</p></div></li>
+          <li><span className="step-num">3</span><div><h3>Controleer en publiceer</h3><p>Bekijk je profiel, rond de betaling af via iDEAL en je staat online.</p></div></li>
         </ol>
       </section>
 
-      <section id="aanbod" className="wrap" style={{ paddingTop: 8, paddingBottom: 48 }}>
-        <h2>Gratis of geclaimd: dit is het verschil</h2>
-        <div className="card" style={{ marginTop: 16, overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
-            <thead><tr style={{ textAlign: "left", borderBottom: "2px solid var(--line)" }}><th style={{ padding: "8px 10px 8px 0" }}></th><th style={{ padding: "8px 10px" }}>Gratis vermelding</th><th style={{ padding: "8px 10px", color: "var(--amber-ink)" }}>Geclaimd profiel, {priceText} euro per jaar</th></tr></thead>
+      <section className="vd-dark"><div className="wrap vd-dark-in">
+        <div>
+          <h2>Alles voor een compleet bedrijfsprofiel.</h2>
+          <ul className="vd-checks">
+            <li><Check /> Eigen bedrijfspagina, vindbaar in Google</li>
+            <li><Check /> Logo, diensten en werkgebied tot 30 km</li>
+            <li><Check /> Tot 6 foto's van je werk, uploaden vanaf je telefoon</li>
+            <li><Check /> Telefoon, WhatsApp en offerteaanvragen</li>
+            <li><Check /> Reviews verzamelen en reageren</li>
+            <li><Check /> Inzicht in bezoekers en aanvragen</li>
+          </ul>
+          <p className="vd-dark-note">Je basisvermelding blijft gratis. Met een geclaimd profiel laat je meer van je bedrijf zien.</p>
+        </div>
+        <div className="vd-pricecard">
+          <b>{priceText}</b><span>euro per jaar, inclusief btw</span>
+          <a href="/claim/" className="btn btn-amber" style={{ fontSize: 17, minHeight: 52 }}>Zoek je bedrijf</a>
+          <small>Eén jaar vooruit. Geen automatische verlenging.</small>
+          <a href="#verschillen">Bekijk alle verschillen</a>
+        </div>
+      </div></section>
+
+      <section className="wrap section-tight" id="verschillen">
+        <details className="vd-table">
+          <summary>Gratis vermelding of geclaimd profiel: alle verschillen</summary>
+          <table>
+            <thead><tr><th></th><th>Gratis</th><th>Geclaimd, {priceText} per jaar</th></tr></thead>
             <tbody>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Pagina vindbaar in Google en voor AI-assistenten</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee, alleen in de lijst van je plaats</td><td style={{ padding: "8px 10px" }}>Ja, eigen geïndexeerde pagina met gestructureerde data</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Logo, beschrijving, diensten, werkgebied, keurmerken</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Alleen naam, plaats en KvK-nummer</td><td style={{ padding: "8px 10px" }}>Ja, uit je website opgebouwd en zelf aan te passen</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Foto's van je werk</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Tot 6 foto's, uploaden vanaf je telefoon</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Telefoon, WhatsApp en link naar je website</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Ja</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Offerteaanvragen</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee; bewoners worden doorverwezen naar geverifieerde bedrijven</td><td style={{ padding: "8px 10px" }}>Formulier op je pagina, aanvragen rechtstreeks naar jou, met foto's en adres</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Zichtbaar in plaatsen rondom je</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Alleen je eigen plaats</td><td style={{ padding: "8px 10px" }}>Tot 30 km, op alle plaatspagina's in dat gebied</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Positie in de lijsten</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Onderaan</td><td style={{ padding: "8px 10px" }}>Bovenaan, met het label Geverifieerd</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Reviews</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Verzamelen met factuurbewijs, klanten uitnodigen, reageren</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Vermelding bij kennisartikelen</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>In het blok Geverifieerde dakdekkers bij jou in de buurt, onder elk artikel</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Badge voor je eigen website</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Ja, met link naar je profiel</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Delen op social media</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Eigen deelafbeelding met je logo en knoppen</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Beschikbaarheid en spoed</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Status direct, vanaf of vol; label voor spoed</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Inzicht</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Nee</td><td style={{ padding: "8px 10px" }}>Bezoekers en aanvragen in je dashboard</td></tr>
-              <tr style={{ borderBottom: "1px solid var(--line)" }}><td style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>Factuur</td><td style={{ padding: "8px 10px", color: "var(--ink-3)" }}>Niet van toepassing</td><td style={{ padding: "8px 10px" }}>Met btw-specificatie, direct na betaling</td></tr>
+              {[["Pagina vindbaar in Google en voor AI-assistenten","Nee","Ja"],["Logo, beschrijving, diensten, werkgebied","Alleen naam, plaats en KvK","Ja"],["Foto's van je werk","Nee","Tot 6"],["Telefoon, WhatsApp, website-link","Nee","Ja"],["Offerteaanvragen","Nee","Rechtstreeks naar jou"],["Zichtbaar in plaatsen rondom je","Alleen eigen plaats","Tot 30 km"],["Positie in de lijsten","Onderaan","Bovenaan, met label"],["Reviews","Nee","Verzamelen, uitnodigen, reageren"],["Vermelding bij kennisartikelen","Nee","Ja"],["Badge voor je eigen website","Nee","Ja"],["Delen op social media","Nee","Eigen deelafbeelding"],["Beschikbaarheid en spoed","Nee","Ja"],["Inzicht in bezoekers en aanvragen","Nee","Ja"],["Factuur met btw","Niet van toepassing","Direct na betaling"]].map(([a, b, c]) => <tr key={a}><td>{a}</td><td>{b}</td><td>{c}</td></tr>)}
             </tbody>
           </table>
-          <p style={{ marginTop: 12, fontSize: 15, color: "var(--ink-2)" }}>Inclusief btw, via iDEAL, één vast bedrag of je nu vijf of vijftig aanvragen krijgt. Geen incasso, geen stilzwijgende verlenging.</p>
-        </div>
-        <div className="card" style={{ marginTop: 16, display: "grid", gap: 10, fontSize: 15, color: "var(--ink-2)" }}>
-          <div><b style={{ color: "var(--ink)" }}>Wat verificatie inhoudt.</b> We controleren dat het bedrijf actief is ingeschreven bij de KvK en dat jij de eigenaar bent: je website moet je bedrijfsnaam of KvK-nummer tonen en je e-mailadres moet bij die website horen. Het label zegt niets over de kwaliteit van je werk; dat doen reviews met factuurbewijs.</div>
-          <div><b style={{ color: "var(--ink)" }}>Verlenging en opzeggen.</b> Je betaalt één jaar vooruit. Dertig dagen voor het einde krijg je een mail; verlengen is één klik, niet verlengen is niets doen. Geen incasso, geen stilzwijgende verlenging.</div>
-          <div><b style={{ color: "var(--ink)" }}>Als je niet betaalt.</b> Dan blijft de gratis basisvermelding staan zoals nu, met de KvK-gegevens. Je ingevulde profiel bewaren we, zodat je later alsnog kunt publiceren.</div>
-          <div><b style={{ color: "var(--ink)" }}>Hoe we sorteren.</b> Geverifieerde profielen staan boven niet-geclaimde, daarbinnen op reviewscore en afstand. Een hogere plek betekent dat het bedrijf geverifieerd is, niet dat het beter is.</div>
-          <div><b style={{ color: "var(--ink)" }}>Voorwaarden.</b> De volledige <a href="/voorwaarden/">algemene voorwaarden voor bedrijven</a>.</div>
-          <div><b style={{ color: "var(--ink)" }}>Google en AI-assistenten.</b> Elk profiel heeft gestructureerde data en een vaste, controleerbare opbouw, zodat zoekmachines en AI-assistenten het kunnen lezen en citeren. We beloven geen positie of vermelding; wel een compleet, actueel en controleerbaar profiel.</div>
-        </div>
+          <p style={{ fontSize: 15, color: "var(--ink-2)", marginTop: 12 }}>Verificatie: KvK-inschrijving en eigenaarschap via website en e-mail. Verlenging: mail 30 dagen vooraf, één klik, anders niets. Zonder betaling blijft de gratis vermelding staan en bewaren we je profiel. Sortering: geclaimde profielen eerst, daarna op reviewscore en afstand. <a href="/voorwaarden/">Algemene voorwaarden</a>.</p>
+        </details>
       </section>
 
-      <section className="band"><div className="wrap">
-        <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 14 }}>
-          <h2>Laat zien wie je bent en wat je maakt</h2>
-          <p>{stats?.verified ? `${stats.verified} ${v.name_plural} gingen je voor.` : `Wees de eerste geverifieerde ${v.name_singular} in jouw regio.`} Zoek je bedrijf en claim het.</p>
-          <div className="actions"><a href="/claim/" className="btn btn-amber">Claim je profiel</a><a href="/corrigeren/" className="btn btn-ghost" style={{ color: "#fff" }}>Alleen gegevens corrigeren</a></div>
-        </div>
-        <div style={{ flex: "1 1 360px" }}><img src="/img/kennis/epdm-dakbedekking-sm.webp" alt="Dakdekker Bart Veldhuis brengt EPDM-dakbedekking aan op een plat dak" title="EPDM leggen op een plat dak" style={{ width: "100%", borderRadius: 16, display: "block" }} loading="lazy" /></div>
+      <section className="wrap section-tight">
+        <h2>Nog even dit.</h2>
+        <div className="vd-faq">{faq.map(([q, a], i) => <details key={q} open={i === 0}><summary>{q}</summary><p>{a}</p></details>)}</div>
+      </section>
+
+      <section className="wrap section-tight">
+        <h2 style={{ fontSize: 22, marginBottom: 10 }}>In dertig seconden</h2>
+        <video controls playsInline preload="none" poster="/video/claim-poster.webp" style={{ width: "100%", maxWidth: 720, borderRadius: 16, display: "block", background: "#142E3A" }}><source src="/video/claim.mp4" type="video/mp4" /></video>
+      </section>
+
+      <section className="vd-final"><div className="wrap vd-final-in">
+        <h2>Laat zien wie je bent. En wat je maakt.</h2>
+        <a href="/claim/" className="btn btn-amber" style={{ fontSize: 17, minHeight: 52 }}>Zoek je bedrijf</a>
+        <div className="vd-final-roof"><Roofline color="#E2B59E" accent="#C76B46" height={40} /></div>
+        <p className="srnote">{stats?.n.toLocaleString("nl-NL")} {v.name_plural} staan in de gids{stats?.verified ? `, ${stats.verified} met een geclaimd profiel` : ""}. {cap(v.name_singular)} in een andere branche? Mail info@{v.domain}.</p>
       </div></section>
     </main>
   );

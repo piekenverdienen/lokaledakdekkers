@@ -3,7 +3,7 @@ import { currentVertical, cap } from "@/lib/site";
 import { one } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "Voor dakdekkers: claim je profiel, geverifieerd voor 79,95 per jaar",
+  title: "Voor dakdekkers: goed werk verdient een gezicht",
   description: "Jouw bedrijf staat al op Lokale Dakdekkers. Claim het, laat je profiel automatisch opbouwen uit je website en sta geverifieerd online voor 79,95 per jaar inclusief btw. Geen handwerk, geen doorverkochte leads.",
   alternates: { canonical: "/voor-dakdekkers/" },
 };
@@ -18,11 +18,11 @@ export default async function VoorDakdekkers() {
       <section className="hero-bg"><div className="wrap hero" style={{ paddingBottom: 32 }}>
         <div>
           <span className="eyebrow">Voor {v.name_plural}</span>
-          <h1>Jouw bedrijf staat er al op. Maak er een profiel van dat werk oplevert.</h1>
+          <h1>Goed werk verdient een gezicht.</h1>
           <p className="lede" style={{ fontSize: 19 }}>{stats?.n.toLocaleString("nl-NL")} {v.name_plural} uit het KvK Handelsregister staan op de kaart van Nederland. Wie zijn profiel claimt, krijgt een compleet en gecontroleerd profiel dat bezoekers kunnen vertrouwen en dat gebouwd is om door Google en AI-assistenten gelezen te worden.</p>
           <div className="actions"><a href="/claim/" className="btn btn-primary" style={{ fontSize: 17, minHeight: 50 }}>Zoek je bedrijf en claim het</a><a href="#aanbod" className="btn btn-ghost">Bekijk het aanbod</a></div>
         </div>
-        <div className="hero-photo"><video controls playsInline preload="metadata" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 20, display: "block", background: "#0E2A3F" }}><source src="/video/claim.mp4" type="video/mp4" />Je browser kan deze video niet afspelen.</video></div>
+        <div className="hero-photo"><video controls playsInline preload="metadata" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 20, display: "block", background: "#142E3A" }}><source src="/video/claim.mp4" type="video/mp4" />Je browser kan deze video niet afspelen.</video></div>
       </div></section>
 
       <section className="wrap" style={{ paddingTop: 40, paddingBottom: 40 }}>
@@ -70,7 +70,7 @@ export default async function VoorDakdekkers() {
 
       <section className="band"><div className="wrap">
         <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 14 }}>
-          <h2>Twee minuten, geen handwerk</h2>
+          <h2>Laat zien wie je bent en wat je maakt</h2>
           <p>{stats?.verified ? `${stats.verified} ${v.name_plural} gingen je voor.` : `Wees de eerste geverifieerde ${v.name_singular} in jouw regio.`} Zoek je bedrijf en claim het.</p>
           <div className="actions"><a href="/claim/" className="btn btn-amber">Claim je profiel</a><a href="/corrigeren/" className="btn btn-ghost" style={{ color: "#fff" }}>Alleen gegevens corrigeren</a></div>
         </div>

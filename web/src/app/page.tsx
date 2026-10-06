@@ -3,8 +3,9 @@ import { ArticleCard } from "@/components/ArticleView";
 import { getAllArticles } from "@/lib/kennis";
 import { getProvinces, q } from "@/lib/db";
 import { currentVertical, cap } from "@/lib/site";
+import { cookies } from "next/headers";
+import NearbyVerified from "@/components/NearbyVerified";
 
-export const revalidate = 3600;
 
 export default async function Home() {
   const v = await currentVertical();
@@ -15,89 +16,74 @@ export default async function Home() {
            (select count(*)::int from place_stats where vertical_id=$1 and business_count>=3) as places`, [v.id]);
   const t = totals[0];
   const priceText = (((v as unknown as { verified_price_year_cents?: number }).verified_price_year_cents ?? 7995) / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 });
-  const realExamples = await q<{ name: string; slug: string; city: string | null; logo_url: string | null; photo: string | null; services: string[]; review_count: number; area_count: number }>(`
-    select b.name, b.slug, b.city, b.logo_url, (select url from business_photos p where p.business_id=b.id order by sort_order limit 1) as photo,
-      coalesce((select array_agg(service_slug) from business_services s where s.business_id=b.id), '{}') as services,
-      (select count(*)::int from reviews r where r.business_id=b.id and r.status='published') as review_count,
-      (select count(*)::int from business_areas a where a.business_id=b.id) as area_count
-    from businesses b where b.vertical_id=$1 and b.status in ('claimed','pro') order by random() limit 3`, [v.id]);
-  const examples = realExamples.length >= 3 ? {
-    real: true,
-    items: realExamples.map((r) => ({ slug: r.slug, name: r.name, city: r.city ?? "", area: r.area_count ? `${r.area_count} plaatsen` : "eigen plaats", verified: true, photo: r.photo ?? "/img/dakpan-handen-sm.webp", services: r.services.slice(0, 3).map((x) => v.services.find((y) => y.slug === x)?.name ?? x), reviews: r.review_count ? `${r.review_count} reviews` : "Nog geen reviews", href: `/bedrijf/${r.slug}/` })),
-  } : { real: false, items: [] as { slug: string; name: string; city: string; area: string; verified: boolean; photo: string; services: string[]; reviews: string; href: string }[] };
+  const lastPlace = (await cookies()).get("ld_place")?.value ?? "";
   const featured = ["wat-kost-een-dakdekker", "betrouwbare-dakdekker-kiezen", "plat-dak-vervangen-kosten"].map((s) => getAllArticles().find((a) => a.slug === s)).filter(Boolean);
   const munis = await q<{ name: string; slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
     select m.name, m.slug, pr.slug as province_slug, st_y(st_centroid(m.geom)) as lat, st_x(st_centroid(m.geom)) as lng, count(b.id)::int as business_count
     from municipalities m join provinces pr on pr.id=m.province_id
     left join businesses b on b.municipality_id=m.id and b.vertical_id=$1 and b.status<>'hidden'
     group by m.id, pr.slug having count(b.id)>0`, [v.id]);
-  const cities = await q<{ name: string; slug: string; municipality_slug: string; province_slug: string; lat: number; lng: number; business_count: number }>(`
-    select p.name, p.slug, m.slug as municipality_slug, pr.slug as province_slug, st_y(p.geom) as lat, st_x(p.geom) as lng, ps.business_count::int
-    from place_stats ps join places p on p.id=ps.place_id join municipalities m on m.id=p.municipality_id join provinces pr on pr.id=m.province_id
-    where ps.vertical_id=$1 and p.place_type in ('city','town') order by p.population desc nulls last limit 40`, [v.id]);
 
   return (
     <main>
       <div className="hero-bg"><section className="wrap hero">
         <div>
-          <span className="eyebrow">Alle {v.name_plural} van Nederland op één kaart</span>
-          <h1>Vind een {v.name_singular} in de buurt en weet wat je kiest</h1>
-          <p className="lede" style={{ fontSize: 19 }}>
-            Bekijk {v.name_plural} in jouw buurt en vergelijk hun diensten, werkgebied en bedrijfsgegevens. Bij geverifieerde profielen zie je precies welke gegevens zijn gecontroleerd.
-          </p>
+          <h1>Weet wie je het dak op laat.</h1>
+          <p className="lede" style={{ fontSize: 20 }}>Bekijk {v.name_plural} in jouw buurt. Vergelijk hun diensten, bekijk hun werk en zie welke bedrijfsgegevens zijn gecontroleerd.</p>
+          <label htmlFor="zoek" className="search-label" style={{ marginTop: 22 }}>Waar zoek je een {v.name_singular}?</label>
           <form className="search" action="/zoeken/" method="get">
-            <label htmlFor="zoek" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>Plaats of bedrijfsnaam</label>
             <input id="zoek" name="q" type="text" placeholder="Plaats, postcode of bedrijfsnaam" autoComplete="off" />
             <button type="submit" className="btn btn-primary">Zoek<span className="btn-long"> {v.name_singular}</span></button>
           </form>
-          <div className="stats">
-            <div><b>{t.businesses.toLocaleString("nl-NL")}</b><small>{v.name_plural} in heel Nederland</small></div>
-            <div><b>350</b><small>gemeenten, van Groningen tot Maastricht</small></div>
-            {t.verified > 0 && <div><b>{t.verified.toLocaleString("nl-NL")}</b><small>geverifieerde profielen</small></div>}
-          </div>
+          <a href={`/betrouwbare-${v.name_singular}/`} style={{ display: "inline-block", marginTop: 14, fontWeight: 600 }}>Zo controleren we bedrijfsgegevens</a>
         </div>
         <div className="hero-photo">
-          <img src="/img/hero-bart.webp" srcSet="/img/hero-bart-sm.webp 720w, /img/hero-bart.webp 1600w" sizes="(max-width: 760px) 100vw, 560px" alt="Dakdekker Bart Veldhuis legt nieuwe dakpannen op het dak van een rijtjeshuis in een Nederlandse woonwijk" title="Dakdekker aan het werk op een pannendak" loading="eager" />
+          <img src="/img/hero-bart.webp" srcSet="/img/hero-bart-sm.webp 720w, /img/hero-bart.webp 1600w" sizes="(max-width: 760px) 100vw, 560px" alt={`${cap(v.name_singular)} legt nieuwe dakpannen op het dak van een rijtjeshuis in een Nederlandse woonwijk`} loading="eager" />
         </div>
       </section></div>
 
-      <section className="wrap" style={{ paddingTop: 28, paddingBottom: 8 }}>
+      <section className="wrap section-tight">
+        <div className="benefits">
+          <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg><h3>Dichtbij zoeken</h3><p>Bekijk bedrijven die in jouw omgeving werken.</p></div>
+          <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-6h4v6" /></svg><h3>Het bedrijf leren kennen</h3><p>Bekijk diensten, projecten en bedrijfsinformatie.</p></div>
+          <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg><h3>Controles begrijpen</h3><p>Zie welke gegevens zijn gecontroleerd en wat dat betekent.</p></div>
+        </div>
+      </section>
+
+      <section className="wrap section-tight" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <h2>Leer de {v.name_plural} uit jouw buurt kennen.</h2>
+        <NearbyVerified v={v} place={lastPlace || undefined} />
+      </section>
+
+      <section className="wrap section-tight" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <h2>Hoe het werkt</h2>
+        <ol className="steps">
+          <li><b>Zoek in jouw omgeving.</b><span>Vul een plaats of postcode in.</span></li>
+          <li><b>Bekijk de bedrijven.</b><span>Lees over hun diensten, werk en gecontroleerde gegevens.</span></li>
+          <li><b>Neem zelf contact op.</b><span>Bel, app of vraag een offerte aan bij het bedrijf dat bij je past.</span></li>
+        </ol>
+      </section>
+
+      <section className="wrap section-tight" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <h2>Wat weet je al voordat je contact opneemt?</h2>
         <div className="trust">
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg><span><b>Wat Geverifieerd betekent</b>Het bedrijf is echt, staat ingeschreven bij de KvK en heeft dit profiel zelf bevestigd.</span></div>
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B5C8F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M8 13h8M8 17h5" /></svg><span><b>Reviews met factuurbewijs</b>Reviews van echte klussen, gekoppeld aan een factuur. Geen verzonnen sterren.</span></div>
-          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C97A0F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>Eerlijke sortering</b>Geverifieerde bedrijven eerst, daarna op reviewscore en afstand. Niemand koopt een hogere plek.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M9 15l2 2 4-4" /></svg><span><b>KvK-inschrijving gecontroleerd</b>Het bedrijf staat actief ingeschreven in het Handelsregister, met de datum van de controle erbij.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg><span><b>Profiel bevestigd door het bedrijf</b>Een vertegenwoordiger heeft het profiel bevestigd via de website en het e-mailadres van het bedrijf.</span></div>
+          <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>Reviews met opdrachtbewijs</b>Reviews die aan een factuur gekoppeld zijn krijgen een label; de factuur zelf blijft privé.</span></div>
         </div>
+        <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Een controle van bedrijfsgegevens is geen garantie op de kwaliteit van het dakwerk. <a href={`/betrouwbare-${v.name_singular}/`}>Lees hoe de controles werken</a>.</p>
       </section>
 
-      {examples.real && <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 16 }}>
-        <h2>Geverifieerde {v.name_plural}</h2>
-        <div className="grid cols-3">
-          {examples.items.map((e) => (
-            <article key={e.slug} className="biz" style={{ padding: 0, overflow: "hidden" }}>
-              <img src={e.photo} alt="" className="ex-photo" loading="lazy" />
-              <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 8 }}>
-                <div className="biz-title"><h3 style={{ fontSize: 18 }}>{e.name}</h3><span className="verified">Geverifieerd</span></div>
-                <div className="meta"><span>{e.city}</span><span>Werkgebied {e.area}</span></div>
-                <div className="chips">{e.services.map((s) => <span key={s} className="chip">{s}</span>)}</div>
-                <span className="srnote">{e.reviews}</span>
-                <a href={e.href} className="btn btn-outline" style={{ alignSelf: "flex-start" }}>Bekijk bedrijfsprofiel</a>
-              </div>
-            </article>
-          ))}
+      <section className="wrap section-tight" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+          <h2>Goed voorbereid je dak laten aanpakken.</h2>
+          <a href="/kennis/" style={{ fontWeight: 600 }}>Alle artikelen</a>
         </div>
-      </section>}
-
-      <section className="wrap" style={{ paddingTop: 32, paddingBottom: 8 }}>
-        <div className="map-card">
-          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={munis.map((m) => ({
-            lat: m.lat, lng: m.lng, label: `${m.name} (${m.business_count})`, count: m.business_count, href: `/${m.province_slug}/${m.slug}/`,
-          }))} />
-          <div className="map-foot"><span>Tik op een gemeente voor de {v.name_plural} daar</span></div>
-        </div>
+        <div className="grid cols-3">{featured.map((a) => <ArticleCard key={a!.slug} a={a!} />)}</div>
       </section>
 
-      <section className="wrap" id="provincies" style={{ paddingTop: 8, paddingBottom: 56, display: "flex", flexDirection: "column", gap: 18 }}>
-        <h2>Zoek per provincie</h2>
+      <section className="wrap section-tight" id="provincies" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <h2>Vind een {v.name_singular} in jouw regio.</h2>
         <div className="grid cols-4">
           {provinces.map((p) => (
             <a key={p.id} href={`/${p.slug}/`} className="card card-link">
@@ -106,29 +92,27 @@ export default async function Home() {
             </a>
           ))}
         </div>
-      </section>
-
-      <section className="wrap" style={{ padding: "0 24px 56px", display: "flex", flexDirection: "column", gap: 18 }}>
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
-          <h2>Lees dit voordat je een {v.name_singular} belt</h2>
-          <a href="/kennis/" style={{ fontWeight: 600 }}>Alle artikelen</a>
+        <div className="map-card">
+          <Map center={[52.2, 5.4]} zoom={7} fit={false} tall cluster markers={munis.map((m) => ({
+            lat: m.lat, lng: m.lng, label: `${m.name} (${m.business_count})`, count: m.business_count, href: `/${m.province_slug}/${m.slug}/`,
+          }))} />
+          <div className="map-foot"><span>{t.businesses.toLocaleString("nl-NL")} {v.name_plural} in heel Nederland. Tik op een gemeente voor de bedrijven daar.</span></div>
         </div>
-        <div className="grid cols-3">{featured.map((a) => <ArticleCard key={a!.slug} a={a!} />)}</div>
       </section>
 
       <section className="band">
         <div className="wrap">
           <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 14 }}>
-            <span className="eyebrow" style={{ color: "var(--amber-light)" }}>Voor {v.name_plural}</span>
-            <h2>Jouw bedrijf staat er al op. Maak er een geverifieerd profiel van.</h2>
-            <p>Website en e-mailadres invullen, wij bouwen je profiel uit je website met logo, foto's en diensten. Nakijken, betalen via iDEAL, online. {priceText} euro per jaar inclusief btw, geen incasso, geen doorverkochte leads.</p>
+            <span className="eyebrow" style={{ color: "#E2B59E" }}>Voor {v.name_plural}</span>
+            <h2>Goed werk verdient een gezicht.</h2>
+            <p>Laat zien wie je bent, waar je werkt en welk dakwerk je uitvoert. Claim je bedrijfsprofiel en vul het aan met je diensten en projecten. {priceText} euro per jaar inclusief btw, twaalf maanden, geen incasso.</p>
             <div className="actions">
               <a href="/claim/" className="btn btn-amber">Claim je profiel</a>
-              <a href="/voor-dakdekkers/" className="btn btn-ghost" style={{ color: "#fff" }}>Alles over het aanbod</a>
+              <a href="/voor-dakdekkers/" className="btn btn-ghost" style={{ color: "#fff" }}>Bekijk hoe het werkt</a>
             </div>
           </div>
           <div style={{ flex: "1 1 360px", minWidth: 0 }}>
-            <video controls playsInline preload="none" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 16, display: "block", background: "#0E2A3F" }}><source src="/video/claim.mp4" type="video/mp4" /></video>
+            <video controls playsInline preload="none" poster="/video/claim-poster.webp" style={{ width: "100%", borderRadius: 16, display: "block", background: "#142E3A" }}><source src="/video/claim.mp4" type="video/mp4" /></video>
           </div>
         </div>
       </section>

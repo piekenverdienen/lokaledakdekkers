@@ -9,7 +9,7 @@ export function claimMail(v: Vertical, b: { name: string; city: string | null; s
   const html = `
 <p>Hallo ${first},</p>
 <p>We hebben een bedrijfspagina voor ${first} aangemaakt op ${v.domain}, opgebouwd uit je eigen website: logo, diensten en werkgebied. Is dit jouw bedrijf?</p>
-<p style="margin:24px 0"><a href="${preview}" style="background:#0B5C8F;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;display:inline-block">Bekijk je pagina</a></p>
+<p style="margin:24px 0"><a href="${preview}" style="background:#142E3A;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;display:inline-block">Bekijk je pagina</a></p>
 <p>Steeds meer mensen zoeken een ${v.name_singular} via ChatGPT, en ChatGPT haalt zijn antwoorden uit gidsen zoals deze. Claim je pagina, maak hem persoonlijk met je foto's, en ontvang offerteaanvragen rechtstreeks: geen prijs per lead, maar één vast bedrag van 79,95 per jaar inclusief btw, of je nu vijf of vijftig aanvragen krijgt.</p>
 <p>${totals.toLocaleString("nl-NL")} ${v.name_plural} staan al op de kaart. ${cityLine}</p>
 <p>Met vriendelijke groet,<br>Paul, ${v.brand}</p>

@@ -73,6 +73,6 @@ export async function sendMail(to: string, subject: string, html: string, text: 
 }
 
 export function mailLayout(brand: string, title: string, body: string, cta?: { href: string; label: string }) {
-  const btn = cta ? `<p style="margin:24px 0"><a href="${cta.href}" style="background:#0B5C8F;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;display:inline-block">${cta.label}</a></p>` : "";
+  const btn = cta ? `<p style="margin:24px 0"><a href="${cta.href}" style="background:#142E3A;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;display:inline-block">${cta.label}</a></p>` : "";
   return `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#13202B;line-height:1.5"><p style="font-weight:800;font-size:18px;margin:0 0 16px">${brand}</p><h1 style="font-size:22px;margin:0 0 12px">${title}</h1>${body}${btn}<p style="color:#5A6975;font-size:13px;margin-top:32px">Je krijgt deze mail omdat je dit adres hebt ingevuld op ${brand}. Niets aangevraagd? Dan kun je deze mail negeren.</p></div>`;
 }

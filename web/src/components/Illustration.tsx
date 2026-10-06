@@ -1,5 +1,5 @@
 // Eigen illustraties per onderwerp. Vaste stijl: navy lucht, amber accent, witte lijnen. Geen externe afbeeldingen.
-const C = { navy: "#0E2A3F", blue: "#0B5C8F", sky: "#E3EEF5", amber: "#F2B45C", amberD: "#C97A0F", white: "#FFFFFF", ink: "#13202B", green: "#1B6B3A", grey: "#C2D1DB", red: "#B23A3A" };
+const C = { navy: "#142E3A", blue: "#176E96", sky: "#E8EEE9", amber: "#C76B46", amberD: "#C97A0F", white: "#FFFFFF", ink: "#13202B", green: "#1B6B3A", grey: "#C2D1DB", red: "#B23A3A" };
 
 function Frame({ children, label }: { children: React.ReactNode; label: string }) {
   return (

@@ -48,7 +48,7 @@ export default function Map({ center, zoom = 11, markers, tall = false, fit = tr
           const size = Math.max(30, Math.min(52, 22 + Math.sqrt(m.count) * 2));
           mk = L.marker([m.lat, m.lng], { lkCount: m.count, icon: L.divIcon({ html: `<div class="lk-count" style="width:${size}px;height:${size}px;line-height:${size}px">${m.count}</div>`, className: "", iconSize: [size, size] }) });
         } else {
-          mk = L.circleMarker([m.lat, m.lng], { radius: m.size ?? (m.pro ? 10 : 8), color: "#fff", weight: 2, fillColor: m.pro ? "#C97A0F" : "#0B5C8F", fillOpacity: 1 });
+          mk = L.circleMarker([m.lat, m.lng], { radius: m.size ?? (m.pro ? 10 : 8), color: "#fff", weight: 2, fillColor: m.pro ? "#9A452B" : "#176E96", fillOpacity: 1 });
         }
         mk.bindPopup(m.href ? `<a href="${m.href}"><b>${m.label}</b></a>` : `<b>${m.label}</b>`);
         if (layer) layer.addLayer(mk); else mk.addTo(map);

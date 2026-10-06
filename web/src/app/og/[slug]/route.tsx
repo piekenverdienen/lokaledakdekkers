@@ -20,18 +20,18 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   const name = b.name.length > 34 ? b.name.slice(0, 33) + "…" : b.name;
   return new ImageResponse(
     (
-      <div style={{ width: 1200, height: 630, display: "flex", flexDirection: "column", background: "#0E2A3F", color: "#fff", fontFamily: "DejaVu", padding: 64, justifyContent: "space-between" }}>
+      <div style={{ width: 1200, height: 630, display: "flex", flexDirection: "column", background: "#142E3A", color: "#F5F1E9", fontFamily: "DejaVu", padding: 64, justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 56, height: 56, borderRadius: 14, background: "#F2B33D", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0E2A3F" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-6h4v6" /></svg>
+          <div style={{ width: 64, height: 64, borderRadius: 16, background: "#F5F1E9", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none"><path d="M2 30l9-10 9 10" stroke="#142E3A" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" /><path d="M15 28l9-12 9 12" stroke="#C76B46" strokeWidth="4.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M28 30l9-10 9 10" stroke="#142E3A" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </div>
-          <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 30, fontWeight: 700 }}>{v.brand}</span><span style={{ fontSize: 16, color: "#F2B33D", }}>De beste {v.name_singular} bij jou in de buurt</span></div>
+          <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 30, fontWeight: 700 }}>{v.brand}</span><span style={{ fontSize: 16, color: "#F2B33D", }}>Weet wie je het dak op laat.</span></div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
           {logo && <div style={{ width: 160, height: 160, borderRadius: 24, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", padding: 14 }}><img src={logo} width={132} height={132} style={{ objectFit: "contain" }} /></div>}
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <span style={{ fontSize: 58, fontWeight: 700, lineHeight: 1.1 }}>{name}</span>
-            <span style={{ fontSize: 28, color: "#C2D1DB" }}>{v.name_singular.charAt(0).toUpperCase() + v.name_singular.slice(1)}{b.city ? ` in ${b.city}` : ""}</span>
+            <span style={{ fontSize: 28, color: "#D6DEE2" }}>{v.name_singular.charAt(0).toUpperCase() + v.name_singular.slice(1)}{b.city ? ` in ${b.city}` : ""}</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -39,8 +39,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
             <div style={{ display: "flex", alignItems: "center", gap: 12, background: "#1B6B3A", borderRadius: 999, padding: "14px 28px", fontSize: 28, fontWeight: 700 }}>
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>Geverifieerd bedrijf
             </div>
-          ) : <div style={{ fontSize: 26, color: "#C2D1DB" }}>Bedrijfsprofiel</div>}
-          <span style={{ fontSize: 26, color: "#F2B33D", marginLeft: "auto" }}>{v.domain}/bedrijf/{slug}</span>
+          ) : <div style={{ fontSize: 26, color: "#D6DEE2" }}>Bedrijfsprofiel</div>}
+          <span style={{ fontSize: 26, color: "#E2B59E", marginLeft: "auto" }}>{v.domain}/bedrijf/{slug}</span>
         </div>
       </div>
     ),

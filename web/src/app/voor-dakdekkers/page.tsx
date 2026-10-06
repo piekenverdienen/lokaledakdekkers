@@ -35,12 +35,12 @@ export default async function VoorDakdekkers() {
             <input name="q" placeholder="Bedrijfsnaam of plaats" aria-label="Zoek je bedrijf" />
             <button className="btn btn-amber" type="submit">Zoek je bedrijf</button>
           </form>
-          <div className="vd-facts">
-            <span><b>{priceText}</b> euro per jaar, inclusief btw</span>
-            <span>Eerst bekijken, daarna betalen</span>
-            <span>Geen incasso</span>
-          </div>
-          <div className="vd-gpt"><img src="/img/chatgpt-logo.png" alt="ChatGPT" width={22} height={22} /><span>Zichtbaar in Google en op ChatGPT</span></div>
+          <p className="vd-pricefact"><b>{priceText}</b> euro per jaar, inclusief btw</p>
+          <ul className="vd-facts">
+            <li>Eerst bekijken, daarna betalen</li>
+            <li>Geen incasso</li>
+            <li><img src="/img/chatgpt-logo.png" alt="" width={18} height={18} /> Zichtbaar in Google en op ChatGPT</li>
+          </ul>
         </div>
         <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">
           <span className="vd-tag">Zo kan jouw profiel eruitzien</span>

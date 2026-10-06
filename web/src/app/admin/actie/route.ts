@@ -36,16 +36,18 @@ export async function POST(req: Request) {
     await q("insert into settings (key, value) values ('outreach_enabled',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [enabled]);
     await q("insert into settings (key, value) values ('outreach_per_day',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [perDay === "auto" ? "auto" : String(parseInt(perDay, 10) || 50)]);
     await q("insert into settings (key, value) values ('outreach_regions',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [regions]);
+    await q("insert into settings (key, value) values ('outreach_info',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [String(f.get("info") ?? "") === "1" ? "1" : "0"]);
     if (enabled === "1" && was !== "1") await q("insert into settings (key, value) values ('outreach_started_at',$1) on conflict (key) do update set value=excluded.value, updated_at=now()", [new Date().toISOString()]);
     tab = "campagne";
   }
   else if (actie === "testmail") {
-    const { claimMail } = await import("@/lib/outreach"); const { sendMail } = await import("@/lib/auth");
-    const b = await one<{ name: string; city: string | null; slug: string }>("select name, city, slug from businesses where vertical_id=$1 and status='unclaimed' and profile_built_at is not null and outreach_email is not null and source<>'test' order by random() limit 1", [v.id]);
+    const { claimMail, infoMail, unsubHeaders } = await import("@/lib/outreach"); const { sendMail } = await import("@/lib/auth");
+    const variant = String(f.get("variant") ?? "claim");
+    const b = await one<{ name: string; city: string | null; slug: string; kvk_number: string | null }>("select name, city, slug, kvk_number from businesses where vertical_id=$1 and status='unclaimed' and profile_built_at is not null and outreach_email is not null and source<>'test' order by random() limit 1", [v.id]);
     if (b) {
       const totals = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'", [v.id]))?.n ?? 0;
-      const m = claimMail(v, b, 0, totals, base, "test");
-      await sendMail(user.email, `[TEST] ${m.subject}`, m.html, m.text).catch(() => {});
+      const m = variant === "info" ? infoMail(v, b, base, "test") : claimMail(v, b, 0, totals, base, "test");
+      await sendMail(user.email, `[TEST] ${m.subject}`, m.html, m.text, { headers: unsubHeaders(base, "test", v.domain) }).catch(() => {});
     }
     tab = "campagne";
   }

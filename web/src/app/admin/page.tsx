@@ -90,6 +90,11 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
             ["Profielbouwer (Anthropic)", !!process.env.ANTHROPIC_API_KEY, "ANTHROPIC_API_KEY"],
           ];
           const readyToSend = checks[0][1] && (checks[2][1] || checks[3][1]);
+          const infoOn = (await one<{ value: string }>("select value from settings where key='outreach_info'"))?.value === "1";
+          const lc = (await q<{ rp: number; nat: number; onb: number }>(`select count(*) filter (where b.legal_class='rechtspersoon')::int as rp, count(*) filter (where b.legal_class='natuurlijk')::int as nat, count(*) filter (where b.legal_class is null)::int as onb
+            from businesses b left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
+            where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test'
+            and not exists (select 1 from outreach o where o.business_id=b.id) and (cardinality($2::text[])=0 or lower(pr.slug)=any($2) or lower(m.slug)=any($2) or lower(b.city)=any($2))`, [v.id, regionList]))[0];
           const c = (await q<{ built: number; with_email: number; sent: number; reminded: number; clicked: number; claimed: number; optout: number; today: number }>(`
             select (select count(*)::int from businesses where vertical_id=$1 and profile_built_at is not null) as built,
                    (select count(*)::int from businesses where vertical_id=$1 and outreach_email is not null and profile_built_at is not null and status='unclaimed' and not outreach_opt_out) as with_email,
@@ -112,7 +117,8 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               </div>
               <form method="post" action="/admin/actie/" style={{ display: "grid", gap: 10 }}>
                 <input type="hidden" name="actie" value="campagne" /><input type="hidden" name="id" value="-" />
-                <label style={{ fontSize: 14, fontWeight: 600 }}>Regio's (provincie-, gemeente- of plaatsnamen, gescheiden door komma's; leeg is heel Nederland)<input name="regions" defaultValue={regions} placeholder="bijvoorbeeld: noord-brabant, overijssel of zevenbergen, hengelo, enschede" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 8, padding: "8px 10px", marginTop: 4, fontFamily: "inherit", fontSize: 15 }} /><small style={{ color: "var(--ink-3)", fontWeight: 400 }}>{inRegion} mailbare bedrijven in deze selectie.</small></label>
+                <label style={{ fontSize: 14, fontWeight: 600 }}>Regio's (provincie-, gemeente- of plaatsnamen, gescheiden door komma's; leeg is heel Nederland)<input name="regions" defaultValue={regions} placeholder="bijvoorbeeld: noord-brabant, overijssel of zevenbergen, hengelo, enschede" style={{ display: "block", width: "100%", border: "1px solid var(--line)", borderRadius: 8, padding: "8px 10px", marginTop: 4, fontFamily: "inherit", fontSize: 15 }} /><small style={{ color: "var(--ink-3)", fontWeight: 400 }}>{inRegion} mailbare bedrijven in deze selectie: {lc.rp} bv/nv (krijgen de claimmail), {lc.nat} eenmanszaak of vof (alleen informatiemail, als die aan staat), {lc.onb} rechtsvorm nog onbekend (worden overgeslagen tot bekend).</small></label>
+                <label style={{ fontSize: 14, display: "flex", gap: 8, alignItems: "flex-start" }}><input type="checkbox" name="info" value="1" defaultChecked={infoOn} style={{ marginTop: 3 }} /> <span><b>Informatiemail aan eenmanszaken en vof's</b> versturen: zonder prijs of aanbod, alleen dat hun gegevens in de gids staan en hoe ze die kunnen bekijken, corrigeren of laten verwijderen (AVG artikel 14). Geen herinnering.</span></label>
                 <label style={{ fontSize: 14, fontWeight: 600 }}>Per dag <select name="per_day" defaultValue={perDay} style={{ marginLeft: 6, border: "1px solid var(--line)", borderRadius: 8, padding: "6px 8px", fontFamily: "inherit" }}><option value="auto">Automatisch opbouwen: 50, na 3 dagen 100, na 7 dagen 200</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select></label>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   <button className="btn btn-outline" name="enabled" value={on ? "1" : "0"} type="submit">Instellingen opslaan</button>
@@ -121,8 +127,9 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               </form>
               <form method="post" action="/admin/actie/" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", borderTop: "1px solid var(--line)", paddingTop: 12 }}>
                 <input type="hidden" name="actie" value="testmail" /><input type="hidden" name="id" value="-" />
-                <span style={{ fontSize: 14 }}>Stuur de claim-mail van een willekeurig mailbaar bedrijf naar <b>{user.email}</b>:</span>
-                <button className="btn btn-outline" type="submit">Testmail sturen</button>
+                <span style={{ fontSize: 14 }}>Stuur een testmail van een willekeurig bedrijf naar <b>{user.email}</b>:</span>
+                <button className="btn btn-outline" type="submit" name="variant" value="claim">Test claimmail (bv)</button>
+                <button className="btn btn-outline" type="submit" name="variant" value="info">Test informatiemail (eenmanszaak)</button>
               </form>
             </div>
             <div className="card" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12 }}>

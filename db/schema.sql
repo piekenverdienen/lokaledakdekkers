@@ -348,3 +348,10 @@ alter table reviews add column if not exists replied_at timestamptz;
 alter table leads add column if not exists teaser_sent_at timestamptz;
 alter table leads add column if not exists requester_notified_at timestamptz;
 create table if not exists review_invites (id uuid primary key default gen_random_uuid(), business_id uuid references businesses(id) on delete cascade, email text not null, sent_at timestamptz not null default now());
+
+-- rechtsvorm voor de mailregels (Telecommunicatiewet 11.7)
+alter table businesses add column if not exists legal_form text;
+alter table businesses add column if not exists legal_class text;   -- 'rechtspersoon', 'natuurlijk', null = onbekend
+alter table businesses add column if not exists legal_checked_at timestamptz;
+alter table outreach add column if not exists kind text not null default 'claim';
+update businesses set legal_class='rechtspersoon', legal_form=coalesce(legal_form,'B.V. (uit naam)') where legal_class is null and name ~* '(^|[^a-z])(b\.?\s?v\.?|n\.?\s?v\.?)([^a-z]|$)';

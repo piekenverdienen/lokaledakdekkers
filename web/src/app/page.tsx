@@ -79,7 +79,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
           <a href={`/betrouwbare-${v.name_singular}/#bevestigd`}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg><span><b>Profiel bevestigd door het bedrijf</b>Een vertegenwoordiger heeft het profiel bevestigd via de website en het e-mailadres van het bedrijf.<em>Wat, hoe en wanneer</em></span></a>
           <a href={`/betrouwbare-${v.name_singular}/#reviews`}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h10M4 17h7" /></svg><span><b>Reviews met opdrachtbewijs</b>Reviews die aan een factuur gekoppeld zijn krijgen een label; de factuur zelf blijft privé.<em>Wat, hoe en wanneer</em></span></a>
         </div>
-        <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Een controle van bedrijfsgegevens is geen garantie op de kwaliteit van het dakwerk. <a href={`/betrouwbare-${v.name_singular}/`}>Lees hoe de controles werken</a>.</p>
+        <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Een controle van bedrijfsgegevens is geen garantie op de kwaliteit van het dakwerk. <a href={`/betrouwbare-${v.name_singular}/`}>Lees hoe de controles werken</a> of <a href="/dakdekker-check/">check zelf een {v.name_singular}</a>.</p>
       </section>
 
       <section className="wrap section-tight" style={{ display: "flex", flexDirection: "column", gap: 18 }}>

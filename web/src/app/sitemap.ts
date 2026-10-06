@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/betrouwbare-${v.name_singular}/`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/pro/`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/kennis/`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/dakdekker-check/`, changeFrequency: "monthly", priority: 0.8 },
     ...getAllArticles().filter((a) => a.slug !== "betrouwbare-dakdekker-kiezen").map((a) => ({ url: `${base}/kennis/${a.slug}/`, lastModified: new Date(a.updated), changeFrequency: "monthly" as const, priority: 0.8 })),
     ...provinces.map((p) => ({ url: `${base}/${p.slug}/`, changeFrequency: "weekly" as const, priority: 0.7 })),
     ...munis.map((m) => ({ url: `${base}/${m.province_slug}/${m.slug}/`, changeFrequency: "weekly" as const, priority: 0.7 })),

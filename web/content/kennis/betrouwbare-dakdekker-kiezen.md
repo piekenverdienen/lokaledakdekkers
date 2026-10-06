@@ -23,6 +23,8 @@ Regel: wie ongevraagd aanbelt krijgt geen opdracht en geen geld, ook niet voor "
 
 ## 2. Controleer KvK-nummer en startdatum
 
+Met onze [dakdekker-check](/dakdekker-check/) zie je op naam, KvK-nummer of telefoonnummer direct sinds wanneer een bedrijf is ingeschreven en waar het gevestigd is.
+
 Elk bedrijf in Nederland staat in het Handelsregister. Zoek de naam op kvk.nl en kijk naar de inschrijfdatum, de rechtsvorm en het vestigingsadres. Een bedrijf dat vorige maand is gestart en nu "20 jaar ervaring" en "15 jaar garantie" belooft, is een rode vlag. Op de profielen op Lokale Dakdekkers staan het KvK-nummer en de startdatum erbij; geverifieerde bedrijven zijn daarnaast gecontroleerd op hun websitedomein.
 
 ## 3. Vraag minimaal twee, liever drie offertes

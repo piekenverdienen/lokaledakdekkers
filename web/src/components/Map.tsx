@@ -36,7 +36,7 @@ export default function Map({ center, zoom = 11, markers, tall = false, fit = tr
     loadLeaflet(cluster).then((L) => {
       if (!ref.current || ref.current.dataset.init) return;
       ref.current.dataset.init = "1";
-      map = L.map(ref.current, { scrollWheelZoom: false }).setView(center, zoom);
+      map = L.map(ref.current, { scrollWheelZoom: false, zoomSnap: 0.25 }).setView(center, zoom);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers',
       }).addTo(map);

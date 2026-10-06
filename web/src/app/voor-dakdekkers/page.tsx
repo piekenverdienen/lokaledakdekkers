@@ -41,7 +41,7 @@ export default async function VoorDakdekkers() {
         <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">
           <span className="vd-tag">Zo kan jouw profiel eruitzien</span>
           <img src="/img/hero-bart.webp" alt="" className="vd-card-hero" />
-          <div className="vd-card-head"><span className="vd-initials">JD</span><div><b>Jouw dakbedrijf</b><small>Dakrenovatie, onderhoud, reparatie</small></div></div>
+          <div className="vd-card-head"><span className="vd-initials" style={{ background: "#fff", border: "1px solid var(--line)", padding: 3 }}><img src="/img/voorbeeld-logo.webp" alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} /></span><div><b>Veldhuis Dakwerken</b><small>Pannendak, plat dak, dakkapel</small></div></div>
           <div className="vd-card-photos"><img src="/img/kennis/dakkapel-kosten-sm.webp" alt="" /><img src="/img/kennis/epdm-dakbedekking-sm.webp" alt="" /><img src="/img/kennis/dakinspectie-sm.webp" alt="" /></div>
           <div className="vd-card-btns"><span className="btn btn-primary">Bel het bedrijf</span><span className="btn btn-outline">Vraag een offerte aan</span></div>
           <a href="/voorbeeld/" style={{ textAlign: "center", fontWeight: 600, fontSize: 15 }}>Bekijk een compleet voorbeeldprofiel</a>
@@ -59,7 +59,7 @@ export default async function VoorDakdekkers() {
         <div className="vd-tiles">
           <div><div className="vd-tile-img vd-grid3"><img src="/img/kennis/dakkapel-kosten-sm.webp" alt="" /><img src="/img/kennis/plat-dak-vervangen-kosten-sm.webp" alt="" /><img src="/img/kennis/dakpannen-vervangen-kosten-sm.webp" alt="" /><img src="/img/kennis/bitumen-dakbedekking-sm.webp" alt="" /></div><h3>Je werk in beeld</h3><p>Je logo, diensten en foto's van je projecten op één plek.</p></div>
           <div><div className="vd-tile-img vd-btns"><span className="btn btn-primary">Bel het bedrijf</span><span className="btn btn-green">WhatsApp</span><span className="btn btn-outline">Vraag een offerte aan</span></div><h3>Een directe lijn naar jou</h3><p>Bellen, WhatsApp en offerteaanvragen via jouw profiel, zonder tussenpartij.</p></div>
-          <div><div className="vd-tile-img vd-info"><b>Over Jouw dakbedrijf</b><div><small>Werkgebied</small>Utrecht en omgeving</div><div><small>Diensten</small>Dakrenovatie, onderhoud, reparatie</div><div><small>KvK-nummer</small>12345678, gecontroleerd</div></div><h3>Duidelijke bedrijfsinformatie</h3><p>Je werkgebied en gecontroleerde gegevens inzichtelijk voor bewoners.</p></div>
+          <div><div className="vd-tile-img vd-info"><b>Over Veldhuis Dakwerken</b><div><small>Werkgebied</small>Deventer en omgeving, 30 km</div><div><small>Diensten</small>Pannendak, plat dak, dakkapel</div><div><small>KvK-nummer</small>08123456, gecontroleerd</div></div><h3>Duidelijke bedrijfsinformatie</h3><p>Je werkgebied en gecontroleerde gegevens inzichtelijk voor bewoners.</p></div>
         </div>
       </section>
 

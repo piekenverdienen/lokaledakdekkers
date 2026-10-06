@@ -28,7 +28,7 @@ export default async function Voorbeeld() {
         <div className="main">
           <article className="card" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div className="biz-head">
-              <div className="logo" style={{ width: 72, height: 72, fontSize: 24, background: "var(--navy)", color: "#fff" }}>VD</div>
+              <div className="logo" style={{ width: 84, height: 84 }}><img src="/img/voorbeeld-logo.webp" alt="Logo Veldhuis Dakwerken" /></div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div className="biz-title"><h1 style={{ fontSize: 28 }}>{name}</h1><span className="verified">✓ Geverifieerd bedrijf</span></div>
                 <div className="meta"><span>{v.name_singular.charAt(0).toUpperCase() + v.name_singular.slice(1)} in Deventer</span><span>KvK 08123456</span><span>Ingeschreven sinds 2003</span><span className="stars">★★★★★</span><span>4,8 uit 23 reviews</span></div>

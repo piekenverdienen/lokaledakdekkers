@@ -30,6 +30,7 @@ export default async function VoorDakdekkers() {
           <span className="eyebrow">Voor {v.name_plural}</span>
           <h1>Goed werk verdient een gezicht.</h1>
           <p className="lede">Maak van je bedrijfsvermelding een compleet profiel. Laat je werk zien en maak het klanten makkelijk om contact op te nemen.</p>
+          <div className="vd-gpt"><img src="/img/chatgpt-logo.png" alt="ChatGPT" width={28} height={28} /><span><b>Vergroot je zichtbaarheid op ChatGPT.</b> AI-assistenten halen hun antwoorden uit gidsen zoals deze.</span></div>
           <div className="vd-price"><b>{priceText}</b><span>euro per jaar<br />inclusief btw</span></div>
           <form className="search vd-search" action="/claim/" method="get">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" style={{ marginLeft: 8, color: "var(--ink-3)", flexShrink: 0 }}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
@@ -50,13 +51,13 @@ export default async function VoorDakdekkers() {
 
       <section className="vd-strip"><div className="wrap vd-strip-in">
         <div><span className="vd-ico">G</span><div><b>Zichtbaar in Google</b><span>Een eigen pagina die Google indexeert, met je naam, plaats en diensten.</span></div></div>
-        <div><span className="vd-ico">AI</span><div><b>Leesbaar voor ChatGPT</b><span>Gestructureerde bedrijfsdata die AI-assistenten kunnen lezen en citeren.</span></div></div>
+        <div><span className="vd-ico"><img src="/img/chatgpt-logo.png" alt="" width={26} height={26} /></span><div><b>Zichtbaar op ChatGPT</b><span>Gestructureerde bedrijfsdata die AI-assistenten kunnen lezen en citeren.</span></div></div>
         <div><span className="vd-ico">€</span><div><b>Eigen profiel en offerteplek</b><span>Klanten vragen rechtstreeks bij jou een offerte aan. Eén vast jaarbedrag.</span></div></div>
       </div></section>
 
       <section className="vd-ai"><div className="wrap vd-ai-in">
         <div className="vd-ai-text">
-          <span className="eyebrow">ChatGPT en AI-assistenten</span>
+          <span className="eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><img src="/img/chatgpt-logo.png" alt="" width={20} height={20} /> ChatGPT en AI-assistenten</span>
           <h2>Jouw klanten zoeken steeds vaker via ChatGPT.</h2>
           <p>Vermeldingen op externe sites zoals {v.domain} verstevigen jouw positie: AI-assistenten halen hun antwoorden uit gidsen met gestructureerde, gecontroleerde bedrijfsgegevens. Claim jouw profiel en vergroot de kans op nieuwe klanten in 2027.</p>
           <p className="vd-ai-urgent"><b>Claim als eerste in jouw plaats.</b> Wie het eerst claimt, staat bovenaan in de lijst van zijn plaats en in de plaatsen eromheen.</p>

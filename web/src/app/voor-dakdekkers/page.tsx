@@ -33,7 +33,7 @@ export default async function VoorDakdekkers() {
           <form className="search vd-search" action="/claim/" method="get">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" style={{ marginLeft: 8, color: "var(--ink-3)", flexShrink: 0 }}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
             <input name="q" placeholder="Bedrijfsnaam of plaats" aria-label="Zoek je bedrijf" />
-            <button className="btn btn-amber" type="submit">Zoek je bedrijf</button>
+            <button className="btn btn-amber" type="submit">Zoek<span className="btn-long"> je bedrijf</span></button>
           </form>
           <p className="vd-pricefact"><b>{priceText}</b> euro per jaar, inclusief btw</p>
           <ul className="vd-facts">

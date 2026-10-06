@@ -363,8 +363,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .vd-final-roof { flex-basis: 100%; margin-top: 16px; opacity: 0.8; }
 .vd-final .srnote { flex-basis: 100%; }
 @media (max-width: 900px) {
-  .vd-hero-in, .vd-dark-in { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; padding-bottom: 28px; }
-  .vd-strip-in, .vd-tiles, .vd-steps { grid-template-columns: 1fr; gap: 18px; }
+  .vd-hero-in, .vd-dark-in { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 28px; padding-bottom: 28px; }
+  .vd-strip-in, .vd-tiles, .vd-steps { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .vd-hero h1 { font-size: 36px; }
   .vd-card-btns { grid-template-columns: 1fr; }
 }
@@ -382,7 +382,7 @@ body:has(.claimbar) { padding-bottom: 96px; }
 .vd-ai-figure { margin: 0; }
 .vd-ai-figure img { width: 100%; border-radius: var(--radius-lg); box-shadow: 0 14px 40px rgba(20,46,58,0.14); display: block; border: 1px solid var(--line); }
 .vd-ai-figure figcaption { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; }
-@media (max-width: 900px) { .vd-ai-in { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; padding-bottom: 28px; } }
+@media (max-width: 900px) { .vd-ai-in { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 28px; padding-bottom: 28px; } }
 
 .vd-gpt { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); font-weight: 600; }
 .vd-gpt img { flex-shrink: 0; opacity: 0.9; }
@@ -395,3 +395,25 @@ body:has(.claimbar) { padding-bottom: 96px; }
 .vd-hero-text { gap: 14px; }
 .vd-hero-text .vd-search { margin-top: 4px; }
 .vd-hero .lede { font-size: 18px; }
+
+/* nooit breder dan het scherm */
+.vd-hero-in > *, .vd-dark-in > *, .vd-ai-in > *, .vd-strip-in > *, .vd-tiles > *, .vd-steps > *, .grid > *, .hero > * { min-width: 0; }
+main { overflow-x: clip; }
+.vd-hero h1, .vd h2 { overflow-wrap: break-word; }
+@media (max-width: 760px) {
+  .vd-search { padding: 6px; gap: 6px; }
+  .vd-search svg { display: none; }
+  .vd-search input { min-width: 0; flex: 1 1 auto; font-size: 16px; padding: 0 8px; }
+  .vd-search .btn { flex: 0 0 auto; padding: 0 14px; min-height: 44px; font-size: 15px; white-space: nowrap; }
+  .vd-hero h1 { font-size: clamp(30px, 9vw, 36px); }
+  .vd-hero .lede { font-size: 16.5px; }
+  .vd-pricefact b { font-size: 24px; }
+  .vd-card { padding: 10px; }
+  .vd-card-photos { gap: 6px; }
+}
+.menu:not([open]) .navlinks { display: none; }
+.vd-table { overflow-x: auto; }
+.vd-table table { min-width: 520px; }
+@media (max-width: 760px) { .vd-table table { min-width: 0; font-size: 14px; } .vd-table th, .vd-table td { padding: 8px 6px; } }
+.vbadge:not([open]) .vbadge-pop { display: none; }
+@media (max-width: 760px) { .vbadge { position: static; } .vbadge-pop { left: 12px; right: 12px; width: auto; } }

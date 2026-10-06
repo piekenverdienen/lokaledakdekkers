@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis drukt een rol EPDM-rubber aan op een geïsole
 image_title: EPDM-dakbedekking aanbrengen op een geïsoleerd dak
 illustration: epdm
 keywords: epdm dakbedekking, epdm dak, epdm folie, epdm dakbedekking kosten
-related: bitumen-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, dak-isoleren-kosten
+related: epdm-of-bitumen, plat-dak-repareren, bitumen-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, dak-isoleren-kosten
 ---
 
 EPDM is een rubberen dakfolie voor platte en licht hellende daken. Het gaat **30 tot 50 jaar** mee, heeft nauwelijks naden en wordt zonder vuur gelegd. In 2026 kost EPDM gelegd door een dakdekker **55 tot 85 euro per m2**, inclusief verwijderen van de oude laag en btw. Daarmee is het duurder dan bitumen in aanschaf, maar per jaar levensduur vrijwel altijd goedkoper.
@@ -73,6 +73,8 @@ De uitgebreide vergelijking, ook met PVC, staat in [Dakbedekking voor een plat d
 ## Zelf EPDM leggen?
 
 Op een schuur, carport of klein tuinhuis kan dat prima: folie op maat bestellen, ondergrond schoonmaken, lijmen, randen afwerken. Reken een dag voor 15 m2. Bij een woning, een dak boven een slaapkamer of een dak met meerdere doorvoeren is een dakdekker verstandiger; één slecht verlijmde rand kost meer dan het hele uurtarief.
+
+Meer over een plat dak: [EPDM of bitumen](/kennis/epdm-of-bitumen/), [repareren of renoveren](/kennis/plat-dak-repareren/).
 
 ## Veelgestelde vragen
 

@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis brandt een rol bitumen dakbedekking vast met 
 image_title: Bitumen dakbedekking branden op een plat dak
 illustration: bitumen
 keywords: bitumen dakbedekking, bitumen dak, bitumineuze dakbedekking, bitumen dak vervangen kosten
-related: epdm-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, daklekkage
+related: epdm-of-bitumen, plat-dak-repareren, epdm-dakbedekking, dakbedekking-plat-dak, plat-dak-vervangen-kosten, daklekkage
 ---
 
 Bitumen is al tientallen jaren de standaard dakbedekking op Nederlandse platte daken: schuren, garages, aanbouwen en dakkapellen. Het is het **goedkoopste** materiaal (45 tot 70 euro per m2 gelegd in 2026), gaat **20 tot 30 jaar** mee en is overal te repareren. Het nadeel is dat het met een brander wordt verwerkt en meer naden heeft dan EPDM.
@@ -75,6 +75,8 @@ Een kleine reparatie op tijd kost 150 tot 400 euro. Een lekkage die maanden door
 ## Bitumen of EPDM?
 
 Voor een schuur, garage of carport is bitumen een prima keuze: goedkoop, snel, makkelijk te repareren. Voor het dak van een woning, een aanbouw boven een woonkamer of een dakkapel is EPDM meestal de betere koop: het gaat 10 tot 20 jaar langer mee, heeft geen naden en wordt zonder vuur gelegd. Het volledige overzicht staat in [EPDM dakbedekking](/kennis/epdm-dakbedekking/) en [Dakbedekking voor een plat dak](/kennis/dakbedekking-plat-dak/).
+
+Meer over een plat dak: [EPDM of bitumen](/kennis/epdm-of-bitumen/), [repareren of renoveren](/kennis/plat-dak-repareren/).
 
 ## Veelgestelde vragen
 

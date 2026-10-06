@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis laat een bewoner twee stalen zien, zwart EPDM
 image_title: EPDM of bitumen: dakdekker laat stalen zien
 illustration: dakbedekking
 keywords: dakbedekking, dakbedekking plat dak, pvc dakbedekking, sedum dakbedekking, groen dak
-related: epdm-dakbedekking, bitumen-dakbedekking, plat-dak-vervangen-kosten, dak-isoleren-kosten
+related: epdm-of-bitumen, afschot-plat-dak, lichtkoepel-lichtstraat-plat-dak, epdm-dakbedekking, bitumen-dakbedekking, plat-dak-vervangen-kosten
 ---
 
 Voor een plat dak heb je in Nederland de keuze uit vier soorten dakbedekking: **bitumen, EPDM, PVC en een groendak** (sedum, altijd bovenop een waterdichte laag). Welke de beste is hangt af van wat er onder het dak zit, hoe lang je het dak wilt laten liggen en wat je ermee wilt doen. Deze keuzehulp zet ze naast elkaar met de richtprijzen van 2026.
@@ -60,6 +60,8 @@ Let op de opbouw: bij een **warm dak** ligt de isolatie boven het dakbeschot, on
 - Garantie op materiaal en op uitvoering, in jaren.
 
 Meer over offertes lezen staat in [Wat kost een dakdekker in 2026](/kennis/wat-kost-een-dakdekker/).
+
+Meer over een plat dak: [EPDM of bitumen](/kennis/epdm-of-bitumen/), [afschot](/kennis/afschot-plat-dak/), [een lichtkoepel of lichtstraat](/kennis/lichtkoepel-lichtstraat-plat-dak/).
 
 ## Veelgestelde vragen
 

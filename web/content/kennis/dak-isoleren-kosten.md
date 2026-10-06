@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis plaatst isolatieplaten tussen de spanten van 
 image_title: Dak isoleren van binnenuit tussen de spanten
 illustration: isolatie
 keywords: dak isoleren, dak isolatie, schuin dak isoleren, plat dak isoleren, dak isoleren van binnenuit, subsidie dakisolatie 2026
-related: plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, dakbedekking-plat-dak, wat-kost-een-dakdekker
+related: plat-dak-isoleren, plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, dakbedekking-plat-dak, wat-kost-een-dakdekker
 ---
 
 Door het dak verdwijnt tot een derde van de warmte uit een huis. Dak isoleren kost in 2026 **20 tot 100 euro per m2**, afhankelijk van het soort dak en of de isolatie aan de binnen- of buitenkant komt. De landelijke ISDE-subsidie betaalt daar **16,25 euro per m2** van terug, of **32,50 euro per m2** als je twee maatregelen combineert. Bij een gemiddelde tussenwoning verdient dakisolatie zich in 5 tot 10 jaar terug.
@@ -62,6 +62,8 @@ Bij een tussenwoning met gasverwarming bespaart dakisolatie doorgaans 300 tot 60
 3. Vraag drie offertes met dezelfde Rd-waarde en dezelfde m2.
 4. Combineer met een tweede maatregel (vloer, spouw, glas) binnen 24 maanden voor de dubbele subsidie.
 5. Bewaar factuur en betaalbewijs en vraag de ISDE aan via RVO.
+
+Meer over een plat dak: [isoleren](/kennis/plat-dak-isoleren/).
 
 ## Veelgestelde vragen
 

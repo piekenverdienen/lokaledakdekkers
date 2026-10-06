@@ -37,9 +37,9 @@ export default async function VoorDakdekkers() {
           </form>
           <p className="vd-pricefact"><b>{priceText}</b> euro per jaar, inclusief btw</p>
           <ul className="vd-facts">
-            <li>Eerst bekijken, daarna betalen</li>
+            <li><img src="/img/chatgpt-logo.png" alt="" width={18} height={18} /> Vergroot je zichtbaarheid op Google en ChatGPT</li>
             <li>Geen incasso</li>
-            <li><img src="/img/chatgpt-logo.png" alt="" width={18} height={18} /> Zichtbaar in Google en op ChatGPT</li>
+            <li>Eerst controleren, daarna betalen</li>
           </ul>
         </div>
         <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">

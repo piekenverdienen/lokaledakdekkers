@@ -365,7 +365,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 900px) {
   .vd-hero-in, .vd-dark-in { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; padding-bottom: 28px; }
   .vd-strip-in, .vd-tiles, .vd-steps { grid-template-columns: 1fr; gap: 18px; }
-  .vd-facts { flex-direction: column; gap: 6px; } .vd-facts li + li::before { content: none; } .vd-hero h1 { font-size: 36px; }
+  .vd-hero h1 { font-size: 36px; }
   .vd-card-btns { grid-template-columns: 1fr; }
 }
 
@@ -388,9 +388,9 @@ body:has(.claimbar) { padding-bottom: 96px; }
 .vd-gpt img { flex-shrink: 0; opacity: 0.9; }
 .vd-pricefact { margin: 0; font-size: 15px; color: var(--ink-2); display: flex; align-items: baseline; gap: 8px; }
 .vd-pricefact b { font-family: 'Manrope', sans-serif; font-size: 26px; color: var(--amber-ink); letter-spacing: -0.01em; }
-.vd-facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 0; font-size: 14.5px; color: var(--ink-2); }
-.vd-facts li { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.vd-facts li + li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-3); margin: 0 12px; }
+.vd-facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; color: var(--ink-2); }
+.vd-facts li { display: flex; align-items: center; gap: 10px; }
+.vd-facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
 .vd-facts img { opacity: 0.85; }
 .vd-hero-text { gap: 14px; }
 .vd-hero-text .vd-search { margin-top: 4px; }

@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis meet een nieuwe prefab dakkapel op het pannen
 image_title: Dakkapel plaatsen: opmeten op het dak
 illustration: dakkapel
 keywords: dakkapel kosten, kosten dakkapel, dakkapel plaatsen kosten, kosten dakkapel 3 meter inclusief montage, prefab dakkapel kosten
-related: wat-kost-een-dakdekker, dak-isoleren-kosten, betrouwbare-dakdekker-kiezen, dakpannen-vervangen-kosten
+related: dakkapel-vergunningsvrij, dakkapel-binnenkant-afwerken, verholen-goot-dakkapel, dakkapel-met-balkon
 ---
 
 Een dakkapel kost in 2026 gemiddeld **6.500 tot 12.000 euro inclusief montage**, afhankelijk van de breedte en het materiaal. Een kunststof prefab dakkapel van 3 meter zit rond de 7.000 tot 8.500 euro, een houten dakkapel van 6 meter met luxe afwerking rond de 12.000 euro of meer. Hieronder de prijzen per breedte, wat de prijs bepaalt en welke extra's vaak buiten de offerte vallen.
@@ -53,7 +53,7 @@ Prefab dakkapellen worden in de fabriek gebouwd en in één dag geplaatst. Dat i
 
 ## Vergunning: wel of niet nodig?
 
-Een dakkapel aan de achterkant of zijkant (niet grenzend aan openbaar gebied) is meestal vergunningsvrij als hij aan de landelijke regels voldoet: een plat dak, hoogte maximaal 1,75 meter gemeten vanaf de voet, minimaal 0,5 meter van de dakrand en de nok, en minimaal 1 meter van de voorkant. Aan de voorkant is bijna altijd een vergunning nodig, en bij een monument of beschermd stadsgezicht altijd. Check het vooraf op de site van je gemeente; een goede dakkapelbouwer doet de vergunningcheck voor je.
+Een dakkapel aan de achterkant of zijkant (niet grenzend aan openbaar gebied) is meestal vergunningsvrij als hij aan de landelijke regels voldoet: een plat dak, hoogte maximaal 1,75 meter gemeten vanaf de voet, de onderkant tussen 0,5 en 1 meter boven de dakvoet, en minimaal 0,5 meter afstand tot de nok en tot de zijkanten van het dakvlak. Aan de voorkant is bijna altijd een vergunning nodig, en bij een monument of beschermd stadsgezicht altijd. Check het vooraf op de site van je gemeente; een goede dakkapelbouwer doet de vergunningcheck voor je. Alle regels op een rij staan in [dakkapel zonder vergunning](/kennis/dakkapel-vergunningsvrij/).
 
 ## Wat levert een dakkapel op?
 
@@ -66,6 +66,8 @@ Een dakkapel van 4 meter geeft ongeveer 4 tot 6 m2 extra stahoogte en maakt van 
 3. Vraag naar de garantie: 10 jaar op de constructie en waterdichtheid is gangbaar.
 4. Controleer het KvK-nummer en de startdatum van het bedrijf; op de profielen op deze site staat dat erbij.
 5. Lees [Een betrouwbare dakdekker kiezen](/kennis/betrouwbare-dakdekker-kiezen/) voordat je tekent.
+
+Meer over dakkapellen: [zonder vergunning plaatsen](/kennis/dakkapel-vergunningsvrij/), [de binnenkant afwerken](/kennis/dakkapel-binnenkant-afwerken/), [een verholen goot](/kennis/verholen-goot-dakkapel/) en [een dakkapel met balkon](/kennis/dakkapel-met-balkon/).
 
 ## Veelgestelde vragen
 
@@ -80,3 +82,12 @@ Een prefab dakkapel staat in één dag; de binnenafwerking neemt daarna nog éé
 
 ### Is een dakkapel vergunningsvrij?
 Aan de achterkant en zijkant vaak wel, als de dakkapel binnen de landelijke maten blijft. Aan de voorkant en bij monumenten is een vergunning nodig. De gemeente heeft de laatste stem.
+
+### Wat kost een dakkapel van 4 meter inclusief montage?
+Gemiddeld 7.700 tot 10.500 euro in 2026, met twee ramen. Per strekkende meter rond de 2.200 euro.
+
+### Wat kost een dakkapel van 2 meter?
+Gemiddeld 5.500 tot 7.000 euro inclusief montage. Klein, maar de vaste kosten voor kraan en montage blijven gelijk.
+
+### Wat kost een dakkapel van 6 meter?
+Gemiddeld 9.800 tot 13.000 euro inclusief montage, met drie ramen. Bij 6 meter moet de constructie vaak extra worden versterkt.

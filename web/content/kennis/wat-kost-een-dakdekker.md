@@ -9,7 +9,7 @@ image_alt: Dakdekker Bart Veldhuis legt vanaf een ladder bij de dakgoot een offe
 image_title: Dakdekker bespreekt de offerte bij een rijtjeshuis
 illustration: kosten
 keywords: wat kost een dakdekker, dakdekker kosten, dakdekker uurtarief, dakdekker prijs per m2
-related: plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, betrouwbare-dakdekker-kiezen, dakkapel-kosten
+related: nieuw-dak-kosten, plat-dak-repareren, plat-dak-vervangen-kosten, dakpannen-vervangen-kosten, betrouwbare-dakdekker-kiezen, dakkapel-kosten
 ---
 
 Een dakdekker rekent in 2026 gemiddeld **45 tot 75 euro per uur** exclusief btw, maar bij de meeste klussen krijg je een prijs per vierkante meter of een vaste projectprijs. Die zegt meer, omdat materiaal, steiger en afvoer er dan in zitten. Op deze pagina staan de richtprijzen per soort werk, wat de prijs omhoog of omlaag duwt, en hoe je een offerte beoordeelt.
@@ -82,6 +82,8 @@ Vraag altijd twee of drie offertes aan en vergelijk ze per regel, niet alleen op
 - Vraag of een plat dak overlaagd kan worden in plaats van gestript; bij één laag bitumen kan dat vaak en scheelt het afvoer.
 - Deel de steiger met de buren als jullie daken aan elkaar zitten.
 - Check of je gemeente een isolatiesubsidie heeft bovenop de landelijke ISDE.
+
+Lees ook: [een compleet nieuw dak](/kennis/nieuw-dak-kosten/), [plat dak repareren](/kennis/plat-dak-repareren/).
 
 ## Veelgestelde vragen
 

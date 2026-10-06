@@ -29,15 +29,18 @@ export default async function VoorDakdekkers() {
         <div className="vd-hero-text">
           <span className="eyebrow">Voor {v.name_plural}</span>
           <h1>Goed werk verdient een gezicht.</h1>
-          <p className="lede">Maak van je bedrijfsvermelding een compleet profiel. Laat je werk zien en maak het klanten makkelijk om contact op te nemen.</p>
-          <div className="vd-gpt"><img src="/img/chatgpt-logo.png" alt="ChatGPT" width={28} height={28} /><span><b>Vergroot je zichtbaarheid op ChatGPT.</b> AI-assistenten halen hun antwoorden uit gidsen zoals deze.</span></div>
-          <div className="vd-price"><b>{priceText}</b><span>euro per jaar<br />inclusief btw</span></div>
+          <p className="lede">Maak van je vermelding een compleet profiel. Laat je werk zien en laat klanten rechtstreeks contact opnemen.</p>
           <form className="search vd-search" action="/claim/" method="get">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" style={{ marginLeft: 8, color: "var(--ink-3)", flexShrink: 0 }}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
-            <input name="q" placeholder="Bedrijfsnaam, plaats of KvK-nummer" aria-label="Zoek je bedrijf" />
+            <input name="q" placeholder="Bedrijfsnaam of plaats" aria-label="Zoek je bedrijf" />
             <button className="btn btn-amber" type="submit">Zoek je bedrijf</button>
           </form>
-          <p className="vd-note">Eerst je profiel bekijken en controleren. Daarna betalen.<br /><small>Geen incasso. Geen stilzwijgende verlenging.</small></p>
+          <div className="vd-facts">
+            <span><b>{priceText}</b> euro per jaar, inclusief btw</span>
+            <span>Eerst bekijken, daarna betalen</span>
+            <span>Geen incasso</span>
+          </div>
+          <div className="vd-gpt"><img src="/img/chatgpt-logo.png" alt="ChatGPT" width={22} height={22} /><span>Zichtbaar in Google en op ChatGPT</span></div>
         </div>
         <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">
           <span className="vd-tag">Zo kan jouw profiel eruitzien</span>

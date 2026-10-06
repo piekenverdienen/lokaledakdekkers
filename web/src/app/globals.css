@@ -388,10 +388,10 @@ body:has(.claimbar) { padding-bottom: 96px; }
 .vd-gpt img { flex-shrink: 0; opacity: 0.9; }
 .vd-pricefact { margin: 0; font-size: 15px; color: var(--ink-2); display: flex; align-items: baseline; gap: 8px; }
 .vd-pricefact b { font-family: 'Manrope', sans-serif; font-size: 26px; color: var(--amber-ink); letter-spacing: -0.01em; }
-.vd-facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; color: var(--ink-2); }
-.vd-facts li { display: flex; align-items: center; gap: 10px; }
-.vd-facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
-.vd-facts img { opacity: 0.85; }
+.vd-facts { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; color: var(--ink); }
+.vd-facts li { display: flex; align-items: center; gap: 12px; }
+.vd-fi { width: 30px; height: 30px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--amber-ink); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 1px 3px rgba(20,46,58,0.06); }
+.vd-facts img { opacity: 0.9; display: block; }
 .vd-hero-text { gap: 14px; }
 .vd-hero-text .vd-search { margin-top: 4px; }
 .vd-hero .lede { font-size: 18px; }

@@ -37,9 +37,9 @@ export default async function VoorDakdekkers() {
           </form>
           <p className="vd-pricefact"><b>{priceText}</b> euro per jaar, inclusief btw</p>
           <ul className="vd-facts">
-            <li><img src="/img/chatgpt-logo.png" alt="" width={18} height={18} /> Vergroot je zichtbaarheid op Google en ChatGPT</li>
-            <li>Geen incasso</li>
-            <li>Eerst controleren, daarna betalen</li>
+            <li><span className="vd-fi"><img src="/img/chatgpt-logo.png" alt="" width={16} height={16} /></span>Vergroot je zichtbaarheid op Google en ChatGPT</li>
+            <li><span className="vd-fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5" /><path d="M2.5 10h19" /><path d="M4 20L20 4" /></svg></span>Geen incasso</li>
+            <li><span className="vd-fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" /><path d="M9 12l2 2 4-4" /></svg></span>Eerst controleren, daarna betalen</li>
           </ul>
         </div>
         <div className="vd-card" aria-label="Zo kan jouw profiel eruitzien">

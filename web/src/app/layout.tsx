@@ -23,7 +23,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="nl">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#142E3A" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: v.brand, url: `https://${v.domain}/`, logo: `https://${v.domain}/logo.png`, slogan: "Weet wie je het dak op laat.", email: `info@${v.domain}`, parentOrganization: { "@type": "Organization", name: "Rombots Digital B.V." } }) }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />

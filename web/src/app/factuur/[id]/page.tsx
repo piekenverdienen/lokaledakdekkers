@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { one } from "@/lib/db";
 import { getUser } from "@/lib/auth";
 import { currentVertical } from "@/lib/site";
+import { COMPANY } from "@/lib/company";
 export const metadata: Metadata = { title: "Factuur", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 export default async function Factuur({ params }: { params: Promise<{ id: string }> }) {
@@ -13,7 +14,7 @@ export default async function Factuur({ params }: { params: Promise<{ id: string
   if (!p) notFound(); if (p.owner_user_id !== user.id && !user.is_admin) redirect("/dashboard/");
   const incl = p.amount_cents / 100, excl = incl / 1.21, btw = incl - excl; const f = (n: number) => n.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const date = p.paid_at ? new Date(p.paid_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }) : "";
-  const S = { seller: process.env.INVOICE_SELLER ?? "Rombots Digital B.V.", address: process.env.INVOICE_ADDRESS ?? "", kvk: process.env.INVOICE_KVK ?? "", btw: process.env.INVOICE_BTW ?? "", iban: process.env.INVOICE_IBAN ?? "" };
+  const S = { seller: COMPANY.name, address: COMPANY.address, kvk: COMPANY.kvk, btw: COMPANY.btw, iban: process.env.INVOICE_IBAN ?? "" };
   return (
     <main className="wrap" style={{ paddingTop: 24, paddingBottom: 64, maxWidth: 720 }}>
       <style>{`@media print { .nav, .footer, .noprint { display: none !important } body { background: #fff } }`}</style>

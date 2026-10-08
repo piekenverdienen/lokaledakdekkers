@@ -55,7 +55,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const price = (await one<{ p: number }>("select verified_price_year_cents as p from verticals where id=$1", [v.id]))?.p ?? 7995;
   const paidUntil = (await one<{ d: string | null }>("select paid_until::text as d from businesses where id=$1", [b.id]))?.d ?? null;
   const priceText = (price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 });
-  const iban = process.env.INVOICE_IBAN ?? ""; const seller = process.env.INVOICE_SELLER ?? "Rombots Digital B.V.";
+  const iban = process.env.INVOICE_IBAN ?? ""; const seller = process.env.INVOICE_SELLER ?? "Rovimed Group B.V.";
   const bankOpen = await one<{ provider_id: string; created_at: string }>("select provider_id, created_at::text from payments where business_id=$1 and provider='bank' and status='open'", [b.id]);
   const site = owner[0]?.website ?? "";
 

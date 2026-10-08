@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createHmac } from "node:crypto";
 import { currentVertical } from "@/lib/site";
+import { COMPANY } from "@/lib/company";
 export const metadata: Metadata = { title: "Contact", alternates: { canonical: "/contact/" } };
 export const dynamic = "force-dynamic";
 const input: React.CSSProperties = { border: "1px solid var(--line)", borderRadius: 10, padding: "8px 12px", minHeight: 44, fontSize: 16, fontFamily: "inherit", width: "100%", boxSizing: "border-box", background: "#fff" };
@@ -38,7 +39,8 @@ export default async function Contact({ searchParams }: { searchParams: Promise<
         <p>Kloppen je gegevens niet, gebruik dan <a href="/corrigeren/">Gegevens corrigeren</a>. Wil je je profiel beheren, dan kun je het <a href="/claim/">claimen</a>. Alles over het aanbod staat op <a href="/voor-dakdekkers/">Voor {v.name_plural}</a>.</p>
         <h2>Zoek je een {v.name_singular}?</h2>
         <p>We bemiddelen niet zelf. Zoek je plaats op de <a href="/">kaart</a> en neem rechtstreeks contact op met een bedrijf, of lees eerst <a href={`/betrouwbare-${v.name_singular}/`}>hoe je een betrouwbare {v.name_singular} kiest</a>.</p>
-        <p style={{ fontSize: 15, color: "var(--ink-3)" }}>{v.brand} is een dienst van Rombots Digital B.V.</p>
+        <h2>Bedrijfsgegevens</h2>
+        <p>{v.brand} is een dienst van {COMPANY.name}<br />{COMPANY.address}<br />KvK {COMPANY.kvk}{COMPANY.btw ? <><br />Btw {COMPANY.btw}</> : null}<br />E-mail: <a href={`mailto:info@${v.domain}`}>info@{v.domain}</a></p>
       </section>
     </main>
   );

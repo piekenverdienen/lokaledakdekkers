@@ -60,7 +60,7 @@ export function domainsMatch(email: string, website: string | null) {
   return !!a && !!b && (a === b || a.endsWith("." + b) || b.endsWith("." + a));
 }
 
-export async function sendMail(to: string, subject: string, html: string, text: string, opts: { headers?: Record<string, string>; replyTo?: string } = {}) {
+export async function sendMail(to: string, subject: string, html: string, text: string, opts: { headers?: Record<string, string>; replyTo?: string; from?: string } = {}) {
   const key = process.env.RESEND_API_KEY;
   const raw = (process.env.MAIL_FROM ?? "").trim();
   const from = /^[^<>]+<[^@\s<>]+@[^\s<>]+>$/.test(raw) || /^[^@\s<>]+@[^\s<>]+$/.test(raw) ? raw : "Lokale Dakdekkers <noreply@send.lokaledakdekkers.nl>";
@@ -70,7 +70,7 @@ export async function sendMail(to: string, subject: string, html: string, text: 
   }
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from, to, subject, html, text, ...(opts.headers ? { headers: opts.headers } : {}), reply_to: opts.replyTo ?? process.env.MAIL_REPLY_TO ?? undefined }),
+    body: JSON.stringify({ from: opts.from ?? from, to, subject, html, text, ...(opts.headers ? { headers: opts.headers } : {}), reply_to: opts.replyTo ?? process.env.MAIL_REPLY_TO ?? undefined }),
   });
   if (!r.ok) console.error("resend", r.status, await r.text());
   return { ok: r.ok, logged: false };

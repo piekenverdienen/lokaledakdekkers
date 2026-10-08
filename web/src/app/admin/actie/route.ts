@@ -41,13 +41,13 @@ export async function POST(req: Request) {
     tab = "campagne";
   }
   else if (actie === "testmail") {
-    const { claimMail, infoMail, unsubHeaders } = await import("@/lib/outreach"); const { sendMail } = await import("@/lib/auth");
+    const { claimMail, infoMail, unsubHeaders, CLAIM_FROM } = await import("@/lib/outreach"); const { sendMail } = await import("@/lib/auth");
     const variant = String(f.get("variant") ?? "claim");
-    const b = await one<{ name: string; city: string | null; slug: string; kvk_number: string | null }>("select name, city, slug, kvk_number from businesses where vertical_id=$1 and status='unclaimed' and profile_built_at is not null and outreach_email is not null and source<>'test' order by random() limit 1", [v.id]);
+    const b = await one<{ name: string; city: string | null; slug: string; kvk_number: string | null; services: string[] }>("select name, city, slug, kvk_number, coalesce((select array_agg(service_slug) from business_services s where s.business_id=businesses.id), '{}') as services from businesses where vertical_id=$1 and status='unclaimed' and profile_built_at is not null and outreach_email is not null and source<>'test' order by random() limit 1", [v.id]);
     if (b) {
       const totals = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and status<>'hidden' and source<>'test'", [v.id]))?.n ?? 0;
-      const m = variant === "info" ? infoMail(v, b, base, "test") : claimMail(v, b, 0, totals, base, "test");
-      await sendMail(user.email, `[TEST] ${m.subject}`, m.html, m.text, { headers: unsubHeaders(base, "test", v.domain) }).catch(() => {});
+      const m = variant === "info" ? infoMail(v, b, base, "test") : claimMail(v, b, 0, totals, base, "test", variant === "herinnering", variant === "B" ? "B" : "A");
+      await sendMail(user.email, `[TEST] ${m.subject}`, m.html, m.text, { headers: unsubHeaders(base, "test", v.domain), ...(variant === "info" ? {} : { from: CLAIM_FROM }) }).catch(() => {});
     }
     tab = "campagne";
   }

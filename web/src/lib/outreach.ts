@@ -1,22 +1,36 @@
 import { mailLayout } from "./auth";
 import type { Vertical } from "./db";
-// Claim-mail zoals door Paul goedgekeurd. De regel over de plaats verschijnt alleen als hij klopt.
-export function claimMail(v: Vertical, b: { name: string; city: string | null; slug: string }, verifiedInCity: number, totals: number, base: string, token: string, reminder = false) {
-  const first = b.name.replace(/\s+(b\.?v\.?|v\.?o\.?f\.?)$/i, "");
-  const cityLine = b.city ? (verifiedInCity === 0 ? `In ${b.city} is nog geen enkele ${v.name_singular} geverifieerd. Wie het eerst claimt, staat bovenaan.` : `In ${b.city} ${verifiedInCity === 1 ? "is al 1 bedrijf" : `zijn al ${verifiedInCity} bedrijven`} geverifieerd.`) : "";
+// Claimmail als persoonlijke, platte mail (geen nieuwsbriefopmaak): beter in de inbox en vaker gelezen.
+export const CLAIM_FROM = "Paul van Lokale Dakdekkers <paul@send.lokaledakdekkers.nl>";
+export function claimMail(v: Vertical, b: { name: string; city: string | null; slug: string; services?: string[] }, verifiedInCity: number, totals: number, base: string, token: string, reminder = false, variant: "A" | "B" = "A") {
+  const first = b.name.replace(/[\s,]+(b\.?\s?v\.?|n\.?\s?v\.?|v\.?o\.?f\.?)$/i, "").trim();
   const preview = `${base}/bedrijf/${b.slug}/?eigenaar=1&o=${token}`;
-  const subject = reminder ? `Nog even: is dit jouw bedrijf, ${first}?` : `We hebben je bedrijfspagina aangemaakt, ${first}. Is dit jouw bedrijf?`;
-  const html = `
-<p>Hallo ${first},</p>
-<p>We hebben een bedrijfspagina voor ${first} aangemaakt op ${v.domain}, opgebouwd uit je eigen website: logo, diensten en werkgebied. Is dit jouw bedrijf?</p>
-<p style="margin:24px 0"><a href="${preview}" style="background:#142E3A;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;display:inline-block">Bekijk je pagina</a></p>
-<p>Steeds meer mensen zoeken een ${v.name_singular} via ChatGPT, en ChatGPT haalt zijn antwoorden uit gidsen zoals deze. Claim je pagina, maak hem persoonlijk met je foto's, en ontvang offerteaanvragen rechtstreeks: geen prijs per lead, maar één vast bedrag van 79,95 per jaar inclusief btw, of je nu vijf of vijftig aanvragen krijgt.</p>
-<p>${totals.toLocaleString("nl-NL")} ${v.name_plural} staan al op de kaart. ${cityLine}</p>
-<p>Met vriendelijke groet,<br>Paul, ${v.brand}</p>
-<img src="${base}/o/${token}/" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0">
-<p style="color:#5A6975;font-size:13px;margin-top:28px">Klopt het niet of wil je dit niet? <a href="${base}/uitschrijven/${token}/" style="color:#5A6975">Geen mails meer over dit profiel</a>. Gegevens corrigeren of je vermelding weghalen kan altijd gratis via <a href="${base}/corrigeren/${b.slug}/" style="color:#5A6975">deze pagina</a>.</p>`;
-  const text = `Hallo ${first},\n\nWe hebben een bedrijfspagina voor je aangemaakt op ${v.domain}, opgebouwd uit je website. Is dit jouw bedrijf?\n\nBekijk je pagina: ${preview}\n\nClaim hem, maak hem persoonlijk en ontvang offerteaanvragen rechtstreeks voor 79,95 per jaar inclusief btw, hoeveel aanvragen je ook krijgt.\n${totals} ${v.name_plural} staan al op de kaart. ${cityLine}\n\nPaul, ${v.brand}\n\nGeen mails meer: ${base}/uitschrijven/${token}/`;
-  return { subject, html: mailLayout(v.brand, reminder ? "Is dit jouw bedrijf?" : "We hebben je bedrijfspagina aangemaakt", html, undefined, `Je ontvangt deze mail omdat ${b.name} in het Handelsregister staat als ${v.name_singular}. Geen mails meer? Gebruik de afmeldlink hierboven.`), text };
+  const shown = `${v.domain}/bedrijf/${b.slug}`;
+  const names = (b.services ?? []).map((s) => v.services.find((x) => x.slug === s)?.name?.replace(/\s*\(.*?\)/g, "").toLowerCase()).filter(Boolean).slice(0, 3) as string[];
+  const svc = names.length ? `jullie diensten (${names.length > 1 ? names.slice(0, -1).join(", ") + " en " + names[names.length - 1] : names[0]})` : "jullie diensten";
+  const area = b.city ? ` en jullie werkgebied rond ${b.city}` : " en jullie werkgebied";
+  const first1 = b.city ? (verifiedInCity === 0 ? `In ${b.city} heeft nog geen ${v.name_singular} zijn pagina geclaimd. Wie dat als eerste doet, staat bovenaan.` : `In ${b.city} ${verifiedInCity === 1 ? "heeft 1 bedrijf" : `hebben ${verifiedInCity} bedrijven`} hun pagina al geclaimd; geclaimde pagina's staan bovenaan.`) : "Wie als eerste in zijn plaats claimt, staat bovenaan.";
+  const subject = reminder ? `Nog even: ${first} op ${v.domain}` : variant === "B" ? "Is dit jullie bedrijfspagina?" : `${first} op ${v.domain}`;
+  const P = (t: string) => `<p style="margin:0 0 14px">${t}</p>`;
+  const link = `<a href="${preview}" style="color:#176E96">${shown}</a>`;
+  const unsub = `<p style="margin:24px 0 0;color:#6B7780;font-size:12px">Geen mail meer over deze pagina? <a href="${base}/uitschrijven/${token}/" style="color:#6B7780">Afmelden</a>. Je ontvangt dit bericht omdat ${b.name} in het Handelsregister staat als ${v.name_singular}. Lokale Dakdekkers is een dienst van Rovimed Group B.V.</p>`;
+  const pixel = `<img src="${base}/o/${token}/" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0">`;
+  const wrap = (inner: string) => `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#1d2a33;max-width:560px">${inner}${pixel}${unsub}</div>`;
+  if (reminder) {
+    const html = wrap(P(`Hoi team van ${first},`) + P(`Vorige week stuurde ik een link naar jullie pagina op ${v.domain}. Die staat nog klaar: ${link}`) + P(first1) + P("Groet,<br>Paul<br>Lokale Dakdekkers"));
+    const text = `Hoi team van ${first},\n\nVorige week stuurde ik een link naar jullie pagina op ${v.domain}. Die staat nog klaar: ${preview}\n\n${first1}\n\nGroet,\nPaul\nLokale Dakdekkers\n\nGeen mail meer: ${base}/uitschrijven/${token}/`;
+    return { subject, html, text };
+  }
+  const html = wrap(
+    P(`Hoi team van ${first},`) +
+    P(`Ik heb een pagina voor jullie gemaakt op ${v.domain}, opgebouwd uit jullie website: jullie logo, ${svc}${area}.`) +
+    P(`Bekijk hem hier: ${link}`) +
+    P("Waarom claimen de moeite waard is:") +
+    `<ul style="margin:0 0 14px;padding-left:20px"><li style="margin-bottom:6px"><b>Vindbaar in Google en ChatGPT.</b> Steeds meer mensen vragen ChatGPT om een ${v.name_singular}. Een complete, gecontroleerde pagina in een gids als deze vergroot de kans dat jullie genoemd worden.</li><li style="margin-bottom:6px"><b>Offerteaanvragen rechtstreeks bij jullie.</b> Geen prijs per lead en geen aanvragen die ook naar vijf concurrenten gaan.</li><li><b>Profiteer als eerste.</b> ${first1}</li></ul>` +
+    P(`Claimen kost 79,95 euro per jaar, hoeveel aanvragen het ook worden. Eerst bekijk en controleer je alles, daarna pas betaal je.`) +
+    P("Groet,<br>Paul<br>Lokale Dakdekkers"));
+  const text = `Hoi team van ${first},\n\nIk heb een pagina voor jullie gemaakt op ${v.domain}, opgebouwd uit jullie website: jullie logo, ${svc}${area}.\n\nBekijk hem hier: ${preview}\n\nWaarom claimen de moeite waard is:\n- Vindbaar in Google en ChatGPT. Steeds meer mensen vragen ChatGPT om een ${v.name_singular}; een complete pagina in een gids als deze vergroot de kans dat jullie genoemd worden.\n- Offerteaanvragen rechtstreeks bij jullie, zonder prijs per lead.\n- Profiteer als eerste. ${first1}\n\nClaimen kost 79,95 euro per jaar, hoeveel aanvragen het ook worden. Eerst bekijk en controleer je alles, daarna pas betaal je.\n\nGroet,\nPaul\nLokale Dakdekkers\n\nGeen mail meer over deze pagina: ${base}/uitschrijven/${token}/`;
+  return { subject, html, text };
 }
 
 // Informatiemail voor eenmanszaken en vof's: geen prijs, geen verkoop, alleen informatie en rechten (AVG artikel 14).

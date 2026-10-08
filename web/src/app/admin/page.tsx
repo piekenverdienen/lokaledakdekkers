@@ -129,7 +129,9 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <form method="post" action="/admin/actie/" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", borderTop: "1px solid var(--line)", paddingTop: 12 }}>
                 <input type="hidden" name="actie" value="testmail" /><input type="hidden" name="id" value="-" />
                 <span style={{ fontSize: 14 }}>Stuur een testmail van een willekeurig bedrijf naar <b>{user.email}</b>:</span>
-                <button className="btn btn-outline" type="submit" name="variant" value="claim">Test claimmail (bv)</button>
+                <button className="btn btn-outline" type="submit" name="variant" value="claim">Test claimmail A</button>
+                <button className="btn btn-outline" type="submit" name="variant" value="B">Test claimmail B</button>
+                <button className="btn btn-outline" type="submit" name="variant" value="herinnering">Test herinnering</button>
                 <button className="btn btn-outline" type="submit" name="variant" value="info">Test informatiemail (eenmanszaak)</button>
               </form>
             </div>
@@ -153,6 +155,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               (select count(*)::int from lead_requests) as aanvragen,
               (select count(*)::int from payments where provider='bank' and status='open') as bank`, [v.id]))[0];
           const pct = (a: number, b: number) => b ? `${Math.round((a / b) * 1000) / 10}%` : "0%";
+          const ab = await q<{ variant: string; n: number; opened: number; clicked: number }>("select coalesce(variant,'A') as variant, count(*)::int as n, count(opened_at)::int as opened, count(clicked_at)::int as clicked from outreach where kind='claim' group by 1 order by 1");
           const eur = (c: number) => (c / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           const days = await q<{ d: string; sent: number; opened: number; clicked: number; claimed: number; paid: number }>(`
             with d as (select generate_series(current_date - 13, current_date, interval '1 day')::date as d)
@@ -180,6 +183,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
             <div className="card" style={{ display: "grid", gap: 8 }}>
               <h3>Funnel</h3>
               {funnel.map(([k, n, sub]) => <div key={k} style={{ display: "grid", gridTemplateColumns: "120px 1fr 160px", gap: 10, alignItems: "center", fontSize: 14 }}><b>{k}</b><span style={{ background: "var(--chip)", borderRadius: 6, height: 22, position: "relative" }}><span style={{ position: "absolute", inset: 0, width: `${Math.max(1, (n / max) * 100)}%`, background: k === "Betaald" ? "var(--green)" : "var(--navy)", borderRadius: 6 }} /></span><span>{n.toLocaleString("nl-NL")} <small style={{ color: "var(--ink-3)" }}>{sub}</small></span></div>)}
+              {ab.length > 0 && <div style={{ fontSize: 14, marginTop: 6 }}><b>Onderwerpregel A/B:</b> {ab.map((x) => `${x.variant === "B" ? "B (Is dit jullie bedrijfspagina?)" : "A (Bedrijf op lokaledakdekkers.nl)"}: ${x.n} verstuurd, ${pct(x.opened, x.n)} geopend, ${pct(x.clicked, x.n)} geklikt`).join(" | ")}</div>}
               <small style={{ color: "var(--ink-3)" }}>Geopend is een ondergrens of overschatting: sommige mailprogramma's laden geen afbeeldingen, Apple Mail laadt ze altijd. Kliks en claims zijn exact.</small>
             </div>
             <div className="card" style={{ overflowX: "auto" }}>

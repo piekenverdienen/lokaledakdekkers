@@ -355,3 +355,4 @@ alter table businesses add column if not exists legal_class text;   -- 'rechtspe
 alter table businesses add column if not exists legal_checked_at timestamptz;
 alter table outreach add column if not exists kind text not null default 'claim';
 update businesses set legal_class='rechtspersoon', legal_form=coalesce(legal_form,'B.V. (uit naam)') where legal_class is null and name ~* '(^|[^a-z])(b\.?\s?v\.?|n\.?\s?v\.?)([^a-z]|$)';
+alter table outreach add column if not exists variant text;

@@ -81,10 +81,11 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
           const inRegion = (await one<{ n: number }>(`select count(*)::int as n from businesses b left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
             where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test'
             and not exists (select 1 from outreach o where o.business_id=b.id) and (cardinality($2::text[])=0 or lower(pr.slug)=any($2) or lower(m.slug)=any($2) or lower(b.city)=any($2))`, [v.id, regionList]))?.n ?? 0;
+          const idealLive = !String(process.env.MOLLIE_API_KEY ?? "").startsWith("test_") && await (await import("@/lib/mollie")).mollieMethodsAvailable();
           const checks: [string, boolean, string][] = [
             ["Mailsleutel (Resend)", !!process.env.RESEND_API_KEY, "RESEND_API_KEY in Coolify"],
             ["Afzender send.lokaledakdekkers.nl", !!process.env.RESEND_API_KEY, "domein geverifieerd in Resend"],
-            ["Betalen: iDEAL (Mollie)", !!process.env.MOLLIE_API_KEY && !String(process.env.MOLLIE_API_KEY).startsWith("test_"), process.env.MOLLIE_API_KEY ? "nu alleen testsleutel" : "MOLLIE_API_KEY ontbreekt"],
+            ["Betalen: iDEAL (Mollie)", idealLive, !process.env.MOLLIE_API_KEY ? "MOLLIE_API_KEY ontbreekt" : String(process.env.MOLLIE_API_KEY).startsWith("test_") ? "nu alleen testsleutel" : "livesleutel staat erin, maar Mollie heeft nog geen betaalmethode actief (account of profiel nog niet goedgekeurd)"],
             ["Betalen: bankoverschrijving", !!process.env.INVOICE_IBAN, "INVOICE_IBAN in Coolify"],
             ["Factuurgegevens", !!process.env.INVOICE_KVK && !!process.env.INVOICE_BTW && !!process.env.INVOICE_ADDRESS, "INVOICE_ADDRESS, INVOICE_KVK, INVOICE_BTW"],
             ["Profielbouwer (Anthropic)", !!process.env.ANTHROPIC_API_KEY, "ANTHROPIC_API_KEY"],

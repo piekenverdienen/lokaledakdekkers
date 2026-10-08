@@ -18,7 +18,11 @@ export async function getUser(): Promise<User | null> {
   if (!id || !sig) return null;
   const expect = sign(id);
   if (expect.length !== sig.length || !timingSafeEqual(Buffer.from(expect), Buffer.from(sig))) return null;
-  return one<User>("select id, email, is_admin from users where id=$1", [id]);
+  const u = await one<User>("select id, email, is_admin from users where id=$1", [id]);
+  if (!u) return null;
+  // Beheerrechten volgen altijd ADMIN_EMAIL, ongeacht via welke link iemand is ingelogd.
+  const admins = (process.env.ADMIN_EMAIL ?? "").toLowerCase().split(",").map((x) => x.trim()).filter(Boolean);
+  return { ...u, is_admin: u.is_admin || admins.includes(u.email.toLowerCase()) };
 }
 
 export function sessionCookie(userId: string) {

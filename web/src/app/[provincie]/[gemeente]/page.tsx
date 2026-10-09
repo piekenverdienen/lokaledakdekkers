@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Map from "@/components/Map";
 import BusinessCard from "@/components/BusinessCard";
-import { getBusinessesInMunicipality, getMunicipality, getPageContent, getPlacesInMunicipality } from "@/lib/db";
+import { getBusinessesInMunicipality, getMunicipality, getPageContent, getPlacesInMunicipality, one } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, currentVertical, cap, dataFaq, faqSchema, placePath } from "@/lib/site";
 
 export const revalidate = 86400;
@@ -13,10 +13,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const v = await currentVertical();
   const m = await getMunicipality(provincie, gemeente);
   if (!m) return {};
+  // Heeft de gemeente een gelijknamige hoofdplaats met een eigen, indexeerbare pagina, dan telt die pagina: geen twee pagina's op "dakdekker [plaats]".
+  const main = await one<{ n: number }>("select ps.business_count as n from places p join place_stats ps on ps.place_id=p.id and ps.vertical_id=$3 where p.municipality_id=$1 and p.slug=$2", [m.id, m.slug, v.id]);
+  const hasMain = (main?.n ?? 0) >= 3;
   return {
-    title: `${cap(v.name_singular)} in gemeente ${m.name}: geverifieerde bedrijven en richtprijzen`,
-    description: `Alle ${v.name_plural} in de gemeente ${m.name} (${m.province_name}), met reviews met factuurbewijs, projectfoto's en richtprijzen. Vraag 3 offertes aan.`,
-    alternates: { canonical: `/${m.province_slug}/${m.slug}/` },
+    title: `${cap(v.name_plural)} in de gemeente ${m.name}: alle kernen`,
+    description: `Alle ${v.name_plural} in de gemeente ${m.name} (${m.province_name}), per kern, met projectfoto's, reviews en richtprijzen.`,
+    alternates: { canonical: hasMain ? `/${m.province_slug}/${m.slug}/${m.slug}/` : `/${m.province_slug}/${m.slug}/` },
+    robots: hasMain ? { index: false, follow: true } : undefined,
   };
 }
 

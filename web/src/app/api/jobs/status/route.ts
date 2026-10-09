@@ -25,6 +25,10 @@ export async function GET(req: Request) {
     (select json_agg(x) from (select coalesce(outreach_opt_out_via,'oud (voor fix)') as via, count(*) as n from businesses where outreach_opt_out group by 1) x) as afgemeld_via,
     (select count(*)::int from outreach o join businesses b on b.id=o.business_id where b.owner_user_id is not null) as geclaimd_na_mail,
     (select json_agg(x) from (select coalesce(variant,'A') as v, count(*) as n, count(opened_at) as open, count(clicked_at) as klik from outreach where kind='claim' group by 1) x) as ab,
+    (select json_agg(x) from (select p.name, p.slug, m.slug as gemeente, round(st_y(p.geom)::numeric,3) as lat, round(st_x(p.geom)::numeric,3) as lng, p.population, ps.business_count,
+       (select count(*) from businesses b where b.geom is not null and st_dwithin(b.geom::geography, p.geom::geography, 4000)) as binnen_4km,
+       (select count(*) from businesses b where lower(b.city)=lower(p.name)) as stad_gelijk
+       from places p join municipalities m on m.id=p.municipality_id left join place_stats ps on ps.place_id=p.id where p.name in ('Helmond','Bergen op Zoom','Eindhoven')) x) as diag,
     (select json_agg(x) from (select round(extract(epoch from (clicked_at - sent_at))/60) as min, count(*) as n from outreach where clicked_at is not null group by 1 order by 1 limit 15) x) as klik_minuten`);
   return NextResponse.json(s);
 }

@@ -19,7 +19,11 @@ export async function GET(req: Request) {
     await q("delete from business_photos where business_id=$1 and url not like '/media/%'", [b.id]);
     await q("delete from business_services where business_id=$1 and (select owner_user_id from businesses where id=$1) is null", [b.id]);
   }
+  // foto's en logo's die van een gidssite komen, bij welk bedrijf dan ook
+  const photoHost = "lower(regexp_replace(regexp_replace(url, '^https?://(www\\.)?', ''), '[/:?#].*$', ''))";
+  const ph = await q<{ id: string }>(`delete from business_photos where url not like '/media/%' and (${photoHost} = any($1::text[]) or exists (select 1 from unnest($1::text[]) d where ${photoHost} like '%.' || d)) returning business_id as id`, [DIRECTORY_DOMAINS]);
+  const lg = await q<{ id: string }>(`update businesses set logo_url=null where logo_url is not null and logo_url not like '/media/%' and exists (select 1 from unnest($1::text[]) d where lower(logo_url) like '%' || d || '%') returning id`, [DIRECTORY_DOMAINS]);
   // mailadressen op een gidsdomein nooit gebruiken
   const mails = await q<{ id: string }>(`update businesses b set outreach_email=null where outreach_email is not null and (split_part(lower(outreach_email),'@',2) = any($1::text[])) returning id`, [DIRECTORY_DOMAINS]);
-  return NextResponse.json({ ok: true, opgeschoond: bad.length, mailadressen: mails.length, voorbeelden: bad.slice(0, 12).map((b) => `${b.name} | ${b.website} | ${b.outreach_email ?? "-"}`) });
+  return NextResponse.json({ ok: true, opgeschoond: bad.length, fotos: ph.length, logos: lg.length, mailadressen: mails.length, voorbeelden: bad.slice(0, 12).map((b) => `${b.name} | ${b.website} | ${b.outreach_email ?? "-"}`) });
 }

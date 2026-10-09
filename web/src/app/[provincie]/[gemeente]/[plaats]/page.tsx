@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Map from "@/components/Map";
 import PlaceCookie from "@/components/PlaceCookie";
 import BusinessCard from "@/components/BusinessCard";
-import { getBusinessesNear, getNearbyIndexablePlaces, getPageContent, getPlace } from "@/lib/db";
+import { getBusinessesNear, getNearbyIndexablePlaces, getPageContent, getPlace, one } from "@/lib/db";
 import { baseUrl, breadcrumbSchema, businessPath, currentVertical, cap, dataFaq, faqSchema } from "@/lib/site";
 
 export const revalidate = 86400;
@@ -16,9 +16,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = await getPlace(provincie, gemeente, plaats, v.id);
   if (!p) return {};
   const indexable = p.business_count >= MIN_INDEX;
+  const local = (await one<{ n: number }>("select count(*)::int as n from businesses b join places p on p.id=$1 where b.vertical_id=$2 and b.status<>'hidden' and b.source<>'test' and b.geom is not null and st_dwithin(b.geom::geography, p.geom::geography, 4000)", [p.id, v.id]))?.n ?? 0;
+  const n = local || p.business_count;
   return {
-    title: `${cap(v.name_singular)} in ${p.name}: ${p.business_count} bedrijven vergeleken`,
-    description: `${p.business_count} ${v.name_plural} in en rond ${p.name}, ${p.verified_count} geverifieerd. Reviews met factuurbewijs, projectfoto's en richtprijzen. Vraag 3 offertes aan.`,
+    title: `${cap(v.name_singular)} in ${p.name}: ${n} ${n === 1 ? v.name_singular : v.name_plural} vergelijken (2026)`,
+    description: `${n} ${v.name_plural} in ${p.name}${p.verified_count ? `, waarvan ${p.verified_count} met gecontroleerde bedrijfsgegevens` : ""}. Bekijk hun diensten en werk, vergelijk richtprijzen en vraag rechtstreeks een offerte aan.`,
     alternates: { canonical: indexable ? `/${p.province_slug}/${p.municipality_slug}/${p.slug}/` : `/${p.province_slug}/${p.municipality_slug}/` },
     robots: indexable ? { index: true, follow: true } : { index: false, follow: true },
   };

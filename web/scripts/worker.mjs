@@ -6,6 +6,7 @@ const base = "http://127.0.0.1:3000";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const call = async (path) => { try { const r = await fetch(`${base}${path}${path.includes("?") ? "&" : "?"}token=${token}`, { headers: { host: process.env.PUBLIC_HOST ?? "lokaledakdekkers.nl" } }); const j = await r.json().catch(() => ({})); return j; } catch (e) { return { error: String(e.message) }; } };
 await sleep(20000);
+console.log("gidssites: " + JSON.stringify(await call("/api/jobs/cleanup-directories/")));
 console.log("status: " + JSON.stringify(await call("/api/jobs/status/")));
 let tick = 0;
 for (;;) {

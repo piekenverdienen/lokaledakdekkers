@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getVertical, one, q } from "@/lib/db";
 import { extractProfile } from "@/lib/extract";
+import { isDirectory } from "@/lib/directories";
 import { authorized } from "@/lib/jobs";
 export const maxDuration = 120; export const dynamic = "force-dynamic";
 // Bouwt per aanroep een handvol profielen op uit de website (niet publiek, wel klaar) en bewaart het e-mailadres voor de campagne.
@@ -13,6 +14,7 @@ export async function GET(req: Request) {
   let built = 0, failed = 0;
   for (const b of rows) {
     try {
+      if (isDirectory(b.website)) throw new Error("gidssite, geen eigen website");
       const x = await extractProfile(v, b.website, b.name);
       if (!x) throw new Error("niet leesbaar");
       await q(`update businesses set description=coalesce($2, description), emergency=$3 or emergency, certifications=case when cardinality($4::text[])>0 then $4 else certifications end,

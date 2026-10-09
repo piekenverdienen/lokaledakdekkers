@@ -3,6 +3,7 @@ import { randomBytes } from "node:crypto";
 import { getVertical, one, q } from "@/lib/db";
 import { sendMail } from "@/lib/auth";
 import { authorized } from "@/lib/jobs";
+import { isDirectory } from "@/lib/directories";
 import { claimMail, infoMail, unsubHeaders, CLAIM_FROM } from "@/lib/outreach";
 export const maxDuration = 120; export const dynamic = "force-dynamic";
 // Verstuurt claim-mails in porties, alleen als de campagne in het beheerscherm aan staat, op werkdagen tussen 8 en 18 uur.
@@ -41,6 +42,7 @@ export async function GET(req: Request) {
     and (cardinality($3::text[])=0 or lower(pr.slug)=any($3) or lower(m.slug)=any($3) or lower(b.city)=any($3))
     order by random() limit $2`, [v.id, Math.max(0, budget - reminders), regions]);
   for (const b of fresh) {
+    if (isDirectory(`https://${b.outreach_email.split("@")[1]}`)) { await q("update businesses set outreach_email=null where id=$1", [b.id]); continue; }
     const token = randomBytes(12).toString("base64url");
     const vic = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and city=$2 and status in ('claimed','pro')", [v.id, b.city]))?.n ?? 0;
     const variant: "A" | "B" = Math.random() < 0.5 ? "A" : "B";

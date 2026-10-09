@@ -1,10 +1,12 @@
 import { one, q, type Vertical } from "./db";
 import { extractProfile } from "./extract";
+import { isDirectory } from "./directories";
 
 // Bouwt het profiel uit de website en slaat het op als concept (niet live). Geeft het aantal gelezen pagina's terug.
 export async function buildProfile(v: Vertical, businessId: string, slug: string, website: string) {
   const b = await one<{ name: string; status: string }>("select name, status from businesses where id=$1", [businessId]);
   if (!b) return 0;
+  if (isDirectory(website)) return false as never;
   const x = await extractProfile(v, website, b.name);
   if (!x) return 0;
   await q(`update businesses set website=$2, description=coalesce($3, description), emergency=$4 or emergency,

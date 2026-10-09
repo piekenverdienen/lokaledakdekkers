@@ -30,5 +30,17 @@ if (existsSync(dir)) {
   }
 }
 await c.query("refresh materialized view place_stats");
+// lokale inhoud per plaats (content/plaatsen/*.json)
+{
+  const { readdirSync, readFileSync, existsSync } = await import("node:fs");
+  const dir = "content/plaatsen";
+  if (existsSync(dir)) for (const f of readdirSync(dir).filter((x) => x.endsWith(".json"))) {
+    const d = JSON.parse(readFileSync(`${dir}/${f}`, "utf8"));
+    const r = await c.query("select p.id from places p join municipalities m on m.id=p.municipality_id join provinces pr on pr.id=m.province_id where pr.slug=$1 and m.slug=$2 and p.slug=$3", [d.provincie, d.gemeente, d.plaats]);
+    if (!r.rows[0]) { console.log(`plaatsinhoud: ${f} niet gekoppeld`); continue; }
+    for (const v of (await c.query("select id from verticals")).rows) await c.query("insert into page_content (vertical_id, place_id, intro, body, faq, generated_at, reviewed) values ($1,$2,$3,$4,$5,now(),true) on conflict (vertical_id, place_id) do update set intro=excluded.intro, body=excluded.body, faq=excluded.faq, generated_at=now(), reviewed=true", [v.id, r.rows[0].id, d.intro, d.body, JSON.stringify(d.faq ?? [])]);
+    console.log(`plaatsinhoud: ${f} geladen`);
+  }
+}
 await c.end();
 console.log("migratie klaar");

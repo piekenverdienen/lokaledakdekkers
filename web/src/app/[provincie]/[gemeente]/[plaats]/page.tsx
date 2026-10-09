@@ -4,6 +4,7 @@ import Map from "@/components/Map";
 import PlaceCookie from "@/components/PlaceCookie";
 import BusinessCard from "@/components/BusinessCard";
 import { getBusinessesNear, getNearbyIndexablePlaces, getPageContent, getPlace, one } from "@/lib/db";
+import { marked } from "marked";
 import { baseUrl, breadcrumbSchema, businessPath, currentVertical, cap, dataFaq, faqSchema } from "@/lib/site";
 
 export const revalidate = 86400;
@@ -101,11 +102,15 @@ export default async function PlacePage({ params, searchParams }: Props) {
           </div>
           <div className="cta-navy">
             <h2 style={{ fontSize: 17 }}>{cap(v.name_singular)} in {p.name}?</h2>
-            <p>Claim je profiel gratis. Met Pro sta je hier bovenaan en ontvang je offerteaanvragen.</p>
+            <p>Ben je {v.name_singular} in {p.name}? Claim je pagina: geclaimde profielen staan hier bovenaan en ontvangen offerteaanvragen rechtstreeks.</p>
             <a href="/claim/" className="btn btn-amber">Claim je profiel</a>
           </div>
         </aside>
       </div>
+
+      {content?.body && (
+        <section className="prose" style={{ maxWidth: 840, paddingTop: 8, paddingBottom: 16 }} dangerouslySetInnerHTML={{ __html: marked.parse(content.body) as string }} />
+      )}
 
       <section style={{ display: "flex", flexWrap: "wrap", gap: 48, paddingTop: 8, paddingBottom: 48 }}>
         <div className="faq" style={{ flex: "2 1 480px", minWidth: 0 }}>

@@ -161,8 +161,8 @@ export async function getNearbyIndexablePlaces(lat: number, lng: number, vertica
 }
 
 export async function getPageContent(verticalId: number, placeId: number | null, municipalityId: number | null) {
-  return one<{ intro: string | null; faq: { q: string; a: string }[] }>(`
-    select intro, faq from page_content where vertical_id=$1 and (place_id=$2 or ($2 is null and municipality_id=$3))`,
+  return one<{ intro: string | null; body: string | null; faq: { q: string; a: string }[] }>(`
+    select intro, body, faq from page_content where vertical_id=$1 and (place_id=$2 or ($2 is null and municipality_id=$3))`,
     [verticalId, placeId, municipalityId]);
 }
 

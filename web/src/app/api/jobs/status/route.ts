@@ -26,6 +26,9 @@ export async function GET(req: Request) {
     (select count(*)::int from outreach where opened_at is not null and opened_at < sent_at + interval '2 minutes') as open_binnen_2min,
     (select count(*)::int from outreach where clicked_at is not null and opened_at is null) as klik_zonder_open,
     (select count(*)::int from businesses where outreach_opt_out) as afgemeld,
+    (select json_build_object('verstuurd', count(*), 'echte_opens', count(*) filter (where o.opened_at > o.sent_at + interval '2 minutes'), 'geklikt', count(o.clicked_at), 'afgemeld', count(*) filter (where b.outreach_opt_out), 'geclaimd', count(*) filter (where b.owner_user_id is not null))
+       from outreach o join businesses b on b.id=o.business_id where o.kind='claim' and coalesce(b.website_source,'') <> 'gidssite-verwijderd' and coalesce(b.outreach_opt_out_via,'') not in ('gidssite','blokkadelijst')) as echte_dakdekkers,
+    (select count(*)::int from outreach o join businesses b on b.id=o.business_id where coalesce(b.website_source,'') = 'gidssite-verwijderd' or b.outreach_opt_out_via in ('gidssite','blokkadelijst')) as naar_gidssites,
     (select json_agg(x) from (select coalesce(outreach_opt_out_via,'oud (voor fix)') as via, count(*) as n from businesses where outreach_opt_out group by 1) x) as afgemeld_via,
     (select count(*)::int from outreach o join businesses b on b.id=o.business_id where b.owner_user_id is not null) as geclaimd_na_mail,
     (select json_agg(x) from (select coalesce(variant,'A') as v, count(*) as n, count(opened_at) as open, count(clicked_at) as klik from outreach where kind='claim' group by 1) x) as ab,

@@ -83,7 +83,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
 
           <form method="post" action={`/dashboard/${slug}/bouw/`} className="card" style={{ display: "flex", flexDirection: "column", gap: 10, background: "var(--map)", borderColor: "#9FBED3" }}>
             <h3>Profiel opbouwen uit je website</h3>
-            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Wij lezen je website en vullen beschrijving, diensten, werkgebied, keurmerken en foto's in. Duurt een halve minuut. Bestaande tekst wordt overschreven.</p>
+            <p style={{ color: "var(--ink-2)", fontSize: 15 }}>Wij lezen je website en vullen beschrijving, diensten, werkgebied, keurmerken en foto's in. Duurt een halve minuut. Tekst wordt overschreven; je eigen geüploade logo en foto's blijven staan.</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <input name="website" defaultValue={site} placeholder="https://www.jouwbedrijf.nl" style={{ ...input, flex: "1 1 240px", width: "auto" }} />
               <button className="btn btn-primary" type="submit">{b.description ? "Opnieuw opbouwen" : "Bouw mijn profiel"}</button>

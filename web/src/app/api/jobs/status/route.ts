@@ -15,6 +15,15 @@ export async function GET(req: Request) {
     (select count(*)::int from businesses where owner_user_id is not null and status='unclaimed') as geclaimd_onbetaald,
     (select count(*)::int from outreach) as mails_verstuurd,
     (select count(*)::int from lead_requests) as aanvragen,
-    (select value from settings where key='outreach_enabled') as campagne`);
+    (select value from settings where key='outreach_enabled') as campagne,
+    (select count(*)::int from outreach where opened_at is not null) as geopend,
+    (select count(*)::int from outreach where clicked_at is not null) as geklikt,
+    (select count(*)::int from outreach where clicked_at is not null and clicked_at < sent_at + interval '2 minutes') as klik_binnen_2min,
+    (select count(*)::int from outreach where opened_at is not null and opened_at < sent_at + interval '2 minutes') as open_binnen_2min,
+    (select count(*)::int from outreach where clicked_at is not null and opened_at is null) as klik_zonder_open,
+    (select count(*)::int from businesses where outreach_opt_out) as afgemeld,
+    (select count(*)::int from outreach o join businesses b on b.id=o.business_id where b.owner_user_id is not null) as geclaimd_na_mail,
+    (select json_agg(x) from (select coalesce(variant,'A') as v, count(*) as n, count(opened_at) as open, count(clicked_at) as klik from outreach where kind='claim' group by 1) x) as ab,
+    (select json_agg(x) from (select round(extract(epoch from (clicked_at - sent_at))/60) as min, count(*) as n from outreach where clicked_at is not null group by 1 order by 1 limit 15) x) as klik_minuten`);
   return NextResponse.json(s);
 }

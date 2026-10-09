@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import { getVertical, one, q } from "@/lib/db";
 import { sendMail } from "@/lib/auth";
 import { authorized } from "@/lib/jobs";
-import { isDirectory } from "@/lib/directories";
+import { isDirectory, emailFitsWebsite } from "@/lib/directories";
 import { claimMail, infoMail, unsubHeaders, CLAIM_FROM } from "@/lib/outreach";
 export const maxDuration = 120; export const dynamic = "force-dynamic";
 // Verstuurt claim-mails in porties, alleen als de campagne in het beheerscherm aan staat, op werkdagen tussen 8 en 18 uur.
@@ -37,14 +37,14 @@ export async function GET(req: Request) {
     const m = claimMail(v, r, vic, totals, base, r.token, true);
     try { await sendMail(r.email, m.subject, m.html, m.text, { headers: unsubHeaders(base, r.token, v.domain), from: CLAIM_FROM }); await q("update outreach set reminder_at=now() where id=$1", [r.id]); reminders++; } catch { /* volgende */ }
   }
-  const fresh = await q<{ id: string; name: string; city: string | null; slug: string; outreach_email: string; services: string[] }>(`select b.id, b.name, b.city, b.slug, b.outreach_email, coalesce((select array_agg(service_slug) from business_services s where s.business_id=b.id), '{}') as services from businesses b
+  const fresh = await q<{ id: string; name: string; city: string | null; slug: string; outreach_email: string; services: string[]; website: string | null }>(`select b.id, b.name, b.city, b.slug, b.outreach_email, b.website, coalesce((select array_agg(service_slug) from business_services s where s.business_id=b.id), '{}') as services from businesses b
     left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
     where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test' and b.legal_class='rechtspersoon'
     and not exists (select 1 from outreach o where o.business_id=b.id) and not exists (select 1 from email_suppression es where es.email=lower(b.outreach_email))
     and (cardinality($3::text[])=0 or lower(pr.slug)=any($3) or lower(m.slug)=any($3) or lower(b.city)=any($3))
     order by random() limit $2`, [v.id, Math.max(0, budget - reminders), regions]);
   for (const b of fresh) {
-    if (isDirectory(`https://${b.outreach_email.split("@")[1]}`)) { await q("update businesses set outreach_email=null where id=$1", [b.id]); continue; }
+    if (!emailFitsWebsite(b.outreach_email, b.website)) { await q("update businesses set outreach_email=null where id=$1", [b.id]); continue; }
     const token = randomBytes(12).toString("base64url");
     const vic = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and city=$2 and status in ('claimed','pro')", [v.id, b.city]))?.n ?? 0;
     const variant: "A" | "B" = Math.random() < 0.5 ? "A" : "B";
@@ -53,13 +53,14 @@ export async function GET(req: Request) {
   }
   let info = 0;
   if (infoOn && sent + reminders < budget) {
-    const nat = await q<{ id: string; name: string; slug: string; kvk_number: string | null; outreach_email: string }>(`select b.id, b.name, b.slug, b.kvk_number, b.outreach_email from businesses b
+    const nat = await q<{ id: string; name: string; slug: string; kvk_number: string | null; outreach_email: string; website: string | null }>(`select b.id, b.name, b.slug, b.kvk_number, b.outreach_email, b.website from businesses b
       left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
       where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test' and b.legal_class='natuurlijk'
       and not exists (select 1 from outreach o where o.business_id=b.id) and not exists (select 1 from email_suppression es where es.email=lower(b.outreach_email))
       and (cardinality($3::text[])=0 or lower(pr.slug)=any($3) or lower(m.slug)=any($3) or lower(b.city)=any($3))
       order by random() limit $2`, [v.id, budget - sent - reminders, regions]);
     for (const b of nat) {
+      if (!emailFitsWebsite(b.outreach_email, b.website)) { await q("update businesses set outreach_email=null where id=$1", [b.id]); continue; }
       const token = randomBytes(12).toString("base64url"); const m = infoMail(v, b, base, token);
       try { await sendMail(b.outreach_email, m.subject, m.html, m.text, { headers: unsubHeaders(base, token, v.domain) }); await q("insert into outreach (business_id, email, token, sent_at, kind) values ($1,$2,$3,now(),'info')", [b.id, b.outreach_email, token]); info++; } catch { /* volgende */ }
     }

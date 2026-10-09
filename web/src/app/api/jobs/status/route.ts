@@ -25,6 +25,8 @@ export async function GET(req: Request) {
     (select json_agg(x) from (select coalesce(outreach_opt_out_via,'oud (voor fix)') as via, count(*) as n from businesses where outreach_opt_out group by 1) x) as afgemeld_via,
     (select count(*)::int from outreach o join businesses b on b.id=o.business_id where b.owner_user_id is not null) as geclaimd_na_mail,
     (select json_agg(x) from (select coalesce(variant,'A') as v, count(*) as n, count(opened_at) as open, count(clicked_at) as klik from outreach where kind='claim' group by 1) x) as ab,
+    (select json_agg(x) from (select split_part(o.email,'@',2) as domein, count(*) as n from outreach o join businesses b on b.id=o.business_id where b.website_source='blocked-directory' group by 1 order by 2 desc) x) as mail_naar_gidsen,
+    (select count(*)::int from businesses where website_source='blocked-directory') as gids_opgeschoond,
     (select json_agg(x) from (select p.name, p.slug, m.slug as gemeente, round(st_y(p.geom)::numeric,3) as lat, round(st_x(p.geom)::numeric,3) as lng, p.population, ps.business_count,
        (select count(*) from businesses b where b.geom is not null and st_dwithin(b.geom::geography, p.geom::geography, 4000)) as binnen_4km,
        (select count(*) from businesses b where lower(b.city)=lower(p.name)) as stad_gelijk

@@ -31,6 +31,8 @@ export async function GET(req: Request) {
   const rem = await q<{ id: string; token: string; email: string; name: string; city: string | null; slug: string }>(`select o.id, o.token, o.email, b.name, b.city, b.slug from outreach o join businesses b on b.id=o.business_id
     where o.kind='claim' and o.sent_at < now() - interval '7 days' and o.reminder_at is null and b.owner_user_id is null and b.status='unclaimed' and not b.outreach_opt_out order by o.sent_at limit $1`, [budget]);
   for (const r of rem) {
+    const blocked = isDirectory(`https://${r.email.split("@")[1]}`) || !!(await one("select 1 from email_suppression where email=lower($1)", [r.email]));
+    if (blocked) { await q("update outreach set reminder_at=now() where id=$1", [r.id]); continue; }
     const vic = (await one<{ n: number }>("select count(*)::int as n from businesses where vertical_id=$1 and city=$2 and status in ('claimed','pro')", [v.id, r.city]))?.n ?? 0;
     const m = claimMail(v, r, vic, totals, base, r.token, true);
     try { await sendMail(r.email, m.subject, m.html, m.text, { headers: unsubHeaders(base, r.token, v.domain), from: CLAIM_FROM }); await q("update outreach set reminder_at=now() where id=$1", [r.id]); reminders++; } catch { /* volgende */ }
@@ -38,7 +40,7 @@ export async function GET(req: Request) {
   const fresh = await q<{ id: string; name: string; city: string | null; slug: string; outreach_email: string; services: string[] }>(`select b.id, b.name, b.city, b.slug, b.outreach_email, coalesce((select array_agg(service_slug) from business_services s where s.business_id=b.id), '{}') as services from businesses b
     left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
     where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test' and b.legal_class='rechtspersoon'
-    and not exists (select 1 from outreach o where o.business_id=b.id)
+    and not exists (select 1 from outreach o where o.business_id=b.id) and not exists (select 1 from email_suppression es where es.email=lower(b.outreach_email))
     and (cardinality($3::text[])=0 or lower(pr.slug)=any($3) or lower(m.slug)=any($3) or lower(b.city)=any($3))
     order by random() limit $2`, [v.id, Math.max(0, budget - reminders), regions]);
   for (const b of fresh) {
@@ -54,7 +56,7 @@ export async function GET(req: Request) {
     const nat = await q<{ id: string; name: string; slug: string; kvk_number: string | null; outreach_email: string }>(`select b.id, b.name, b.slug, b.kvk_number, b.outreach_email from businesses b
       left join municipalities m on m.id=b.municipality_id left join provinces pr on pr.id=m.province_id
       where b.vertical_id=$1 and b.status='unclaimed' and b.owner_user_id is null and b.profile_built_at is not null and b.outreach_email is not null and not b.outreach_opt_out and b.source<>'test' and b.legal_class='natuurlijk'
-      and not exists (select 1 from outreach o where o.business_id=b.id)
+      and not exists (select 1 from outreach o where o.business_id=b.id) and not exists (select 1 from email_suppression es where es.email=lower(b.outreach_email))
       and (cardinality($3::text[])=0 or lower(pr.slug)=any($3) or lower(m.slug)=any($3) or lower(b.city)=any($3))
       order by random() limit $2`, [v.id, budget - sent - reminders, regions]);
     for (const b of nat) {

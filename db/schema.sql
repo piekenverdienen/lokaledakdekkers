@@ -374,3 +374,5 @@ delete from business_services bs using businesses b where bs.business_id=b.id an
 -- campagne eenmalig pauzeren voor controle
 insert into settings (key, value) values ('cleanup_directories_1','1') on conflict (key) do nothing;
 update settings set value='0', updated_at=now() where key='outreach_enabled' and exists (select 1 from settings where key='cleanup_directories_1' and updated_at > now() - interval '10 minutes');
+create table if not exists email_suppression (email text primary key, reason text, created_at timestamptz not null default now());
+insert into email_suppression (email, reason) values ('info@oozo.nl', 'verzoek Oozo, geen dakdekker') on conflict do nothing;

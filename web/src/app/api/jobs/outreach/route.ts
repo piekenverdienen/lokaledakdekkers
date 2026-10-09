@@ -17,7 +17,9 @@ export async function GET(req: Request) {
   const perDay = perDaySetting === "auto" ? (dayNo <= 3 ? 50 : dayNo <= 7 ? 100 : 200) : (parseInt(perDaySetting, 10) || 50);
   const infoOn = (await one<{ value: string }>("select value from settings where key='outreach_info'"))?.value === "1";
   const regions = ((await one<{ value: string }>("select value from settings where key='outreach_regions'"))?.value ?? "").split(",").map((r) => r.trim().toLowerCase()).filter(Boolean);
-  const now = new Date(); const h = (now.getUTCHours() + 2) % 24; const wd = now.getUTCDay();
+  const nl = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Amsterdam", hour: "numeric", hour12: false, weekday: "short" }).formatToParts(new Date());
+  const h = parseInt(nl.find((x) => x.type === "hour")?.value ?? "0", 10) % 24; const wdName = nl.find((x) => x.type === "weekday")?.value ?? "Mon";
+  const wd = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(wdName);
   if (!on || !process.env.RESEND_API_KEY) return NextResponse.json({ ok: true, skipped: "uit of geen mailsleutel" });
   if (wd === 0 || wd === 6 || h < 8 || h >= 18) return NextResponse.json({ ok: true, skipped: "buiten venster" });
   const sentToday = (await one<{ n: number }>("select count(*)::int as n from outreach where sent_at::date = current_date or reminder_at::date = current_date"))?.n ?? 0;

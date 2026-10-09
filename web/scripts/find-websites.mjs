@@ -29,6 +29,8 @@ async function pageText(url) {
 const c = new Client({ connectionString: process.env.DATABASE_URL });
 await c.connect();
 await c.query("update businesses set website_checked_at=null where website is null and website_checked_at between '2026-10-05 18:03+00' and '2026-10-05 18:13+00'");
+const BLOCK = new Set((await c.query("select domain from directory_domains").catch(() => ({ rows: [] }))).rows.map((r) => r.domain));
+const blocked = (host) => [...BLOCK].some((d) => host === d || host.endsWith('.' + d));
 const rows = (await c.query("select id, name, city, kvk_number from businesses where source='kvk' and website is null and website_checked_at is null and status<>'hidden' order by (city is null), name limit $1", [LIMIT])).rows;
 console.log(`website-zoeker: ${rows.length} bedrijven te zoeken`);
 let found = 0, done = 0, calls = 0;
@@ -41,7 +43,7 @@ for (const b of rows) {
     const nameWords = norm(b.name).split(" ").filter((w) => w.length > 2);
     for (const hit of (data.organic ?? []).slice(0, 5)) {
       let host; try { host = new URL(hit.link).hostname.replace(/^www\./, ""); } catch { continue; }
-      if (SKIP.test(host) || SKIP.test(hit.link)) continue;
+      if (SKIP.test(host) || SKIP.test(hit.link) || blocked(host)) continue;
       const hostHit = nameWords.some((w) => w.length >= 4 && host.replace(/[^a-z0-9]/g, "").includes(w));
       const snippet = `${hit.title ?? ""} ${hit.snippet ?? ""}`.toLowerCase();
       const snippetHits = nameWords.filter((w) => snippet.includes(w)).length;

@@ -358,3 +358,19 @@ update businesses set legal_class='rechtspersoon', legal_form=coalesce(legal_for
 alter table outreach add column if not exists variant text;
 alter table businesses add column if not exists outreach_opt_out_at timestamptz;
 alter table businesses add column if not exists outreach_opt_out_via text;
+
+-- Opschoning: gidsen en platforms ten onrechte als eigen website gekoppeld (o.a. oozo.nl). Logo, foto's, mailadres en opgebouwd profiel weg.
+create table if not exists directory_domains (domain text primary key);
+insert into directory_domains (domain) values
+ ('oozo.nl'),('telefoonboek.nl'),('detelefoongids.nl'),('goudengids.nl'),('drimble.nl'),('bedrijvenpagina.nl'),('openingstijden.nl'),('cylex.nl'),('cylex-nederland.nl'),('opendi.nl'),('hotfrog.nl'),('yelp.nl'),('yelp.com'),
+ ('werkspot.nl'),('trustoo.nl'),('homedeal.nl'),('solvari.nl'),('offerteadviseur.nl'),('zoofy.nl'),('klusup.nl'),('ikzoekeenvakman.nl'),('vindjeklus.nl'),('facebook.com'),('instagram.com'),('linkedin.com'),('kvk.nl'),
+ ('bedrijfsinformatie.nl'),('allebedrijvenin.nl'),('bedrijvengids.nl'),('infobel.com'),('companyinfo.nl'),('marktplaats.nl'),('google.com'),('nlbedrijven.nl'),('openkvk.nl'),('bedrijfstelefoonboek.nl'),('dakdekkers.nl'),
+ ('dakdekker.nl'),('vakmanvinden.nl'),('klusjesmannen.nl'),('trustpilot.com'),('kiyoh.com'),('klantenvertellen.nl'),('zoek.nl'),('stadsgids.nl'),('youtube.com'),('creditsafe.com'),('graydon.nl'),('oozo.be')
+on conflict do nothing;
+update businesses b set logo_url=null, website=null, website_source='blocked-directory', outreach_email=null, profile_built_at=null, description=null, usps='{}', certifications='{}'
+where b.website is not null and exists (select 1 from directory_domains d where lower(regexp_replace(regexp_replace(b.website,'^https?://(www\.)?',''),'/.*$','')) = d.domain or lower(regexp_replace(regexp_replace(b.website,'^https?://(www\.)?',''),'/.*$','')) like '%.'||d.domain);
+delete from business_photos bp using businesses b where bp.business_id=b.id and b.website_source='blocked-directory' and b.owner_user_id is null;
+delete from business_services bs using businesses b where bs.business_id=b.id and b.website_source='blocked-directory' and b.owner_user_id is null;
+-- campagne eenmalig pauzeren voor controle
+insert into settings (key, value) values ('cleanup_directories_1','1') on conflict (key) do nothing;
+update settings set value='0', updated_at=now() where key='outreach_enabled' and exists (select 1 from settings where key='cleanup_directories_1' and updated_at > now() - interval '10 minutes');

@@ -16,6 +16,8 @@ export async function GET(req: Request) {
     (select count(*)::int from outreach) as mails_verstuurd,
     (select count(*)::int from lead_requests) as aanvragen,
     (select value from settings where key='outreach_enabled') as campagne,
+    (select count(*)::int from businesses where website ilike '%oozo%' or logo_url ilike '%oozo%' or outreach_email ilike '%oozo%' or description ilike '%oozo%') as oozo_bedrijven,
+    (select count(*)::int from business_photos where url ilike '%oozo%') as oozo_fotos,
     (select count(*)::int from outreach where opened_at is not null) as geopend,
     (select count(*)::int from outreach where clicked_at is not null) as geklikt,
     (select count(*)::int from outreach where clicked_at is not null and clicked_at < sent_at + interval '2 minutes') as klik_binnen_2min,

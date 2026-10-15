@@ -15,6 +15,8 @@ for (;;) {
   tick++;
   const lf = await call("/api/jobs/legalform/");
   if (lf?.done) console.log(`rechtsvorm: ${lf.done} gecontroleerd, ${lf.left} te gaan${lf.sample ? `, voorbeeld: ${lf.sample}` : ""}`);
+  const fa = await call("/api/jobs/facts/?limit=4");
+  if (fa?.done?.length) console.log(`feiten: ${fa.done.length} profielen, nog ${fa.left}, ${fa.euro} euro`);
   const pb = await call("/api/jobs/prebuild/?limit=4");
   if (pb?.built || pb?.failed) console.log(`prebuild: ${pb.built} gebouwd, ${pb.failed} mislukt, ${pb.left} te gaan`);
   { const o = await call("/api/jobs/outreach/"); if (o?.sent || o?.reminders) console.log(`campagne: ${o.sent} mails, ${o.reminders} herinneringen, vandaag ${o.sentToday} van ${o.perDay}`); }
@@ -23,5 +25,5 @@ for (;;) {
   if (tick % 60 === 2) { const w = await call("/api/jobs/weekly/"); if (w?.mailed) console.log(`weekoverzicht: ${w.mailed} mails`); }
   // websitezoeker elke 6 uur opnieuw proberen (pakt verder op zodra er Serper-credits zijn)
   if (tick % 480 === 10 && process.env.SERPER_API_KEY) { console.log("website-zoeker: opnieuw starten"); spawn(process.execPath, ["scripts/find-websites.mjs"], { stdio: "inherit" }); }
-  await sleep(pb?.left || lf?.left ? 45000 : 120000);
+  await sleep(pb?.left || lf?.left || fa?.left ? 45000 : 120000);
 }

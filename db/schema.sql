@@ -379,3 +379,4 @@ insert into email_suppression (email, reason) values ('info@oozo.nl', 'verzoek O
 alter table page_content add column if not exists body text;
 alter table businesses add column if not exists facts jsonb;
 alter table businesses add column if not exists facts_at timestamptz;
+alter table businesses add column if not exists facts_by_owner boolean not null default false;

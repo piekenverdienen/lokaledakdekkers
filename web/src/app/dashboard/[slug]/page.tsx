@@ -13,6 +13,8 @@ export const metadata: Metadata = { title: "Profiel bewerken", robots: { index: 
 const Pencil = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>
 );
+const MATS = ['bitumen', 'EPDM', 'PVC', 'TPO', 'shingles', 'dakpannen', 'leien', 'zink', 'lood', 'riet', 'sedum'];
+const ONDS = ['plat dak', 'aanbouw', 'garage', 'dakkapel', 'schuur', 'bedrijfsdak', 'VvE', 'dakgoot', 'schoorsteen', 'dakraam', 'isolatie'];
 const input: React.CSSProperties = { border: "1px solid var(--line)", borderRadius: 10, padding: "8px 12px", minHeight: 44, fontSize: 16, fontFamily: "inherit", width: "100%", boxSizing: "border-box" };
 
 function Block({ title, slug, field, children, form }: { title: string; slug: string; field: string; children: React.ReactNode; form: React.ReactNode }) {
@@ -38,6 +40,7 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
   const user = await getUser();
   if (!user) redirect("/dashboard/");
   const b = await getBusiness(slug, v.id);
+  const fx = b?.facts ?? null;
   if (!b) notFound();
   const owner = await q<{ owner_user_id: string | null; website: string | null; available_from: string | null }>("select owner_user_id, website, available_from::text from businesses where id=$1", [b.id]);
   if (!user.is_admin && owner[0]?.owner_user_id !== user.id) redirect("/dashboard/");
@@ -99,6 +102,28 @@ export default async function Edit({ params, searchParams }: { params: Promise<{
             <label style={{ display: "flex", gap: 8, alignItems: "center" }}><input type="checkbox" name="emergency" defaultChecked={b.emergency} /> Spoedreparaties bij lekkage of stormschade</label>
           </>}>
             <span className="meta"><span>{b.phone ?? "geen telefoon"}</span><span>{b.email ?? "geen e-mail"}</span><span>{websiteDomainSafe(site) || "geen website"}</span>{b.emergency && <span className="spoed">Spoed</span>}</span>
+          </Block>
+
+          <Block title="In het kort" slug={slug} field="facts" form={<>
+            <label style={{ fontWeight: 600, fontSize: 15 }}>Korte feiten over je bedrijf (één per regel, 4 tot 6 regels)
+              <textarea name="kort" rows={6} defaultValue={(fx?.in_het_kort ?? []).join("\n")} style={{ ...input, minHeight: 140 }} placeholder={"Repareert en vervangt platte daken van bitumen en EPDM.\nSpoedreparaties binnen 24 uur.\n10 jaar garantie op waterdichtheid."} /></label>
+            <div style={{ display: "flex", gap: 18, flexWrap: "wrap", fontSize: 15 }}>
+              <label><input type="checkbox" name="spoed" defaultChecked={!!fx?.spoed} /> Spoedreparaties</label>
+              <label><input type="checkbox" name="spoed247" defaultChecked={!!fx?.spoed247} /> 24/7 bereikbaar</label>
+              <label><input type="checkbox" name="gratis_inspectie" defaultChecked={!!fx?.gratis_inspectie} /> Gratis dakinspectie</label>
+            </div>
+            <fieldset style={{ border: 0, padding: 0, margin: 0 }}><legend style={{ fontWeight: 600, fontSize: 15, marginBottom: 6 }}>Materialen</legend><div className="chips">{MATS.map((m) => <label key={m} className="chip" style={{ cursor: "pointer" }}><input type="checkbox" name="materialen" value={m} defaultChecked={fx?.materialen?.includes(m)} /> {m}</label>)}</div></fieldset>
+            <fieldset style={{ border: 0, padding: 0, margin: 0 }}><legend style={{ fontWeight: 600, fontSize: 15, marginBottom: 6 }}>Werk aan</legend><div className="chips">{ONDS.map((m) => <label key={m} className="chip" style={{ cursor: "pointer" }}><input type="checkbox" name="onderdelen" value={m} defaultChecked={fx?.onderdelen?.includes(m)} /> {m}</label>)}</div></fieldset>
+            <div className="grid cols-2" style={{ gap: 10 }}>
+              <label style={{ fontWeight: 600, fontSize: 15 }}>Garantie (jaren)<input name="garantie_jaren" type="number" min={0} max={30} defaultValue={fx?.garantie_jaren ?? ""} style={input} /></label>
+              <label style={{ fontWeight: 600, fontSize: 15 }}>Garantie op<input name="garantie_op" defaultValue={fx?.garantie_op ?? ""} placeholder="bijvoorbeeld waterdichtheid" style={input} /></label>
+              <label style={{ fontWeight: 600, fontSize: 15 }}>Sinds (jaartal)<input name="sinds" type="number" min={1850} max={2030} defaultValue={fx?.sinds ?? ""} style={input} /></label>
+              <label style={{ fontWeight: 600, fontSize: 15 }}>Keurmerken en lidmaatschappen<input name="keurmerken" defaultValue={(fx?.keurmerken ?? []).join(", ")} placeholder="VCA, Dakmerk" style={input} /></label>
+            </div>
+            <label style={{ fontWeight: 600, fontSize: 15 }}>Werkgebied (plaatsen, gescheiden door komma's)<input name="kernen" defaultValue={(fx?.kernen ?? []).join(", ")} style={input} /></label>
+            <span className="srnote">Wat je hier invult, overschrijven we nooit automatisch. Gebruik feiten, geen reclamewoorden: die laten zoekmachines en AI-assistenten links liggen.</span>
+          </>}>
+            {fx?.in_het_kort?.length ? <ul style={{ margin: 0, paddingLeft: 18, color: "var(--ink-2)", fontSize: 15 }}>{fx.in_het_kort.map((l) => <li key={l}>{l}</li>)}</ul> : <p style={{ color: "var(--ink-3)", fontSize: 15, margin: 0 }}>Nog niets ingevuld. Korte feiten helpen bezoekers en AI-assistenten je te vinden bij de juiste vraag.</p>}
           </Block>
 
           <Block title="Over ons" slug={slug} field="description" form={<textarea name="description" defaultValue={b.description ?? ""} rows={6} style={{ ...input, minHeight: 140 }} placeholder="80 tot 150 woorden over je bedrijf, in de derde persoon." />}>

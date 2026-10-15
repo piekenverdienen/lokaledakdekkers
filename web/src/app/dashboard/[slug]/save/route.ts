@@ -19,6 +19,16 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     const year = parseInt(clean(f.get("founded_year")), 10);
     await q("update businesses set phone=nullif($2,''), whatsapp=nullif($3,''), email=nullif($4,''), website=nullif($5,''), founded_year=$6, emergency=$7, updated_at=now() where id=$1",
       [b.id, clean(f.get("phone")), clean(f.get("whatsapp")), clean(f.get("email")).toLowerCase(), clean(f.get("website")), Number.isInteger(year) && year > 1800 ? year : null, f.get("emergency") === "on"]);
+  } else if (block === "facts") {
+    const num = (k: string, lo: number, hi: number) => { const n = parseInt(clean(f.get(k)), 10); return Number.isInteger(n) && n >= lo && n <= hi ? n : null; };
+    const facts = {
+      in_het_kort: clean(f.get("kort")).split(/\r?\n/).map((x) => x.trim().replace(/^[-*•]\s*/, "")).filter((x) => x.length > 3).slice(0, 8),
+      spoed: f.get("spoed") === "on", spoed247: f.get("spoed247") === "on", gratis_inspectie: f.get("gratis_inspectie") === "on",
+      materialen: f.getAll("materialen").map(String).slice(0, 12), onderdelen: f.getAll("onderdelen").map(String).slice(0, 12),
+      garantie_jaren: num("garantie_jaren", 1, 30), garantie_op: clean(f.get("garantie_op")).slice(0, 60) || null, sinds: num("sinds", 1850, 2030),
+      keurmerken: list(f.get("keurmerken"), /[,;\n]/).slice(0, 8), kernen: list(f.get("kernen"), /[,;\n]/).slice(0, 20),
+    };
+    await q("update businesses set facts=$2, facts_by_owner=true, facts_at=now(), founded_year=coalesce($3, founded_year), updated_at=now() where id=$1", [b.id, JSON.stringify(facts), facts.sinds]);
   } else if (block === "description") {
     await q("update businesses set description=nullif($2,''), updated_at=now() where id=$1", [b.id, clean(f.get("description")).slice(0, 1500)]);
   } else if (block === "services") {

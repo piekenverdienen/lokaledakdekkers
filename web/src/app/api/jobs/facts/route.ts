@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   const u = new URL(req.url); const demo = u.searchParams.get("demo") === "1"; const limit = Math.min(10, parseInt(u.searchParams.get("limit") ?? "4", 10) || 4);
   const rows = await q<{ id: string; name: string; slug: string; website: string; city: string | null }>(demo
     ? "select id, name, slug, website, city from businesses where source='kvk' and website is not null and profile_built_at is not null and status<>'hidden' order by md5(id::text) limit 5"
-    : "select id, name, slug, website, city from businesses where source<>'test' and website is not null and profile_built_at is not null and status<>'hidden' and facts_at is null order by (owner_user_id is not null) desc, (outreach_email is not null) desc, id limit $1", demo ? [] : [limit]);
+    : "select id, name, slug, website, city from businesses where source<>'test' and website is not null and profile_built_at is not null and status<>'hidden' and facts_at is null and not facts_by_owner order by (owner_user_id is not null) desc, (outreach_email is not null) desc, id limit $1", demo ? [] : [limit]);
   const done: string[] = []; let inT = 0, outT = 0;
   for (const b of rows) {
     if (isDirectory(b.website)) { await q("update businesses set facts_at=now() where id=$1", [b.id]); continue; }
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
       if (hit && !kernen.includes(hit.name)) kernen.push(hit.name);
     }
     const facts = { ...h.facts, kernen };
-    await q("update businesses set facts=$2, facts_at=now(), founded_year=coalesce(founded_year, $3) where id=$1", [b.id, JSON.stringify(facts), facts.sinds]);
+    await q("update businesses set facts=$2, facts_at=now(), founded_year=coalesce(founded_year, $3) where id=$1 and not facts_by_owner", [b.id, JSON.stringify(facts), facts.sinds]);
     done.push(`/bedrijf/${b.slug}/`);
   }
   const left = (await one<{ n: number }>("select count(*)::int as n from businesses where source<>'test' and website is not null and profile_built_at is not null and status<>'hidden' and facts_at is null"))?.n ?? 0;

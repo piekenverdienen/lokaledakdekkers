@@ -161,7 +161,7 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             </div>
           </article>
 
-          {photos.length > 0 && (
+          {photos.length > 0 && !ownerPitch && (
             <section className="card" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <h2 style={{ fontSize: 20 }}>Foto's van het werk</h2>
               <div className="photos" style={{ gridTemplateColumns: photos.length === 1 ? "minmax(0, 480px)" : "repeat(auto-fill, minmax(160px, 1fr))" }}>
@@ -170,11 +170,10 @@ export default async function BusinessPage({ params, searchParams }: Props) {
             </section>
           )}
 
-          {built && photoCount > 0 && (
+          {(built || ownerPitch || (ownerPreview && photos.length === 0)) && (
             <section className="card" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <h2 style={{ fontSize: 20 }}>Foto's van het werk</h2>
-              <div className="photos">{Array.from({ length: Math.min(photoCount, 4) }).map((_, i) => <div key={i} style={{ aspectRatio: "4 / 3", borderRadius: 10, background: "linear-gradient(135deg, #C2D1DB, #E3EAF0)" }} />)}</div>
-              <p style={{ color: "var(--ink-2)", fontSize: 15, margin: 0 }}>{photoCount === 1 ? "1 foto wordt zichtbaar" : `${photoCount} foto's worden zichtbaar`} zodra het bedrijf zijn pagina heeft bevestigd.</p>
+              <div style={{ border: "2px dashed var(--line)", borderRadius: 12, padding: "28px 18px", textAlign: "center", color: "var(--ink-3)", fontSize: 15 }}>Hier voegt u zelf foto's toe van uw werk.</div>
             </section>
           )}
 

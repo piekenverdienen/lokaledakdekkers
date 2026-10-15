@@ -419,3 +419,8 @@ main { overflow-x: clip; }
 @media (max-width: 760px) { .vbadge { position: static; } .vbadge-pop { left: 12px; right: 12px; width: auto; } }
 
 .aside-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 17px; margin: 0; color: inherit; }
+
+.facts { background: var(--sage-soft); border-radius: var(--radius-md); padding: 16px 18px; }
+.facts-list { margin: 0 0 12px; padding-left: 18px; color: var(--ink); font-size: 15.5px; display: grid; gap: 4px; }
+.facts-grid { display: grid; grid-template-columns: minmax(110px, 150px) 1fr; gap: 6px 14px; margin: 0; font-size: 15px; }
+.facts-grid dt { color: var(--ink-3); } .facts-grid dd { margin: 0; color: var(--ink); }

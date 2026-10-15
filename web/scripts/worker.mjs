@@ -9,7 +9,7 @@ await sleep(20000);
 console.log("gidssites: " + JSON.stringify(await call("/api/jobs/cleanup-directories/")));
 console.log("status: " + JSON.stringify(await call("/api/jobs/status/")));
 console.log("sleutels: " + JSON.stringify(await call("/api/jobs/keys/")));
-if (process.env.FACTS_DEMO === "1") console.log("feitendemo: " + JSON.stringify(await call("/api/jobs/facts-demo/")));
+if (process.env.FACTS_DEMO === "1") console.log("feiten-demo: " + JSON.stringify(await call("/api/jobs/facts/?demo=1")));
 let tick = 0;
 for (;;) {
   tick++;

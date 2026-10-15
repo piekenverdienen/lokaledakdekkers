@@ -377,3 +377,5 @@ update settings set value='0', updated_at=now() where key='outreach_enabled' and
 create table if not exists email_suppression (email text primary key, reason text, created_at timestamptz not null default now());
 insert into email_suppression (email, reason) values ('info@oozo.nl', 'verzoek Oozo, geen dakdekker') on conflict do nothing;
 alter table page_content add column if not exists body text;
+alter table businesses add column if not exists facts jsonb;
+alter table businesses add column if not exists facts_at timestamptz;

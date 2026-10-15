@@ -45,8 +45,17 @@ export default async function BusinessPage({ params, searchParams }: Props) {
   const [reviews, others] = await Promise.all([getReviews(b.id), b.lat && b.lng ? getBusinessesNear(b.lat, b.lng, v.id, 30, 6) : Promise.resolve([])]);
   const nearby = others.filter((o) => o.id !== b.id).slice(0, 5);
   const base = baseUrl(v);
+  const f = (claimed || built) ? b.facts : null;
+  const bs = businessSchema(v, b, base) as Record<string, unknown>;
+  if (f) {
+    if (f.materialen?.length || f.onderdelen?.length) bs.knowsAbout = [...(f.materialen ?? []), ...(f.onderdelen ?? [])];
+    if (f.kernen?.length) bs.areaServed = f.kernen.map((k) => ({ "@type": "City", name: k }));
+    if (f.sinds) bs.foundingDate = String(f.sinds);
+    if (f.keurmerken?.length) bs.memberOf = f.keurmerken.map((k) => ({ "@type": "Organization", name: k }));
+    if (f.in_het_kort?.length) bs.description = f.in_het_kort.join(" ");
+  }
   const schema = [
-    businessSchema(v, b, base),
+    bs,
     breadcrumbSchema([
       { name: "Nederland", url: `${base}/` },
       ...(b.province_slug && b.municipality_slug && b.place_slug && b.place_name ? [{ name: b.place_name, url: `${base}/${b.province_slug}/${b.municipality_slug}/${b.place_slug}/` }] : []),
@@ -116,6 +125,22 @@ export default async function BusinessPage({ params, searchParams }: Props) {
               </div>
             )}
 
+            {f && (f.in_het_kort?.length || f.materialen?.length) ? (
+              <div className="facts">
+                <h2 style={{ fontSize: 18, marginBottom: 8 }}>In het kort</h2>
+                {f.in_het_kort?.length ? <ul className="facts-list">{f.in_het_kort.map((l) => <li key={l}>{l}</li>)}</ul> : null}
+                <dl className="facts-grid">
+                  {f.spoed !== null && <><dt>Spoed</dt><dd>{f.spoed ? (f.spoed247 ? "Ja, 24/7 bereikbaar" : "Ja") : "Nee"}</dd></>}
+                  {f.materialen?.length ? <><dt>Materialen</dt><dd>{f.materialen.join(", ")}</dd></> : null}
+                  {f.onderdelen?.length ? <><dt>Werk aan</dt><dd>{f.onderdelen.join(", ")}</dd></> : null}
+                  {f.garantie_jaren ? <><dt>Garantie</dt><dd>{f.garantie_jaren} jaar{f.garantie_op ? ` op ${f.garantie_op}` : ""}</dd></> : null}
+                  {f.gratis_inspectie ? <><dt>Dakinspectie</dt><dd>Gratis</dd></> : null}
+                  {f.sinds ? <><dt>Sinds</dt><dd>{f.sinds}</dd></> : null}
+                  {f.keurmerken?.length ? <><dt>Keurmerken</dt><dd>{f.keurmerken.join(", ")}</dd></> : null}
+                  {f.kernen?.length ? <><dt>Werkgebied</dt><dd>{f.kernen.join(", ")}</dd></> : null}
+                </dl>
+              </div>
+            ) : null}
             {(claimed || built) && b.services.length > 0 && (
               <div><h3 style={{ marginBottom: 8 }}>Diensten</h3><div className="chips">{b.services.map((s) => <span key={s} className="chip">{serviceName(v, s)}</span>)}</div></div>
             )}

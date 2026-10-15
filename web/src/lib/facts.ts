@@ -23,16 +23,18 @@ export function keywordFacts(text: string): Facts {
     keurmerken: KEUR.filter(([, r]) => r.test(t)).map(([n]) => n), kernen: [],
   };
 }
+const CLAIMS = /\b(beste|scherp|scherpe|eerlijk|eerlijke|vakkundig|vakkundige|betrouwbaar|betrouwbare|kwaliteit|topkwaliteit|uitstekend|perfect|ideaal|snelste|goedkoopste)\b/i;
+export function cleanShort(lines: string[]) { return lines.map((l) => l.replace(/—|–/g, ",").trim()).filter((l) => l.length > 10 && !CLAIMS.test(l)).slice(0, 6); }
 export async function haikuFacts(name: string, text: string): Promise<{ facts: Facts | null; inTok: number; outTok: number }> {
   const key = process.env.ANTHROPIC_API_KEY; if (!key) return { facts: null, inTok: 0, outTok: 0 };
   const prompt = `Lees de website-tekst van het dakdekkersbedrijf "${name}" en geef ALLEEN JSON terug, zonder uitleg. Vul alleen in wat letterlijk op de site staat; anders null of een lege lijst.
 {"spoed": boolean|null (doen ze spoedreparaties/lekkages op korte termijn), "spoed247": boolean|null (expliciet 24/7 of dag en nacht bereikbaar),
 "materialen": [uit: bitumen, EPDM, PVC, TPO, shingles, dakpannen, leien, zink, lood, riet, sedum],
-"onderdelen": [uit: plat dak, aanbouw, garage, dakkapel, schuur, bedrijfsdak, VvE, dakgoot, schoorsteen, dakraam, isolatie],
+"onderdelen": [uit: plat dak, aanbouw, garage, dakkapel, schuur, bedrijfsdak, VvE, dakgoot, schoorsteen, dakraam, isolatie] (alleen wat ze in de tekst als eigen dienst of uitgevoerd werk beschrijven, niet alleen een menu-item),
 "garantie_jaren": number|null, "garantie_op": string|null (kort, bijvoorbeeld "waterdichtheid"), "gratis_inspectie": boolean|null (gratis inspectie of gratis advies aan huis),
 "sinds": number|null (oprichtingsjaar), "keurmerken": [keurmerken en lidmaatschappen zoals VCA, Dakmerk, VEBIDAK, BDA],
-"kernen": [plaatsen en kernen waar ze werken, maximaal 15],
-"in_het_kort": [4 tot 6 korte feitelijke zinnen in het Nederlands, in de derde persoon, zonder superlatieven en zonder gedachtestreepjes, alleen feiten van de site]}
+"kernen": [plaatsen en kernen waar ze volgens de tekst werken, maximaal 15],
+"in_het_kort": [4 tot 6 korte zinnen in het Nederlands, derde persoon, alleen controleerbare feiten: welk werk ze doen en aan welke daken, spoed of bereikbaarheid, garantie met termijn, gratis inspectie met eventuele voorwaarde, sinds wanneer, keurmerken, werkgebied. GEEN kwaliteitsclaims of reclamewoorden (zoals beste, scherp, eerlijk, vakkundig, betrouwbaar, kwaliteit, ervaren), geen prijsbeloftes, geen gedachtestreepjes]}
 
 Website-tekst:
 ${text.slice(0, 30000)}`;
@@ -42,7 +44,7 @@ ${text.slice(0, 30000)}`;
     const d = await r.json(); const txt: string = d?.content?.map((c: { text?: string }) => c.text ?? "").join("") ?? "";
     const j = JSON.parse(txt.replace(/```json|```/g, "").trim());
     const arr = (x: unknown) => (Array.isArray(x) ? x.filter((y) => typeof y === "string").map((y: string) => y.replace(/—|–/g, ",")) : []);
-    return { facts: { spoed: j.spoed ?? null, spoed247: j.spoed247 ?? null, materialen: arr(j.materialen), onderdelen: arr(j.onderdelen), garantie_jaren: typeof j.garantie_jaren === "number" ? j.garantie_jaren : null, garantie_op: j.garantie_op ?? null, gratis_inspectie: j.gratis_inspectie ?? null, sinds: typeof j.sinds === "number" ? j.sinds : null, keurmerken: arr(j.keurmerken), kernen: arr(j.kernen).slice(0, 15), in_het_kort: arr(j.in_het_kort).slice(0, 6) },
+    return { facts: { spoed: j.spoed ?? null, spoed247: j.spoed247 ?? null, materialen: arr(j.materialen), onderdelen: arr(j.onderdelen), garantie_jaren: typeof j.garantie_jaren === "number" ? j.garantie_jaren : null, garantie_op: j.garantie_op ?? null, gratis_inspectie: j.gratis_inspectie ?? null, sinds: typeof j.sinds === "number" ? j.sinds : null, keurmerken: arr(j.keurmerken), kernen: arr(j.kernen).slice(0, 15), in_het_kort: cleanShort(arr(j.in_het_kort)) },
       inTok: d?.usage?.input_tokens ?? 0, outTok: d?.usage?.output_tokens ?? 0 };
   } catch { return { facts: null, inTok: 0, outTok: 0 }; }
 }
